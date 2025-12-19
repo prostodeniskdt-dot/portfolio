@@ -6,8 +6,13 @@ interface MenuItem {
   label: string
   action: () => void
   icon?: string
-  divider?: boolean
 }
+
+interface DividerItem {
+  divider: true
+}
+
+type MenuItemType = MenuItem | DividerItem
 
 export function TopBar() {
   const [time, setTime] = useState<string>("")
@@ -47,7 +52,7 @@ export function TopBar() {
     }
   }, [openMenu])
 
-  const menuItems: Record<string, MenuItem[]> = {
+  const menuItems: Record<string, MenuItemType[]> = {
     Файл: [
       { label: "Новое окно", action: () => window.location.reload(), icon: "📂" },
       { label: "Открыть", action: () => console.log("Открыть"), icon: "📁" },
