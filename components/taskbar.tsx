@@ -8,6 +8,7 @@ interface TaskbarProps {
   onItemClick: (windowId: string) => void
   openWindows: string[]
   minimizedWindows: string[]
+  onMenuStateChange?: (isOpen: boolean) => void
 }
 
 export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStateChange }: TaskbarProps) {

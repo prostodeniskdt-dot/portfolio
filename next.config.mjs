@@ -12,8 +12,6 @@ const nextConfig = {
   },
   // Компрессия
   compress: true,
-  // Оптимизация production builds
-  swcMinify: true,
 }
 
 export default nextConfig
