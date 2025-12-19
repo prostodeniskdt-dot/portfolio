@@ -13,6 +13,8 @@ interface DesktopProps {
   onFocus: (windowId: string) => void
   onIconClick: (windowId: string) => void
   onMinimize: (windowId: string) => void
+  onFolderClick?: (folderId: string) => void
+  onProductClick?: (productId: string) => void
 }
 
 // Lazy load window components with optimized code splitting
@@ -28,8 +30,8 @@ const AboutWindow = dynamic(
   },
 )
 
-const CoursesWindow = dynamic(
-  () => import("./windows/courses-window").then((mod) => ({ default: mod.CoursesWindow })),
+const IndividualCoursesWindow = dynamic(
+  () => import("./windows/courses-window").then((mod) => ({ default: mod.IndividualCoursesWindow })),
   {
     ssr: false,
     loading: () => (
@@ -76,10 +78,34 @@ const SettingsWindow = dynamic(
   },
 )
 
+const FolderWindowDynamic = dynamic(
+  () => import("./windows/folder-window").then((mod) => ({ default: mod.FolderWindow })),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="p-4 flex items-center justify-center">
+        <div className="animate-pulse text-xs text-black">Загрузка...</div>
+      </div>
+    ),
+  },
+) as ComponentType<{ folderId: string; onOpenProduct?: (productId: string) => void }>
+
+const ProductWindowDynamic = dynamic(
+  () => import("./windows/product-window").then((mod) => ({ default: mod.ProductWindow })),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="p-4 flex items-center justify-center">
+        <div className="animate-pulse text-xs text-black">Загрузка...</div>
+      </div>
+    ),
+  },
+) as ComponentType<{ productId: string }>
+
 // Map window IDs to lazy-loaded components
 const windowComponents: Record<string, ComponentType> = {
   about: AboutWindow,
-  courses: CoursesWindow,
+  "individual-courses": IndividualCoursesWindow,
   prices: PricesWindow,
   contact: ContactWindow,
   settings: SettingsWindow,
@@ -92,6 +118,8 @@ export const Desktop = memo(function Desktop({
   onFocus,
   onIconClick,
   onMinimize,
+  onFolderClick,
+  onProductClick,
 }: DesktopProps) {
   const [isDragging, setIsDragging] = useState(false)
   const memoizedIcons = useMemo(
@@ -131,6 +159,53 @@ export const Desktop = memo(function Desktop({
         const config = windowConfigs[windowId]
         if (!config) return null
 
+        // Handle folder windows
+        if (windowId === "products-folder") {
+          return (
+            <OSWindow
+              key={windowId}
+              title={config.title}
+              defaultPosition={config.defaultPosition}
+              defaultSize={config.defaultSize}
+              isActive={activeWindow === windowId}
+              zIndex={activeWindow === windowId ? 50 : 10 + index}
+              onClose={() => onClose(windowId)}
+              onFocus={() => onFocus(windowId)}
+              onMinimize={() => onMinimize(windowId)}
+              icon={config.icon}
+            >
+              <FolderWindowDynamic
+                folderId="products"
+                onOpenProduct={(productId: string) => {
+                  onProductClick?.(productId)
+                }}
+              />
+            </OSWindow>
+          )
+        }
+
+        // Handle product windows
+        if (windowId.startsWith("product-")) {
+          const productId = windowId.replace("product-", "")
+          return (
+            <OSWindow
+              key={windowId}
+              title={config.title}
+              defaultPosition={config.defaultPosition}
+              defaultSize={config.defaultSize}
+              isActive={activeWindow === windowId}
+              zIndex={activeWindow === windowId ? 50 : 10 + index}
+              onClose={() => onClose(windowId)}
+              onFocus={() => onFocus(windowId)}
+              onMinimize={() => onMinimize(windowId)}
+              icon={config.icon}
+            >
+              <ProductWindowDynamic productId={productId} />
+            </OSWindow>
+          )
+        }
+
+        // Handle regular windows
         const Component = windowComponents[windowId]
         if (!Component) return null
 
@@ -151,7 +226,7 @@ export const Desktop = memo(function Desktop({
           </OSWindow>
         )
       }),
-    [openWindows, activeWindow, onClose, onFocus, onMinimize],
+    [openWindows, activeWindow, onClose, onFocus, onMinimize, onProductClick],
   )
 
       const handleDragEnter = (e: React.DragEvent<HTMLElement>) => {

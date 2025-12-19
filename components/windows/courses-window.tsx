@@ -5,7 +5,7 @@ import { courses } from "@/lib/data"
 
 type FilterType = "all" | "popular" | "new"
 
-export function CoursesWindow() {
+export function IndividualCoursesWindow() {
   const [filter, setFilter] = useState<FilterType>("all")
   const [searchQuery, setSearchQuery] = useState("")
 
@@ -55,7 +55,7 @@ export function CoursesWindow() {
             borderColor: filter === "all" ? "#f8cf2c" : "#000000",
           }}
         >
-          Все курсы
+          Все индивидуальные курсы
         </button>
         <button
           onClick={() => setFilter("popular")}
@@ -145,7 +145,7 @@ export function CoursesWindow() {
           color: "#f8cf2c",
         }}
       >
-        📂 C:\BARBOSS\Courses\
+        📂 C:\BARBOSS\IndividualCourses\
       </div>
     </div>
   )

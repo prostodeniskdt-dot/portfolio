@@ -17,10 +17,18 @@ type MenuItemType = MenuItem | DividerItem
 interface TopBarProps {
   onMenuStateChange?: (isOpen: boolean) => void
   onOpenWindow?: (windowId: string) => void
+  onOpenFolder?: (folderId: string) => void
+  onOpenProduct?: (productId: string) => void
   onExit?: () => void
 }
 
-export function TopBar({ onMenuStateChange, onOpenWindow, onExit }: TopBarProps) {
+export function TopBar({
+  onMenuStateChange,
+  onOpenWindow,
+  onOpenFolder,
+  onOpenProduct,
+  onExit,
+}: TopBarProps) {
   const [time, setTime] = useState<string>("")
   const [openMenu, setOpenMenu] = useState<string | null>(null)
   const menuRef = useRef<HTMLDivElement>(null)
@@ -70,12 +78,9 @@ export function TopBar({ onMenuStateChange, onOpenWindow, onExit }: TopBarProps)
         icon: "📂",
       },
       {
-        label: "Открыть",
+        label: "Открыть Продукты",
         action: () => {
-          // Показываем список доступных окон для открытия
-          const availableWindows = ["about", "courses", "prices", "contact"]
-          const windowToOpen = availableWindows[Math.floor(Math.random() * availableWindows.length)]
-          onOpenWindow?.(windowToOpen)
+          onOpenFolder?.("products")
           setOpenMenu(null)
           onMenuStateChange?.(false)
         },
@@ -92,11 +97,22 @@ export function TopBar({ onMenuStateChange, onOpenWindow, onExit }: TopBarProps)
         icon: "🔌",
       },
     ],
-    Курсы: [
+    Продукты: [
+      {
+        label: "Открыть папку Продукты",
+        action: () => {
+          onOpenFolder?.("products")
+          setOpenMenu(null)
+          onMenuStateChange?.(false)
+        },
+        icon: "📁",
+      },
+    ],
+    "Индивидуальные курсы": [
       {
         label: "Все курсы",
         action: () => {
-          onOpenWindow?.("courses")
+          onOpenWindow?.("individual-courses")
           setOpenMenu(null)
           onMenuStateChange?.(false)
         },
@@ -105,20 +121,18 @@ export function TopBar({ onMenuStateChange, onOpenWindow, onExit }: TopBarProps)
       {
         label: "Популярные",
         action: () => {
-          onOpenWindow?.("courses")
+          onOpenWindow?.("individual-courses")
           setOpenMenu(null)
           onMenuStateChange?.(false)
-          // Можно добавить фильтр для популярных курсов
         },
         icon: "⭐",
       },
       {
         label: "Новые",
         action: () => {
-          onOpenWindow?.("courses")
+          onOpenWindow?.("individual-courses")
           setOpenMenu(null)
           onMenuStateChange?.(false)
-          // Можно добавить фильтр для новых курсов
         },
         icon: "🆕",
       },

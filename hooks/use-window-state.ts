@@ -13,7 +13,7 @@ interface WindowState {
 const STORAGE_KEY = "barboss-window-state"
 
 const defaultState: WindowState = {
-  openWindows: ["about", "courses", "prices"],
+  openWindows: ["about", "individual-courses", "prices"],
   activeWindow: "about",
   minimizedWindows: [],
   windowPositions: {},

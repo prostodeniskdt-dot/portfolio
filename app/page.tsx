@@ -81,6 +81,14 @@ export default function Home() {
         <TopBar
           onMenuStateChange={setTopBarMenuOpen}
           onOpenWindow={toggleWindow}
+          onOpenFolder={(folderId) => {
+            if (folderId === "products") {
+              toggleWindow("products-folder")
+            }
+          }}
+          onOpenProduct={(productId) => {
+            toggleWindow(`product-${productId}`)
+          }}
           onExit={() => {
             // Триггерим событие выхода (можно использовать тот же механизм, что и в Taskbar)
             const event = new CustomEvent("exit-request")
@@ -88,14 +96,22 @@ export default function Home() {
           }}
         />
         <Suspense fallback={<WindowSkeleton />}>
-          <Desktop
-            openWindows={visibleWindows}
-            activeWindow={activeWindow}
-            onClose={closeWindow}
-            onFocus={bringToFront}
-            onIconClick={toggleWindow}
-            onMinimize={minimizeWindow}
-          />
+        <Desktop
+          openWindows={visibleWindows}
+          activeWindow={activeWindow}
+          onClose={closeWindow}
+          onFocus={bringToFront}
+          onIconClick={toggleWindow}
+          onMinimize={minimizeWindow}
+          onFolderClick={(folderId) => {
+            if (folderId === "products") {
+              toggleWindow("products-folder")
+            }
+          }}
+          onProductClick={(productId) => {
+            toggleWindow(`product-${productId}`)
+          }}
+        />
         </Suspense>
         <Taskbar
           onItemClick={toggleWindow}
