@@ -5,6 +5,15 @@ import dynamic from "next/dynamic"
 import { OSWindow } from "./os-window"
 import { windowConfigs, desktopIcons } from "@/lib/data"
 
+interface DesktopProps {
+  openWindows: string[]
+  activeWindow: string | null
+  onClose: (windowId: string) => void
+  onFocus: (windowId: string) => void
+  onIconClick: (windowId: string) => void
+  onMinimize: (windowId: string) => void
+}
+
 // Lazy load window components
 const AboutWindow = dynamic(() => import("./windows/about-window").then((mod) => ({ default: mod.AboutWindow })), {
   loading: () => <div className="p-4">Загрузка...</div>,
