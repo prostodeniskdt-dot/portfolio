@@ -1,6 +1,6 @@
 "use client"
 
-import { memo, useMemo, type ComponentType } from "react"
+import { memo, useMemo, useState, type ComponentType } from "react"
 import dynamic from "next/dynamic"
 import { OSWindow } from "./os-window"
 import { windowConfigs, desktopIcons } from "@/lib/data"
