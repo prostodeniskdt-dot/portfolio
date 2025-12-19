@@ -3,6 +3,7 @@ import { AboutWindow } from "@/components/windows/about-window"
 import { CoursesWindow } from "@/components/windows/courses-window"
 import { PricesWindow } from "@/components/windows/prices-window"
 import { ContactWindow } from "@/components/windows/contact-window"
+import { SettingsWindow } from "@/components/windows/settings-window"
 
 export interface Course {
   title: string
@@ -136,6 +137,13 @@ export const windowConfigs: Record<string, WindowConfig> = {
     component: ContactWindow,
     icon: "📞",
   },
+  settings: {
+    title: "Настройки",
+    defaultPosition: { x: 300, y: 200 },
+    defaultSize: { width: 400, height: 500 },
+    component: SettingsWindow,
+    icon: "⚙️",
+  },
 }
 
 export const taskbarItems: TaskbarItem[] = [
@@ -143,6 +151,7 @@ export const taskbarItems: TaskbarItem[] = [
   { id: "courses", label: "Курсы", icon: "📚" },
   { id: "prices", label: "Тарифы", icon: "💰" },
   { id: "contact", label: "Контакты", icon: "📞" },
+  { id: "settings", label: "Настройки", icon: "⚙️" },
 ]
 
 export const desktopIcons = [
@@ -150,6 +159,7 @@ export const desktopIcons = [
   { id: "courses", icon: "📚", label: "Курсы" },
   { id: "prices", icon: "💰", label: "Тарифы" },
   { id: "contact", icon: "📞", label: "Контакты" },
+  { id: "settings", icon: "⚙️", label: "Настройки" },
 ]
 
 

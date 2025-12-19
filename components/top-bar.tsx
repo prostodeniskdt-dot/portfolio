@@ -14,7 +14,13 @@ interface DividerItem {
 
 type MenuItemType = MenuItem | DividerItem
 
-export function TopBar() {
+interface TopBarProps {
+  onMenuStateChange?: (isOpen: boolean) => void
+  onOpenWindow?: (windowId: string) => void
+  onExit?: () => void
+}
+
+export function TopBar({ onMenuStateChange, onOpenWindow, onExit }: TopBarProps) {
   const [time, setTime] = useState<string>("")
   const [openMenu, setOpenMenu] = useState<string | null>(null)
   const menuRef = useRef<HTMLDivElement>(null)
@@ -54,25 +60,119 @@ export function TopBar() {
 
   const menuItems: Record<string, MenuItemType[]> = {
     Файл: [
-      { label: "Новое окно", action: () => window.location.reload(), icon: "📂" },
-      { label: "Открыть", action: () => console.log("Открыть"), icon: "📁" },
+      {
+        label: "Новое окно",
+        action: () => {
+          onOpenWindow?.("contact")
+          setOpenMenu(null)
+          onMenuStateChange?.(false)
+        },
+        icon: "📂",
+      },
+      {
+        label: "Открыть",
+        action: () => {
+          // Показываем список доступных окон для открытия
+          const availableWindows = ["about", "courses", "prices", "contact"]
+          const windowToOpen = availableWindows[Math.floor(Math.random() * availableWindows.length)]
+          onOpenWindow?.(windowToOpen)
+          setOpenMenu(null)
+          onMenuStateChange?.(false)
+        },
+        icon: "📁",
+      },
       { divider: true },
-      { label: "Выход", action: () => console.log("Выход"), icon: "🔌" },
+      {
+        label: "Выход",
+        action: () => {
+          onExit?.()
+          setOpenMenu(null)
+          onMenuStateChange?.(false)
+        },
+        icon: "🔌",
+      },
     ],
     Курсы: [
-      { label: "Все курсы", action: () => console.log("Все курсы"), icon: "📚" },
-      { label: "Популярные", action: () => console.log("Популярные"), icon: "⭐" },
-      { label: "Новые", action: () => console.log("Новые"), icon: "🆕" },
+      {
+        label: "Все курсы",
+        action: () => {
+          onOpenWindow?.("courses")
+          setOpenMenu(null)
+          onMenuStateChange?.(false)
+        },
+        icon: "📚",
+      },
+      {
+        label: "Популярные",
+        action: () => {
+          onOpenWindow?.("courses")
+          setOpenMenu(null)
+          onMenuStateChange?.(false)
+          // Можно добавить фильтр для популярных курсов
+        },
+        icon: "⭐",
+      },
+      {
+        label: "Новые",
+        action: () => {
+          onOpenWindow?.("courses")
+          setOpenMenu(null)
+          onMenuStateChange?.(false)
+          // Можно добавить фильтр для новых курсов
+        },
+        icon: "🆕",
+      },
     ],
     Помощь: [
-      { label: "Справка", action: () => window.open("https://barboss.online", "_blank"), icon: "❓" },
-      { label: "О программе", action: () => alert("BARBOSS ONLINE v2.0\nОнлайн-школа креативных профессий"), icon: "ℹ️" },
+      {
+        label: "Настройки",
+        action: () => {
+          onOpenWindow?.("settings")
+          setOpenMenu(null)
+          onMenuStateChange?.(false)
+        },
+        icon: "⚙️",
+      },
+      {
+        label: "Справка",
+        action: () => {
+          window.open("https://barboss.online", "_blank")
+          setOpenMenu(null)
+          onMenuStateChange?.(false)
+        },
+        icon: "❓",
+      },
+      {
+        label: "О программе",
+        action: () => {
+          alert("BARBOSS ONLINE v2.0\nОнлайн-школа креативных профессий\n\nВерсия: 2.0\nДата: 2025")
+          setOpenMenu(null)
+          onMenuStateChange?.(false)
+        },
+        icon: "ℹ️",
+      },
     ],
   }
 
   const handleMenuClick = (menuName: string) => {
-    setOpenMenu(openMenu === menuName ? null : menuName)
+    const newState = openMenu === menuName ? null : menuName
+    setOpenMenu(newState)
+    onMenuStateChange?.(newState !== null)
   }
+
+  // Экспортируем функцию закрытия для Escape handler
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const handleEscape = (e: KeyboardEvent) => {
+        if (e.key === "Escape" && openMenu) {
+          setOpenMenu(null)
+          onMenuStateChange?.(false)
+        }
+      }
+      window.addEventListener("keydown", handleEscape)
+      return () => window.removeEventListener("keydown", handleEscape)
+    }
+  }, [openMenu, onMenuStateChange])
 
   return (
     <header className="h-10 bg-[#000000] flex items-center px-3 border-b-3 border-[#f8cf2c] animate-slide-up relative overflow-hidden">

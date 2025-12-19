@@ -34,21 +34,29 @@ export function ContactWindow() {
     setMessage({ type: null, text: "" })
 
     try {
-      // Здесь можно добавить реальный API endpoint
-      // Пока используем симуляцию отправки
-      await new Promise((resolve) => setTimeout(resolve, 1500))
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
 
-      // В реальном приложении здесь был бы fetch к API
-      // const response = await fetch('/api/contact', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(data)
-      // })
+      const result = await response.json()
 
-      setMessage({ type: "success", text: "Сообщение отправлено!" })
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "Ошибка отправки")
+      }
+
+      setMessage({ type: "success", text: result.message || "Сообщение отправлено!" })
+      toast.success("Сообщение отправлено!", {
+        description: "Мы свяжемся с вами в ближайшее время",
+      })
       reset()
     } catch (error) {
-      setMessage({ type: "error", text: "Ошибка отправки. Попробуйте позже." })
+      const errorMessage = error instanceof Error ? error.message : "Ошибка отправки. Попробуйте позже."
+      setMessage({ type: "error", text: errorMessage })
+      toast.error("Ошибка отправки", {
+        description: errorMessage,
+      })
     } finally {
       setIsLoading(false)
     }

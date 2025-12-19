@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { VT323 } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { ErrorBoundaryWrapper } from "@/components/error-boundary-wrapper"
+import { ToastProvider } from "@/components/toast-provider"
 import "./globals.css"
 
 const _vt323 = VT323({ weight: "400", subsets: ["latin"] })
@@ -97,6 +98,7 @@ export default function RootLayout({
       <body className="font-sans antialiased overflow-hidden">
         <ErrorBoundaryWrapper>
           {children}
+          <ToastProvider />
           <Analytics />
         </ErrorBoundaryWrapper>
       </body>

@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useCallback } from "react"
+import { useMemo, useCallback, useState, useEffect } from "react"
 import { TopBar } from "@/components/top-bar"
 import { Desktop } from "@/components/desktop"
 import { Taskbar } from "@/components/taskbar"
@@ -18,6 +18,9 @@ export default function Home() {
     bringToFront,
     minimizeWindow,
   } = useWindowState()
+
+  const [topBarMenuOpen, setTopBarMenuOpen] = useState(false)
+  const [taskbarMenuOpen, setTaskbarMenuOpen] = useState(false)
 
   const visibleWindows = useMemo(
     () => openWindows.filter((w) => !minimizedWindows.includes(w)),
@@ -39,10 +42,15 @@ export default function Home() {
     }
   }, [activeWindow, closeWindow])
 
-  // Escape - закрытие меню (можно расширить)
+  // Escape - закрытие меню и модальных окон
   const handleEscape = useCallback(() => {
-    // Здесь можно добавить логику закрытия модальных окон или меню
-  }, [])
+    if (topBarMenuOpen) {
+      setTopBarMenuOpen(false)
+    }
+    if (taskbarMenuOpen) {
+      setTaskbarMenuOpen(false)
+    }
+  }, [topBarMenuOpen, taskbarMenuOpen])
 
   useKeyboardShortcuts({
     onAltTab: handleAltTab,
@@ -50,11 +58,28 @@ export default function Home() {
     onEscape: handleEscape,
   })
 
+  // Слушаем событие открытия окна контактов
+  useEffect(() => {
+    const handleOpenContact = () => {
+      toggleWindow("contact")
+    }
+    window.addEventListener("openContactWindow", handleOpenContact)
+    return () => window.removeEventListener("openContactWindow", handleOpenContact)
+  }, [toggleWindow])
+
   return (
     <div className="relative h-screen w-screen overflow-hidden">
       <RetroBackground />
       <div className="relative z-10 flex h-full flex-col">
-        <TopBar />
+        <TopBar
+          onMenuStateChange={setTopBarMenuOpen}
+          onOpenWindow={toggleWindow}
+          onExit={() => {
+            // Триггерим событие выхода (можно использовать тот же механизм, что и в Taskbar)
+            const event = new CustomEvent("exit-request")
+            window.dispatchEvent(event)
+          }}
+        />
         <Desktop
           openWindows={visibleWindows}
           activeWindow={activeWindow}
@@ -63,7 +88,12 @@ export default function Home() {
           onIconClick={toggleWindow}
           onMinimize={minimizeWindow}
         />
-        <Taskbar onItemClick={toggleWindow} openWindows={openWindows} minimizedWindows={minimizedWindows} />
+        <Taskbar
+          onItemClick={toggleWindow}
+          openWindows={openWindows}
+          minimizedWindows={minimizedWindows}
+          onMenuStateChange={setTaskbarMenuOpen}
+        />
       </div>
     </div>
   )

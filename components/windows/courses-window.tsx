@@ -1,8 +1,40 @@
 "use client"
 
+import { useState, useMemo } from "react"
 import { courses } from "@/lib/data"
 
+type FilterType = "all" | "popular" | "new"
+
 export function CoursesWindow() {
+  const [filter, setFilter] = useState<FilterType>("all")
+  const [searchQuery, setSearchQuery] = useState("")
+
+  const filteredCourses = useMemo(() => {
+    let result = courses
+
+    // Фильтрация по типу
+    if (filter === "popular") {
+      // Популярные курсы (можно добавить поле popularity в данные)
+      result = result.filter((_, index) => index < 2)
+    } else if (filter === "new") {
+      // Новые курсы (последние 2)
+      result = result.slice(-2)
+    }
+
+    // Поиск
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase()
+      result = result.filter(
+        (course) =>
+          course.title.toLowerCase().includes(query) ||
+          course.description.toLowerCase().includes(query) ||
+          course.level.toLowerCase().includes(query),
+      )
+    }
+
+    return result
+  }, [filter, searchQuery])
+
   return (
     <div className="text-black text-sm">
       {/* Toolbar */}
@@ -14,32 +46,75 @@ export function CoursesWindow() {
         }}
       >
         <button
-          className="px-3 py-1 text-xs font-bold"
+          onClick={() => setFilter("all")}
+          className="px-3 py-1 text-xs font-bold transition-colors"
           style={{
-            background: "#000000",
-            color: "#f8cf2c",
-            border: "2px solid #f8cf2c",
+            background: filter === "all" ? "#000000" : "#f8cf2c",
+            color: filter === "all" ? "#f8cf2c" : "#000000",
+            border: "2px solid",
+            borderColor: filter === "all" ? "#f8cf2c" : "#000000",
           }}
         >
           Все курсы
         </button>
         <button
-          className="px-3 py-1 text-xs font-bold hover:bg-black hover:text-[#f8cf2c] transition-colors"
+          onClick={() => setFilter("popular")}
+          className="px-3 py-1 text-xs font-bold transition-colors"
           style={{
-            background: "#f8cf2c",
-            color: "#000000",
-            border: "2px solid #000000",
+            background: filter === "popular" ? "#000000" : "#f8cf2c",
+            color: filter === "popular" ? "#f8cf2c" : "#000000",
+            border: "2px solid",
+            borderColor: filter === "popular" ? "#f8cf2c" : "#000000",
           }}
         >
           Популярные
         </button>
+        <button
+          onClick={() => setFilter("new")}
+          className="px-3 py-1 text-xs font-bold transition-colors"
+          style={{
+            background: filter === "new" ? "#000000" : "#f8cf2c",
+            color: filter === "new" ? "#f8cf2c" : "#000000",
+            border: "2px solid",
+            borderColor: filter === "new" ? "#f8cf2c" : "#000000",
+          }}
+        >
+          Новые
+        </button>
         <div className="flex-1" />
-        <span className="text-xs font-bold text-black">{courses.length} курса</span>
+        <span className="text-xs font-bold text-black">{filteredCourses.length} курса</span>
+      </div>
+
+      {/* Search */}
+      <div className="mb-3">
+        <input
+          type="text"
+          placeholder="🔍 Поиск курсов..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="w-full px-3 py-2 text-xs"
+          style={{
+            background: "#ffffff",
+            border: "3px solid",
+            borderColor: "#000000 #f8cf2c #f8cf2c #000000",
+          }}
+        />
       </div>
 
       {/* Course list */}
       <div className="space-y-2">
-        {courses.map((course, index) => (
+        {filteredCourses.length === 0 ? (
+          <div
+            className="p-4 text-center"
+            style={{
+              background: "#f5f0e1",
+              border: "2px solid #000000",
+            }}
+          >
+            <span className="text-sm">Курсы не найдены</span>
+          </div>
+        ) : (
+          filteredCourses.map((course, index) => (
           <div
             key={index}
             className="flex items-center gap-3 p-3 cursor-pointer hover:bg-[#f8cf2c] group transition-colors"
@@ -58,7 +133,8 @@ export function CoursesWindow() {
               <div className="text-sm font-bold text-black">{course.price}</div>
             </div>
           </div>
-        ))}
+          ))
+        )}
       </div>
 
       {/* Footer */}

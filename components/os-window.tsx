@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect, memo, type ReactNode, type MouseEvent } from "react"
+import { soundManager } from "@/lib/sounds"
 
 interface OSWindowProps {
   title: string
@@ -47,6 +48,11 @@ export const OSWindow = memo(function OSWindow({
     return () => window.removeEventListener("resize", checkMobile)
   }, [])
 
+  // Звук при открытии окна
+  useEffect(() => {
+    soundManager.playWindowOpen()
+  }, [])
+
   const handleMouseDown = (e: MouseEvent<HTMLDivElement>) => {
     if (isMaximized || isMobile) return
     onFocus()
@@ -82,6 +88,7 @@ export const OSWindow = memo(function OSWindow({
 
   const handleMaximize = (e: MouseEvent) => {
     e.stopPropagation()
+    soundManager.playClick()
     if (isMaximized) {
       setPosition(previousPosition.current)
       setIsMaximized(false)
@@ -94,7 +101,13 @@ export const OSWindow = memo(function OSWindow({
 
   const handleMinimize = (e: MouseEvent) => {
     e.stopPropagation()
+    soundManager.playClick()
     onMinimize()
+  }
+
+  const handleClose = () => {
+    soundManager.playWindowClose()
+    onClose()
   }
 
   return (
@@ -123,7 +136,7 @@ export const OSWindow = memo(function OSWindow({
       onMouseLeave={handleMouseUp}
       onKeyDown={(e) => {
         if (e.key === "Escape" && isActive) {
-          onClose()
+          handleClose()
         }
       }}
     >
@@ -218,7 +231,7 @@ export const OSWindow = memo(function OSWindow({
             <button
               onClick={(e) => {
                 e.stopPropagation()
-                onClose()
+                handleClose()
               }}
               aria-label="Закрыть окно"
               className="w-5 h-5 flex items-center justify-center text-sm font-bold transition-all duration-150 hover:scale-110 hover:bg-red-600 hover:text-white"

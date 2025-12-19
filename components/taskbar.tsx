@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { taskbarItems } from "@/lib/data"
+import { soundManager } from "@/lib/sounds"
 
 interface TaskbarProps {
   onItemClick: (windowId: string) => void
@@ -9,10 +10,12 @@ interface TaskbarProps {
   minimizedWindows: string[]
 }
 
-export function Taskbar({ onItemClick, openWindows, minimizedWindows }: TaskbarProps) {
+export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStateChange }: TaskbarProps) {
   const [time, setTime] = useState<string>("")
   const [startOpen, setStartOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [showExitConfirm, setShowExitConfirm] = useState(false)
+  const [isExiting, setIsExiting] = useState(false)
 
   useEffect(() => {
     const checkMobile = () => {
@@ -39,6 +42,31 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows }: TaskbarP
     return () => clearInterval(interval)
   }, [])
 
+  // Escape handler для закрытия меню и модальных окон
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        if (showExitConfirm) {
+          setShowExitConfirm(false)
+        } else if (startOpen) {
+          setStartOpen(false)
+          onMenuStateChange?.(false)
+        }
+      }
+    }
+    window.addEventListener("keydown", handleEscape)
+    return () => window.removeEventListener("keydown", handleEscape)
+  }, [startOpen, showExitConfirm, onMenuStateChange])
+
+  // Слушаем событие выхода из TopBar
+  useEffect(() => {
+    const handleExitRequest = () => {
+      setShowExitConfirm(true)
+    }
+    window.addEventListener("exit-request", handleExitRequest)
+    return () => window.removeEventListener("exit-request", handleExitRequest)
+  }, [])
+
   return (
     <footer
       role="toolbar"
@@ -52,7 +80,12 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows }: TaskbarP
     >
       {/* Start button with glow */}
       <button
-        onClick={() => setStartOpen(!startOpen)}
+        onClick={() => {
+          soundManager.playClick()
+          const newState = !startOpen
+          setStartOpen(newState)
+          onMenuStateChange?.(newState)
+        }}
         aria-label="Меню BARBOSS"
         aria-expanded={startOpen}
         aria-haspopup="menu"
@@ -110,8 +143,10 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows }: TaskbarP
                   key={item.id}
                   role="menuitem"
                   onClick={() => {
+                    soundManager.playClick()
                     onItemClick(item.id)
                     setStartOpen(false)
+                    onMenuStateChange?.(false)
                   }}
                   className="w-full flex items-center gap-3 px-3 py-2 hover:bg-[#f8cf2c] hover:text-black text-black text-left transition-all duration-150 animate-slide-up"
                   style={{ animationDelay: `${index * 0.05}s` }}
@@ -123,10 +158,104 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows }: TaskbarP
                 </button>
               ))}
               <div className="h-px bg-[#000000] my-2 mx-3" />
-              <button className="w-full flex items-center gap-3 px-3 py-2 hover:bg-[#f8cf2c] hover:text-black text-black transition-colors duration-150">
+              <button
+                onClick={() => {
+                  soundManager.playClick()
+                  setShowExitConfirm(true)
+                  setStartOpen(false)
+                  onMenuStateChange?.(false)
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    soundManager.playClick()
+                    setShowExitConfirm(true)
+                    setStartOpen(false)
+                    onMenuStateChange?.(false)
+                  }
+                }}
+                className="w-full flex items-center gap-3 px-3 py-2 hover:bg-[#f8cf2c] hover:text-black text-black transition-colors duration-150"
+              >
                 <span className="text-xl">🔌</span>
                 <span className="text-sm font-bold">Выход...</span>
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Exit confirmation dialog */}
+      {showExitConfirm && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center"
+          style={{
+            background: "rgba(0, 0, 0, 0.7)",
+          }}
+          onClick={() => setShowExitConfirm(false)}
+        >
+          <div
+            className="animate-scale-in"
+            style={{
+              background: "#f5f0e1",
+              border: "3px solid",
+              borderColor: "#f8cf2c #000000 #000000 #f8cf2c",
+              boxShadow: "8px 8px 0 rgba(248,207,44,0.3), 0 0 30px rgba(248,207,44,0.2)",
+              minWidth: "300px",
+              maxWidth: "400px",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="p-4">
+              <h3
+                className="text-lg font-bold mb-3"
+                style={{
+                  color: "#000000",
+                }}
+              >
+                🔌 Выход из BARBOSS OS
+              </h3>
+              <p
+                className="text-sm mb-4"
+                style={{
+                  color: "#000000",
+                }}
+              >
+                Вы уверены, что хотите выйти?
+              </p>
+              <div className="flex gap-2 justify-end">
+                <button
+                  onClick={() => setShowExitConfirm(false)}
+                  className="px-4 py-2 text-xs font-bold transition-colors hover:opacity-90"
+                  style={{
+                    background: "#000000",
+                    color: "#f8cf2c",
+                    border: "3px solid",
+                    borderColor: "#3a3a3a #f8cf2c #f8cf2c #3a3a3a",
+                  }}
+                >
+                  Отмена
+                </button>
+                <button
+                  onClick={() => {
+                    setIsExiting(true)
+                    // Анимация закрытия
+                    setTimeout(() => {
+                      // В реальном приложении здесь может быть редирект или закрытие приложения
+                      // Для веб-версии можно показать сообщение или закрыть все окна
+                      window.location.href = "/"
+                    }, 500)
+                  }}
+                  disabled={isExiting}
+                  className="px-4 py-2 text-xs font-bold transition-colors hover:opacity-90 disabled:opacity-50"
+                  style={{
+                    background: "#f8cf2c",
+                    color: "#000000",
+                    border: "3px solid",
+                    borderColor: "#ffe066 #000000 #000000 #ffe066",
+                  }}
+                >
+                  {isExiting ? "Выход..." : "Выход"}
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -144,7 +273,10 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows }: TaskbarP
           return (
             <button
               key={windowId}
-              onClick={() => onItemClick(windowId)}
+              onClick={() => {
+                soundManager.playClick()
+                onItemClick(windowId)
+              }}
               className={`${isMobile ? "h-7 px-2 min-w-[60px]" : "h-9 px-3 min-w-[140px] max-w-[180px]"} flex items-center gap-2 transition-all duration-200 animate-scale-in hover:scale-105`}
               style={{
                 background: isMinimized ? "#000000" : "#1a1a1a",

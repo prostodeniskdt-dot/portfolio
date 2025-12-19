@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { toast } from "sonner"
 import { prices } from "@/lib/data"
 
 export function PricesWindow() {
@@ -11,9 +12,15 @@ export function PricesWindow() {
     setSelectedPlan(planId)
     setShowMessage(true)
 
-    // Здесь можно добавить логику редиректа или открытия формы контактов
-    // Например, можно использовать событие для открытия окна контактов
-    // window.dispatchEvent(new CustomEvent('openContactWindow'))
+    toast.success(`Тариф "${planName}" выбран!`, {
+      description: "Свяжитесь с нами для оформления",
+      action: {
+        label: "Связаться",
+        onClick: () => {
+          window.dispatchEvent(new CustomEvent("openContactWindow"))
+        },
+      },
+    })
 
     // Автоматически скрыть сообщение через 3 секунды
     setTimeout(() => {
