@@ -1,14 +1,17 @@
 "use client"
 
-import { useMemo, useCallback, useState, useEffect } from "react"
+import { useMemo, useCallback, useState, useEffect, Suspense } from "react"
 import { TopBar } from "@/components/top-bar"
 import { Desktop } from "@/components/desktop"
 import { Taskbar } from "@/components/taskbar"
 import { RetroBackground } from "@/components/retro-background"
+import { LoadingScreen } from "@/components/loading-screen"
+import { WindowSkeleton } from "@/components/window-skeleton"
 import { useWindowState } from "@/hooks/use-window-state"
 import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts"
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(true)
   const {
     openWindows,
     activeWindow,
@@ -23,7 +26,7 @@ export default function Home() {
   const [taskbarMenuOpen, setTaskbarMenuOpen] = useState(false)
 
   const visibleWindows = useMemo(
-    () => openWindows.filter((w) => !minimizedWindows.includes(w)),
+    () => openWindows.filter((w: string) => !minimizedWindows.includes(w)),
     [openWindows, minimizedWindows],
   )
 
@@ -67,6 +70,10 @@ export default function Home() {
     return () => window.removeEventListener("openContactWindow", handleOpenContact)
   }, [toggleWindow])
 
+  if (isLoading) {
+    return <LoadingScreen onComplete={() => setIsLoading(false)} />
+  }
+
   return (
     <div className="relative h-screen w-screen overflow-hidden">
       <RetroBackground />
@@ -80,14 +87,16 @@ export default function Home() {
             window.dispatchEvent(event)
           }}
         />
-        <Desktop
-          openWindows={visibleWindows}
-          activeWindow={activeWindow}
-          onClose={closeWindow}
-          onFocus={bringToFront}
-          onIconClick={toggleWindow}
-          onMinimize={minimizeWindow}
-        />
+        <Suspense fallback={<WindowSkeleton />}>
+          <Desktop
+            openWindows={visibleWindows}
+            activeWindow={activeWindow}
+            onClose={closeWindow}
+            onFocus={bringToFront}
+            onIconClick={toggleWindow}
+            onMinimize={minimizeWindow}
+          />
+        </Suspense>
         <Taskbar
           onItemClick={toggleWindow}
           openWindows={openWindows}

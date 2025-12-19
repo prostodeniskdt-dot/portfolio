@@ -6,7 +6,12 @@ import { ErrorBoundaryWrapper } from "@/components/error-boundary-wrapper"
 import { ToastProvider } from "@/components/toast-provider"
 import "./globals.css"
 
-const _vt323 = VT323({ weight: "400", subsets: ["latin"] })
+const vt323 = VT323({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+  preload: true,
+})
 
 export const metadata: Metadata = {
   title: "BARBOSS ONLINE | Онлайн-школа креативных профессий",
@@ -90,12 +95,18 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <head>
+        {/* Preload critical resources */}
+        <link
+          rel="preload"
+          href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
+          as="style"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
       </head>
-      <body className="font-sans antialiased overflow-hidden">
+      <body className={`${vt323.className} font-sans antialiased overflow-hidden`}>
         <ErrorBoundaryWrapper>
           {children}
           <ToastProvider />

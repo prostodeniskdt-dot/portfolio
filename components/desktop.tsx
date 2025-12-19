@@ -1,6 +1,6 @@
 "use client"
 
-import { memo, useMemo, useState, type ComponentType } from "react"
+import React, { memo, useMemo, useState, type ComponentType } from "react"
 import dynamic from "next/dynamic"
 import { OSWindow } from "./os-window"
 import { windowConfigs, desktopIcons } from "@/lib/data"
@@ -15,33 +15,64 @@ interface DesktopProps {
   onMinimize: (windowId: string) => void
 }
 
-// Lazy load window components
-const AboutWindow = dynamic(() => import("./windows/about-window").then((mod) => ({ default: mod.AboutWindow })), {
-  loading: () => <div className="p-4">Загрузка...</div>,
-})
+// Lazy load window components with optimized code splitting
+const AboutWindow = dynamic(
+  () => import("./windows/about-window").then((mod) => ({ default: mod.AboutWindow })),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="p-4 flex items-center justify-center">
+        <div className="animate-pulse text-xs text-black">Загрузка...</div>
+      </div>
+    ),
+  },
+)
 
 const CoursesWindow = dynamic(
   () => import("./windows/courses-window").then((mod) => ({ default: mod.CoursesWindow })),
   {
-    loading: () => <div className="p-4">Загрузка...</div>,
+    ssr: false,
+    loading: () => (
+      <div className="p-4 flex items-center justify-center">
+        <div className="animate-pulse text-xs text-black">Загрузка...</div>
+      </div>
+    ),
   },
 )
 
-const PricesWindow = dynamic(() => import("./windows/prices-window").then((mod) => ({ default: mod.PricesWindow })), {
-  loading: () => <div className="p-4">Загрузка...</div>,
-})
+const PricesWindow = dynamic(
+  () => import("./windows/prices-window").then((mod) => ({ default: mod.PricesWindow })),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="p-4 flex items-center justify-center">
+        <div className="animate-pulse text-xs text-black">Загрузка...</div>
+      </div>
+    ),
+  },
+)
 
 const ContactWindow = dynamic(
   () => import("./windows/contact-window").then((mod) => ({ default: mod.ContactWindow })),
   {
-    loading: () => <div className="p-4">Загрузка...</div>,
+    ssr: false,
+    loading: () => (
+      <div className="p-4 flex items-center justify-center">
+        <div className="animate-pulse text-xs text-black">Загрузка...</div>
+      </div>
+    ),
   },
 )
 
 const SettingsWindow = dynamic(
   () => import("./windows/settings-window").then((mod) => ({ default: mod.SettingsWindow })),
   {
-    loading: () => <div className="p-4">Загрузка...</div>,
+    ssr: false,
+    loading: () => (
+      <div className="p-4 flex items-center justify-center">
+        <div className="animate-pulse text-xs text-black">Загрузка...</div>
+      </div>
+    ),
   },
 )
 
@@ -123,7 +154,7 @@ export const Desktop = memo(function Desktop({
     [openWindows, activeWindow, onClose, onFocus, onMinimize],
   )
 
-      const handleDragEnter = (e: React.DragEvent) => {
+      const handleDragEnter = (e: React.DragEvent<HTMLElement>) => {
         e.preventDefault()
         e.stopPropagation()
         if (e.dataTransfer.types.includes("Files")) {
@@ -135,12 +166,12 @@ export const Desktop = memo(function Desktop({
         }
       }
 
-      const handleDragOver = (e: React.DragEvent) => {
+      const handleDragOver = (e: React.DragEvent<HTMLElement>) => {
         e.preventDefault()
         e.stopPropagation()
       }
 
-      const handleDragLeave = (e: React.DragEvent) => {
+      const handleDragLeave = (e: React.DragEvent<HTMLElement>) => {
         e.preventDefault()
         e.stopPropagation()
         if (!e.currentTarget.contains(e.relatedTarget as Node)) {
@@ -152,7 +183,7 @@ export const Desktop = memo(function Desktop({
         }
       }
 
-      const handleDrop = (e: React.DragEvent) => {
+      const handleDrop = (e: React.DragEvent<HTMLElement>) => {
         e.preventDefault()
         e.stopPropagation()
         setIsDragging(false)
