@@ -117,21 +117,22 @@ export function TopBar() {
                 aria-label={`Меню ${menuName}`}
               >
                 {menuItems[menuName].map((item, itemIndex) => {
-                  if (item.divider) {
+                  if ('divider' in item && item.divider) {
                     return <div key={`divider-${itemIndex}`} className="h-px bg-[#000000] my-1 mx-2" />
                   }
+                  const menuItem = item as MenuItem
                   return (
                     <button
-                      key={item.label}
+                      key={menuItem.label}
                       role="menuitem"
                       onClick={() => {
-                        item.action()
+                        menuItem.action()
                         setOpenMenu(null)
                       }}
                       className="w-full flex items-center gap-2 px-3 py-2 hover:bg-[#f8cf2c] hover:text-black text-black text-left transition-all duration-150 text-sm"
                     >
-                      {item.icon && <span aria-hidden="true">{item.icon}</span>}
-                      <span>{item.label}</span>
+                      {menuItem.icon && <span aria-hidden="true">{menuItem.icon}</span>}
+                      <span>{menuItem.label}</span>
                     </button>
                   )
                 })}
