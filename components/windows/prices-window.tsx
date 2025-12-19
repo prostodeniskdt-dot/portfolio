@@ -1,27 +1,27 @@
 "use client"
 
-const prices = [
-  {
-    name: "Базовый",
-    price: "9 900 ₽/мес",
-    features: ["Видеоуроки", "Домашние задания", "Чат поддержки"],
-    color: "#f5f0e1",
-  },
-  {
-    name: "Оптимальный",
-    price: "14 900 ₽/мес",
-    features: ["Всё из Базового", "Проверка ДЗ", "Групповые созвоны"],
-    color: "#f8cf2c",
-  },
-  {
-    name: "Премиум",
-    price: "24 900 ₽/мес",
-    features: ["Всё из Оптимального", "Личный ментор", "Карьерный коуч"],
-    color: "#000000",
-  },
-]
+import { useState } from "react"
+import { prices } from "@/lib/data"
 
 export function PricesWindow() {
+  const [selectedPlan, setSelectedPlan] = useState<string | null>(null)
+  const [showMessage, setShowMessage] = useState(false)
+
+  const handleSelectPlan = (planId: string, planName: string) => {
+    setSelectedPlan(planId)
+    setShowMessage(true)
+
+    // Здесь можно добавить логику редиректа или открытия формы контактов
+    // Например, можно использовать событие для открытия окна контактов
+    // window.dispatchEvent(new CustomEvent('openContactWindow'))
+
+    // Автоматически скрыть сообщение через 3 секунды
+    setTimeout(() => {
+      setShowMessage(false)
+      setSelectedPlan(null)
+    }, 3000)
+  }
+
   return (
     <div className="text-black text-sm space-y-3">
       {/* Header */}
@@ -35,9 +35,25 @@ export function PricesWindow() {
         💰 ТАРИФНЫЕ ПЛАНЫ
       </div>
 
+      {/* Success message */}
+      {showMessage && selectedPlan && (
+        <div
+          className="p-2 text-xs font-bold text-center animate-slide-up"
+          style={{
+            background: "#f8cf2c",
+            border: "2px solid #000000",
+            color: "#000000",
+          }}
+        >
+          ✓ Тариф "{prices.find((p) => p.id === selectedPlan)?.name}" выбран!
+          <br />
+          <span className="text-[10px]">Свяжитесь с нами для оформления</span>
+        </div>
+      )}
+
       {prices.map((plan, index) => (
         <div
-          key={index}
+          key={plan.id}
           className="p-3"
           style={{
             background: plan.color,
@@ -59,7 +75,9 @@ export function PricesWindow() {
             ))}
           </ul>
           <button
-            className="w-full mt-3 py-1.5 text-xs font-bold transition-colors"
+            onClick={() => handleSelectPlan(plan.id, plan.name)}
+            className="w-full mt-3 py-1.5 text-xs font-bold transition-all duration-200 hover:scale-105 disabled:opacity-50"
+            disabled={showMessage}
             style={{
               background: plan.color === "#000000" ? "#f8cf2c" : "#000000",
               color: plan.color === "#000000" ? "#000000" : "#f8cf2c",
@@ -67,7 +85,7 @@ export function PricesWindow() {
               borderColor: plan.color === "#000000" ? "#000000" : "#f8cf2c",
             }}
           >
-            ВЫБРАТЬ
+            {selectedPlan === plan.id && showMessage ? "✓ ВЫБРАНО" : "ВЫБРАТЬ"}
           </button>
         </div>
       ))}

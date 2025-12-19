@@ -1,39 +1,6 @@
 "use client"
 
-const courses = [
-  {
-    title: "Веб-дизайн PRO",
-    description: "От макета до готового сайта",
-    icon: "🎨",
-    duration: "3 месяца",
-    level: "С нуля",
-    price: "29 900 ₽",
-  },
-  {
-    title: "Frontend-разработка",
-    description: "React, TypeScript, Next.js",
-    icon: "💻",
-    duration: "4 месяца",
-    level: "Базовый JS",
-    price: "39 900 ₽",
-  },
-  {
-    title: "UX/UI Design",
-    description: "Исследования, прототипы, тесты",
-    icon: "✨",
-    duration: "2.5 месяца",
-    level: "С нуля",
-    price: "24 900 ₽",
-  },
-  {
-    title: "Digital-маркетинг",
-    description: "SMM, таргет, аналитика",
-    icon: "📈",
-    duration: "2 месяца",
-    level: "С нуля",
-    price: "19 900 ₽",
-  },
-]
+import { courses } from "@/lib/data"
 
 export function CoursesWindow() {
   return (

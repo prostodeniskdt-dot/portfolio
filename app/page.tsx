@@ -1,53 +1,54 @@
 "use client"
 
-import { useState } from "react"
+import { useMemo, useCallback } from "react"
 import { TopBar } from "@/components/top-bar"
 import { Desktop } from "@/components/desktop"
 import { Taskbar } from "@/components/taskbar"
 import { RetroBackground } from "@/components/retro-background"
+import { useWindowState } from "@/hooks/use-window-state"
+import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts"
 
 export default function Home() {
-  const [activeWindow, setActiveWindow] = useState<string | null>("about")
-  const [openWindows, setOpenWindows] = useState<string[]>(["about", "courses", "prices"])
-  const [minimizedWindows, setMinimizedWindows] = useState<string[]>([])
+  const {
+    openWindows,
+    activeWindow,
+    minimizedWindows,
+    toggleWindow,
+    closeWindow,
+    bringToFront,
+    minimizeWindow,
+  } = useWindowState()
 
-  const toggleWindow = (windowId: string) => {
-    if (openWindows.includes(windowId)) {
-      if (minimizedWindows.includes(windowId)) {
-        setMinimizedWindows(minimizedWindows.filter((w) => w !== windowId))
-      }
-      setActiveWindow(windowId)
-    } else {
-      setOpenWindows([...openWindows, windowId])
-      setActiveWindow(windowId)
+  const visibleWindows = useMemo(
+    () => openWindows.filter((w) => !minimizedWindows.includes(w)),
+    [openWindows, minimizedWindows],
+  )
+
+  // Alt+Tab - переключение между окнами
+  const handleAltTab = useCallback(() => {
+    if (visibleWindows.length === 0) return
+    const currentIndex = activeWindow ? visibleWindows.indexOf(activeWindow) : -1
+    const nextIndex = (currentIndex + 1) % visibleWindows.length
+    bringToFront(visibleWindows[nextIndex])
+  }, [visibleWindows, activeWindow, bringToFront])
+
+  // Alt+F4 - закрытие активного окна
+  const handleAltF4 = useCallback(() => {
+    if (activeWindow) {
+      closeWindow(activeWindow)
     }
-  }
+  }, [activeWindow, closeWindow])
 
-  const closeWindow = (windowId: string) => {
-    setOpenWindows(openWindows.filter((w) => w !== windowId))
-    setMinimizedWindows(minimizedWindows.filter((w) => w !== windowId))
-    if (activeWindow === windowId) {
-      const remaining = openWindows.filter((w) => w !== windowId)
-      setActiveWindow(remaining[0] || null)
-    }
-  }
+  // Escape - закрытие меню (можно расширить)
+  const handleEscape = useCallback(() => {
+    // Здесь можно добавить логику закрытия модальных окон или меню
+  }, [])
 
-  const bringToFront = (windowId: string) => {
-    if (minimizedWindows.includes(windowId)) {
-      setMinimizedWindows(minimizedWindows.filter((w) => w !== windowId))
-    }
-    setActiveWindow(windowId)
-  }
-
-  const minimizeWindow = (windowId: string) => {
-    setMinimizedWindows([...minimizedWindows, windowId])
-    if (activeWindow === windowId) {
-      const visibleWindows = openWindows.filter((w) => w !== windowId && !minimizedWindows.includes(w))
-      setActiveWindow(visibleWindows[0] || null)
-    }
-  }
-
-  const visibleWindows = openWindows.filter((w) => !minimizedWindows.includes(w))
+  useKeyboardShortcuts({
+    onAltTab: handleAltTab,
+    onAltF4: handleAltF4,
+    onEscape: handleEscape,
+  })
 
   return (
     <div className="relative h-screen w-screen overflow-hidden">

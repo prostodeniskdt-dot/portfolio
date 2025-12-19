@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef, type ReactNode, type MouseEvent } from "react"
+import { useState, useRef, useEffect, memo, type ReactNode, type MouseEvent } from "react"
 
 interface OSWindowProps {
   title: string
@@ -15,7 +15,7 @@ interface OSWindowProps {
   icon?: string
 }
 
-export function OSWindow({
+export const OSWindow = memo(function OSWindow({
   title,
   children,
   defaultPosition,
@@ -30,11 +30,25 @@ export function OSWindow({
   const [position, setPosition] = useState(defaultPosition)
   const [isDragging, setIsDragging] = useState(false)
   const [isMaximized, setIsMaximized] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const dragOffset = useRef({ x: 0, y: 0 })
   const previousPosition = useRef(defaultPosition)
 
+  // Minimum window size
+  const MIN_WIDTH = 300
+  const MIN_HEIGHT = 200
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
+
   const handleMouseDown = (e: MouseEvent<HTMLDivElement>) => {
-    if (isMaximized) return
+    if (isMaximized || isMobile) return
     onFocus()
     setIsDragging(true)
     dragOffset.current = {
@@ -44,10 +58,21 @@ export function OSWindow({
   }
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (!isDragging || isMaximized) return
+    if (!isDragging || isMaximized || isMobile) return
+
+    const newX = e.clientX - dragOffset.current.x
+    const newY = e.clientY - dragOffset.current.y
+
+    // Constrain window position to viewport
+    const maxX = typeof window !== "undefined" ? window.innerWidth - defaultSize.width : 0
+    const maxY = typeof window !== "undefined" ? window.innerHeight - 80 - defaultSize.height : 0
+
+    const constrainedX = Math.max(0, Math.min(newX, maxX))
+    const constrainedY = Math.max(0, Math.min(newY, maxY))
+
     setPosition({
-      x: e.clientX - dragOffset.current.x,
-      y: e.clientY - dragOffset.current.y,
+      x: constrainedX,
+      y: constrainedY,
     })
   }
 
@@ -75,18 +100,32 @@ export function OSWindow({
   return (
     <div
       className="absolute animate-window-open"
+      role="dialog"
+      aria-modal="false"
+      aria-labelledby={`window-title-${title}`}
+      aria-describedby={`window-content-${title}`}
+      tabIndex={isActive ? 0 : -1}
       style={{
-        left: isMaximized ? 0 : position.x,
-        top: isMaximized ? 0 : position.y,
-        width: isMaximized ? "100%" : defaultSize.width,
-        height: isMaximized ? "calc(100vh - 80px)" : defaultSize.height,
+        left: isMaximized || isMobile ? 0 : position.x,
+        top: isMaximized || isMobile ? 0 : position.y,
+        width: isMaximized || isMobile ? "100%" : Math.max(MIN_WIDTH, defaultSize.width),
+        height: isMaximized || isMobile ? "calc(100vh - 80px)" : Math.max(MIN_HEIGHT, defaultSize.height),
+        minWidth: MIN_WIDTH,
+        minHeight: MIN_HEIGHT,
         zIndex,
-        transition: isMaximized ? "all 0.25s ease-out" : undefined,
+        transition: isMaximized || isMobile ? "all 0.25s ease-out" : undefined,
+        maxWidth: isMobile ? "100vw" : undefined,
+        maxHeight: isMobile ? "100vh" : undefined,
       }}
       onClick={onFocus}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
+      onKeyDown={(e) => {
+        if (e.key === "Escape" && isActive) {
+          onClose()
+        }
+      }}
     >
       <div
         className="w-full h-full flex flex-col transition-shadow duration-300"
@@ -107,10 +146,21 @@ export function OSWindow({
           }}
           onMouseDown={handleMouseDown}
           onDoubleClick={handleMaximize}
+          role="button"
+          aria-label={`Окно ${title}`}
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              handleMaximize(e as unknown as MouseEvent)
+            }
+          }}
         >
           <div className="flex items-center gap-2">
-            <span className={`text-sm ${isActive ? "animate-bounce-subtle" : ""}`}>{icon}</span>
+            <span className={`text-sm ${isActive ? "animate-bounce-subtle" : ""}`} aria-hidden="true">
+              {icon}
+            </span>
             <span
+              id={`window-title-${title}`}
               className={`text-sm font-bold tracking-wide ${isActive ? "animate-flicker" : ""}`}
               style={{ color: isActive ? "#000000" : "#f5f0e1" }}
             >
@@ -123,6 +173,7 @@ export function OSWindow({
             {/* Minimize */}
             <button
               onClick={handleMinimize}
+              aria-label="Свернуть окно"
               className="w-5 h-5 flex items-center justify-center text-xs font-bold transition-all duration-150 hover:scale-110 hover:bg-[#f8cf2c] hover:text-black"
               style={{
                 background: "#000000",
@@ -131,11 +182,12 @@ export function OSWindow({
                 borderColor: "#3a3a3a #f8cf2c #f8cf2c #3a3a3a",
               }}
             >
-              _
+              <span aria-hidden="true">_</span>
             </button>
             {/* Maximize */}
             <button
               onClick={handleMaximize}
+              aria-label={isMaximized ? "Восстановить размер окна" : "Развернуть окно"}
               className="w-5 h-5 flex items-center justify-center transition-all duration-150 hover:scale-110 hover:bg-[#f8cf2c] group"
               style={{
                 background: "#000000",
@@ -168,6 +220,7 @@ export function OSWindow({
                 e.stopPropagation()
                 onClose()
               }}
+              aria-label="Закрыть окно"
               className="w-5 h-5 flex items-center justify-center text-sm font-bold transition-all duration-150 hover:scale-110 hover:bg-red-600 hover:text-white"
               style={{
                 background: "#000000",
@@ -176,14 +229,17 @@ export function OSWindow({
                 borderColor: "#3a3a3a #f8cf2c #f8cf2c #3a3a3a",
               }}
             >
-              ×
+              <span aria-hidden="true">×</span>
             </button>
           </div>
         </div>
 
         {/* Content area */}
         <div
+          id={`window-content-${title}`}
           className="flex-1 overflow-auto m-2"
+          role="region"
+          aria-label={`Содержимое окна ${title}`}
           style={{
             background: "#ffffff",
             border: "3px solid",
@@ -209,4 +265,4 @@ export function OSWindow({
       </div>
     </div>
   )
-}
+})

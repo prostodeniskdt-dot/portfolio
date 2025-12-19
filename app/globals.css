@@ -399,3 +399,23 @@
   transform: translateY(-3px);
   box-shadow: 0 8px 25px rgba(248, 207, 44, 0.4);
 }
+
+/* Responsive design - Mobile and Tablet */
+@media (max-width: 768px) {
+  /* Mobile optimizations */
+  body {
+    font-size: 14px;
+  }
+
+  /* Hide desktop-specific elements on mobile */
+  .desktop-only {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Small mobile devices */
+  body {
+    font-size: 12px;
+  }
+}
