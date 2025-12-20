@@ -124,33 +124,43 @@ export const Desktop = memo(function Desktop({
   const [isDragging, setIsDragging] = useState(false)
   const memoizedIcons = useMemo(
     () =>
-      desktopIcons.map((item, index) => (
-        <button
-          key={item.id}
-          onClick={() => {
-            soundManager.playClick()
+      desktopIcons.map((item, index) => {
+        const handleClick = () => {
+          soundManager.playClick()
+          if (item.type === "folder") {
+            // Для папок извлекаем folderId из id (например, "products-folder" -> "products")
+            const folderId = item.id.replace("-folder", "")
+            onFolderClick?.(folderId)
+          } else {
             onIconClick(item.id)
-          }}
-          onDoubleClick={() => {
-            soundManager.playWindowOpen()
-            onIconClick(item.id)
-          }}
-          aria-label={`Открыть ${item.label}`}
-          className="flex flex-col items-center gap-1 p-2 cursor-pointer hover:bg-[#f8cf2c]/20 group w-20 select-none animate-slide-up hover-lift"
-          style={{ animationDelay: `${index * 0.1}s` }}
-        >
-          <span
-            className="text-4xl drop-shadow-lg group-hover:animate-float transition-transform"
-            aria-hidden="true"
+          }
+        }
+
+        return (
+          <button
+            key={item.id}
+            onClick={handleClick}
+            onDoubleClick={() => {
+              soundManager.playWindowOpen()
+              handleClick()
+            }}
+            aria-label={`Открыть ${item.label}`}
+            className="flex flex-col items-center gap-1 p-2 cursor-pointer hover:bg-[#f8cf2c]/20 group w-20 select-none animate-slide-up hover-lift"
+            style={{ animationDelay: `${index * 0.1}s` }}
           >
-            {item.icon}
-          </span>
-          <span className="text-xs text-[#f8cf2c] text-center font-bold drop-shadow-[1px_1px_0_#000] group-hover:bg-[#f8cf2c] group-hover:text-black px-2 py-0.5 transition-colors duration-200">
-            {item.label}
-          </span>
-        </button>
-      )),
-    [onIconClick],
+            <span
+              className="text-4xl drop-shadow-lg group-hover:animate-float transition-transform"
+              aria-hidden="true"
+            >
+              {item.icon}
+            </span>
+            <span className="text-xs text-[#f8cf2c] text-center font-bold drop-shadow-[1px_1px_0_#000] group-hover:bg-[#f8cf2c] group-hover:text-black px-2 py-0.5 transition-colors duration-200">
+              {item.label}
+            </span>
+          </button>
+        )
+      }),
+    [onIconClick, onFolderClick],
   )
 
   const memoizedWindows = useMemo(

@@ -4,6 +4,8 @@ import { IndividualCoursesWindow } from "@/components/windows/courses-window"
 import { PricesWindow } from "@/components/windows/prices-window"
 import { ContactWindow } from "@/components/windows/contact-window"
 import { SettingsWindow } from "@/components/windows/settings-window"
+import { FolderWindow } from "@/components/windows/folder-window"
+import { ProductWindow } from "@/components/windows/product-window"
 
 export interface Course {
   title: string
@@ -144,8 +146,8 @@ export const windowConfigs: Record<string, WindowConfig> = {
     component: AboutWindow,
     icon: "🎓",
   },
-  courses: {
-    title: "Наши курсы",
+  "individual-courses": {
+    title: "Индивидуальные курсы",
     defaultPosition: { x: 460, y: 60 },
     defaultSize: { width: 500, height: 380 },
     component: IndividualCoursesWindow,
@@ -172,6 +174,24 @@ export const windowConfigs: Record<string, WindowConfig> = {
     component: SettingsWindow,
     icon: "⚙️",
   },
+  "products-folder": {
+    title: "Продукты BARBOSS",
+    defaultPosition: { x: 100, y: 100 },
+    defaultSize: { width: 600, height: 450 },
+    component: FolderWindow,
+    icon: "🗂️",
+  },
+  // Динамически добавленные конфигурации для всех продуктов
+  ...products.reduce((acc, product) => {
+    acc[`product-${product.id}`] = {
+      title: product.title,
+      defaultPosition: { x: 200 + Math.random() * 100, y: 150 + Math.random() * 100 },
+      defaultSize: { width: 450, height: 550 },
+      component: ProductWindow,
+      icon: product.icon,
+    }
+    return acc
+  }, {} as Record<string, WindowConfig>),
 }
 
 export const taskbarItems: TaskbarItem[] = [
@@ -498,7 +518,7 @@ export const folders: Record<string, Folder> = {
 }
 
 export const desktopIcons: DesktopIcon[] = [
-  { id: "products", icon: "📁", label: "Продукты", type: "folder" },
+  { id: "products-folder", icon: "🗂️", label: "Продукты", type: "folder" },
   { id: "about", icon: "🎓", label: "О школе", type: "window" },
   { id: "individual-courses", icon: "📚", label: "Индивидуальные курсы", type: "window" },
   { id: "prices", icon: "💰", label: "Тарифы", type: "window" },

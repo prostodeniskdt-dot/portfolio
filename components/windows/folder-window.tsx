@@ -139,3 +139,4 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
   )
 }
 
+

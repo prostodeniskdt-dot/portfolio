@@ -9,6 +9,7 @@ import { LoadingScreen } from "@/components/loading-screen"
 import { WindowSkeleton } from "@/components/window-skeleton"
 import { useWindowState } from "@/hooks/use-window-state"
 import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts"
+import { desktopIcons } from "@/lib/data"
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
@@ -61,6 +62,29 @@ export default function Home() {
     onEscape: handleEscape,
   })
 
+  // Handler for opening a folder
+  const handleOpenFolder = useCallback((folderId: string) => {
+    if (folderId === "products") {
+      toggleWindow("products-folder")
+    }
+  }, [toggleWindow])
+
+  // Handler for opening a product
+  const handleOpenProduct = useCallback((productId: string) => {
+    toggleWindow(`product-${productId}`)
+  }, [toggleWindow])
+
+  // Handler for icon clicks - distinguishes between folders and windows
+  const handleIconClick = useCallback((windowId: string) => {
+    const icon = desktopIcons.find((i) => i.id === windowId)
+    if (icon?.type === "folder") {
+      const folderId = windowId.replace("-folder", "")
+      handleOpenFolder(folderId)
+    } else {
+      toggleWindow(windowId)
+    }
+  }, [toggleWindow, handleOpenFolder])
+
   // Слушаем событие открытия окна контактов
   useEffect(() => {
     const handleOpenContact = () => {
@@ -81,14 +105,8 @@ export default function Home() {
         <TopBar
           onMenuStateChange={setTopBarMenuOpen}
           onOpenWindow={toggleWindow}
-          onOpenFolder={(folderId) => {
-            if (folderId === "products") {
-              toggleWindow("products-folder")
-            }
-          }}
-          onOpenProduct={(productId) => {
-            toggleWindow(`product-${productId}`)
-          }}
+          onOpenFolder={handleOpenFolder}
+          onOpenProduct={handleOpenProduct}
           onExit={() => {
             // Триггерим событие выхода (можно использовать тот же механизм, что и в Taskbar)
             const event = new CustomEvent("exit-request")
@@ -101,16 +119,10 @@ export default function Home() {
           activeWindow={activeWindow}
           onClose={closeWindow}
           onFocus={bringToFront}
-          onIconClick={toggleWindow}
+          onIconClick={handleIconClick}
           onMinimize={minimizeWindow}
-          onFolderClick={(folderId) => {
-            if (folderId === "products") {
-              toggleWindow("products-folder")
-            }
-          }}
-          onProductClick={(productId) => {
-            toggleWindow(`product-${productId}`)
-          }}
+          onFolderClick={handleOpenFolder}
+          onProductClick={handleOpenProduct}
         />
         </Suspense>
         <Taskbar

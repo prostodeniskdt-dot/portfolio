@@ -1,6 +1,6 @@
 "use client"
 
-import { memo } from "react"
+import React, { memo } from "react"
 import { soundManager } from "@/lib/sounds"
 
 interface DesktopFolderProps {
@@ -45,4 +45,5 @@ export const DesktopFolder = memo(function DesktopFolder({
     </button>
   )
 })
+
 
