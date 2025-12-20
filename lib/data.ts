@@ -4,8 +4,6 @@ import { IndividualCoursesWindow } from "@/components/windows/courses-window"
 import { PricesWindow } from "@/components/windows/prices-window"
 import { ContactWindow } from "@/components/windows/contact-window"
 import { SettingsWindow } from "@/components/windows/settings-window"
-import { FolderWindow } from "@/components/windows/folder-window"
-import { ProductWindow } from "@/components/windows/product-window"
 
 export interface Course {
   title: string
@@ -34,7 +32,7 @@ export interface WindowConfig {
   title: string
   defaultPosition: { x: number; y: number }
   defaultSize: { width: number; height: number }
-  component: React.ComponentType
+  component?: React.ComponentType
   icon: string
 }
 
@@ -178,7 +176,6 @@ export const windowConfigs: Record<string, WindowConfig> = {
     title: "Продукты BARBOSS",
     defaultPosition: { x: 100, y: 100 },
     defaultSize: { width: 600, height: 450 },
-    component: FolderWindow,
     icon: "🗂️",
   },
   // Динамически добавленные конфигурации для всех продуктов
@@ -187,7 +184,6 @@ export const windowConfigs: Record<string, WindowConfig> = {
       title: product.title,
       defaultPosition: { x: 200 + Math.random() * 100, y: 150 + Math.random() * 100 },
       defaultSize: { width: 450, height: 550 },
-      component: ProductWindow,
       icon: product.icon,
     }
     return acc
