@@ -2,66 +2,105 @@
 
 export function RetroBackground() {
   return (
-    <div className="absolute inset-0 overflow-hidden">
-      {/* Нейтральный градиентный фон */}
+    <div className="absolute inset-0 overflow-hidden" style={{ imageRendering: "pixelated", imageRendering: "crisp-edges" }}>
+      {/* Базовый фон - темный для архитектурного чертежа */}
       <div
         className="absolute inset-0"
         style={{
-          background: `
-            linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 50%, #0f0f0f 100%)
-          `,
+          background: "#0f0f0f",
         }}
       />
 
-      {/* Тонкая сетка в стиле ретро */}
+      {/* Пиксельная сетка архитектурного чертежа */}
       <div
-        className="absolute inset-0 opacity-20"
+        className="absolute inset-0 opacity-40"
         style={{
           background: `
             repeating-linear-gradient(
               90deg,
               transparent,
-              transparent 40px,
-              rgba(248,207,44,0.1) 40px,
-              rgba(248,207,44,0.1) 41px
+              transparent 20px,
+              #f8cf2c 20px,
+              #f8cf2c 21px
             ),
             repeating-linear-gradient(
               0deg,
               transparent,
-              transparent 40px,
-              rgba(248,207,44,0.1) 40px,
-              rgba(248,207,44,0.1) 41px
+              transparent 20px,
+              #f8cf2c 20px,
+              #f8cf2c 21px
             )
           `,
-          backgroundSize: "41px 41px",
+          backgroundSize: "21px 21px",
         }}
       />
 
-      {/* Тонкие акцентные линии */}
+      {/* Горизонтальные линии чертежа */}
       <div
-        className="absolute top-0 left-0 right-0 h-px opacity-30"
+        className="absolute inset-0"
+        style={{
+          background: `
+            linear-gradient(to bottom, transparent 0%, transparent 10%, #f8cf2c 10%, #f8cf2c 11%, transparent 11%, transparent 20%, #f8cf2c 20%, #f8cf2c 21%, transparent 21%),
+            linear-gradient(to right, transparent 0%, transparent 10%, #f8cf2c 10%, #f8cf2c 11%, transparent 11%, transparent 20%, #f8cf2c 20%, #f8cf2c 21%, transparent 21%)
+          `,
+          opacity: 0.3,
+        }}
+      />
+
+      {/* Элементы архитектурного чертежа - углы и размеры */}
+      <svg className="absolute inset-0 w-full h-full opacity-30" style={{ imageRendering: "pixelated" }}>
+        {/* Углы чертежа */}
+        <line x1="100" y1="100" x2="120" y2="100" stroke="#f8cf2c" strokeWidth="2" />
+        <line x1="100" y1="100" x2="100" y2="120" stroke="#f8cf2c" strokeWidth="2" />
+        
+        <line x1="300" y1="100" x2="280" y2="100" stroke="#f8cf2c" strokeWidth="2" />
+        <line x1="300" y1="100" x2="300" y2="120" stroke="#f8cf2c" strokeWidth="2" />
+        
+        <line x1="100" y1="200" x2="120" y2="200" stroke="#f8cf2c" strokeWidth="2" />
+        <line x1="100" y1="200" x2="100" y2="180" stroke="#f8cf2c" strokeWidth="2" />
+        
+        <line x1="500" y1="200" x2="480" y2="200" stroke="#f8cf2c" strokeWidth="2" />
+        <line x1="500" y1="200" x2="500" y2="180" stroke="#f8cf2c" strokeWidth="2" />
+
+        {/* Линии размеров */}
+        <line x1="150" y1="80" x2="250" y2="80" stroke="#f8cf2c" strokeWidth="1" />
+        <line x1="150" y1="75" x2="150" y2="85" stroke="#f8cf2c" strokeWidth="1" />
+        <line x1="250" y1="75" x2="250" y2="85" stroke="#f8cf2c" strokeWidth="1" />
+
+        {/* Прямоугольники как элементы плана */}
+        <rect x="200" y="150" width="100" height="60" fill="none" stroke="#f8cf2c" strokeWidth="2" opacity="0.4" />
+        <rect x="400" y="250" width="80" height="80" fill="none" stroke="#f8cf2c" strokeWidth="2" opacity="0.4" />
+      </svg>
+
+      {/* Тонкие акцентные линии по краям */}
+      <div
+        className="absolute top-0 left-0 right-0 h-px opacity-50"
         style={{
           background: "linear-gradient(90deg, transparent, #f8cf2c, transparent)",
         }}
       />
       <div
-        className="absolute bottom-0 left-0 right-0 h-px opacity-30"
+        className="absolute bottom-0 left-0 right-0 h-px opacity-50"
         style={{
           background: "linear-gradient(90deg, transparent, #f8cf2c, transparent)",
         }}
       />
-
-      {/* Логотип BARBOSS (более тонкий) */}
       <div
-        className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-        style={{ opacity: 0.03 }}
-      >
-        <span className="text-[#f8cf2c] text-[180px] font-bold tracking-widest">BARBOSS</span>
-      </div>
-
-      {/* Scanline эффект (опционально, с уменьшенной непрозрачностью) */}
+        className="absolute top-0 bottom-0 left-0 w-px opacity-50"
+        style={{
+          background: "linear-gradient(180deg, transparent, #f8cf2c, transparent)",
+        }}
+      />
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.02]"
+        className="absolute top-0 bottom-0 right-0 w-px opacity-50"
+        style={{
+          background: "linear-gradient(180deg, transparent, #f8cf2c, transparent)",
+        }}
+      />
+
+      {/* Минимальный scanline эффект для пиксельного стиля */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.03]"
         style={{
           background:
             "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(248,207,44,0.1) 2px, rgba(248,207,44,0.1) 4px)",

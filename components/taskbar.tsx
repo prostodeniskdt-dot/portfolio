@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { taskbarItems } from "@/lib/data"
 import { soundManager } from "@/lib/sounds"
+import { getPixelIcon } from "@/components/icons/pixel-icons"
 
 interface TaskbarProps {
   onItemClick: (windowId: string) => void
@@ -133,7 +134,7 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
                   transform: "rotate(180deg)",
                 }}
               >
-                BARBOSS ONLINE
+                ONLINE
               </span>
             </div>
 
@@ -152,9 +153,16 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
                   className="w-full flex items-center gap-3 px-3 py-2 hover:bg-[#f8cf2c] hover:text-black text-black text-left transition-all duration-150 animate-slide-up"
                   style={{ animationDelay: `${index * 0.05}s` }}
                 >
-                  <span className="text-xl" aria-hidden="true">
-                    {item.icon}
-                  </span>
+                  {(() => {
+                    const IconComponent = getPixelIcon(item.icon)
+                    return IconComponent ? (
+                      <IconComponent size={20} />
+                    ) : (
+                      <span className="text-xl" aria-hidden="true">
+                        {item.icon}
+                      </span>
+                    )
+                  })()}
                   <span className="text-sm font-bold">{item.label}</span>
                 </button>
               ))}
@@ -212,7 +220,7 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
                   color: "#000000",
                 }}
               >
-                🔌 Выход из BARBOSS OS
+                🔌 Выход из OS
               </h3>
               <p
                 className="text-sm mb-4"
@@ -286,7 +294,14 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
                 color: "#f8cf2c",
               }}
             >
-              <span className={isMobile ? "text-xs" : "text-sm"}>{item.icon}</span>
+              {(() => {
+                const IconComponent = getPixelIcon(item.icon)
+                return IconComponent ? (
+                  <IconComponent size={isMobile ? 16 : 18} />
+                ) : (
+                  <span className={isMobile ? "text-xs" : "text-sm"}>{item.icon}</span>
+                )
+              })()}
               {!isMobile && <span className="text-xs font-bold truncate">{item.label}</span>}
             </button>
           )

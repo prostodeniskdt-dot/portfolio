@@ -1,22 +1,22 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { VT323 } from "next/font/google"
+import { Oswald } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { ErrorBoundaryWrapper } from "@/components/error-boundary-wrapper"
 import { ToastProvider } from "@/components/toast-provider"
 import "./globals.css"
 
-const vt323 = VT323({
-  weight: "400",
-  subsets: ["latin"],
+const oswald = Oswald({
+  weight: ["400", "500", "600"],
+  subsets: ["latin", "cyrillic"],
   display: "swap",
   preload: true,
 })
 
 export const metadata: Metadata = {
-  title: "BARBOSS ONLINE | Онлайн-школа креативных профессий",
+  title: "БАР БОСС ONLINE | Онлайн-школа креативных профессий",
   description:
-    "BARBOSS ONLINE - современная онлайн-школа, где вы освоите востребованные навыки дизайна, программирования и digital-маркетинга. Учитесь у практиков!",
+    "БАР БОСС ONLINE - современная онлайн-школа, где вы освоите востребованные навыки дизайна, программирования и digital-маркетинга. Учитесь у практиков!",
   keywords: [
     "онлайн школа",
     "обучение дизайну",
@@ -24,12 +24,12 @@ export const metadata: Metadata = {
     "UX/UI дизайн",
     "digital маркетинг",
     "курсы программирования",
-    "BARBOSS",
+    "БАР БОСС",
     "онлайн образование",
   ],
-  authors: [{ name: "BARBOSS ONLINE" }],
-  creator: "BARBOSS ONLINE",
-  publisher: "BARBOSS ONLINE",
+  authors: [{ name: "БАР БОСС ONLINE" }],
+  creator: "БАР БОСС ONLINE",
+  publisher: "БАР БОСС ONLINE",
   formatDetection: {
     email: false,
     address: false,
@@ -37,17 +37,17 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL("https://portfolio-six-blue-37.vercel.app"),
   openGraph: {
-    title: "BARBOSS ONLINE | Онлайн-школа креативных профессий",
+    title: "БАР БОСС ONLINE | Онлайн-школа креативных профессий",
     description:
       "Освойте востребованные навыки дизайна, программирования и digital-маркетинга. Учитесь у практиков!",
     url: "https://portfolio-six-blue-37.vercel.app",
-    siteName: "BARBOSS ONLINE",
+    siteName: "БАР БОСС ONLINE",
     locale: "ru_RU",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "BARBOSS ONLINE | Онлайн-школа креативных профессий",
+    title: "БАР БОСС ONLINE | Онлайн-школа креативных профессий",
     description:
       "Освойте востребованные навыки дизайна, программирования и digital-маркетинга. Учитесь у практиков!",
   },
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "EducationalOrganization",
-  name: "BARBOSS ONLINE",
+  name: "БАР БОСС ONLINE",
   description:
     "Онлайн-школа креативных профессий. Обучение дизайну, программированию и digital-маркетингу.",
   url: "https://portfolio-six-blue-37.vercel.app",
@@ -98,7 +98,7 @@ export default function RootLayout({
         {/* Preload critical resources */}
         <link
           rel="preload"
-          href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&display=swap"
           as="style"
         />
         <script
@@ -106,7 +106,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
       </head>
-      <body className={`${vt323.className} font-sans antialiased overflow-hidden`}>
+      <body className={`${oswald.className} font-sans antialiased overflow-hidden`}>
         <ErrorBoundaryWrapper>
           {children}
           <ToastProvider />

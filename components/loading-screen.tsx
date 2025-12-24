@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { PixelPear } from "@/components/pixel-pear"
 
 interface LoadingScreenProps {
   onComplete: () => void
@@ -49,32 +50,12 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
     <div
       className="fixed inset-0 z-[9999] flex flex-col items-center justify-center"
       style={{
-        background: "linear-gradient(135deg, #008080 0%, #004040 100%)",
+        background: "#000000",
       }}
     >
-      {/* Windows 95 Logo */}
+      {/* Pixel Pear Logo */}
       <div className="mb-8 animate-pulse">
-        <div className="flex items-center gap-3">
-          <div
-            className="w-16 h-16 flex items-center justify-center"
-            style={{
-              background: "linear-gradient(135deg, #c0c0c0 0%, #808080 100%)",
-              border: "3px solid",
-              borderColor: "#ffffff #000000 #000000 #ffffff",
-              boxShadow: "inset 2px 2px 0 rgba(0,0,0,0.3)",
-            }}
-          >
-            <span className="text-3xl">🪟</span>
-          </div>
-          <div>
-            <div className="text-2xl font-bold text-white" style={{ textShadow: "2px 2px 0 #000" }}>
-              Microsoft
-            </div>
-            <div className="text-xl font-bold text-white" style={{ textShadow: "2px 2px 0 #000" }}>
-              Windows 95
-            </div>
-          </div>
-        </div>
+        <PixelPear size={80} />
       </div>
 
       {/* Progress Bar Container */}
@@ -82,46 +63,44 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
         <div
           className="mb-2 p-2"
           style={{
-            background: "#c0c0c0",
-            border: "2px solid",
-            borderColor: "#000000 #ffffff #ffffff #000000",
+            background: "#1a1a1a",
+            border: "3px solid",
+            borderColor: "#f8cf2c #000000 #000000 #f8cf2c",
           }}
         >
-          <div className="text-xs font-bold text-black mb-1">{status}</div>
+          <div className="text-xs font-bold text-[#f8cf2c] mb-1">{status}</div>
           {/* Progress Bar */}
           <div
             className="h-4 relative overflow-hidden"
             style={{
-              background: "#ffffff",
-              border: "2px inset #808080",
+              background: "#000000",
+              border: "2px solid #f8cf2c",
             }}
           >
             <div
               className="h-full transition-all duration-300"
               style={{
-                background: "linear-gradient(90deg, #0080ff 0%, #0040ff 100%)",
+                background: "linear-gradient(90deg, #f8cf2c 0%, #ffe066 100%)",
                 width: `${Math.min(progress, 100)}%`,
-                boxShadow: "inset 0 0 10px rgba(255,255,255,0.3)",
+                boxShadow: "inset 0 0 10px rgba(0,0,0,0.3)",
               }}
             />
             {/* Animated stripes */}
             <div
-              className="absolute inset-0 opacity-30 animate-slide-stripe"
+              className="absolute inset-0 opacity-20 animate-slide-stripe"
+              style={{
+                background: "repeating-linear-gradient(45deg, transparent, transparent 4px, rgba(248,207,44,0.3) 4px, rgba(248,207,44,0.3) 8px)",
+              }}
             />
           </div>
         </div>
 
         {/* Percentage */}
         <div className="text-center">
-          <span className="text-sm font-bold text-white" style={{ textShadow: "1px 1px 0 #000" }}>
+          <span className="text-sm font-bold text-[#f8cf2c]" style={{ textShadow: "1px 1px 0 #000" }}>
             {Math.round(progress)}%
           </span>
         </div>
-      </div>
-
-      {/* Copyright */}
-      <div className="mt-8 text-xs text-white/70" style={{ textShadow: "1px 1px 0 #000" }}>
-        Copyright © 1995-2025 BARBOSS ONLINE
       </div>
     </div>
   )

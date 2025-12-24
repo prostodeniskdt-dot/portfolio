@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, memo, type ReactNode, type MouseEvent } from "react"
 import { soundManager } from "@/lib/sounds"
+import { getPixelIcon } from "@/components/icons/pixel-icons"
 
 interface OSWindowProps {
   title: string
@@ -29,11 +30,16 @@ export const OSWindow = memo(function OSWindow({
   icon = "📁",
 }: OSWindowProps) {
   const [position, setPosition] = useState(defaultPosition)
+  const [size, setSize] = useState(defaultSize)
   const [isDragging, setIsDragging] = useState(false)
+  const [isResizing, setIsResizing] = useState(false)
+  const [resizeDirection, setResizeDirection] = useState<string | null>(null)
   const [isMaximized, setIsMaximized] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const dragOffset = useRef({ x: 0, y: 0 })
+  const resizeStart = useRef({ x: 0, y: 0, width: 0, height: 0 })
   const previousPosition = useRef(defaultPosition)
+  const previousSize = useRef(defaultSize)
 
   // Minimum window size
   const MIN_WIDTH = 300
@@ -84,16 +90,88 @@ export const OSWindow = memo(function OSWindow({
 
   const handleMouseUp = () => {
     setIsDragging(false)
+    setIsResizing(false)
+    setResizeDirection(null)
   }
+
+  const handleResizeStart = (direction: string) => (e: MouseEvent) => {
+    if (isMaximized || isMobile) return
+    e.stopPropagation()
+    onFocus()
+    setIsResizing(true)
+    setResizeDirection(direction)
+    resizeStart.current = {
+      x: e.clientX,
+      y: e.clientY,
+      width: size.width,
+      height: size.height,
+    }
+  }
+
+  useEffect(() => {
+    if (!isResizing) return
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const deltaX = e.clientX - resizeStart.current.x
+      const deltaY = e.clientY - resizeStart.current.y
+
+      let newWidth = size.width
+      let newHeight = size.height
+      let newX = position.x
+      let newY = position.y
+
+      if (resizeDirection?.includes("e")) {
+        newWidth = Math.max(MIN_WIDTH, resizeStart.current.width + deltaX)
+      }
+      if (resizeDirection?.includes("w")) {
+        newWidth = Math.max(MIN_WIDTH, resizeStart.current.width - deltaX)
+        newX = position.x + (resizeStart.current.width - newWidth)
+      }
+      if (resizeDirection?.includes("s")) {
+        newHeight = Math.max(MIN_HEIGHT, resizeStart.current.height + deltaY)
+      }
+      if (resizeDirection?.includes("n")) {
+        newHeight = Math.max(MIN_HEIGHT, resizeStart.current.height - deltaY)
+        newY = position.y + (resizeStart.current.height - newHeight)
+      }
+
+      // Ограничения по размеру экрана
+      const maxWidth = typeof window !== "undefined" ? window.innerWidth - newX : newWidth
+      const maxHeight = typeof window !== "undefined" ? window.innerHeight - 80 - newY : newHeight
+
+      newWidth = Math.min(newWidth, maxWidth)
+      newHeight = Math.min(newHeight, maxHeight)
+
+      setSize({ width: newWidth, height: newHeight })
+      if (resizeDirection?.includes("w") || resizeDirection?.includes("n")) {
+        setPosition({ x: newX, y: newY })
+      }
+    }
+
+    const handleMouseUp = () => {
+      setIsResizing(false)
+      setResizeDirection(null)
+    }
+
+    window.addEventListener("mousemove", handleMouseMove)
+    window.addEventListener("mouseup", handleMouseUp)
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove)
+      window.removeEventListener("mouseup", handleMouseUp)
+    }
+  }, [isResizing, resizeDirection, size, position, isMaximized, isMobile, MIN_WIDTH, MIN_HEIGHT])
 
   const handleMaximize = (e: MouseEvent) => {
     e.stopPropagation()
     soundManager.playClick()
     if (isMaximized) {
       setPosition(previousPosition.current)
+      setSize(previousSize.current)
       setIsMaximized(false)
     } else {
       previousPosition.current = position
+      previousSize.current = size
       setPosition({ x: 0, y: 0 })
       setIsMaximized(true)
     }
@@ -121,12 +199,12 @@ export const OSWindow = memo(function OSWindow({
       style={{
         left: isMaximized || isMobile ? 0 : position.x,
         top: isMaximized || isMobile ? 0 : position.y,
-        width: isMaximized || isMobile ? "100%" : Math.max(MIN_WIDTH, defaultSize.width),
-        height: isMaximized || isMobile ? "calc(100vh - 80px)" : Math.max(MIN_HEIGHT, defaultSize.height),
+        width: isMaximized || isMobile ? "100%" : Math.max(MIN_WIDTH, size.width),
+        height: isMaximized || isMobile ? "calc(100vh - 80px)" : Math.max(MIN_HEIGHT, size.height),
         minWidth: MIN_WIDTH,
         minHeight: MIN_HEIGHT,
         zIndex,
-        transition: isMaximized || isMobile ? "all 0.25s ease-out" : undefined,
+        transition: isMaximized || isMobile ? "all 0.25s ease-out" : isResizing ? undefined : "none",
         maxWidth: isMobile ? "100vw" : undefined,
         maxHeight: isMobile ? "100vh" : undefined,
       }}
@@ -169,9 +247,16 @@ export const OSWindow = memo(function OSWindow({
           }}
         >
           <div className="flex items-center gap-2">
-            <span className={`text-sm ${isActive ? "animate-bounce-subtle" : ""}`} aria-hidden="true">
-              {icon}
-            </span>
+            {(() => {
+              const IconComponent = typeof icon === "string" && getPixelIcon(icon)
+              return IconComponent ? (
+                <IconComponent size={16} className={isActive ? "animate-bounce-subtle" : ""} />
+              ) : (
+                <span className={`text-sm ${isActive ? "animate-bounce-subtle" : ""}`} aria-hidden="true">
+                  {icon}
+                </span>
+              )
+            })()}
             <span
               id={`window-title-${title}`}
               className={`text-sm font-bold tracking-wide ${isActive ? "animate-flicker" : ""}`}
@@ -275,6 +360,54 @@ export const OSWindow = memo(function OSWindow({
             <span className="animate-blink">_</span>
           </div>
         </div>
+
+        {/* Resize handles */}
+        {!isMaximized && !isMobile && (
+          <>
+            {/* Углы */}
+            <div
+              className="absolute top-0 left-0 w-3 h-3 cursor-nwse-resize z-10"
+              onMouseDown={handleResizeStart("nw")}
+              style={{ background: "transparent" }}
+            />
+            <div
+              className="absolute top-0 right-0 w-3 h-3 cursor-nesw-resize z-10"
+              onMouseDown={handleResizeStart("ne")}
+              style={{ background: "transparent" }}
+            />
+            <div
+              className="absolute bottom-0 left-0 w-3 h-3 cursor-nesw-resize z-10"
+              onMouseDown={handleResizeStart("sw")}
+              style={{ background: "transparent" }}
+            />
+            <div
+              className="absolute bottom-0 right-0 w-3 h-3 cursor-nwse-resize z-10"
+              onMouseDown={handleResizeStart("se")}
+              style={{ background: "transparent" }}
+            />
+            {/* Края */}
+            <div
+              className="absolute top-0 left-3 right-3 h-1 cursor-ns-resize z-10"
+              onMouseDown={handleResizeStart("n")}
+              style={{ background: "transparent" }}
+            />
+            <div
+              className="absolute bottom-0 left-3 right-3 h-1 cursor-ns-resize z-10"
+              onMouseDown={handleResizeStart("s")}
+              style={{ background: "transparent" }}
+            />
+            <div
+              className="absolute left-0 top-3 bottom-3 w-1 cursor-ew-resize z-10"
+              onMouseDown={handleResizeStart("w")}
+              style={{ background: "transparent" }}
+            />
+            <div
+              className="absolute right-0 top-3 bottom-3 w-1 cursor-ew-resize z-10"
+              onMouseDown={handleResizeStart("e")}
+              style={{ background: "transparent" }}
+            />
+          </>
+        )}
       </div>
     </div>
   )

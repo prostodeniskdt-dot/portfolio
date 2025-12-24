@@ -5,6 +5,7 @@ import dynamic from "next/dynamic"
 import { OSWindow } from "./os-window"
 import { windowConfigs, desktopIcons } from "@/lib/data"
 import { soundManager } from "@/lib/sounds"
+import { getPixelIcon } from "@/components/icons/pixel-icons"
 
 interface DesktopProps {
   openWindows: string[]
@@ -148,12 +149,16 @@ export const Desktop = memo(function Desktop({
             className="flex flex-col items-center gap-1 p-2 cursor-pointer hover:bg-[#f8cf2c]/20 group w-20 select-none animate-slide-up hover-lift"
             style={{ animationDelay: `${index * 0.1}s` }}
           >
-            <span
-              className="text-4xl drop-shadow-lg group-hover:animate-float transition-transform"
-              aria-hidden="true"
-            >
-              {item.icon}
-            </span>
+            {(() => {
+              const IconComponent = getPixelIcon(item.icon)
+              return IconComponent ? (
+                <IconComponent size={48} className="drop-shadow-lg group-hover:animate-float transition-transform" />
+              ) : (
+                <span className="text-4xl drop-shadow-lg group-hover:animate-float transition-transform" aria-hidden="true">
+                  {item.icon}
+                </span>
+              )
+            })()}
             <span className="text-xs text-[#f8cf2c] text-center font-bold drop-shadow-[1px_1px_0_#000] group-hover:bg-[#f8cf2c] group-hover:text-black px-2 py-0.5 transition-colors duration-200">
               {item.label}
             </span>

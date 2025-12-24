@@ -29,25 +29,8 @@ export function TopBar({
   onOpenProduct,
   onExit,
 }: TopBarProps) {
-  const [time, setTime] = useState<string>("")
   const [openMenu, setOpenMenu] = useState<string | null>(null)
   const menuRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date()
-      setTime(
-        now.toLocaleTimeString("ru-RU", {
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: false,
-        }),
-      )
-    }
-    updateTime()
-    const interval = setInterval(updateTime, 1000)
-    return () => clearInterval(interval)
-  }, [])
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -97,75 +80,6 @@ export function TopBar({
         icon: "🔌",
       },
     ],
-    Продукты: [
-      {
-        label: "Открыть папку Продукты",
-        action: () => {
-          onOpenFolder?.("products")
-          setOpenMenu(null)
-          onMenuStateChange?.(false)
-        },
-        icon: "📁",
-      },
-    ],
-    "Индивидуальные курсы": [
-      {
-        label: "Все курсы",
-        action: () => {
-          onOpenWindow?.("individual-courses")
-          setOpenMenu(null)
-          onMenuStateChange?.(false)
-        },
-        icon: "📚",
-      },
-      {
-        label: "Популярные",
-        action: () => {
-          onOpenWindow?.("individual-courses")
-          setOpenMenu(null)
-          onMenuStateChange?.(false)
-        },
-        icon: "⭐",
-      },
-      {
-        label: "Новые",
-        action: () => {
-          onOpenWindow?.("individual-courses")
-          setOpenMenu(null)
-          onMenuStateChange?.(false)
-        },
-        icon: "🆕",
-      },
-    ],
-    Помощь: [
-      {
-        label: "Настройки",
-        action: () => {
-          onOpenWindow?.("settings")
-          setOpenMenu(null)
-          onMenuStateChange?.(false)
-        },
-        icon: "⚙️",
-      },
-      {
-        label: "Справка",
-        action: () => {
-          window.open("https://barboss.online", "_blank")
-          setOpenMenu(null)
-          onMenuStateChange?.(false)
-        },
-        icon: "❓",
-      },
-      {
-        label: "О программе",
-        action: () => {
-          alert("BARBOSS ONLINE v2.0\nОнлайн-школа креативных профессий\n\nВерсия: 2.0\nДата: 2025")
-          setOpenMenu(null)
-          onMenuStateChange?.(false)
-        },
-        icon: "ℹ️",
-      },
-    ],
   }
 
   const handleMenuClick = (menuName: string) => {
@@ -196,9 +110,8 @@ export function TopBar({
       <div className="flex items-center gap-2 relative z-10">
         <div className="relative">
           <div className="absolute -inset-2 bg-[#f8cf2c] opacity-20 blur-md animate-pulse-glow" />
-          <span className="relative text-[#f8cf2c] font-bold text-xl tracking-wider animate-glow-text">BARBOSS</span>
+          <span className="relative text-[#f5f0e1] text-sm animate-flicker">ONLINE</span>
         </div>
-        <span className="text-[#f5f0e1] text-sm animate-flicker">ONLINE</span>
         <span className="text-[#f8cf2c] animate-blink">_</span>
       </div>
 
@@ -262,9 +175,8 @@ export function TopBar({
       {/* System info with animations */}
       <div className="flex items-center gap-3 text-sm relative z-10">
         <span className="px-2 py-0.5 bg-[#f8cf2c] text-black text-xs font-bold animate-pulse-glow hover:scale-105 transition-transform">
-          BARBOSS OS v2.0
+          OS v2.0
         </span>
-        <span className="text-[#f8cf2c] font-bold animate-flicker">{time}</span>
       </div>
     </header>
   )

@@ -78,7 +78,7 @@ export function ContactWindow() {
           border: "2px solid #000000",
         }}
       >
-        <span className="text-xs font-bold">📬 Свяжитесь с BARBOSS ONLINE</span>
+        <span className="text-xs font-bold">📬 Свяжитесь с нами</span>
       </div>
 
       {/* Message display */}

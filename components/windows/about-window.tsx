@@ -17,7 +17,7 @@ export function AboutWindow() {
 
         <div className="flex-1">
           <h2 className="text-xl font-bold text-black animate-glow-text" style={{ color: "#000" }}>
-            BARBOSS ONLINE
+            БАР БОСС ONLINE
           </h2>
           <p className="text-xs text-[#666666]">Онлайн-школа креативных профессий</p>
           <div className="flex gap-2 mt-2">
@@ -46,7 +46,7 @@ export function AboutWindow() {
         }}
       >
         <p className="text-xs leading-relaxed text-black font-bold">
-          ⚡ BARBOSS ONLINE — это современная онлайн-школа, где вы освоите востребованные навыки дизайна,
+          ⚡ Онлайн-школа креативных профессий, где вы освоите востребованные навыки дизайна,
           программирования и digital-маркетинга. Учитесь у практиков!
         </p>
       </div>

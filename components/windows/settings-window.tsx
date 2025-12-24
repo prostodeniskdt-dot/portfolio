@@ -43,7 +43,7 @@ export function SettingsWindow() {
           border: "2px solid #000000",
         }}
       >
-        ⚙️ НАСТРОЙКИ BARBOSS OS
+        ⚙️ НАСТРОЙКИ OS
       </div>
 
       {/* Sounds section */}
@@ -157,9 +157,9 @@ export function SettingsWindow() {
         }}
       >
         <div className="space-y-1">
-          <div>BARBOSS OS v2.0</div>
+          <div>OS v2.0</div>
           <div>Версия: 2.0.0</div>
-          <div>© 2025 BARBOSS ONLINE</div>
+          <div>© 2025</div>
         </div>
       </div>
     </div>

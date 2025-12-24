@@ -136,76 +136,13 @@ export const contacts: Contact[] = [
   { icon: "🌐", label: "Сайт", value: "barboss.online" },
 ]
 
-export const windowConfigs: Record<string, WindowConfig> = {
-  about: {
-    title: "О школе BARBOSS",
-    defaultPosition: { x: 40, y: 40 },
-    defaultSize: { width: 380, height: 400 },
-    component: AboutWindow,
-    icon: "🎓",
-  },
-  "individual-courses": {
-    title: "Индивидуальные курсы",
-    defaultPosition: { x: 460, y: 60 },
-    defaultSize: { width: 500, height: 380 },
-    component: IndividualCoursesWindow,
-    icon: "📚",
-  },
-  prices: {
-    title: "Тарифы и цены",
-    defaultPosition: { x: 80, y: 420 },
-    defaultSize: { width: 360, height: 320 },
-    component: PricesWindow,
-    icon: "💰",
-  },
-  contact: {
-    title: "Связаться с нами",
-    defaultPosition: { x: 520, y: 380 },
-    defaultSize: { width: 360, height: 320 },
-    component: ContactWindow,
-    icon: "📞",
-  },
-  settings: {
-    title: "Настройки",
-    defaultPosition: { x: 300, y: 200 },
-    defaultSize: { width: 400, height: 500 },
-    component: SettingsWindow,
-    icon: "⚙️",
-  },
-  "products-folder": {
-    title: "Продукты BARBOSS",
-    defaultPosition: { x: 100, y: 100 },
-    defaultSize: { width: 600, height: 450 },
-    icon: "🗂️",
-  },
-  // Динамически добавленные конфигурации для всех продуктов
-  ...products.reduce((acc, product) => {
-    acc[`product-${product.id}`] = {
-      title: product.title,
-      defaultPosition: { x: 200 + Math.random() * 100, y: 150 + Math.random() * 100 },
-      defaultSize: { width: 450, height: 550 },
-      icon: product.icon,
-    }
-    return acc
-  }, {} as Record<string, WindowConfig>),
-}
-
-export const taskbarItems: TaskbarItem[] = [
-  { id: "about", label: "О школе", icon: "🎓" },
-  { id: "products-folder", label: "Продукты", icon: "📁" },
-  { id: "individual-courses", label: "Индивидуальные курсы", icon: "📚" },
-  { id: "prices", label: "Тарифы", icon: "💰" },
-  { id: "contact", label: "Контакты", icon: "📞" },
-  { id: "settings", label: "Настройки", icon: "⚙️" },
-]
-
 export const products: Product[] = [
   {
     id: "academy",
     title: "Академия",
     description: "Онлайн-обучение с менторством и сертификатами",
     fullDescription:
-      "BARBOSS Академия — это комплексная образовательная платформа для освоения креативных профессий. Получите доступ к видеоурокам, практическим заданиям, менторской поддержке и сертификату по окончании курса.",
+      "Академия — это комплексная образовательная платформа для освоения креативных профессий. Получите доступ к видеоурокам, практическим заданиям, менторской поддержке и сертификату по окончании курса.",
     icon: "🎓",
     category: "Образование",
     price: "от 9 900 ₽/мес",
@@ -513,13 +450,76 @@ export const folders: Record<string, Folder> = {
   },
 }
 
+export const windowConfigs: Record<string, WindowConfig> = {
+  about: {
+    title: "О школе",
+    defaultPosition: { x: 40, y: 40 },
+    defaultSize: { width: 380, height: 400 },
+    component: AboutWindow,
+    icon: "about",
+  },
+  "individual-courses": {
+    title: "Индивидуальные курсы",
+    defaultPosition: { x: 460, y: 60 },
+    defaultSize: { width: 500, height: 380 },
+    component: IndividualCoursesWindow,
+    icon: "individual-courses",
+  },
+  prices: {
+    title: "Тарифы и цены",
+    defaultPosition: { x: 80, y: 420 },
+    defaultSize: { width: 360, height: 320 },
+    component: PricesWindow,
+    icon: "prices",
+  },
+  contact: {
+    title: "Связаться с нами",
+    defaultPosition: { x: 520, y: 380 },
+    defaultSize: { width: 360, height: 320 },
+    component: ContactWindow,
+    icon: "contact",
+  },
+  settings: {
+    title: "Настройки",
+    defaultPosition: { x: 300, y: 200 },
+    defaultSize: { width: 400, height: 500 },
+    component: SettingsWindow,
+    icon: "settings",
+  },
+  "products-folder": {
+    title: "Продукты",
+    defaultPosition: { x: 100, y: 100 },
+    defaultSize: { width: 600, height: 450 },
+    icon: "products-folder",
+  },
+  // Динамически добавленные конфигурации для всех продуктов
+  ...products.reduce((acc, product) => {
+    acc[`product-${product.id}`] = {
+      title: product.title,
+      defaultPosition: { x: 200 + Math.random() * 100, y: 150 + Math.random() * 100 },
+      defaultSize: { width: 450, height: 550 },
+      icon: product.icon,
+    }
+    return acc
+  }, {} as Record<string, WindowConfig>),
+}
+
+export const taskbarItems: TaskbarItem[] = [
+  { id: "about", label: "О школе", icon: "about" },
+  { id: "products-folder", label: "Продукты", icon: "products-folder" },
+  { id: "individual-courses", label: "Индивидуальные курсы", icon: "individual-courses" },
+  { id: "prices", label: "Тарифы", icon: "prices" },
+  { id: "contact", label: "Контакты", icon: "contact" },
+  { id: "settings", label: "Настройки", icon: "settings" },
+]
+
 export const desktopIcons: DesktopIcon[] = [
-  { id: "products-folder", icon: "🗂️", label: "Продукты", type: "folder" },
-  { id: "about", icon: "🎓", label: "О школе", type: "window" },
-  { id: "individual-courses", icon: "📚", label: "Индивидуальные курсы", type: "window" },
-  { id: "prices", icon: "💰", label: "Тарифы", type: "window" },
-  { id: "contact", icon: "📞", label: "Контакты", type: "window" },
-  { id: "settings", icon: "⚙️", label: "Настройки", type: "window" },
+  { id: "products-folder", icon: "products-folder", label: "Продукты", type: "folder" },
+  { id: "about", icon: "about", label: "О школе", type: "window" },
+  { id: "individual-courses", icon: "individual-courses", label: "Индивидуальные курсы", type: "window" },
+  { id: "prices", icon: "prices", label: "Тарифы", type: "window" },
+  { id: "contact", icon: "contact", label: "Контакты", type: "window" },
+  { id: "settings", icon: "settings", label: "Настройки", type: "window" },
 ]
 
 
