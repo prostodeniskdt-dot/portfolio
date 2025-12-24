@@ -111,7 +111,7 @@ export const OSWindow = memo(function OSWindow({
   useEffect(() => {
     if (!isResizing) return
 
-    const handleMouseMove = (e: MouseEvent) => {
+    const handleMouseMove = (e: globalThis.MouseEvent) => {
       const deltaX = e.clientX - resizeStart.current.x
       const deltaY = e.clientY - resizeStart.current.y
 
