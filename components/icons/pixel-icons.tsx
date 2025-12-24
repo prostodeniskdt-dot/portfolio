@@ -9,7 +9,6 @@ interface PixelIconProps {
 
 // Базовый стиль для всех иконок
 const iconStyle: React.CSSProperties = {
-  imageRendering: "pixelated",
   imageRendering: "crisp-edges",
 }
 
@@ -177,4 +176,3 @@ export const pixelIcons: Record<string, React.ComponentType<PixelIconProps>> = {
 export function getPixelIcon(iconId: string): React.ComponentType<PixelIconProps> | null {
   return pixelIcons[iconId] || null
 }
-

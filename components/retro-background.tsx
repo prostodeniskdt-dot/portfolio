@@ -2,7 +2,7 @@
 
 export function RetroBackground() {
   return (
-    <div className="absolute inset-0 overflow-hidden" style={{ imageRendering: "pixelated", imageRendering: "crisp-edges" }}>
+    <div className="absolute inset-0 overflow-hidden" style={{ imageRendering: "crisp-edges" }}>
       {/* Базовый фон - темный для архитектурного чертежа */}
       <div
         className="absolute inset-0"
@@ -48,7 +48,7 @@ export function RetroBackground() {
       />
 
       {/* Элементы архитектурного чертежа - углы и размеры */}
-      <svg className="absolute inset-0 w-full h-full opacity-30" style={{ imageRendering: "pixelated" }}>
+      <svg className="absolute inset-0 w-full h-full opacity-30" style={{ imageRendering: "crisp-edges" }}>
         {/* Углы чертежа */}
         <line x1="100" y1="100" x2="120" y2="100" stroke="#f8cf2c" strokeWidth="2" />
         <line x1="100" y1="100" x2="100" y2="120" stroke="#f8cf2c" strokeWidth="2" />

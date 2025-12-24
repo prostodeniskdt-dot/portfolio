@@ -13,7 +13,6 @@ export function PixelPear({ size = 64, className = "" }: PixelPearProps) {
       viewBox="0 0 64 64"
       className={className}
       style={{
-        imageRendering: "pixelated",
         imageRendering: "crisp-edges",
       }}
       fill="none"
