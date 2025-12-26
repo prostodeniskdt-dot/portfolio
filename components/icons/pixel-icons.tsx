@@ -64,13 +64,13 @@ export function PixelCoursesIcon({ size = 32, className = "" }: PixelIconProps) 
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      {/* Пиксельная иконка книги */}
-      <rect x="8" y="6" width="16" height="20" fill="#000000" stroke="#b8860b" strokeWidth="2" />
-      <line x1="16" y1="6" x2="16" y2="26" stroke="#b8860b" strokeWidth="2" />
-      <rect x="10" y="10" width="4" height="2" fill="#b8860b" />
-      <rect x="18" y="10" width="4" height="2" fill="#b8860b" />
-      <rect x="10" y="14" width="6" height="2" fill="#b8860b" />
-      <rect x="18" y="14" width="4" height="2" fill="#b8860b" />
+      {/* Пиксельная иконка книги - исправлена для предотвращения выхода за рамки */}
+      <rect x="9" y="7" width="14" height="18" fill="#000000" stroke="#b8860b" strokeWidth="2" />
+      <line x1="16" y1="7" x2="16" y2="25" stroke="#b8860b" strokeWidth="2" />
+      <rect x="11" y="11" width="4" height="2" fill="#b8860b" />
+      <rect x="18" y="11" width="3" height="2" fill="#b8860b" />
+      <rect x="11" y="15" width="5" height="2" fill="#b8860b" />
+      <rect x="18" y="15" width="3" height="2" fill="#b8860b" />
     </svg>
   )
 }
