@@ -79,6 +79,7 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
         background: "#000000",
         borderTop: "3px solid #b8860b",
         animationDelay: "0.2s",
+        zIndex: 30,
       }}
     >
       {/* Start button with glow */}
