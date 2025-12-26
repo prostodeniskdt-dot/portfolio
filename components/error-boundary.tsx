@@ -44,7 +44,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
           className="flex flex-col items-center justify-center min-h-screen p-4"
           style={{
             background: "#1a1a1a",
-            color: "#f8cf2c",
+            color: "#b8860b",
           }}
         >
           <div
@@ -52,7 +52,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
             style={{
               background: "#f5f0e1",
               border: "3px solid",
-              borderColor: "#f8cf2c #000000 #000000 #f8cf2c",
+              borderColor: "#b8860b #000000 #000000 #b8860b",
             }}
           >
             <h2
@@ -75,10 +75,10 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
               onClick={this.handleReset}
               className="px-4 py-2 text-xs font-bold transition-colors hover:opacity-90"
               style={{
-                background: "#f8cf2c",
+                background: "#b8860b",
                 color: "#000000",
                 border: "3px solid",
-                borderColor: "#ffe066 #000000 #000000 #ffe066",
+                borderColor: "#d4a017 #000000 #000000 #d4a017",
               }}
             >
               Попробовать снова

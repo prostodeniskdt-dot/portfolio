@@ -8,7 +8,7 @@ export function AboutWindow() {
         <div
           className="w-20 h-20 shrink-0 flex items-center justify-center animate-pulse-glow"
           style={{
-            background: "#f8cf2c",
+            background: "#b8860b",
             border: "3px solid #000000",
           }}
         >
@@ -21,10 +21,10 @@ export function AboutWindow() {
           </h2>
           <p className="text-xs text-[#666666]">Онлайн-школа креативных профессий</p>
           <div className="flex gap-2 mt-2">
-            <span className="px-2 py-0.5 text-xs bg-[#f8cf2c] text-black font-bold hover:scale-105 transition-transform">
+            <span className="px-2 py-0.5 text-xs bg-[#b8860b] text-black font-bold hover:scale-105 transition-transform">
               с 2020
             </span>
-            <span className="px-2 py-0.5 text-xs bg-black text-[#f8cf2c] font-bold hover:scale-105 transition-transform">
+            <span className="px-2 py-0.5 text-xs bg-black text-[#b8860b] font-bold hover:scale-105 transition-transform">
               5000+ студентов
             </span>
           </div>
@@ -32,7 +32,7 @@ export function AboutWindow() {
       </div>
 
       {/* Divider with shimmer */}
-      <div className="h-1 bg-[#f8cf2c] relative overflow-hidden">
+      <div className="h-1 bg-[#b8860b] relative overflow-hidden">
         <div className="absolute inset-0 animate-shimmer" />
       </div>
 
@@ -40,7 +40,7 @@ export function AboutWindow() {
       <div
         className="p-3 animate-slide-up hover-lift"
         style={{
-          background: "#f8cf2c",
+          background: "#b8860b",
           border: "2px solid #000000",
           animationDelay: "0.1s",
         }}
@@ -79,7 +79,7 @@ export function AboutWindow() {
         className="p-2 text-xs space-y-1 animate-slide-up"
         style={{
           background: "#000000",
-          color: "#f8cf2c",
+          color: "#b8860b",
           animationDelay: "0.3s",
         }}
       >

@@ -103,7 +103,7 @@ export function TopBar({
   }, [openMenu, onMenuStateChange])
 
   return (
-    <header className="h-10 bg-[#000000] flex items-center px-3 border-b-3 border-[#f8cf2c] animate-slide-up relative overflow-hidden">
+    <header className="h-10 bg-[#000000] flex items-center px-3 border-b-3 border-[#b8860b] animate-slide-up relative overflow-hidden">
       <div className="absolute inset-0 animate-shimmer opacity-20" />
 
       {/* Logo with glow animation */}
@@ -114,21 +114,21 @@ export function TopBar({
             fontFamily: "Oswald, sans-serif",
             color: "#000000",
             textShadow: `
-              0 0 10px rgba(248, 207, 44, 0.8),
-              0 0 20px rgba(248, 207, 44, 0.6),
-              0 0 30px rgba(248, 207, 44, 0.4),
-              2px 2px 0px rgba(248, 207, 44, 0.9),
-              -2px -2px 0px rgba(248, 207, 44, 0.9),
-              2px -2px 0px rgba(248, 207, 44, 0.9),
-              -2px 2px 0px rgba(248, 207, 44, 0.9)
+              0 0 10px rgba(184, 134, 11, 0.8),
+              0 0 20px rgba(184, 134, 11, 0.6),
+              0 0 30px rgba(184, 134, 11, 0.4),
+              2px 2px 0px rgba(184, 134, 11, 0.9),
+              -2px -2px 0px rgba(184, 134, 11, 0.9),
+              2px -2px 0px rgba(184, 134, 11, 0.9),
+              -2px 2px 0px rgba(184, 134, 11, 0.9)
             `,
-            WebkitTextStroke: "1px rgba(248, 207, 44, 0.5)",
+            WebkitTextStroke: "1px rgba(184, 134, 11, 0.5)",
             animation: "glow-text 2s ease-in-out infinite",
             letterSpacing: "0.05em",
           }}
         >
           <span style={{ color: "#000000" }}>BAR</span>{" "}
-          <span style={{ color: "#f8cf2c" }}>BOSS</span>{" "}
+          <span style={{ color: "#b8860b" }}>BOSS</span>{" "}
           <span style={{ color: "#000000" }}>ONLINE</span>
         </h1>
       </div>
@@ -139,10 +139,10 @@ export function TopBar({
           <div key={menuName} className="relative">
             <button
               onClick={() => handleMenuClick(menuName)}
-              className="px-3 py-1 text-sm text-[#f5f0e1] hover:bg-[#f8cf2c] hover:text-black transition-all duration-200 hover:scale-105 animate-slide-up"
+              className="px-3 py-1 text-sm text-[#f5f0e1] hover:bg-[#b8860b] hover:text-black transition-all duration-200 hover:scale-105 animate-slide-up"
               style={{
                 animationDelay: `${0.1 + index * 0.05}s`,
-                background: openMenu === menuName ? "#f8cf2c" : "transparent",
+                background: openMenu === menuName ? "#b8860b" : "transparent",
                 color: openMenu === menuName ? "#000000" : "#f5f0e1",
               }}
             >
@@ -154,8 +154,8 @@ export function TopBar({
                 style={{
                   background: "#f5f0e1",
                   border: "3px solid",
-                  borderColor: "#f8cf2c #000000 #000000 #f8cf2c",
-                  boxShadow: "8px 8px 0 rgba(248,207,44,0.3), 0 0 30px rgba(248,207,44,0.2)",
+                  borderColor: "#b8860b #000000 #000000 #b8860b",
+                  boxShadow: "8px 8px 0 rgba(184,134,11,0.3), 0 0 30px rgba(184,134,11,0.2)",
                   minWidth: "180px",
                 }}
                 role="menu"
@@ -174,7 +174,7 @@ export function TopBar({
                         menuItem.action()
                         setOpenMenu(null)
                       }}
-                      className="w-full flex items-center gap-2 px-3 py-2 hover:bg-[#f8cf2c] hover:text-black text-black text-left transition-all duration-150 text-sm"
+                      className="w-full flex items-center gap-2 px-3 py-2 hover:bg-[#b8860b] hover:text-black text-black text-left transition-all duration-150 text-sm"
                     >
                       {menuItem.icon && <span aria-hidden="true">{menuItem.icon}</span>}
                       <span>{menuItem.label}</span>
@@ -192,7 +192,7 @@ export function TopBar({
 
       {/* System info with animations */}
       <div className="flex items-center gap-3 text-sm relative z-10">
-        <span className="px-2 py-0.5 bg-[#f8cf2c] text-black text-xs font-bold animate-pulse-glow hover:scale-105 transition-transform">
+        <span className="px-2 py-0.5 bg-[#b8860b] text-black text-xs font-bold animate-pulse-glow hover:scale-105 transition-transform">
           OS v2.0
         </span>
       </div>

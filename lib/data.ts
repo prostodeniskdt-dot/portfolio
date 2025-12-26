@@ -118,7 +118,7 @@ export const prices: PricePlan[] = [
     name: "Оптимальный",
     price: "14 900 ₽/мес",
     features: ["Всё из Базового", "Проверка ДЗ", "Групповые созвоны"],
-    color: "#f8cf2c",
+    color: "#b8860b",
   },
   {
     id: "premium",

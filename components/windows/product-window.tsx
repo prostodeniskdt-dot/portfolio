@@ -33,7 +33,7 @@ export function ProductWindow({ productId }: ProductWindowProps) {
       <div
         className="flex items-center gap-4 p-3"
         style={{
-          background: "#f8cf2c",
+          background: "#b8860b",
           border: "2px solid #000000",
         }}
       >
@@ -61,7 +61,7 @@ export function ProductWindow({ productId }: ProductWindowProps) {
           {product.price && (
             <div>
               <h3 className="font-bold text-sm mb-1">Цена</h3>
-              <p className="text-xs font-bold text-[#f8cf2c] bg-black px-2 py-1 inline-block">
+              <p className="text-xs font-bold text-[#b8860b] bg-black px-2 py-1 inline-block">
                 {product.price}
               </p>
             </div>
@@ -86,7 +86,7 @@ export function ProductWindow({ productId }: ProductWindowProps) {
             <ul className="space-y-1">
               {product.features.map((feature, index) => (
                 <li key={index} className="text-xs flex items-center gap-2">
-                  <span className="text-[#f8cf2c] font-bold">✓</span>
+                  <span className="text-[#b8860b] font-bold">✓</span>
                   <span>{feature}</span>
                 </li>
               ))}
@@ -102,8 +102,8 @@ export function ProductWindow({ productId }: ProductWindowProps) {
           className="w-full py-2 text-sm font-bold transition-all duration-200 hover:scale-105"
           style={{
             background: "#000000",
-            color: "#f8cf2c",
-            border: "2px solid #f8cf2c",
+            color: "#b8860b",
+            border: "2px solid #b8860b",
           }}
         >
           Заказать / Связаться

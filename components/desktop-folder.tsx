@@ -29,7 +29,7 @@ export const DesktopFolder = memo(function DesktopFolder({
         onClick()
       }}
       aria-label={`Открыть ${label}`}
-      className="flex flex-col items-center gap-1 p-2 cursor-pointer hover:bg-[#f8cf2c]/20 group w-20 select-none animate-slide-up hover-lift"
+      className="flex flex-col items-center gap-1 p-2 cursor-pointer hover:bg-[#b8860b]/20 group w-20 select-none animate-slide-up hover-lift"
     >
       <span
         className={`text-4xl drop-shadow-lg group-hover:animate-float transition-transform ${
@@ -39,7 +39,7 @@ export const DesktopFolder = memo(function DesktopFolder({
       >
         {icon}
       </span>
-      <span className="text-xs text-[#f8cf2c] text-center font-bold drop-shadow-[1px_1px_0_#000] group-hover:bg-[#f8cf2c] group-hover:text-black px-2 py-0.5 transition-colors duration-200">
+      <span className="text-xs text-[#b8860b] text-center font-bold drop-shadow-[1px_1px_0_#000] group-hover:bg-[#b8860b] group-hover:text-black px-2 py-0.5 transition-colors duration-200">
         {label}
       </span>
     </button>

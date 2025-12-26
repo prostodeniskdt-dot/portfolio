@@ -11,23 +11,23 @@
   --card-foreground: #000000;
   --popover: #f5f0e1;
   --popover-foreground: #000000;
-  --primary: #f8cf2c;
+  --primary: #b8860b;
   --primary-foreground: #000000;
   --secondary: #2a2a2a;
-  --secondary-foreground: #f8cf2c;
+  --secondary-foreground: #b8860b;
   --muted: #e8e3d4;
   --muted-foreground: #666666;
-  --accent: #f8cf2c;
+  --accent: #b8860b;
   --accent-foreground: #000000;
   --destructive: #c00000;
   --destructive-foreground: #ffffff;
   --border: #000000;
   --input: #ffffff;
-  --ring: #f8cf2c;
+  --ring: #b8860b;
   --radius: 0px;
 
   /* BARBOSS system colors */
-  --barboss-yellow: #f8cf2c;
+  --barboss-yellow: #b8860b;
   --barboss-black: #000000;
   --barboss-cream: #f5f0e1;
   --barboss-dark: #1a1a1a;
@@ -135,7 +135,7 @@
   
   /* Подсветка текста при наведении */
   *:hover {
-    text-shadow: 0 0 8px rgba(248, 207, 44, 0.6);
+    text-shadow: 0 0 8px rgba(184, 134, 11, 0.6);
     transition: text-shadow 0.2s ease;
   }
   
@@ -151,21 +151,21 @@
 /* BARBOSS styled 3D border effects */
 .win-border-outset {
   border: 3px solid;
-  border-color: #f8cf2c #000000 #000000 #f8cf2c;
-  box-shadow: inset -1px -1px 0 #3a3a3a, inset 1px 1px 0 #ffe066;
+  border-color: #b8860b #000000 #000000 #b8860b;
+  box-shadow: inset -1px -1px 0 #3a3a3a, inset 1px 1px 0 #d4a017;
 }
 
 .win-border-inset {
   border: 3px solid;
-  border-color: #000000 #f8cf2c #f8cf2c #000000;
-  box-shadow: inset 1px 1px 0 #3a3a3a, inset -1px -1px 0 #ffe066;
+  border-color: #000000 #b8860b #b8860b #000000;
+  box-shadow: inset 1px 1px 0 #3a3a3a, inset -1px -1px 0 #d4a017;
 }
 
 .win-button {
-  background: #f8cf2c;
+  background: #b8860b;
   border: 3px solid;
-  border-color: #ffe066 #000000 #000000 #ffe066;
-  box-shadow: inset -1px -1px 0 #b39a1f, inset 1px 1px 0 #fff59d;
+  border-color: #d4a017 #000000 #000000 #d4a017;
+  box-shadow: inset -1px -1px 0 #8b6914, inset 1px 1px 0 #e6c547;
   padding: 4px 12px;
   font-size: 16px;
   cursor: pointer;
@@ -174,12 +174,12 @@
 }
 
 .win-button:active {
-  border-color: #000000 #ffe066 #ffe066 #000000;
-  box-shadow: inset 1px 1px 0 #b39a1f, inset -1px -1px 0 #fff59d;
+  border-color: #000000 #d4a017 #d4a017 #000000;
+  box-shadow: inset 1px 1px 0 #8b6914, inset -1px -1px 0 #e6c547;
 }
 
 .win-button:hover {
-  background: #ffe066;
+  background: #d4a017;
 }
 
 /* Scanline effect */
@@ -217,10 +217,10 @@
 @keyframes pulse-glow {
   0%,
   100% {
-    box-shadow: 0 0 10px rgba(248, 207, 44, 0.5), 0 0 20px rgba(248, 207, 44, 0.3);
+    box-shadow: 0 0 10px rgba(184, 134, 11, 0.5), 0 0 20px rgba(184, 134, 11, 0.3);
   }
   50% {
-    box-shadow: 0 0 20px rgba(248, 207, 44, 0.8), 0 0 40px rgba(248, 207, 44, 0.5), 0 0 60px rgba(248, 207, 44, 0.3);
+    box-shadow: 0 0 20px rgba(184, 134, 11, 0.8), 0 0 40px rgba(184, 134, 11, 0.5), 0 0 60px rgba(184, 134, 11, 0.3);
   }
 }
 
@@ -312,10 +312,10 @@
 @keyframes glow-text {
   0%,
   100% {
-    text-shadow: 0 0 10px rgba(248, 207, 44, 0.8), 0 0 20px rgba(248, 207, 44, 0.6);
+    text-shadow: 0 0 10px rgba(184, 134, 11, 0.8), 0 0 20px rgba(184, 134, 11, 0.6);
   }
   50% {
-    text-shadow: 0 0 20px rgba(248, 207, 44, 1), 0 0 40px rgba(248, 207, 44, 0.8), 0 0 60px rgba(248, 207, 44, 0.4);
+    text-shadow: 0 0 20px rgba(184, 134, 11, 1), 0 0 40px rgba(184, 134, 11, 0.8), 0 0 60px rgba(184, 134, 11, 0.4);
   }
 }
 
@@ -396,7 +396,7 @@
 }
 
 .animate-shimmer {
-  background: linear-gradient(90deg, transparent, rgba(248, 207, 44, 0.4), transparent);
+  background: linear-gradient(90deg, transparent, rgba(184, 134, 11, 0.4), transparent);
   background-size: 200% 100%;
   animation: shimmer 2s infinite;
 }
@@ -432,7 +432,7 @@
 
 .hover-lift:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(248, 207, 44, 0.4);
+  box-shadow: 0 8px 25px rgba(184, 134, 11, 0.4);
 }
 
 /* Улучшения визуальной части */
@@ -464,7 +464,7 @@
 
 /* Улучшенные hover эффекты */
 .hover-glow:hover {
-  box-shadow: 0 0 20px rgba(248, 207, 44, 0.6);
+  box-shadow: 0 0 20px rgba(184, 134, 11, 0.6);
   transition: box-shadow 0.3s ease;
 }
 

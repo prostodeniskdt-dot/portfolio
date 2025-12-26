@@ -18,6 +18,7 @@ export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
 
   const menuItems: SidebarItem[] = [
+    // Убеждаемся, что нет дубликатов - каждый id уникален
     {
       id: "settings",
       label: "Настройки",
@@ -85,8 +86,8 @@ export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
               style={{
                 transform: isHovered ? "scale(1.1)" : "scale(1)",
                 filter: isHovered
-                  ? "drop-shadow(0 0 8px rgba(248, 207, 44, 0.8)) drop-shadow(0 0 12px rgba(248, 207, 44, 0.6))"
-                  : "drop-shadow(0 0 4px rgba(248, 207, 44, 0.4))",
+                  ? "drop-shadow(0 0 8px rgba(184, 134, 11, 0.8)) drop-shadow(0 0 12px rgba(184, 134, 11, 0.6))"
+                  : "drop-shadow(0 0 4px rgba(184, 134, 11, 0.4))",
               }}
             >
               {IconComponent ? (
@@ -98,7 +99,7 @@ export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
                 <div
                   className="w-8 h-8 flex items-center justify-center text-2xl transition-all duration-200"
                   style={{
-                    color: "#f8cf2c",
+                    color: "#b8860b",
                   }}
                 >
                   {item.icon}
@@ -113,14 +114,14 @@ export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
                 color: "#000000",
                 textShadow: isHovered
                   ? `
-                    0 0 6px rgba(248, 207, 44, 0.8),
-                    0 0 10px rgba(248, 207, 44, 0.6),
-                    1px 1px 0px rgba(248, 207, 44, 0.9),
-                    -1px -1px 0px rgba(248, 207, 44, 0.9)
+                    0 0 6px rgba(184, 134, 11, 0.8),
+                    0 0 10px rgba(184, 134, 11, 0.6),
+                    1px 1px 0px rgba(184, 134, 11, 0.9),
+                    -1px -1px 0px rgba(184, 134, 11, 0.9)
                   `
                   : `
-                    1px 1px 0px rgba(248, 207, 44, 0.5),
-                    -1px -1px 0px rgba(248, 207, 44, 0.5)
+                    1px 1px 0px rgba(184, 134, 11, 0.5),
+                    -1px -1px 0px rgba(184, 134, 11, 0.5)
                   `,
                 transform: isHovered ? "scale(1.05)" : "scale(1)",
                 maxWidth: "80px",

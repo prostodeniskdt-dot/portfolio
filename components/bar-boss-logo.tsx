@@ -9,21 +9,21 @@ export function BarBossLogo() {
           fontFamily: "Oswald, sans-serif",
           color: "#000000",
           textShadow: `
-            0 0 10px rgba(248, 207, 44, 0.8),
-            0 0 20px rgba(248, 207, 44, 0.6),
-            0 0 30px rgba(248, 207, 44, 0.4),
-            2px 2px 0px rgba(248, 207, 44, 0.9),
-            -2px -2px 0px rgba(248, 207, 44, 0.9),
-            2px -2px 0px rgba(248, 207, 44, 0.9),
-            -2px 2px 0px rgba(248, 207, 44, 0.9)
+            0 0 10px rgba(184, 134, 11, 0.8),
+            0 0 20px rgba(184, 134, 11, 0.6),
+            0 0 30px rgba(184, 134, 11, 0.4),
+            2px 2px 0px rgba(184, 134, 11, 0.9),
+            -2px -2px 0px rgba(184, 134, 11, 0.9),
+            2px -2px 0px rgba(184, 134, 11, 0.9),
+            -2px 2px 0px rgba(184, 134, 11, 0.9)
           `,
-          WebkitTextStroke: "1px rgba(248, 207, 44, 0.5)",
+          WebkitTextStroke: "1px rgba(184, 134, 11, 0.5)",
           animation: "glow-text 2s ease-in-out infinite",
           letterSpacing: "0.05em",
         }}
       >
         <span style={{ color: "#000000" }}>BAR</span>{" "}
-        <span style={{ color: "#f8cf2c" }}>BOSS</span>{" "}
+        <span style={{ color: "#b8860b" }}>BOSS</span>{" "}
         <span style={{ color: "#000000" }}>ONLINE</span>
       </h1>
     </div>

@@ -76,7 +76,7 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
       className={`${isMobile ? "h-10" : "h-12"} flex items-center px-2 relative animate-slide-up`}
       style={{
         background: "#000000",
-        borderTop: "3px solid #f8cf2c",
+        borderTop: "3px solid #b8860b",
         animationDelay: "0.2s",
       }}
     >
@@ -93,10 +93,10 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
         aria-haspopup="menu"
         className={`${isMobile ? "h-7 px-2" : "h-9 px-3"} flex items-center gap-2 mr-2 transition-all duration-200 ${startOpen ? "animate-pulse-glow" : "hover-lift"}`}
         style={{
-          background: startOpen ? "#f8cf2c" : "#1a1a1a",
+          background: startOpen ? "#b8860b" : "#1a1a1a",
           border: "3px solid",
-          borderColor: startOpen ? "#000000 #f8cf2c #f8cf2c #000000" : "#f8cf2c #000000 #000000 #f8cf2c",
-          color: startOpen ? "#000000" : "#f8cf2c",
+          borderColor: startOpen ? "#000000 #b8860b #b8860b #000000" : "#b8860b #000000 #000000 #b8860b",
+          color: startOpen ? "#000000" : "#b8860b",
         }}
       >
         <span className={isMobile ? "text-sm" : "text-lg"} aria-hidden="true">
@@ -113,8 +113,8 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
           style={{
             background: "#f5f0e1",
             border: "3px solid",
-            borderColor: "#f8cf2c #000000 #000000 #f8cf2c",
-            boxShadow: "8px 8px 0 rgba(248,207,44,0.3), 0 0 30px rgba(248,207,44,0.2)",
+            borderColor: "#b8860b #000000 #000000 #b8860b",
+            boxShadow: "8px 8px 0 rgba(184,134,11,0.3), 0 0 30px rgba(184,134,11,0.2)",
             minWidth: "220px",
           }}
         >
@@ -123,7 +123,7 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
             <div
               className="w-8 flex flex-col justify-end p-2 relative overflow-hidden"
               style={{
-                background: "#f8cf2c",
+                background: "#b8860b",
               }}
             >
               <div className="absolute inset-0 animate-shimmer" />
@@ -150,7 +150,7 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
                     setStartOpen(false)
                     onMenuStateChange?.(false)
                   }}
-                  className="w-full flex items-center gap-3 px-3 py-2 hover:bg-[#f8cf2c] hover:text-black text-black text-left transition-all duration-150 animate-slide-up"
+                  className="w-full flex items-center gap-3 px-3 py-2 hover:bg-[#b8860b] hover:text-black text-black text-left transition-all duration-150 animate-slide-up"
                   style={{ animationDelay: `${index * 0.05}s` }}
                 >
                   {(() => {
@@ -182,7 +182,7 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
                     onMenuStateChange?.(false)
                   }
                 }}
-                className="w-full flex items-center gap-3 px-3 py-2 hover:bg-[#f8cf2c] hover:text-black text-black transition-colors duration-150"
+                className="w-full flex items-center gap-3 px-3 py-2 hover:bg-[#b8860b] hover:text-black text-black transition-colors duration-150"
               >
                 <span className="text-xl">🔌</span>
                 <span className="text-sm font-bold">Выход...</span>
@@ -206,8 +206,8 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
             style={{
               background: "#f5f0e1",
               border: "3px solid",
-              borderColor: "#f8cf2c #000000 #000000 #f8cf2c",
-              boxShadow: "8px 8px 0 rgba(248,207,44,0.3), 0 0 30px rgba(248,207,44,0.2)",
+              borderColor: "#b8860b #000000 #000000 #b8860b",
+              boxShadow: "8px 8px 0 rgba(184,134,11,0.3), 0 0 30px rgba(184,134,11,0.2)",
               minWidth: "300px",
               maxWidth: "400px",
             }}
@@ -236,9 +236,9 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
                   className="px-4 py-2 text-xs font-bold transition-colors hover:opacity-90"
                   style={{
                     background: "#000000",
-                    color: "#f8cf2c",
+                    color: "#b8860b",
                     border: "3px solid",
-                    borderColor: "#3a3a3a #f8cf2c #f8cf2c #3a3a3a",
+                    borderColor: "#3a3a3a #b8860b #b8860b #3a3a3a",
                   }}
                 >
                   Отмена
@@ -256,10 +256,10 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
                   disabled={isExiting}
                   className="px-4 py-2 text-xs font-bold transition-colors hover:opacity-90 disabled:opacity-50"
                   style={{
-                    background: "#f8cf2c",
+                    background: "#b8860b",
                     color: "#000000",
                     border: "3px solid",
-                    borderColor: "#ffe066 #000000 #000000 #ffe066",
+                    borderColor: "#d4a017 #000000 #000000 #d4a017",
                   }}
                 >
                   {isExiting ? "Выход..." : "Выход"}
@@ -271,7 +271,7 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
       )}
 
       {/* Divider */}
-      <div className="w-0.5 h-8 mx-2 bg-[#f8cf2c]" />
+      <div className="w-0.5 h-8 mx-2 bg-[#b8860b]" />
 
       {/* Open windows with animations */}
       <div className="flex-1 flex items-center gap-2 overflow-x-auto">
@@ -290,8 +290,8 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
               style={{
                 background: isMinimized ? "#000000" : "#1a1a1a",
                 border: "3px solid",
-                borderColor: isMinimized ? "#f8cf2c #000000 #000000 #f8cf2c" : "#000000 #f8cf2c #f8cf2c #000000",
-                color: "#f8cf2c",
+                borderColor: isMinimized ? "#b8860b #000000 #000000 #b8860b" : "#000000 #b8860b #b8860b #000000",
+                color: "#b8860b",
               }}
             >
               {(() => {
@@ -310,11 +310,11 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
 
       {/* System tray with glow effect */}
       <div
-        className={`${isMobile ? "h-7 px-2 gap-2" : "h-8 px-3 gap-3"} flex items-center transition-all duration-300 hover:shadow-[0_0_15px_rgba(248,207,44,0.3)]`}
+        className={`${isMobile ? "h-7 px-2 gap-2" : "h-8 px-3 gap-3"} flex items-center transition-all duration-300 hover:shadow-[0_0_15px_rgba(184,134,11,0.3)]`}
         style={{
           background: "#1a1a1a",
           border: "2px solid",
-          borderColor: "#000000 #f8cf2c #f8cf2c #000000",
+          borderColor: "#000000 #b8860b #b8860b #000000",
         }}
       >
         {!isMobile && (
@@ -323,7 +323,7 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
             <span className="text-sm">🌐</span>
           </>
         )}
-        <span className={`${isMobile ? "text-xs" : "text-sm"} text-[#f8cf2c] font-bold animate-flicker`}>{time}</span>
+        <span className={`${isMobile ? "text-xs" : "text-sm"} text-[#b8860b] font-bold animate-flicker`}>{time}</span>
       </div>
     </footer>
   )

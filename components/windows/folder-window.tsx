@@ -51,7 +51,7 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
       <div
         className="flex items-center gap-2 p-2 mb-2"
         style={{
-          background: "#f8cf2c",
+          background: "#b8860b",
           border: "2px solid #000000",
         }}
       >
@@ -60,8 +60,8 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
           className="px-3 py-1 text-xs font-bold transition-colors"
           style={{
             background: "#000000",
-            color: "#f8cf2c",
-            border: "2px solid #f8cf2c",
+            color: "#b8860b",
+            border: "2px solid #b8860b",
           }}
           disabled={!onNavigateBack}
         >
@@ -82,7 +82,7 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
           style={{
             background: "#ffffff",
             border: "3px solid",
-            borderColor: "#000000 #f8cf2c #f8cf2c #000000",
+            borderColor: "#000000 #b8860b #b8860b #000000",
           }}
         />
       </div>
@@ -105,7 +105,7 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
               <button
                 key={item.id}
                 onDoubleClick={() => onOpenProduct?.(item.id)}
-                className="flex flex-col items-center gap-2 p-3 cursor-pointer hover:bg-[#f8cf2c] group transition-colors"
+                className="flex flex-col items-center gap-2 p-3 cursor-pointer hover:bg-[#b8860b] group transition-colors"
                 style={{
                   background: "#ffffff",
                   border: "2px solid #000000",
@@ -129,8 +129,8 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
         className="p-2 text-xs font-bold"
         style={{
           background: "#000000",
-          color: "#f8cf2c",
-          borderTop: "2px solid #f8cf2c",
+          color: "#b8860b",
+          borderTop: "2px solid #b8860b",
         }}
       >
         📂 C:\BARBOSS\Products\

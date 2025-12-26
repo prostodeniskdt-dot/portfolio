@@ -22,7 +22,7 @@ export function PixelPear({ size = 64, className = "" }: PixelPearProps) {
       {/* Основная форма груши */}
       <path
         d="M32 8 L28 12 L24 16 L20 20 L18 24 L16 28 L16 32 L18 36 L20 40 L24 44 L28 48 L32 50 L36 48 L40 44 L44 40 L46 36 L48 32 L48 28 L46 24 L44 20 L40 16 L36 12 L32 8 Z"
-        fill="#f8cf2c"
+        fill="#b8860b"
         stroke="#000000"
         strokeWidth="2"
       />
@@ -43,7 +43,7 @@ export function PixelPear({ size = 64, className = "" }: PixelPearProps) {
       <path
         d="M32 8 L30 6 L28 4 L26 6 L28 8 L30 10 L32 8 Z"
         fill="#000000"
-        stroke="#f8cf2c"
+        stroke="#b8860b"
         strokeWidth="1"
       />
       

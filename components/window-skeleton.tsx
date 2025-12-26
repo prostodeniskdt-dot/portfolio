@@ -17,7 +17,7 @@ export function WindowSkeleton() {
         style={{
           background: "#f5f0e1",
           border: "3px solid",
-          borderColor: "#f8cf2c #000000 #000000 #f8cf2c",
+          borderColor: "#b8860b #000000 #000000 #b8860b",
         }}
       >
         {/* Title bar skeleton */}
@@ -28,7 +28,7 @@ export function WindowSkeleton() {
           }}
         >
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-[#f8cf2c] animate-pulse" />
+            <div className="w-4 h-4 bg-[#b8860b] animate-pulse" />
             <div className="w-24 h-4 bg-[#f5f0e1] animate-pulse" />
           </div>
           <div className="flex items-center gap-1">
@@ -44,7 +44,7 @@ export function WindowSkeleton() {
           style={{
             background: "#ffffff",
             border: "3px solid",
-            borderColor: "#000000 #f8cf2c #f8cf2c #000000",
+            borderColor: "#000000 #b8860b #b8860b #000000",
           }}
         >
           <div className="w-full h-4 bg-[#f5f0e1] animate-pulse" />
@@ -58,7 +58,7 @@ export function WindowSkeleton() {
           className="h-6 px-2"
           style={{
             background: "#000000",
-            borderTop: "2px solid #f8cf2c",
+            borderTop: "2px solid #b8860b",
           }}
         >
           <div className="w-16 h-3 bg-[#3a3a3a] animate-pulse" />
