@@ -5,7 +5,6 @@ import { TopBar } from "@/components/top-bar"
 import { Desktop } from "@/components/desktop"
 import { Taskbar } from "@/components/taskbar"
 import { RetroBackground } from "@/components/retro-background"
-import { BarBossLogo } from "@/components/bar-boss-logo"
 import { LoadingScreen } from "@/components/loading-screen"
 import { WindowSkeleton } from "@/components/window-skeleton"
 import { useWindowState } from "@/hooks/use-window-state"
@@ -102,7 +101,7 @@ export default function Home() {
   return (
     <div className="relative h-screen w-screen overflow-hidden">
       <RetroBackground />
-      <BarBossLogo />
+      
       <div className="relative z-10 flex h-full flex-col">
         <TopBar
           onMenuStateChange={setTopBarMenuOpen}
