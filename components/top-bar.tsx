@@ -1,106 +1,10 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
-
-interface MenuItem {
-  label: string
-  action: () => void
-  icon?: string
-}
-
-interface DividerItem {
-  divider: true
-}
-
-type MenuItemType = MenuItem | DividerItem
-
 interface TopBarProps {
-  onMenuStateChange?: (isOpen: boolean) => void
-  onOpenWindow?: (windowId: string) => void
-  onOpenFolder?: (folderId: string) => void
-  onOpenProduct?: (productId: string) => void
-  onExit?: () => void
+  // Props kept for compatibility but not used
 }
 
-export function TopBar({
-  onMenuStateChange,
-  onOpenWindow,
-  onOpenFolder,
-  onOpenProduct,
-  onExit,
-}: TopBarProps) {
-  const [openMenu, setOpenMenu] = useState<string | null>(null)
-  const menuRef = useRef<HTMLDivElement>(null)
-
-  // Close menu when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setOpenMenu(null)
-      }
-    }
-
-    if (openMenu) {
-      document.addEventListener("mousedown", handleClickOutside)
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [openMenu])
-
-  const menuItems: Record<string, MenuItemType[]> = {
-    Файл: [
-      {
-        label: "Новое окно",
-        action: () => {
-          onOpenWindow?.("contact")
-          setOpenMenu(null)
-          onMenuStateChange?.(false)
-        },
-        icon: "📂",
-      },
-      {
-        label: "Открыть Продукты",
-        action: () => {
-          onOpenFolder?.("products")
-          setOpenMenu(null)
-          onMenuStateChange?.(false)
-        },
-        icon: "📁",
-      },
-      { divider: true },
-      {
-        label: "Выход",
-        action: () => {
-          onExit?.()
-          setOpenMenu(null)
-          onMenuStateChange?.(false)
-        },
-        icon: "🔌",
-      },
-    ],
-  }
-
-  const handleMenuClick = (menuName: string) => {
-    const newState = openMenu === menuName ? null : menuName
-    setOpenMenu(newState)
-    onMenuStateChange?.(newState !== null)
-  }
-
-  // Экспортируем функцию закрытия для Escape handler
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const handleEscape = (e: KeyboardEvent) => {
-        if (e.key === "Escape" && openMenu) {
-          setOpenMenu(null)
-          onMenuStateChange?.(false)
-        }
-      }
-      window.addEventListener("keydown", handleEscape)
-      return () => window.removeEventListener("keydown", handleEscape)
-    }
-  }, [openMenu, onMenuStateChange])
+export function TopBar({}: TopBarProps) {
 
   return (
     <header className="h-10 bg-[#000000] flex items-center px-3 border-b-3 border-[#b8860b] animate-slide-up relative overflow-hidden">

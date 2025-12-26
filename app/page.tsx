@@ -24,7 +24,6 @@ export default function Home() {
     minimizeWindow,
   } = useWindowState()
 
-  const [topBarMenuOpen, setTopBarMenuOpen] = useState(false)
   const [taskbarMenuOpen, setTaskbarMenuOpen] = useState(false)
 
   const visibleWindows = useMemo(
@@ -49,13 +48,10 @@ export default function Home() {
 
   // Escape - закрытие меню и модальных окон
   const handleEscape = useCallback(() => {
-    if (topBarMenuOpen) {
-      setTopBarMenuOpen(false)
-    }
     if (taskbarMenuOpen) {
       setTaskbarMenuOpen(false)
     }
-  }, [topBarMenuOpen, taskbarMenuOpen])
+  }, [taskbarMenuOpen])
 
   useKeyboardShortcuts({
     onAltTab: handleAltTab,
@@ -112,17 +108,7 @@ export default function Home() {
     <div className="relative h-screen w-screen overflow-hidden">
       <RetroBackground />
       <div className="relative z-10 flex h-full flex-col">
-        <TopBar
-          onMenuStateChange={setTopBarMenuOpen}
-          onOpenWindow={toggleWindow}
-          onOpenFolder={handleOpenFolder}
-          onOpenProduct={handleOpenProduct}
-          onExit={() => {
-            // Триггерим событие выхода (можно использовать тот же механизм, что и в Taskbar)
-            const event = new CustomEvent("exit-request")
-            window.dispatchEvent(event)
-          }}
-        />
+        <TopBar />
         <SidebarNavigation onItemClick={handleSidebarClick} />
         <Suspense fallback={<WindowSkeleton />}>
         <Desktop
