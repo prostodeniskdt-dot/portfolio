@@ -286,7 +286,9 @@ export const Desktop = memo(function Desktop({
         if (files.length > 0) {
           soundManager.playClick()
           // Можно добавить обработку файлов
-          console.log("Dropped files:", files)
+          if (process.env.NODE_ENV === 'development') {
+            console.log("Dropped files:", files)
+          }
           // Здесь можно добавить логику обработки файлов
         }
       }

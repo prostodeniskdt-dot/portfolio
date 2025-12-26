@@ -95,10 +95,6 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <head>
-        {/* Cache control для принудительного обновления */}
-        <meta httpEquiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-        <meta httpEquiv="Pragma" content="no-cache" />
-        <meta httpEquiv="Expires" content="0" />
         {/* Preload critical resources */}
         <link
           rel="preload"
