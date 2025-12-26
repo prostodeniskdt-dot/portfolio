@@ -104,6 +104,7 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
             {folderItems.map((item) => (
               <button
                 key={item.id}
+                onClick={() => onOpenProduct?.(item.id)}
                 onDoubleClick={() => onOpenProduct?.(item.id)}
                 className="flex flex-col items-center gap-2 p-3 cursor-pointer hover:bg-[#b8860b] group transition-colors"
                 style={{
