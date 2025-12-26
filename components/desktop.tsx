@@ -302,8 +302,8 @@ export const Desktop = memo(function Desktop({
             background: "transparent",
           }}
         >
-          {/* Desktop icons - hidden on mobile, shown on desktop */}
-          <div className="absolute bottom-16 left-4 flex flex-col-reverse gap-4 hidden md:flex">{memoizedIcons}</div>
+          {/* Desktop icons - отключены, используется SidebarNavigation вместо этого */}
+          {/* <div className="absolute bottom-16 left-4 flex flex-col-reverse gap-4 hidden md:flex">{memoizedIcons}</div> */}
 
           {/* Drop zone indicator */}
           <div
