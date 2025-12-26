@@ -364,47 +364,97 @@ export const OSWindow = memo(function OSWindow({
         {/* Resize handles */}
         {!isMaximized && !isMobile && (
           <>
-            {/* Углы */}
+            {/* Углы - увеличенные для удобства */}
             <div
-              className="absolute top-0 left-0 w-3 h-3 cursor-nwse-resize z-10"
+              className="absolute top-0 left-0 w-4 h-4 cursor-nwse-resize z-10 group"
               onMouseDown={handleResizeStart("nw")}
-              style={{ background: "transparent" }}
+              style={{ 
+                background: "transparent",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(248, 207, 44, 0.2)"
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "transparent"
+              }}
             />
             <div
-              className="absolute top-0 right-0 w-3 h-3 cursor-nesw-resize z-10"
+              className="absolute top-0 right-0 w-4 h-4 cursor-nesw-resize z-10"
               onMouseDown={handleResizeStart("ne")}
               style={{ background: "transparent" }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(248, 207, 44, 0.2)"
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "transparent"
+              }}
             />
             <div
-              className="absolute bottom-0 left-0 w-3 h-3 cursor-nesw-resize z-10"
+              className="absolute bottom-0 left-0 w-4 h-4 cursor-nesw-resize z-10"
               onMouseDown={handleResizeStart("sw")}
               style={{ background: "transparent" }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(248, 207, 44, 0.2)"
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "transparent"
+              }}
             />
             <div
-              className="absolute bottom-0 right-0 w-3 h-3 cursor-nwse-resize z-10"
+              className="absolute bottom-0 right-0 w-4 h-4 cursor-nwse-resize z-10"
               onMouseDown={handleResizeStart("se")}
               style={{ background: "transparent" }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(248, 207, 44, 0.2)"
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "transparent"
+              }}
             />
-            {/* Края */}
+            {/* Края - увеличенные для удобства */}
             <div
-              className="absolute top-0 left-3 right-3 h-1 cursor-ns-resize z-10"
+              className="absolute top-0 left-4 right-4 h-2 cursor-ns-resize z-10"
               onMouseDown={handleResizeStart("n")}
               style={{ background: "transparent" }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(248, 207, 44, 0.15)"
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "transparent"
+              }}
             />
             <div
-              className="absolute bottom-0 left-3 right-3 h-1 cursor-ns-resize z-10"
+              className="absolute bottom-0 left-4 right-4 h-2 cursor-ns-resize z-10"
               onMouseDown={handleResizeStart("s")}
               style={{ background: "transparent" }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(248, 207, 44, 0.15)"
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "transparent"
+              }}
             />
             <div
-              className="absolute left-0 top-3 bottom-3 w-1 cursor-ew-resize z-10"
+              className="absolute left-0 top-4 bottom-4 w-2 cursor-ew-resize z-10"
               onMouseDown={handleResizeStart("w")}
               style={{ background: "transparent" }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(248, 207, 44, 0.15)"
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "transparent"
+              }}
             />
             <div
-              className="absolute right-0 top-3 bottom-3 w-1 cursor-ew-resize z-10"
+              className="absolute right-0 top-4 bottom-4 w-2 cursor-ew-resize z-10"
               onMouseDown={handleResizeStart("e")}
               style={{ background: "transparent" }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(248, 207, 44, 0.15)"
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "transparent"
+              }}
             />
           </>
         )}
