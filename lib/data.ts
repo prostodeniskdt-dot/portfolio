@@ -514,12 +514,12 @@ export const taskbarItems: TaskbarItem[] = [
 ]
 
 export const desktopIcons: DesktopIcon[] = [
-  { id: "products-folder", icon: "products-folder", label: "Продукты", type: "folder" },
-  { id: "about", icon: "about", label: "О школе", type: "window" },
-  { id: "individual-courses", icon: "individual-courses", label: "Индивидуальные курсы", type: "window" },
-  { id: "prices", icon: "prices", label: "Тарифы", type: "window" },
-  { id: "contact", icon: "contact", label: "Контакты", type: "window" },
   { id: "settings", icon: "settings", label: "Настройки", type: "window" },
+  { id: "contact", icon: "contact", label: "Контакты", type: "window" },
+  { id: "prices", icon: "prices", label: "Тарифы", type: "window" },
+  { id: "individual-courses", icon: "individual-courses", label: "Индивидуальные курсы", type: "window" },
+  { id: "about", icon: "about", label: "О школе", type: "window" },
+  { id: "products-folder", icon: "products-folder", label: "Продукты", type: "folder" },
 ]
 
 

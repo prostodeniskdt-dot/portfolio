@@ -1,14 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { getPixelIcon } from "@/components/icons/pixel-icons"
-
-interface SidebarItem {
-  id: string
-  label: string
-  icon: string
-  onClick: () => void
-}
+import { desktopIcons } from "@/lib/data"
 
 interface SidebarNavigationProps {
   onItemClick: (itemId: string) => void
@@ -17,45 +11,18 @@ interface SidebarNavigationProps {
 export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
 
-  const menuItems: SidebarItem[] = [
-    // Убеждаемся, что нет дубликатов - каждый id уникален
-    {
-      id: "settings",
-      label: "Настройки",
-      icon: "settings",
-      onClick: () => onItemClick("settings"),
-    },
-    {
-      id: "contact",
-      label: "Контакты",
-      icon: "contact",
-      onClick: () => onItemClick("contact"),
-    },
-    {
-      id: "prices",
-      label: "Тарифы",
-      icon: "prices",
-      onClick: () => onItemClick("prices"),
-    },
-    {
-      id: "individual-courses",
-      label: "Индивидуальные курсы",
-      icon: "individual-courses",
-      onClick: () => onItemClick("individual-courses"),
-    },
-    {
-      id: "about",
-      label: "О школе",
-      icon: "about",
-      onClick: () => onItemClick("about"),
-    },
-    {
-      id: "products-folder",
-      label: "Продукты",
-      icon: "products-folder",
-      onClick: () => onItemClick("products-folder"),
-    },
-  ]
+  // Используем desktopIcons напрямую, чтобы избежать дублирования данных
+  // Фильтруем только уникальные элементы по id
+  const menuItems = useMemo(() => {
+    const seen = new Set<string>()
+    return desktopIcons.filter((item) => {
+      if (seen.has(item.id)) {
+        return false
+      }
+      seen.add(item.id)
+      return true
+    })
+  }, [])
 
   return (
     <nav
@@ -68,10 +35,19 @@ export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
         const IconComponent = getPixelIcon(item.icon)
         const isHovered = hoveredItem === item.id
 
+        const handleClick = () => {
+          if (item.type === "folder") {
+            const folderId = item.id.replace("-folder", "")
+            onItemClick(folderId === "products" ? "products-folder" : item.id)
+          } else {
+            onItemClick(item.id)
+          }
+        }
+
         return (
           <button
             key={item.id}
-            onClick={item.onClick}
+            onClick={handleClick}
             onMouseEnter={() => setHoveredItem(item.id)}
             onMouseLeave={() => setHoveredItem(null)}
             className="flex flex-col items-center gap-2 p-3 transition-all duration-200 group"
