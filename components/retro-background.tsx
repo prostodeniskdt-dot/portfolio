@@ -3,7 +3,7 @@
 export function RetroBackground() {
   return (
     <div className="absolute inset-0 overflow-hidden" style={{ imageRendering: "crisp-edges" }}>
-      {/* Базовый фон - мягкий черно-желтый градиент */}
+      {/* Базовый фон - кремово-желтый градиент */}
       <div
         className="absolute inset-0"
         style={{
@@ -11,7 +11,7 @@ export function RetroBackground() {
             radial-gradient(ellipse at top left, rgba(248, 207, 44, 0.08) 0%, transparent 50%),
             radial-gradient(ellipse at bottom right, rgba(248, 207, 44, 0.06) 0%, transparent 50%),
             radial-gradient(ellipse at center, rgba(0, 0, 0, 0.02) 0%, transparent 70%),
-            linear-gradient(135deg, #fafafa 0%, #f5f5f5 50%, #fafafa 100%)
+            linear-gradient(135deg, #f5f0e1 0%, #faf8f0 50%, #f5f0e1 100%)
           `,
         }}
       />

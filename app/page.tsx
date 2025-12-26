@@ -5,6 +5,7 @@ import { TopBar } from "@/components/top-bar"
 import { Desktop } from "@/components/desktop"
 import { Taskbar } from "@/components/taskbar"
 import { RetroBackground } from "@/components/retro-background"
+import { SidebarNavigation } from "@/components/sidebar-navigation"
 import { LoadingScreen } from "@/components/loading-screen"
 import { WindowSkeleton } from "@/components/window-skeleton"
 import { useWindowState } from "@/hooks/use-window-state"
@@ -85,6 +86,15 @@ export default function Home() {
     }
   }, [toggleWindow, handleOpenFolder])
 
+  // Handler for sidebar navigation clicks
+  const handleSidebarClick = useCallback((itemId: string) => {
+    if (itemId === "products-folder") {
+      handleOpenFolder("products")
+    } else {
+      toggleWindow(itemId)
+    }
+  }, [toggleWindow, handleOpenFolder])
+
   // Слушаем событие открытия окна контактов
   useEffect(() => {
     const handleOpenContact = () => {
@@ -101,7 +111,6 @@ export default function Home() {
   return (
     <div className="relative h-screen w-screen overflow-hidden">
       <RetroBackground />
-      
       <div className="relative z-10 flex h-full flex-col">
         <TopBar
           onMenuStateChange={setTopBarMenuOpen}
@@ -114,6 +123,7 @@ export default function Home() {
             window.dispatchEvent(event)
           }}
         />
+        <SidebarNavigation onItemClick={handleSidebarClick} />
         <Suspense fallback={<WindowSkeleton />}>
         <Desktop
           openWindows={visibleWindows}
