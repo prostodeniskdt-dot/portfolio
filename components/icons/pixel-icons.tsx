@@ -177,7 +177,9 @@ export function PixelLvl1BasicIcon({ size = 32, className = "" }: PixelIconProps
       <polygon points="6,10 14,10 16,6 26,6 26,10" fill="#b8860b" />
       <rect x="10" y="14" width="12" height="2" fill="#b8860b" />
       <rect x="10" y="18" width="8" height="2" fill="#b8860b" />
-      <text x="16" y="26" fontSize="8" fill="#b8860b" textAnchor="middle" fontWeight="bold">1</text>
+      {/* Цифра 1 */}
+      <rect x="15" y="22" width="2" height="4" fill="#b8860b" />
+      <rect x="14" y="24" width="4" height="2" fill="#b8860b" />
     </svg>
   )
 }
@@ -198,7 +200,12 @@ export function PixelLvl2ProfessionalIcon({ size = 32, className = "" }: PixelIc
       <polygon points="6,10 14,10 16,6 26,6 26,10" fill="#b8860b" />
       <rect x="10" y="14" width="12" height="2" fill="#b8860b" />
       <rect x="10" y="18" width="8" height="2" fill="#b8860b" />
-      <text x="16" y="26" fontSize="8" fill="#b8860b" textAnchor="middle" fontWeight="bold">2</text>
+      {/* Цифра 2 */}
+      <rect x="13" y="22" width="6" height="2" fill="#b8860b" />
+      <rect x="17" y="24" width="2" height="2" fill="#b8860b" />
+      <rect x="13" y="24" width="6" height="2" fill="#b8860b" />
+      <rect x="13" y="26" width="2" height="2" fill="#b8860b" />
+      <rect x="13" y="26" width="6" height="2" fill="#b8860b" />
     </svg>
   )
 }
@@ -219,7 +226,12 @@ export function PixelLvl3DigitalIcon({ size = 32, className = "" }: PixelIconPro
       <polygon points="6,10 14,10 16,6 26,6 26,10" fill="#b8860b" />
       <rect x="10" y="14" width="12" height="2" fill="#b8860b" />
       <rect x="10" y="18" width="8" height="2" fill="#b8860b" />
-      <text x="16" y="26" fontSize="8" fill="#b8860b" textAnchor="middle" fontWeight="bold">3</text>
+      {/* Цифра 3 */}
+      <rect x="13" y="22" width="6" height="2" fill="#b8860b" />
+      <rect x="17" y="24" width="2" height="2" fill="#b8860b" />
+      <rect x="13" y="24" width="6" height="2" fill="#b8860b" />
+      <rect x="17" y="26" width="2" height="2" fill="#b8860b" />
+      <rect x="13" y="26" width="6" height="2" fill="#b8860b" />
     </svg>
   )
 }
