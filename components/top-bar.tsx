@@ -133,69 +133,8 @@ export function TopBar({
         </h1>
       </div>
 
-      {/* Menu items with hover animations */}
-      <div className="flex items-center ml-4 relative z-10" ref={menuRef}>
-        {Object.keys(menuItems).map((menuName, index) => (
-          <div key={menuName} className="relative">
-            <button
-              onClick={() => handleMenuClick(menuName)}
-              className="px-3 py-1 text-sm text-[#f5f0e1] hover:bg-[#b8860b] hover:text-black transition-all duration-200 hover:scale-105 animate-slide-up"
-              style={{
-                animationDelay: `${0.1 + index * 0.05}s`,
-                background: openMenu === menuName ? "#b8860b" : "transparent",
-                color: openMenu === menuName ? "#000000" : "#f5f0e1",
-              }}
-            >
-              {menuName}
-            </button>
-            {openMenu === menuName && (
-              <div
-                className="absolute top-full left-0 mt-1 animate-scale-in z-50"
-                style={{
-                  background: "#f5f0e1",
-                  border: "3px solid",
-                  borderColor: "#b8860b #000000 #000000 #b8860b",
-                  boxShadow: "8px 8px 0 rgba(184,134,11,0.3), 0 0 30px rgba(184,134,11,0.2)",
-                  minWidth: "180px",
-                }}
-                role="menu"
-                aria-label={`Меню ${menuName}`}
-              >
-                {menuItems[menuName].map((item, itemIndex) => {
-                  if ('divider' in item && item.divider) {
-                    return <div key={`divider-${itemIndex}`} className="h-px bg-[#000000] my-1 mx-2" />
-                  }
-                  const menuItem = item as MenuItem
-                  return (
-                    <button
-                      key={menuItem.label}
-                      role="menuitem"
-                      onClick={() => {
-                        menuItem.action()
-                        setOpenMenu(null)
-                      }}
-                      className="w-full flex items-center gap-2 px-3 py-2 hover:bg-[#b8860b] hover:text-black text-black text-left transition-all duration-150 text-sm"
-                    >
-                      {menuItem.icon && <span aria-hidden="true">{menuItem.icon}</span>}
-                      <span>{menuItem.label}</span>
-                    </button>
-                  )
-                })}
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-
       {/* Spacer */}
       <div className="flex-1" />
-
-      {/* System info with animations */}
-      <div className="flex items-center gap-3 text-sm relative z-10">
-        <span className="px-2 py-0.5 bg-[#b8860b] text-black text-xs font-bold animate-pulse-glow hover:scale-105 transition-transform">
-          OS v2.0
-        </span>
-      </div>
     </header>
   )
 }

@@ -18,6 +18,7 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
   const [isMobile, setIsMobile] = useState(false)
   const [showExitConfirm, setShowExitConfirm] = useState(false)
   const [isExiting, setIsExiting] = useState(false)
+  const [soundEnabled, setSoundEnabled] = useState(() => soundManager.isEnabled())
 
   useEffect(() => {
     const checkMobile = () => {
@@ -116,6 +117,7 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
             borderColor: "#b8860b #000000 #000000 #b8860b",
             boxShadow: "8px 8px 0 rgba(184,134,11,0.3), 0 0 30px rgba(184,134,11,0.2)",
             minWidth: "220px",
+            zIndex: 1000,
           }}
         >
           {/* Yellow sidebar with shimmer */}
@@ -318,10 +320,24 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
         }}
       >
         {!isMobile && (
-          <>
-            <span className="text-sm">🔊</span>
-            <span className="text-sm">🌐</span>
-          </>
+          <button
+            onClick={() => {
+              const newState = !soundManager.isEnabled()
+              soundManager.setEnabled(newState)
+              setSoundEnabled(newState)
+              // Не воспроизводим звук при отключении
+              if (newState) {
+                soundManager.playClick()
+              }
+            }}
+            className="text-sm cursor-pointer transition-all duration-200 hover:scale-110"
+            style={{
+              opacity: soundEnabled ? 1 : 0.5,
+            }}
+            aria-label={soundEnabled ? "Отключить звук" : "Включить звук"}
+          >
+            🔊
+          </button>
         )}
         <span className={`${isMobile ? "text-xs" : "text-sm"} text-[#b8860b] font-bold animate-flicker`}>{time}</span>
       </div>
