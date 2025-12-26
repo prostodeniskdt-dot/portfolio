@@ -452,9 +452,9 @@ export const folders: Record<string, Folder> = {
 
 export const windowConfigs: Record<string, WindowConfig> = {
   about: {
-    title: "О школе",
+    title: "Об образовательном проекте",
     defaultPosition: { x: 40, y: 40 },
-    defaultSize: { width: 380, height: 400 },
+    defaultSize: { width: 450, height: 550 },
     component: AboutWindow,
     icon: "about",
   },
@@ -505,7 +505,7 @@ export const windowConfigs: Record<string, WindowConfig> = {
 }
 
 export const taskbarItems: TaskbarItem[] = [
-  { id: "about", label: "О школе", icon: "about" },
+  { id: "about", label: "Об образовательном проекте", icon: "about" },
   { id: "products-folder", label: "Продукты", icon: "products-folder" },
   { id: "individual-courses", label: "Индивидуальные курсы", icon: "individual-courses" },
   { id: "prices", label: "Тарифы", icon: "prices" },
@@ -518,7 +518,7 @@ export const desktopIcons: DesktopIcon[] = [
   { id: "contact", icon: "contact", label: "Контакты", type: "window" },
   { id: "prices", icon: "prices", label: "Тарифы", type: "window" },
   { id: "individual-courses", icon: "individual-courses", label: "Индивидуальные курсы", type: "window" },
-  { id: "about", icon: "about", label: "О школе", type: "window" },
+  { id: "about", icon: "about", label: "Об образовательном проекте", type: "window" },
   { id: "products-folder", icon: "products-folder", label: "Продукты", type: "folder" },
 ]
 

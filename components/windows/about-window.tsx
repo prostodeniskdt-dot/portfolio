@@ -19,7 +19,7 @@ export function AboutWindow() {
           <h2 className="text-xl font-bold text-black animate-glow-text" style={{ color: "#000" }}>
             БАР БОСС ONLINE
           </h2>
-          <p className="text-xs text-[#666666]">Онлайн-школа креативных профессий</p>
+          <p className="text-xs text-[#666666]">Образовательный проект</p>
           <div className="flex gap-2 mt-2">
             <span className="px-2 py-0.5 text-xs bg-[#b8860b] text-black font-bold hover:scale-105 transition-transform">
               с 2020
@@ -46,9 +46,79 @@ export function AboutWindow() {
         }}
       >
         <p className="text-xs leading-relaxed text-black font-bold">
-          ⚡ Онлайн-школа креативных профессий, где вы освоите востребованные навыки дизайна,
+          ⚡ Образовательный проект, где вы освоите востребованные навыки дизайна,
           программирования и digital-маркетинга. Учитесь у практиков!
         </p>
+      </div>
+
+      {/* Founder section */}
+      <div
+        className="p-3 animate-slide-up"
+        style={{
+          background: "#f5f0e1",
+          border: "3px solid #000000",
+          animationDelay: "0.15s",
+        }}
+      >
+        <div className="flex items-start gap-3 mb-2">
+          <div
+            className="w-16 h-16 shrink-0 flex items-center justify-center"
+            style={{
+              background: "#000000",
+              border: "2px solid #b8860b",
+            }}
+          >
+            <span className="text-2xl">👨‍💼</span>
+          </div>
+          <div className="flex-1">
+            <h3 className="text-sm font-bold text-black mb-1">Виталий Аршук</h3>
+            <p className="text-xs text-[#666666] mb-2">Основатель BAR BOSS</p>
+            <p className="text-xs text-black font-bold">
+              Бар-менеджер • Эксперт
+            </p>
+            <p className="text-xs text-[#666666] mt-1">
+              17 лет в барной индустрии
+            </p>
+          </div>
+        </div>
+        <p className="text-xs leading-relaxed text-black mt-2">
+          Создал BAR BOSS Online, чтобы делиться не теорией, а реальным опытом управления баром. 
+          Вы получаете практику, которая работает в реальных условиях.
+        </p>
+      </div>
+
+      {/* Achievements section */}
+      <div
+        className="p-3 animate-slide-up"
+        style={{
+          background: "#000000",
+          border: "2px solid #b8860b",
+          animationDelay: "0.2s",
+        }}
+      >
+        <h3 className="text-xs font-bold text-[#b8860b] mb-2">🏆 ДОСТИЖЕНИЯ:</h3>
+        <div className="space-y-1 text-xs text-[#b8860b]">
+          <div className="flex items-start gap-2">
+            <span>•</span>
+            <span>Запустил более 20 баров в России и СНГ</span>
+          </div>
+          <div className="flex items-start gap-2">
+            <span>•</span>
+            <span>Автор онлайн-курса по барному менеджменту с 500+ выпускниками</span>
+          </div>
+          <div className="flex items-start gap-2">
+            <span>•</span>
+            <span>Консультант федеральных сетей</span>
+          </div>
+          <div className="flex items-start gap-2">
+            <span>•</span>
+            <span>Спикер крупнейших барных форумов</span>
+          </div>
+          <div className="flex items-start gap-2">
+            <span>•</span>
+            <span>Эксперт по барному менеджменту</span>
+          </div>
+        </div>
       </div>
 
       {/* Features with staggered animations */}
@@ -65,7 +135,7 @@ export function AboutWindow() {
             style={{
               background: "#f5f0e1",
               border: "2px solid #000000",
-              animationDelay: `${0.15 + i * 0.05}s`,
+              animationDelay: `${0.25 + i * 0.05}s`,
             }}
           >
             <span className="text-lg">{item.icon}</span>
@@ -80,7 +150,7 @@ export function AboutWindow() {
         style={{
           background: "#000000",
           color: "#b8860b",
-          animationDelay: "0.3s",
+          animationDelay: "0.4s",
         }}
       >
         <div className="flex justify-between">
