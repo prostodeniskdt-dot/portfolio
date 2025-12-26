@@ -117,8 +117,11 @@ export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
                     -1px -1px 0px rgba(0, 0, 0, 0.9)
                   `,
                 transform: isHovered ? "scale(1.05)" : "scale(1)",
-                maxWidth: "80px",
+                maxWidth: item.label.length > 15 ? "110px" : "80px",
                 lineHeight: "1.2",
+                wordBreak: "break-word",
+                overflowWrap: "break-word",
+                display: "inline-block",
               }}
             >
               {item.label}
