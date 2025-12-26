@@ -61,9 +61,15 @@ export default function Home() {
 
   // Handler for opening a folder
   const handleOpenFolder = useCallback((folderId: string) => {
-    if (folderId === "products") {
-      toggleWindow("products-folder")
+    // Map folder IDs to window IDs
+    const folderWindowMap: Record<string, string> = {
+      "products": "products-folder",
+      "lvl1-basic": "lvl1-basic-folder",
+      "lvl2-professional": "lvl2-professional-folder",
+      "lvl3-digital": "lvl3-digital-folder",
     }
+    const windowId = folderWindowMap[folderId] || `${folderId}-folder`
+    toggleWindow(windowId)
   }, [toggleWindow])
 
   // Handler for opening a product
@@ -84,8 +90,9 @@ export default function Home() {
 
   // Handler for sidebar navigation clicks
   const handleSidebarClick = useCallback((itemId: string) => {
-    if (itemId === "products-folder") {
-      handleOpenFolder("products")
+    if (itemId.endsWith("-folder")) {
+      const folderId = itemId.replace("-folder", "")
+      handleOpenFolder(folderId)
     } else {
       toggleWindow(itemId)
     }

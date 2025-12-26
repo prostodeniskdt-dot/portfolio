@@ -31,18 +31,6 @@ const AboutWindow = dynamic(
   },
 )
 
-const IndividualCoursesWindow = dynamic(
-  () => import("./windows/courses-window").then((mod) => ({ default: mod.IndividualCoursesWindow })),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="p-4 flex items-center justify-center">
-        <div className="animate-pulse text-xs text-black">Загрузка...</div>
-      </div>
-    ),
-  },
-)
-
 const PricesWindow = dynamic(
   () => import("./windows/prices-window").then((mod) => ({ default: mod.PricesWindow })),
   {
@@ -106,7 +94,6 @@ const ProductWindowDynamic = dynamic(
 // Map window IDs to lazy-loaded components
 const windowComponents: Record<string, ComponentType> = {
   about: AboutWindow,
-  "individual-courses": IndividualCoursesWindow,
   prices: PricesWindow,
   contact: ContactWindow,
   settings: SettingsWindow,
@@ -175,7 +162,8 @@ export const Desktop = memo(function Desktop({
         if (!config) return null
 
         // Handle folder windows
-        if (windowId === "products-folder") {
+        if (windowId.endsWith("-folder")) {
+          const folderId = windowId.replace("-folder", "")
           return (
             <OSWindow
               key={windowId}
@@ -190,7 +178,7 @@ export const Desktop = memo(function Desktop({
               icon={config.icon}
             >
               <FolderWindowDynamic
-                folderId="products"
+                folderId={folderId}
                 onOpenProduct={(productId: string) => {
                   onProductClick?.(productId)
                 }}

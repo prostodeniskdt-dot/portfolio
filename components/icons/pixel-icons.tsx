@@ -161,6 +161,69 @@ export function PixelFolderIcon({ size = 32, className = "" }: PixelIconProps) {
   )
 }
 
+export function PixelLvl1BasicIcon({ size = 32, className = "" }: PixelIconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 32 32"
+      className={className}
+      style={iconStyle}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {/* Пиксельная иконка папки LVL 1 */}
+      <rect x="6" y="10" width="20" height="16" fill="#000000" stroke="#b8860b" strokeWidth="2" />
+      <polygon points="6,10 14,10 16,6 26,6 26,10" fill="#b8860b" />
+      <rect x="10" y="14" width="12" height="2" fill="#b8860b" />
+      <rect x="10" y="18" width="8" height="2" fill="#b8860b" />
+      <text x="16" y="26" fontSize="8" fill="#b8860b" textAnchor="middle" fontWeight="bold">1</text>
+    </svg>
+  )
+}
+
+export function PixelLvl2ProfessionalIcon({ size = 32, className = "" }: PixelIconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 32 32"
+      className={className}
+      style={iconStyle}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {/* Пиксельная иконка папки LVL 2 */}
+      <rect x="6" y="10" width="20" height="16" fill="#000000" stroke="#b8860b" strokeWidth="2" />
+      <polygon points="6,10 14,10 16,6 26,6 26,10" fill="#b8860b" />
+      <rect x="10" y="14" width="12" height="2" fill="#b8860b" />
+      <rect x="10" y="18" width="8" height="2" fill="#b8860b" />
+      <text x="16" y="26" fontSize="8" fill="#b8860b" textAnchor="middle" fontWeight="bold">2</text>
+    </svg>
+  )
+}
+
+export function PixelLvl3DigitalIcon({ size = 32, className = "" }: PixelIconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 32 32"
+      className={className}
+      style={iconStyle}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {/* Пиксельная иконка папки LVL 3 */}
+      <rect x="6" y="10" width="20" height="16" fill="#000000" stroke="#b8860b" strokeWidth="2" />
+      <polygon points="6,10 14,10 16,6 26,6 26,10" fill="#b8860b" />
+      <rect x="10" y="14" width="12" height="2" fill="#b8860b" />
+      <rect x="10" y="18" width="8" height="2" fill="#b8860b" />
+      <text x="16" y="26" fontSize="8" fill="#b8860b" textAnchor="middle" fontWeight="bold">3</text>
+    </svg>
+  )
+}
+
 // Маппинг иконок по ID
 export const pixelIcons: Record<string, React.ComponentType<PixelIconProps>> = {
   "about": PixelAboutIcon,
@@ -170,6 +233,9 @@ export const pixelIcons: Record<string, React.ComponentType<PixelIconProps>> = {
   "contact": PixelContactIcon,
   "settings": PixelSettingsIcon,
   "folder": PixelFolderIcon,
+  "lvl1-basic-folder": PixelLvl1BasicIcon,
+  "lvl2-professional-folder": PixelLvl2ProfessionalIcon,
+  "lvl3-digital-folder": PixelLvl3DigitalIcon,
 }
 
 // Хелпер для получения иконки

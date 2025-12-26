@@ -133,7 +133,7 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
           borderTop: "2px solid #b8860b",
         }}
       >
-        📂 C:\BARBOSS\Products\
+        📂 C:\BARBOSS\{folder.title}\
       </div>
     </div>
   )
