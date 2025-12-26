@@ -56,48 +56,65 @@ export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
             }}
             aria-label={item.label}
           >
-            {/* Иконка */}
+            {/* Иконка с контрастным фоном */}
             <div
-              className="transition-all duration-200"
+              className="transition-all duration-200 flex items-center justify-center"
               style={{
+                width: '44px',
+                height: '44px',
+                background: isHovered ? '#d4a017' : '#b8860b',
+                border: '3px solid #000',
+                borderRadius: '4px',
+                boxShadow: isHovered
+                  ? '0 0 12px rgba(184, 134, 11, 0.8), inset 0 2px 4px rgba(255, 255, 255, 0.2), inset 0 -2px 4px rgba(0, 0, 0, 0.3)'
+                  : '0 4px 8px rgba(0, 0, 0, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.1), inset 0 -1px 2px rgba(0, 0, 0, 0.2)',
                 transform: isHovered ? "scale(1.1)" : "scale(1)",
-                filter: isHovered
-                  ? "drop-shadow(0 0 8px rgba(184, 134, 11, 0.8)) drop-shadow(0 0 12px rgba(184, 134, 11, 0.6))"
-                  : "drop-shadow(0 0 4px rgba(184, 134, 11, 0.4))",
               }}
             >
-              {IconComponent ? (
-                <IconComponent
-                  size={32}
-                  className="transition-all duration-200"
-                />
-              ) : (
-                <div
-                  className="w-8 h-8 flex items-center justify-center text-2xl transition-all duration-200"
-                  style={{
-                    color: "#b8860b",
-                  }}
-                >
-                  {item.icon}
-                </div>
-              )}
+              <div
+                className="transition-all duration-200"
+                style={{
+                  filter: isHovered
+                    ? "drop-shadow(0 0 6px rgba(0, 0, 0, 0.8))"
+                    : "drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6))",
+                }}
+              >
+                {IconComponent ? (
+                  <IconComponent
+                    size={32}
+                    className="transition-all duration-200"
+                  />
+                ) : (
+                  <div
+                    className="w-8 h-8 flex items-center justify-center text-2xl transition-all duration-200"
+                    style={{
+                      color: "#000",
+                    }}
+                  >
+                    {item.icon}
+                  </div>
+                )}
+              </div>
             </div>
 
-            {/* Текст */}
+            {/* Текст с улучшенной читаемостью */}
             <span
-              className="text-xs font-bold text-center transition-all duration-200"
+              className="text-xs font-bold text-center transition-all duration-200 px-1.5 py-0.5 rounded"
               style={{
-                color: "#000000",
+                color: "#b8860b",
+                background: isHovered ? 'rgba(184, 134, 11, 0.2)' : 'rgba(0, 0, 0, 0.6)',
+                border: '1px solid rgba(184, 134, 11, 0.4)',
                 textShadow: isHovered
                   ? `
-                    0 0 6px rgba(184, 134, 11, 0.8),
-                    0 0 10px rgba(184, 134, 11, 0.6),
-                    1px 1px 0px rgba(184, 134, 11, 0.9),
-                    -1px -1px 0px rgba(184, 134, 11, 0.9)
+                    0 0 8px rgba(184, 134, 11, 1),
+                    0 0 12px rgba(184, 134, 11, 0.8),
+                    2px 2px 0px rgba(0, 0, 0, 0.9),
+                    -1px -1px 0px rgba(0, 0, 0, 0.9)
                   `
                   : `
-                    1px 1px 0px rgba(184, 134, 11, 0.5),
-                    -1px -1px 0px rgba(184, 134, 11, 0.5)
+                    0 0 4px rgba(184, 134, 11, 0.8),
+                    1px 1px 0px rgba(0, 0, 0, 0.9),
+                    -1px -1px 0px rgba(0, 0, 0, 0.9)
                   `,
                 transform: isHovered ? "scale(1.05)" : "scale(1)",
                 maxWidth: "80px",
