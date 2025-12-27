@@ -10,7 +10,7 @@ export function ToastProvider() {
         style: {
           background: "#f5f0e1",
           border: "3px solid",
-          borderColor: "#b8860b #000000 #000000 #b8860b",
+          borderColor: "#FFD700 #000000 #000000 #FFD700",
           color: "#000000",
           fontFamily: "VT323, monospace",
         },

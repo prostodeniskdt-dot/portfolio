@@ -74,7 +74,7 @@ export function ContactWindow() {
       <div
         className="p-2"
         style={{
-          background: "#b8860b",
+          background: "#FFD700",
           border: "2px solid #000000",
         }}
       >
@@ -86,7 +86,7 @@ export function ContactWindow() {
         <div
           className="p-2 text-xs font-bold"
           style={{
-            background: message.type === "success" ? "#b8860b" : "#ff4444",
+            background: message.type === "success" ? "#FFD700" : "#ff4444",
             color: message.type === "success" ? "#000000" : "#ffffff",
             border: "2px solid #000000",
           }}
@@ -114,7 +114,7 @@ export function ContactWindow() {
                 style={{
                   background: "#ffffff",
                   border: "3px solid",
-                  borderColor: errors.name ? "#ff4444" : "#000000 #b8860b #b8860b #000000",
+                  borderColor: errors.name ? "#ff4444" : "#000000 #FFD700 #FFD700 #000000",
                 }}
               />
               {errors.name && (
@@ -141,7 +141,7 @@ export function ContactWindow() {
                 style={{
                   background: "#ffffff",
                   border: "3px solid",
-                  borderColor: errors.email ? "#ff4444" : "#000000 #b8860b #b8860b #000000",
+                  borderColor: errors.email ? "#ff4444" : "#000000 #FFD700 #FFD700 #000000",
                 }}
               />
               {errors.email && (
@@ -154,14 +154,14 @@ export function ContactWindow() {
         </div>
 
         {/* Divider */}
-        <div className="h-0.5 bg-[#b8860b]" />
+        <div className="h-0.5 bg-[#FFD700]" />
 
         {/* Contact links */}
         <div className="space-y-1">
           {contacts.map((contact, index) => (
             <div
               key={index}
-              className="flex items-center gap-2 p-2 cursor-pointer hover:bg-[#b8860b] transition-colors"
+              className="flex items-center gap-2 p-2 cursor-pointer hover:bg-[#FFD700] transition-colors"
               style={{
                 background: "#f5f0e1",
                 border: "1px solid #000000",
@@ -181,7 +181,7 @@ export function ContactWindow() {
             disabled={isLoading}
             className="px-4 py-2 text-xs font-bold transition-colors hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
             style={{
-              background: "#b8860b",
+              background: "#FFD700",
               color: "#000000",
               border: "3px solid",
               borderColor: "#d4a017 #000000 #000000 #d4a017",
@@ -196,9 +196,9 @@ export function ContactWindow() {
             className="px-4 py-2 text-xs font-bold transition-colors hover:opacity-90 disabled:opacity-50"
             style={{
               background: "#000000",
-              color: "#b8860b",
+              color: "#FFD700",
               border: "3px solid",
-              borderColor: "#3a3a3a #b8860b #b8860b #3a3a3a",
+              borderColor: "#3a3a3a #FFD700 #FFD700 #3a3a3a",
             }}
           >
             Отмена

@@ -12,20 +12,28 @@ export function RetroBackground() {
 
   return (
     <div className="absolute inset-0 overflow-hidden" style={{ imageRendering: "crisp-edges" }}>
-      {/* Базовый фон - черно-желтый градиент */}
+      {/* Базовый фон - чистый черный с золотыми акцентами */}
       <div
         className="absolute inset-0"
         style={{
           background: `
-            radial-gradient(ellipse at top left, rgba(184, 134, 11, 0.15) 0%, transparent 50%),
-            radial-gradient(ellipse at bottom right, rgba(184, 134, 11, 0.12) 0%, transparent 50%),
-            radial-gradient(ellipse at center, rgba(184, 134, 11, 0.08) 0%, transparent 70%),
-            linear-gradient(135deg, #000000 0%, #1a1a1a 30%, #0a0a0a 70%, #000000 100%)
+            linear-gradient(135deg, #000000 0%, #000000 100%)
           `,
         }}
       />
       
-      {/* Тонкие декоративные линии - желтые на черном */}
+      {/* Золотые акценты поверх черного фона */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: `
+            radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.1) 0%, transparent 40%),
+            radial-gradient(circle at 80% 70%, rgba(255, 215, 0, 0.08) 0%, transparent 40%)
+          `,
+        }}
+      />
+      
+      {/* Тонкие декоративные линии - золотые на черном */}
       <div
         className="absolute inset-0 opacity-40"
         style={{
@@ -34,28 +42,28 @@ export function RetroBackground() {
               90deg,
               transparent,
               transparent 100px,
-              rgba(184, 134, 11, 0.08) 100px,
-              rgba(184, 134, 11, 0.08) 101px
+              rgba(255, 215, 0, 0.06) 100px,
+              rgba(255, 215, 0, 0.06) 101px
             ),
             repeating-linear-gradient(
               0deg,
               transparent,
               transparent 100px,
-              rgba(184, 134, 11, 0.08) 100px,
-              rgba(184, 134, 11, 0.08) 101px
+              rgba(255, 215, 0, 0.06) 100px,
+              rgba(255, 215, 0, 0.06) 101px
             )
           `,
         }}
       />
       
-      {/* Мягкие акцентные точки - желтые на черном */}
+      {/* Мягкие акцентные точки - золотые на черном */}
       <div
         className="absolute inset-0"
         style={{
           background: `
-            radial-gradient(circle at 20% 30%, rgba(184, 134, 11, 0.12) 0%, transparent 50%),
-            radial-gradient(circle at 80% 70%, rgba(184, 134, 11, 0.10) 0%, transparent 50%),
-            radial-gradient(circle at 50% 50%, rgba(184, 134, 11, 0.06) 0%, transparent 60%)
+            radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
+            radial-gradient(circle at 80% 70%, rgba(255, 215, 0, 0.06) 0%, transparent 50%),
+            radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.04) 0%, transparent 60%)
           `,
         }}
       />
@@ -288,8 +296,8 @@ export function RetroBackground() {
                 style={{
                   width: '18px',
                   height: '18px',
-                  background: 'linear-gradient(180deg, rgba(184, 134, 11, 0.4) 0%, rgba(184, 134, 11, 0.2) 100%)',
-                  border: '2px solid rgba(184, 134, 11, 0.8)',
+                  background: 'linear-gradient(180deg, rgba(255, 215, 0, 0.4) 0%, rgba(255, 215, 0, 0.2) 100%)',
+                  border: '2px solid rgba(255, 215, 0, 0.8)',
                   borderRadius: '3px 3px 10px 10px',
                   boxShadow: '0 3px 6px rgba(0,0,0,0.4)',
                 }}
@@ -299,7 +307,7 @@ export function RetroBackground() {
                   width: '5px',
                   height: '8px',
                   margin: '0 auto',
-                  background: 'rgba(184, 134, 11, 0.6)',
+                  background: 'rgba(255, 215, 0, 0.6)',
                   border: '1px solid rgba(0,0,0,0.5)',
                 }}
               />
@@ -308,7 +316,7 @@ export function RetroBackground() {
                   width: '10px',
                   height: '2px',
                   margin: '0 auto',
-                  background: 'rgba(184, 134, 11, 0.7)',
+                  background: 'rgba(255, 215, 0, 0.7)',
                   border: '1px solid rgba(0,0,0,0.5)',
                 }}
               />
@@ -329,8 +337,8 @@ export function RetroBackground() {
               style={{
                 width: '16px',
                 height: '16px',
-                background: 'linear-gradient(180deg, rgba(184, 134, 11, 0.35) 0%, rgba(184, 134, 11, 0.15) 100%)',
-                border: '2px solid rgba(184, 134, 11, 0.7)',
+                background: 'linear-gradient(180deg, rgba(255, 215, 0, 0.35) 0%, rgba(255, 215, 0, 0.15) 100%)',
+                border: '2px solid rgba(255, 215, 0, 0.7)',
                 borderRadius: '2px 2px 9px 9px',
                 boxShadow: '0 2px 5px rgba(0,0,0,0.4)',
               }}
@@ -340,7 +348,7 @@ export function RetroBackground() {
                 width: '4px',
                 height: '8px',
                 margin: '0 auto',
-                background: 'rgba(184, 134, 11, 0.5)',
+                background: 'rgba(255, 215, 0, 0.5)',
                 border: '1px solid rgba(0,0,0,0.4)',
               }}
             />

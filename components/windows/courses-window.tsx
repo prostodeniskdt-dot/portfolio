@@ -41,7 +41,7 @@ export function IndividualCoursesWindow() {
       <div
         className="flex items-center gap-2 p-2 mb-3"
         style={{
-          background: "#b8860b",
+          background: "#FFD700",
           border: "2px solid #000000",
         }}
       >
@@ -49,10 +49,10 @@ export function IndividualCoursesWindow() {
           onClick={() => setFilter("all")}
           className="px-3 py-1 text-xs font-bold transition-colors"
           style={{
-            background: filter === "all" ? "#000000" : "#b8860b",
-            color: filter === "all" ? "#b8860b" : "#000000",
+            background: filter === "all" ? "#000000" : "#FFD700",
+            color: filter === "all" ? "#FFD700" : "#000000",
             border: "2px solid",
-            borderColor: filter === "all" ? "#b8860b" : "#000000",
+            borderColor: filter === "all" ? "#FFD700" : "#000000",
           }}
         >
           Все индивидуальные курсы
@@ -61,10 +61,10 @@ export function IndividualCoursesWindow() {
           onClick={() => setFilter("popular")}
           className="px-3 py-1 text-xs font-bold transition-colors"
           style={{
-            background: filter === "popular" ? "#000000" : "#b8860b",
-            color: filter === "popular" ? "#b8860b" : "#000000",
+            background: filter === "popular" ? "#000000" : "#FFD700",
+            color: filter === "popular" ? "#FFD700" : "#000000",
             border: "2px solid",
-            borderColor: filter === "popular" ? "#b8860b" : "#000000",
+            borderColor: filter === "popular" ? "#FFD700" : "#000000",
           }}
         >
           Популярные
@@ -73,10 +73,10 @@ export function IndividualCoursesWindow() {
           onClick={() => setFilter("new")}
           className="px-3 py-1 text-xs font-bold transition-colors"
           style={{
-            background: filter === "new" ? "#000000" : "#b8860b",
-            color: filter === "new" ? "#b8860b" : "#000000",
+            background: filter === "new" ? "#000000" : "#FFD700",
+            color: filter === "new" ? "#FFD700" : "#000000",
             border: "2px solid",
-            borderColor: filter === "new" ? "#b8860b" : "#000000",
+            borderColor: filter === "new" ? "#FFD700" : "#000000",
           }}
         >
           Новые
@@ -96,7 +96,7 @@ export function IndividualCoursesWindow() {
           style={{
             background: "#ffffff",
             border: "3px solid",
-            borderColor: "#000000 #b8860b #b8860b #000000",
+            borderColor: "#000000 #FFD700 #FFD700 #000000",
           }}
         />
       </div>
@@ -117,7 +117,7 @@ export function IndividualCoursesWindow() {
           filteredCourses.map((course, index) => (
           <div
             key={index}
-            className="flex items-center gap-3 p-3 cursor-pointer hover:bg-[#b8860b] group transition-colors"
+            className="flex items-center gap-3 p-3 cursor-pointer hover:bg-[#FFD700] group transition-colors"
             style={{
               background: "#f5f0e1",
               border: "2px solid #000000",
@@ -142,7 +142,7 @@ export function IndividualCoursesWindow() {
         className="mt-3 p-2 text-xs font-bold"
         style={{
           background: "#000000",
-          color: "#b8860b",
+          color: "#FFD700",
         }}
       >
         📂 C:\BARBOSS\IndividualCourses\

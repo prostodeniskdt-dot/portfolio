@@ -65,22 +65,22 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
           style={{
             background: "#1a1a1a",
             border: "3px solid",
-            borderColor: "#b8860b #000000 #000000 #b8860b",
+            borderColor: "#FFD700 #000000 #000000 #FFD700",
           }}
         >
-          <div className="text-xs font-bold text-[#b8860b] mb-1">{status}</div>
+          <div className="text-xs font-bold text-[#FFD700] mb-1">{status}</div>
           {/* Progress Bar */}
           <div
             className="h-4 relative overflow-hidden"
             style={{
               background: "#000000",
-              border: "2px solid #b8860b",
+              border: "2px solid #FFD700",
             }}
           >
             <div
               className="h-full transition-all duration-300"
               style={{
-                background: "linear-gradient(90deg, #b8860b 0%, #d4a017 100%)",
+                background: "linear-gradient(90deg, #FFD700 0%, #d4a017 100%)",
                 width: `${Math.min(progress, 100)}%`,
                 boxShadow: "inset 0 0 10px rgba(0,0,0,0.3)",
               }}
@@ -97,7 +97,7 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
 
         {/* Percentage */}
         <div className="text-center">
-          <span className="text-sm font-bold text-[#b8860b]" style={{ textShadow: "1px 1px 0 #000" }}>
+          <span className="text-sm font-bold text-[#FFD700]" style={{ textShadow: "1px 1px 0 #000" }}>
             {Math.round(progress)}%
           </span>
         </div>

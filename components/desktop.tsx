@@ -133,7 +133,7 @@ export const Desktop = memo(function Desktop({
               handleClick()
             }}
             aria-label={`Открыть ${item.label}`}
-            className="flex flex-col items-center gap-1 p-2 cursor-pointer hover:bg-[#b8860b]/20 group w-20 select-none animate-slide-up hover-lift"
+            className="flex flex-col items-center gap-1 p-2 cursor-pointer hover:bg-[#FFD700]/20 group w-20 select-none animate-slide-up hover-lift"
             style={{ animationDelay: `${index * 0.1}s` }}
           >
             {(() => {
@@ -146,7 +146,7 @@ export const Desktop = memo(function Desktop({
                 </span>
               )
             })()}
-            <span className="text-xs text-[#b8860b] text-center font-bold drop-shadow-[1px_1px_0_#000] group-hover:bg-[#b8860b] group-hover:text-black px-2 py-0.5 transition-colors duration-200">
+            <span className="text-xs text-[#FFD700] text-center font-bold drop-shadow-[1px_1px_0_#000] group-hover:bg-[#FFD700] group-hover:text-black px-2 py-0.5 transition-colors duration-200">
               {item.label}
             </span>
           </button>
@@ -299,8 +299,8 @@ export const Desktop = memo(function Desktop({
           <div
             className="absolute inset-0 pointer-events-none opacity-0 transition-opacity duration-200"
             style={{
-              background: "rgba(184, 134, 11, 0.1)",
-              border: "3px dashed #b8860b",
+              background: "rgba(255, 215, 0, 0.1)",
+              border: "3px dashed #FFD700",
             }}
             id="drop-zone-indicator"
           />

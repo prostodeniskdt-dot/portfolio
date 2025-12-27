@@ -8,7 +8,7 @@ export function AboutWindow() {
         <div
           className="w-20 h-20 shrink-0 flex items-center justify-center animate-pulse-glow"
           style={{
-            background: "#b8860b",
+            background: "#FFD700",
             border: "3px solid #000000",
           }}
         >
@@ -21,10 +21,10 @@ export function AboutWindow() {
           </h2>
           <p className="text-xs text-[#666666]">Образовательный проект</p>
           <div className="flex gap-2 mt-2">
-            <span className="px-2 py-0.5 text-xs bg-[#b8860b] text-black font-bold hover:scale-105 transition-transform">
+            <span className="px-2 py-0.5 text-xs bg-[#FFD700] text-black font-bold hover:scale-105 transition-transform">
               с 2020
             </span>
-            <span className="px-2 py-0.5 text-xs bg-black text-[#b8860b] font-bold hover:scale-105 transition-transform">
+            <span className="px-2 py-0.5 text-xs bg-black text-[#FFD700] font-bold hover:scale-105 transition-transform">
               5000+ студентов
             </span>
           </div>
@@ -32,7 +32,7 @@ export function AboutWindow() {
       </div>
 
       {/* Divider with shimmer */}
-      <div className="h-1 bg-[#b8860b] relative overflow-hidden">
+      <div className="h-1 bg-[#FFD700] relative overflow-hidden">
         <div className="absolute inset-0 animate-shimmer" />
       </div>
 
@@ -40,7 +40,7 @@ export function AboutWindow() {
       <div
         className="p-3 animate-slide-up hover-lift"
         style={{
-          background: "#b8860b",
+          background: "#FFD700",
           border: "2px solid #000000",
           animationDelay: "0.1s",
         }}
@@ -65,7 +65,7 @@ export function AboutWindow() {
             className="w-16 h-16 shrink-0 flex items-center justify-center"
             style={{
               background: "#000000",
-              border: "2px solid #b8860b",
+              border: "2px solid #FFD700",
             }}
           >
             <span className="text-2xl">👨‍💼</span>
@@ -92,12 +92,12 @@ export function AboutWindow() {
         className="p-3 animate-slide-up"
         style={{
           background: "#000000",
-          border: "2px solid #b8860b",
+          border: "2px solid #FFD700",
           animationDelay: "0.2s",
         }}
       >
-        <h3 className="text-xs font-bold text-[#b8860b] mb-2">🏆 ДОСТИЖЕНИЯ:</h3>
-        <div className="space-y-1 text-xs text-[#b8860b]">
+        <h3 className="text-xs font-bold text-[#FFD700] mb-2">🏆 ДОСТИЖЕНИЯ:</h3>
+        <div className="space-y-1 text-xs text-[#FFD700]">
           <div className="flex items-start gap-2">
             <span>•</span>
             <span>Запустил более 20 баров в России и СНГ</span>
@@ -149,7 +149,7 @@ export function AboutWindow() {
         className="p-2 text-xs space-y-1 animate-slide-up"
         style={{
           background: "#000000",
-          color: "#b8860b",
+          color: "#FFD700",
           animationDelay: "0.4s",
         }}
       >

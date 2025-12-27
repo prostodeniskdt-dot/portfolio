@@ -104,18 +104,18 @@ export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
             <span
               className="text-xs font-bold text-center transition-all duration-200 px-1.5 py-0.5 rounded"
               style={{
-                color: "#b8860b",
-                background: isHovered ? 'rgba(184, 134, 11, 0.2)' : 'rgba(0, 0, 0, 0.6)',
-                border: '1px solid rgba(184, 134, 11, 0.4)',
+                color: "#FFD700",
+                background: isHovered ? 'rgba(255, 215, 0, 0.2)' : 'rgba(0, 0, 0, 0.6)',
+                border: '1px solid rgba(255, 215, 0, 0.4)',
                 textShadow: isHovered
                   ? `
-                    0 0 8px rgba(184, 134, 11, 1),
-                    0 0 12px rgba(184, 134, 11, 0.8),
+                    0 0 8px rgba(255, 215, 0, 1),
+                    0 0 12px rgba(255, 215, 0, 0.8),
                     2px 2px 0px rgba(0, 0, 0, 0.9),
                     -1px -1px 0px rgba(0, 0, 0, 0.9)
                   `
                   : `
-                    0 0 4px rgba(184, 134, 11, 0.8),
+                    0 0 4px rgba(255, 215, 0, 0.8),
                     1px 1px 0px rgba(0, 0, 0, 0.9),
                     -1px -1px 0px rgba(0, 0, 0, 0.9)
                   `,
@@ -211,18 +211,18 @@ export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
               <span
                 className="text-xs font-bold text-center transition-all duration-200 px-1.5 py-0.5 rounded"
                 style={{
-                  color: "#b8860b",
-                  background: isHovered ? 'rgba(184, 134, 11, 0.2)' : 'rgba(0, 0, 0, 0.6)',
-                  border: '1px solid rgba(184, 134, 11, 0.4)',
+                  color: "#FFD700",
+                  background: isHovered ? 'rgba(255, 215, 0, 0.2)' : 'rgba(0, 0, 0, 0.6)',
+                  border: '1px solid rgba(255, 215, 0, 0.4)',
                   textShadow: isHovered
                     ? `
-                      0 0 8px rgba(184, 134, 11, 1),
-                      0 0 12px rgba(184, 134, 11, 0.8),
+                      0 0 8px rgba(255, 215, 0, 1),
+                      0 0 12px rgba(255, 215, 0, 0.8),
                       2px 2px 0px rgba(0, 0, 0, 0.9),
                       -1px -1px 0px rgba(0, 0, 0, 0.9)
                     `
                     : `
-                      0 0 4px rgba(184, 134, 11, 0.8),
+                      0 0 4px rgba(255, 215, 0, 0.8),
                       1px 1px 0px rgba(0, 0, 0, 0.9),
                       -1px -1px 0px rgba(0, 0, 0, 0.9)
                     `,

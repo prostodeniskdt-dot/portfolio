@@ -35,7 +35,7 @@ export function PricesWindow() {
       <div
         className="p-2 text-xs font-bold text-center"
         style={{
-          background: "#b8860b",
+          background: "#FFD700",
           border: "2px solid #000000",
         }}
       >
@@ -47,7 +47,7 @@ export function PricesWindow() {
         <div
           className="p-2 text-xs font-bold text-center animate-slide-up"
           style={{
-            background: "#b8860b",
+            background: "#FFD700",
             border: "2px solid #000000",
             color: "#000000",
           }}
@@ -65,8 +65,8 @@ export function PricesWindow() {
           style={{
             background: plan.color,
             border: "3px solid",
-            borderColor: plan.color === "#000000" ? "#b8860b" : "#000000",
-            color: plan.color === "#000000" ? "#b8860b" : "#000000",
+            borderColor: plan.color === "#000000" ? "#FFD700" : "#000000",
+            color: plan.color === "#000000" ? "#FFD700" : "#000000",
           }}
         >
           <div className="flex justify-between items-center mb-2">
@@ -86,10 +86,10 @@ export function PricesWindow() {
             className="w-full mt-3 py-1.5 text-xs font-bold transition-all duration-200 hover:scale-105 disabled:opacity-50"
             disabled={showMessage}
             style={{
-              background: plan.color === "#000000" ? "#b8860b" : "#000000",
-              color: plan.color === "#000000" ? "#000000" : "#b8860b",
+              background: plan.color === "#000000" ? "#FFD700" : "#000000",
+              color: plan.color === "#000000" ? "#000000" : "#FFD700",
               border: "2px solid",
-              borderColor: plan.color === "#000000" ? "#000000" : "#b8860b",
+              borderColor: plan.color === "#000000" ? "#000000" : "#FFD700",
             }}
           >
             {selectedPlan === plan.id && showMessage ? "✓ ВЫБРАНО" : "ВЫБРАТЬ"}

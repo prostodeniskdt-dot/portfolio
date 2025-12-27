@@ -223,7 +223,7 @@ export const OSWindow = memo(function OSWindow({
         style={{
           background: "#f5f0e1",
           border: "3px solid",
-          borderColor: "#b8860b #000000 #000000 #b8860b",
+          borderColor: "#FFD700 #000000 #000000 #FFD700",
           boxShadow: isActive
             ? "0 8px 32px rgba(184,134,11,0.4), 0 0 60px rgba(184,134,11,0.15)"
             : "0 4px 16px rgba(0,0,0,0.5)",
@@ -233,7 +233,7 @@ export const OSWindow = memo(function OSWindow({
         <div
           className="h-8 flex items-center justify-between px-2 cursor-move select-none shrink-0 transition-colors duration-200"
           style={{
-            background: isActive ? "#b8860b" : "#3a3a3a",
+            background: isActive ? "#FFD700" : "#3a3a3a",
           }}
           onMouseDown={handleMouseDown}
           onDoubleClick={handleMaximize}
@@ -272,12 +272,12 @@ export const OSWindow = memo(function OSWindow({
             <button
               onClick={handleMinimize}
               aria-label="Свернуть окно"
-              className="w-5 h-5 flex items-center justify-center text-xs font-bold transition-all duration-150 hover:scale-110 hover:bg-[#b8860b] hover:text-black"
+              className="w-5 h-5 flex items-center justify-center text-xs font-bold transition-all duration-150 hover:scale-110 hover:bg-[#FFD700] hover:text-black"
               style={{
                 background: "#000000",
-                color: "#b8860b",
+                color: "#FFD700",
                 border: "2px solid",
-                borderColor: "#3a3a3a #b8860b #b8860b #3a3a3a",
+                borderColor: "#3a3a3a #FFD700 #FFD700 #3a3a3a",
               }}
             >
               <span aria-hidden="true">_</span>
@@ -286,28 +286,28 @@ export const OSWindow = memo(function OSWindow({
             <button
               onClick={handleMaximize}
               aria-label={isMaximized ? "Восстановить размер окна" : "Развернуть окно"}
-              className="w-5 h-5 flex items-center justify-center transition-all duration-150 hover:scale-110 hover:bg-[#b8860b] group"
+              className="w-5 h-5 flex items-center justify-center transition-all duration-150 hover:scale-110 hover:bg-[#FFD700] group"
               style={{
                 background: "#000000",
-                color: "#b8860b",
+                color: "#FFD700",
                 border: "2px solid",
-                borderColor: "#3a3a3a #b8860b #b8860b #3a3a3a",
+                borderColor: "#3a3a3a #FFD700 #FFD700 #3a3a3a",
               }}
             >
               {isMaximized ? (
                 <div className="relative w-3 h-2.5">
                   <div
-                    className="absolute top-0 right-0 w-2 h-2 border-2 border-[#b8860b] group-hover:border-black"
+                    className="absolute top-0 right-0 w-2 h-2 border-2 border-[#FFD700] group-hover:border-black"
                     style={{ borderTopWidth: "3px" }}
                   />
                   <div
-                    className="absolute bottom-0 left-0 w-2 h-2 border-2 border-[#b8860b] group-hover:border-black bg-black group-hover:bg-[#b8860b]"
+                    className="absolute bottom-0 left-0 w-2 h-2 border-2 border-[#FFD700] group-hover:border-black bg-black group-hover:bg-[#FFD700]"
                     style={{ borderTopWidth: "3px" }}
                   />
                 </div>
               ) : (
                 <div
-                  className="w-3 h-2.5 border-2 border-[#b8860b] group-hover:border-black"
+                  className="w-3 h-2.5 border-2 border-[#FFD700] group-hover:border-black"
                   style={{ borderTopWidth: "3px" }}
                 />
               )}
@@ -322,9 +322,9 @@ export const OSWindow = memo(function OSWindow({
               className="w-5 h-5 flex items-center justify-center text-sm font-bold transition-all duration-150 hover:scale-110 hover:bg-red-600 hover:text-white"
               style={{
                 background: "#000000",
-                color: "#b8860b",
+                color: "#FFD700",
                 border: "2px solid",
-                borderColor: "#3a3a3a #b8860b #b8860b #3a3a3a",
+                borderColor: "#3a3a3a #FFD700 #FFD700 #3a3a3a",
               }}
             >
               <span aria-hidden="true">×</span>
@@ -341,7 +341,7 @@ export const OSWindow = memo(function OSWindow({
           style={{
             background: "#ffffff",
             border: "3px solid",
-            borderColor: "#000000 #b8860b #b8860b #000000",
+            borderColor: "#000000 #FFD700 #FFD700 #000000",
           }}
         >
           <div className="p-3">{children}</div>
@@ -352,10 +352,10 @@ export const OSWindow = memo(function OSWindow({
           className="h-6 flex items-center px-2 shrink-0"
           style={{
             background: "#000000",
-            borderTop: "2px solid #b8860b",
+            borderTop: "2px solid #FFD700",
           }}
         >
-          <div className="flex-1 text-xs text-[#b8860b] px-2 flex items-center gap-1">
+          <div className="flex-1 text-xs text-[#FFD700] px-2 flex items-center gap-1">
             <span>Готово</span>
             <span className="animate-blink">_</span>
           </div>
@@ -372,7 +372,7 @@ export const OSWindow = memo(function OSWindow({
                 background: "transparent",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "rgba(184, 134, 11, 0.2)"
+                e.currentTarget.style.background = "rgba(255, 215, 0, 0.2)"
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = "transparent"
@@ -383,7 +383,7 @@ export const OSWindow = memo(function OSWindow({
               onMouseDown={handleResizeStart("ne")}
               style={{ background: "transparent" }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "rgba(184, 134, 11, 0.2)"
+                e.currentTarget.style.background = "rgba(255, 215, 0, 0.2)"
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = "transparent"
@@ -394,7 +394,7 @@ export const OSWindow = memo(function OSWindow({
               onMouseDown={handleResizeStart("sw")}
               style={{ background: "transparent" }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "rgba(184, 134, 11, 0.2)"
+                e.currentTarget.style.background = "rgba(255, 215, 0, 0.2)"
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = "transparent"
@@ -405,7 +405,7 @@ export const OSWindow = memo(function OSWindow({
               onMouseDown={handleResizeStart("se")}
               style={{ background: "transparent" }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "rgba(184, 134, 11, 0.2)"
+                e.currentTarget.style.background = "rgba(255, 215, 0, 0.2)"
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = "transparent"
@@ -417,7 +417,7 @@ export const OSWindow = memo(function OSWindow({
               onMouseDown={handleResizeStart("n")}
               style={{ background: "transparent" }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "rgba(184, 134, 11, 0.15)"
+                e.currentTarget.style.background = "rgba(255, 215, 0, 0.15)"
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = "transparent"
@@ -428,7 +428,7 @@ export const OSWindow = memo(function OSWindow({
               onMouseDown={handleResizeStart("s")}
               style={{ background: "transparent" }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "rgba(184, 134, 11, 0.15)"
+                e.currentTarget.style.background = "rgba(255, 215, 0, 0.15)"
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = "transparent"
@@ -439,7 +439,7 @@ export const OSWindow = memo(function OSWindow({
               onMouseDown={handleResizeStart("w")}
               style={{ background: "transparent" }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "rgba(184, 134, 11, 0.15)"
+                e.currentTarget.style.background = "rgba(255, 215, 0, 0.15)"
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = "transparent"
@@ -450,7 +450,7 @@ export const OSWindow = memo(function OSWindow({
               onMouseDown={handleResizeStart("e")}
               style={{ background: "transparent" }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "rgba(184, 134, 11, 0.15)"
+                e.currentTarget.style.background = "rgba(255, 215, 0, 0.15)"
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = "transparent"

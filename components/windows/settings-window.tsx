@@ -39,7 +39,7 @@ export function SettingsWindow() {
       <div
         className="p-2 text-xs font-bold text-center"
         style={{
-          background: "#b8860b",
+          background: "#FFD700",
           border: "2px solid #000000",
         }}
       >
@@ -61,9 +61,9 @@ export function SettingsWindow() {
             onClick={() => handleSoundsToggle(!soundsEnabled)}
             className="w-12 h-6 relative transition-colors"
             style={{
-              background: soundsEnabled ? "#b8860b" : "#3a3a3a",
+              background: soundsEnabled ? "#FFD700" : "#3a3a3a",
               border: "3px solid",
-              borderColor: soundsEnabled ? "#000000 #b8860b #b8860b #000000" : "#000000 #3a3a3a #3a3a3a #000000",
+              borderColor: soundsEnabled ? "#000000 #FFD700 #FFD700 #000000" : "#000000 #3a3a3a #3a3a3a #000000",
             }}
           >
             <div
@@ -71,7 +71,7 @@ export function SettingsWindow() {
               style={{
                 background: soundsEnabled ? "#000000" : "#f5f0e1",
                 border: "2px solid",
-                borderColor: soundsEnabled ? "#b8860b" : "#3a3a3a",
+                borderColor: soundsEnabled ? "#FFD700" : "#3a3a3a",
                 transform: soundsEnabled ? "translateX(24px)" : "translateX(0)",
               }}
             />
@@ -94,9 +94,9 @@ export function SettingsWindow() {
             onClick={() => setAnimationsEnabled(!animationsEnabled)}
             className="w-12 h-6 relative transition-colors"
             style={{
-              background: animationsEnabled ? "#b8860b" : "#3a3a3a",
+              background: animationsEnabled ? "#FFD700" : "#3a3a3a",
               border: "3px solid",
-              borderColor: animationsEnabled ? "#000000 #b8860b #b8860b #000000" : "#000000 #3a3a3a #3a3a3a #000000",
+              borderColor: animationsEnabled ? "#000000 #FFD700 #FFD700 #000000" : "#000000 #3a3a3a #3a3a3a #000000",
             }}
           >
             <div
@@ -104,7 +104,7 @@ export function SettingsWindow() {
               style={{
                 background: animationsEnabled ? "#000000" : "#f5f0e1",
                 border: "2px solid",
-                borderColor: animationsEnabled ? "#b8860b" : "#3a3a3a",
+                borderColor: animationsEnabled ? "#FFD700" : "#3a3a3a",
                 transform: animationsEnabled ? "translateX(24px)" : "translateX(0)",
               }}
             />
@@ -125,7 +125,7 @@ export function SettingsWindow() {
           onClick={handleResetWindows}
           className="w-full px-3 py-2 text-xs font-bold transition-colors hover:opacity-90"
           style={{
-            background: "#b8860b",
+            background: "#FFD700",
             color: "#000000",
             border: "3px solid",
             borderColor: "#d4a017 #000000 #000000 #d4a017",
@@ -138,9 +138,9 @@ export function SettingsWindow() {
           className="w-full px-3 py-2 text-xs font-bold transition-colors hover:opacity-90"
           style={{
             background: "#000000",
-            color: "#b8860b",
+            color: "#FFD700",
             border: "3px solid",
-            borderColor: "#3a3a3a #b8860b #b8860b #3a3a3a",
+            borderColor: "#3a3a3a #FFD700 #FFD700 #3a3a3a",
           }}
         >
           Сбросить все настройки
@@ -152,8 +152,8 @@ export function SettingsWindow() {
         className="p-3 text-xs"
         style={{
           background: "#000000",
-          color: "#b8860b",
-          border: "2px solid #b8860b",
+          color: "#FFD700",
+          border: "2px solid #FFD700",
         }}
       >
         <div className="space-y-1">
