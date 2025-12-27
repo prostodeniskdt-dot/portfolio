@@ -1,15 +1,57 @@
 "use client"
 
-export function RetroBackground() {
+import { useState, useEffect } from "react"
+
+interface RetroBackgroundProps {
+  isAnimated?: boolean
+}
+
+export function RetroBackground({ isAnimated = false }: RetroBackgroundProps) {
+  const [showVideo, setShowVideo] = useState(false)
+
+  useEffect(() => {
+    if (isAnimated) {
+      // Небольшая задержка для плавного перехода
+      const timer = setTimeout(() => setShowVideo(true), 150)
+      return () => clearTimeout(timer)
+    } else {
+      setShowVideo(false)
+    }
+  }, [isAnimated])
+
   return (
     <div className="absolute inset-0 overflow-hidden">
-      {/* Основное изображение */}
+      {/* Изображение (первый кадр видео) */}
       <img
         src="/background.jpg"
         alt="Background"
-        className="absolute inset-0 w-full h-full object-cover"
-        style={{ imageRendering: "crisp-edges" }}
+        className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
+        style={{ 
+          imageRendering: "crisp-edges",
+          opacity: showVideo ? 0 : 1,
+          pointerEvents: showVideo ? "none" : "auto"
+        }}
       />
+      
+      {/* Видео */}
+      {showVideo && (
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
+          style={{ 
+            imageRendering: "crisp-edges",
+            opacity: showVideo ? 1 : 0
+          }}
+        >
+          <source src="/background.mp4" type="video/mp4" />
+          <source src="/background.webm" type="video/webm" />
+          {/* Fallback на изображение */}
+          <img src="/background.jpg" alt="Background" />
+        </video>
+      )}
       
       {/* Затемняющий оверлей для улучшения читаемости интерфейса */}
       <div

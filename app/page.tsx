@@ -14,6 +14,7 @@ import { desktopIcons } from "@/lib/data"
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
+  const [isBackgroundAnimated, setIsBackgroundAnimated] = useState(false)
   const {
     openWindows,
     activeWindow,
@@ -77,12 +78,16 @@ export default function Home() {
     toggleWindow(`product-${productId}`)
   }, [toggleWindow])
 
-  // Handler for icon clicks - distinguishes between folders and windows
+  // Handler for icon clicks - distinguishes between folders, windows, and actions
   const handleIconClick = useCallback((windowId: string) => {
     const icon = desktopIcons.find((i) => i.id === windowId)
     if (icon?.type === "folder") {
       const folderId = windowId.replace("-folder", "")
       handleOpenFolder(folderId)
+    } else if (icon?.type === "action") {
+      if (windowId === "animate-background") {
+        setIsBackgroundAnimated(prev => !prev)
+      }
     } else {
       toggleWindow(windowId)
     }
@@ -90,6 +95,10 @@ export default function Home() {
 
   // Handler for sidebar navigation clicks
   const handleSidebarClick = useCallback((itemId: string) => {
+    if (itemId === "animate-background") {
+      setIsBackgroundAnimated(prev => !prev)
+      return
+    }
     if (itemId.endsWith("-folder")) {
       const folderId = itemId.replace("-folder", "")
       handleOpenFolder(folderId)
@@ -113,7 +122,7 @@ export default function Home() {
 
   return (
     <div className="relative h-screen w-screen overflow-hidden">
-      <RetroBackground />
+      <RetroBackground isAnimated={isBackgroundAnimated} />
       <div className="relative z-10 flex h-full flex-col">
         <TopBar />
         <SidebarNavigation onItemClick={handleSidebarClick} />

@@ -236,6 +236,27 @@ export function PixelLvl3DigitalIcon({ size = 32, className = "" }: PixelIconPro
   )
 }
 
+export function PixelVideoIcon({ size = 32, className = "" }: PixelIconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 32 32"
+      className={className}
+      style={iconStyle}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {/* Пиксельная иконка видео/камеры */}
+      <rect x="6" y="8" width="20" height="16" fill="#000000" stroke="#FFD700" strokeWidth="2" />
+      <circle cx="16" cy="16" r="5" fill="#FFD700" />
+      <polygon points="13,14 13,18 17,16" fill="#000000" />
+      <rect x="8" y="6" width="16" height="2" fill="#FFD700" />
+      <rect x="10" y="4" width="12" height="2" fill="#FFD700" />
+    </svg>
+  )
+}
+
 // Маппинг иконок по ID
 export const pixelIcons: Record<string, React.ComponentType<PixelIconProps>> = {
   "about": PixelAboutIcon,
@@ -248,6 +269,7 @@ export const pixelIcons: Record<string, React.ComponentType<PixelIconProps>> = {
   "lvl1-basic-folder": PixelLvl1BasicIcon,
   "lvl2-professional-folder": PixelLvl2ProfessionalIcon,
   "lvl3-digital-folder": PixelLvl3DigitalIcon,
+  "video": PixelVideoIcon,
 }
 
 // Хелпер для получения иконки

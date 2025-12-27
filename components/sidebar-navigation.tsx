@@ -65,12 +65,12 @@ export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
               style={{
                 width: '44px',
                 height: '44px',
-                background: isHovered ? '#e8e3d4' : '#f5f0e1',
-                border: '3px solid #000',
+                background: isHovered ? '#FFED4E' : '#FFFFFF',
+                border: '3px solid #FFD700',
                 borderRadius: '4px',
                 boxShadow: isHovered
-                  ? '0 0 12px rgba(0, 0, 0, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.3), inset 0 -2px 4px rgba(0, 0, 0, 0.2)'
-                  : '0 4px 8px rgba(0, 0, 0, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.2), inset 0 -1px 2px rgba(0, 0, 0, 0.3)',
+                  ? '0 0 20px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 215, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.4), inset 0 -2px 4px rgba(0, 0, 0, 0.2)'
+                  : '0 4px 12px rgba(255, 215, 0, 0.4), 0 0 8px rgba(255, 215, 0, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.3), inset 0 -1px 2px rgba(0, 0, 0, 0.1)',
                 transform: isHovered ? "scale(1.1)" : "scale(1)",
               }}
             >
@@ -172,12 +172,12 @@ export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
                 style={{
                   width: '44px',
                   height: '44px',
-                  background: isHovered ? '#e8e3d4' : '#f5f0e1',
-                  border: '3px solid #000',
+                  background: isHovered ? '#FFED4E' : '#FFFFFF',
+                  border: '3px solid #FFD700',
                   borderRadius: '4px',
                   boxShadow: isHovered
-                    ? '0 0 12px rgba(0, 0, 0, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.3), inset 0 -2px 4px rgba(0, 0, 0, 0.2)'
-                    : '0 4px 8px rgba(0, 0, 0, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.2), inset 0 -1px 2px rgba(0, 0, 0, 0.3)',
+                    ? '0 0 20px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 215, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.4), inset 0 -2px 4px rgba(0, 0, 0, 0.2)'
+                    : '0 4px 12px rgba(255, 215, 0, 0.4), 0 0 8px rgba(255, 215, 0, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.3), inset 0 -1px 2px rgba(0, 0, 0, 0.1)',
                   transform: isHovered ? "scale(1.1)" : "scale(1)",
                 }}
               >

@@ -119,6 +119,9 @@ export const Desktop = memo(function Desktop({
             // Для папок извлекаем folderId из id (например, "products-folder" -> "products")
             const folderId = item.id.replace("-folder", "")
             onFolderClick?.(folderId)
+          } else if (item.type === "action") {
+            // Для действий вызываем onIconClick, который обработает их в page.tsx
+            onIconClick(item.id)
           } else {
             onIconClick(item.id)
           }

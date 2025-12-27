@@ -66,7 +66,7 @@ export interface DesktopIcon {
   id: string
   icon: string
   label: string
-  type?: "folder" | "window"
+  type?: "folder" | "window" | "action"
 }
 
 export const courses: Course[] = [
@@ -846,6 +846,7 @@ export const taskbarItems: TaskbarItem[] = [
 
 export const desktopIcons: DesktopIcon[] = [
   { id: "settings", icon: "settings", label: "Настройки", type: "window" },
+  { id: "animate-background", icon: "video", label: "Анимация фона", type: "action" },
   { id: "contact", icon: "contact", label: "Контакты", type: "window" },
   { id: "prices", icon: "prices", label: "Тарифы", type: "window" },
   { id: "about", icon: "about", label: "Об образовательном проекте", type: "window" },
