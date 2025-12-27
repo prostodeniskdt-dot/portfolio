@@ -56,51 +56,52 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
 
   return (
     <div
-      className="fixed inset-0 z-[9999]"
+      className="fixed inset-0 z-[9999] flex items-center justify-center"
       style={{
         background: "#000000",
         fontFamily: "monospace",
       }}
     >
-      {/* Консоль в правом верхнем углу */}
+      {/* Консоль по центру экрана */}
       <div
-        className="absolute top-4 right-4"
+        className="relative"
         style={{
-          width: "500px",
+          width: "600px",
+          maxWidth: "90vw",
           maxHeight: "80vh",
           overflow: "hidden",
         }}
       >
         <div
-          className="p-3"
+          className="p-6"
           style={{
             background: "#000000",
-            border: "2px solid #FFD700",
-            boxShadow: "0 0 20px rgba(255, 215, 0, 0.3)",
+            border: "3px solid #FFD700",
+            boxShadow: "0 0 30px rgba(255, 215, 0, 0.5), 0 0 60px rgba(255, 215, 0, 0.2)",
           }}
         >
           {/* Заголовок консоли */}
           <div
-            className="mb-2 pb-2 border-b"
+            className="mb-4 pb-3 border-b"
             style={{
               borderColor: "#FFD700",
             }}
           >
-            <span className="text-xs font-bold text-[#FFD700]">
+            <span className="text-lg font-bold text-[#FFD700]">
               SYSTEM BOOT LOG
             </span>
           </div>
 
           {/* Строки кода */}
-          <div className="space-y-0.5">
+          <div className="space-y-1">
             {lines.map((line, index) => (
               <div
                 key={index}
-                className="text-xs"
+                className="text-base"
                 style={{
                   color: index % 3 === 0 ? "#FFD700" : "#00FF00", // Чередование цветов
                   fontFamily: "monospace",
-                  lineHeight: "1.4",
+                  lineHeight: "1.6",
                   animation: "fadeIn 0.3s ease-in",
                 }}
               >
@@ -111,7 +112,7 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
             {/* Курсор мигающий */}
             {currentLineIndex < systemLines.length && (
               <span
-                className="text-xs text-[#FFD700] animate-blink"
+                className="text-base text-[#FFD700] animate-blink"
                 style={{
                   fontFamily: "monospace",
                 }}
@@ -123,16 +124,16 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
             {/* Финальное сообщение */}
             {showComplete && (
               <div
-                className="mt-2 pt-2 border-t"
+                className="mt-4 pt-4 border-t"
                 style={{
                   borderColor: "#FFD700",
                   animation: "fadeIn 0.5s ease-in",
                 }}
               >
-                <div className="text-sm font-bold text-[#FFD700]">
+                <div className="text-2xl font-bold text-[#FFD700] mb-2">
                   {'>'} Готово на 100%
                 </div>
-                <div className="text-xs text-[#00FF00] mt-1">
+                <div className="text-lg text-[#00FF00]">
                   {'>'} SYSTEM READY
                 </div>
               </div>
