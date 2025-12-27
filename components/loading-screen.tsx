@@ -130,10 +130,10 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
                 }}
               >
                 <div className="text-sm font-bold text-[#FFD700]">
-                  > Готово на 100%
+                  {'>'} Готово на 100%
                 </div>
                 <div className="text-xs text-[#00FF00] mt-1">
-                  > SYSTEM READY
+                  {'>'} SYSTEM READY
                 </div>
               </div>
             )}
