@@ -1,108 +1,145 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { PixelPear } from "@/components/pixel-pear"
 
 interface LoadingScreenProps {
   onComplete: () => void
 }
 
 export function LoadingScreen({ onComplete }: LoadingScreenProps) {
-  const [progress, setProgress] = useState(0)
-  const [status, setStatus] = useState("Инициализация системы...")
+  const [lines, setLines] = useState<string[]>([])
+  const [currentLineIndex, setCurrentLineIndex] = useState(0)
+  const [showComplete, setShowComplete] = useState(false)
+
+  // Список строк кода в стиле системных логов
+  const systemLines = [
+    "> INITIALIZING SYSTEM...",
+    "> LOADING KERNEL MODULES...",
+    "> CHECKING HARDWARE...",
+    "> MEMORY TEST: OK",
+    "> CPU STATUS: READY",
+    "> LOADING DRIVERS...",
+    "> NETWORK INTERFACE: ACTIVE",
+    "> GRAPHICS MODULE: LOADED",
+    "> AUDIO SYSTEM: INITIALIZED",
+    "> FILE SYSTEM: MOUNTED",
+    "> SECURITY PROTOCOLS: ENABLED",
+    "> LOADING USER INTERFACE...",
+    "> RENDERING ENGINE: READY",
+    "> COMPONENT LIBRARY: LOADED",
+    "> ASSETS CACHED",
+    "> CONFIGURATION LOADED",
+    "> SYSTEM READY",
+    "> ALL SYSTEMS OPERATIONAL",
+  ]
 
   useEffect(() => {
-    const statuses = [
-      "Инициализация системы...",
-      "Загрузка компонентов...",
-      "Подготовка интерфейса...",
-      "Почти готово...",
-    ]
+    if (currentLineIndex < systemLines.length) {
+      const timer = setTimeout(() => {
+        setLines((prev) => [...prev, systemLines[currentLineIndex]])
+        setCurrentLineIndex((prev) => prev + 1)
+      }, 150 + Math.random() * 100) // Случайная задержка для реалистичности
 
-    const interval = setInterval(() => {
-      setProgress((prev: number) => {
-        if (prev >= 100) {
-          clearInterval(interval)
-          setTimeout(() => onComplete(), 300)
-          return 100
-        }
-        return prev + Math.random() * 15
-      })
-    }, 150)
+      return () => clearTimeout(timer)
+    } else if (!showComplete) {
+      // После всех строк показываем "Готово на 100%"
+      const completeTimer = setTimeout(() => {
+        setShowComplete(true)
+        setTimeout(() => {
+          onComplete()
+        }, 800)
+      }, 300)
 
-    const statusInterval = setInterval(() => {
-      setStatus((current: string) => {
-        const currentIndex = statuses.indexOf(current)
-        if (currentIndex < statuses.length - 1) {
-          return statuses[currentIndex + 1]
-        }
-        return current
-      })
-    }, 800)
-
-    return () => {
-      clearInterval(interval)
-      clearInterval(statusInterval)
+      return () => clearTimeout(completeTimer)
     }
-  }, [onComplete])
+  }, [currentLineIndex, showComplete, onComplete, systemLines])
 
   return (
     <div
-      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center"
+      className="fixed inset-0 z-[9999]"
       style={{
         background: "#000000",
+        fontFamily: "monospace",
       }}
     >
-      {/* Pixel Pear Logo */}
-      <div className="mb-8 animate-pulse">
-        <PixelPear size={80} />
-      </div>
-
-      {/* Progress Bar Container */}
-      <div className="w-80">
+      {/* Консоль в правом верхнем углу */}
+      <div
+        className="absolute top-4 right-4"
+        style={{
+          width: "500px",
+          maxHeight: "80vh",
+          overflow: "hidden",
+        }}
+      >
         <div
-          className="mb-2 p-2"
+          className="p-3"
           style={{
-            background: "#1a1a1a",
-            border: "3px solid",
-            borderColor: "#FFD700 #000000 #000000 #FFD700",
+            background: "#000000",
+            border: "2px solid #FFD700",
+            boxShadow: "0 0 20px rgba(255, 215, 0, 0.3)",
           }}
         >
-          <div className="text-xs font-bold text-[#FFD700] mb-1">{status}</div>
-          {/* Progress Bar */}
+          {/* Заголовок консоли */}
           <div
-            className="h-4 relative overflow-hidden"
+            className="mb-2 pb-2 border-b"
             style={{
-              background: "#000000",
-              border: "2px solid #FFD700",
+              borderColor: "#FFD700",
             }}
           >
-            <div
-              className="h-full transition-all duration-300"
-              style={{
-                background: "linear-gradient(90deg, #FFD700 0%, #d4a017 100%)",
-                width: `${Math.min(progress, 100)}%`,
-                boxShadow: "inset 0 0 10px rgba(0,0,0,0.3)",
-              }}
-            />
-            {/* Animated stripes */}
-            <div
-              className="absolute inset-0 opacity-20 animate-slide-stripe"
-              style={{
-                background: "repeating-linear-gradient(45deg, transparent, transparent 4px, rgba(184,134,11,0.3) 4px, rgba(184,134,11,0.3) 8px)",
-              }}
-            />
+            <span className="text-xs font-bold text-[#FFD700]">
+              SYSTEM BOOT LOG
+            </span>
           </div>
-        </div>
 
-        {/* Percentage */}
-        <div className="text-center">
-          <span className="text-sm font-bold text-[#FFD700]" style={{ textShadow: "1px 1px 0 #000" }}>
-            {Math.round(progress)}%
-          </span>
+          {/* Строки кода */}
+          <div className="space-y-0.5">
+            {lines.map((line, index) => (
+              <div
+                key={index}
+                className="text-xs"
+                style={{
+                  color: index % 3 === 0 ? "#FFD700" : "#00FF00", // Чередование цветов
+                  fontFamily: "monospace",
+                  lineHeight: "1.4",
+                  animation: "fadeIn 0.3s ease-in",
+                }}
+              >
+                {line}
+              </div>
+            ))}
+
+            {/* Курсор мигающий */}
+            {currentLineIndex < systemLines.length && (
+              <span
+                className="text-xs text-[#FFD700] animate-blink"
+                style={{
+                  fontFamily: "monospace",
+                }}
+              >
+                _
+              </span>
+            )}
+
+            {/* Финальное сообщение */}
+            {showComplete && (
+              <div
+                className="mt-2 pt-2 border-t"
+                style={{
+                  borderColor: "#FFD700",
+                  animation: "fadeIn 0.5s ease-in",
+                }}
+              >
+                <div className="text-sm font-bold text-[#FFD700]">
+                  > Готово на 100%
+                </div>
+                <div className="text-xs text-[#00FF00] mt-1">
+                  > SYSTEM READY
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
   )
 }
-
