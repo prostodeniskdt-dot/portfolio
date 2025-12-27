@@ -29,9 +29,9 @@ export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
   const folders = menuItems.filter(item => item.type === "folder")
 
   return (
-    <div className="absolute left-4 top-20 z-20 flex gap-8" style={{ fontFamily: "Oswald, sans-serif" }}>
+    <div className="absolute left-4 top-20 z-20 flex gap-8 items-start" style={{ fontFamily: "Oswald, sans-serif" }}>
       {/* Первая колонка - окна */}
-      <nav className="flex flex-col gap-6">
+      <nav className="flex flex-col gap-6 items-center">
         {windows.map((item) => {
         const IconComponent = getPixelIcon(item.icon)
         const isHovered = hoveredItem === item.id
@@ -54,6 +54,8 @@ export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
             className="flex flex-col items-center gap-2 p-3 transition-all duration-200 group"
             style={{
               cursor: "pointer",
+              width: '120px',
+              minHeight: '100px',
             }}
             aria-label={item.label}
           >
@@ -118,11 +120,14 @@ export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
                     -1px -1px 0px rgba(0, 0, 0, 0.9)
                   `,
                 transform: isHovered ? "scale(1.05)" : "scale(1)",
-                maxWidth: item.label.length > 15 ? "110px" : "80px",
+                width: '120px',
+                minHeight: '32px',
                 lineHeight: "1.2",
                 wordBreak: "break-word",
                 overflowWrap: "break-word",
-                display: "inline-block",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
               {item.label}
@@ -133,7 +138,7 @@ export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
       </nav>
       
       {/* Вторая колонка - папки */}
-      <nav className="flex flex-col gap-6">
+      <nav className="flex flex-col gap-6 items-center">
         {folders.map((item) => {
           const IconComponent = getPixelIcon(item.icon)
           const isHovered = hoveredItem === item.id
@@ -156,6 +161,8 @@ export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
               className="flex flex-col items-center gap-2 p-3 transition-all duration-200 group"
               style={{
                 cursor: "pointer",
+                width: '120px',
+                minHeight: '100px',
               }}
               aria-label={item.label}
             >
@@ -220,11 +227,14 @@ export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
                       -1px -1px 0px rgba(0, 0, 0, 0.9)
                     `,
                   transform: isHovered ? "scale(1.05)" : "scale(1)",
-                  maxWidth: item.label.length > 15 ? "110px" : "80px",
+                  width: '120px',
+                  minHeight: '32px',
                   lineHeight: "1.2",
                   wordBreak: "break-word",
                   overflowWrap: "break-word",
-                  display: "inline-block",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
                 {item.label}
