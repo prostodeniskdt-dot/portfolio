@@ -4,9 +4,13 @@ import { useState, useRef, useEffect } from "react"
 
 // Список треков (можно расширить, добавив автоматическое сканирование)
 const defaultTracks = [
-  { id: 1, name: "Track 1", url: "/music/track1.mp3" },
-  { id: 2, name: "Track 2", url: "/music/track2.mp3" },
-  { id: 3, name: "Track 3", url: "/music/track3.mp3" },
+  { id: 1, name: "Музыка для работы 1", url: "/music/Музыка для работы 1.mp3" },
+  { id: 2, name: "Музыка для работы 2", url: "/music/Музыка для работы 2.mp3" },
+  { id: 3, name: "Музыка для работы 3", url: "/music/Музыка для работы 3.mp3" },
+  { id: 4, name: "Музыка для работы 4", url: "/music/Музыка для работы 4.mp3" },
+  { id: 5, name: "Музыка для работы 5", url: "/music/Музыка для работы 5.mp3" },
+  { id: 6, name: "Музыка для работы 6", url: "/music/Музыка для работы 6.mp3" },
+  { id: 7, name: "Музыка для работы 7", url: "/music/Музыка для работы 7.mp3" },
 ]
 
 export function PlayerWindow() {

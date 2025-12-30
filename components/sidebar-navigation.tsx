@@ -28,8 +28,9 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
   }, [])
 
   // Разделяем элементы на две колонки: окна в первой, папки во второй
-  const windows = menuItems.filter(item => item.type !== "folder")
+  const windows = menuItems.filter(item => item.type !== "folder" && item.type !== "trash")
   const folders = menuItems.filter(item => item.type === "folder")
+  const trash = menuItems.find(item => item.type === "trash")
 
   return (
     <div 
