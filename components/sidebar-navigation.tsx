@@ -48,17 +48,17 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
   const trash = menuItems.find((item) => item.type === "trash")
 
   const mainGridCells: Array<DesktopIcon | null> = [
-    // Row 1
+    // Row 1 (variant 1: by rows)
     productsFolder ?? null,
-    vacanciesFolder ?? null,
-    contact ?? null,
-    // Row 2
     individualProductsFolder ?? null,
-    advertisingFolder ?? null,
-    null,
-    // Row 3
     itProductsFolder ?? null,
+    // Row 2
+    vacanciesFolder ?? null,
+    advertisingFolder ?? null,
     about ?? null,
+    // Row 3
+    contact ?? null,
+    null,
     null,
   ]
 
@@ -153,7 +153,7 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
           style={{
             color: "#FFFFFF",
             background: isHovered ? "rgba(255, 215, 0, 0.2)" : "transparent",
-            border: "1px solid rgba(255, 215, 0, 0.4)",
+            border: "none",
             textShadow: isHovered
               ? "0 0 8px rgba(255, 215, 0, 1), 0 0 12px rgba(255, 215, 0, 0.8), 2px 2px 0px rgba(0, 0, 0, 0.9), -1px -1px 0px rgba(0, 0, 0, 0.9)"
               : "0 0 4px rgba(255, 215, 0, 0.8), 1px 1px 0px rgba(0, 0, 0, 0.9), -1px -1px 0px rgba(0, 0, 0, 0.9)",
