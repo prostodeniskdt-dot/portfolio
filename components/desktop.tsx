@@ -303,7 +303,7 @@ export const Desktop = memo(function Desktop({
           onDrop={handleDrop}
           style={{
             background: "transparent",
-            marginLeft: "280px",
+            marginLeft: "420px",
           }}
         >
           {/* Desktop icons - три столбца */}
