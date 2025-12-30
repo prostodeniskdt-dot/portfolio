@@ -877,7 +877,7 @@ export const desktopIcons: DesktopIcon[] = [
   { id: "contact", icon: "contact", label: "Контакты", type: "window" },
   { id: "about", icon: "about", label: "Команда", type: "window" },
   { id: "player", icon: "player", label: "Плеер", type: "window" },
-  { id: "products-folder", icon: "products-folder", label: "Продукты\nBAR BOSS", type: "folder" },
+  { id: "products-folder", icon: "products-folder", label: "Продукты\nBAR BOSS\nONLINE", type: "folder" },
   { id: "individual-products-folder", icon: "individual-products-folder", label: "Индивидуальные\nпродукты", type: "folder" },
   { id: "it-products-folder", icon: "it-products-folder", label: "IT\nпродукты", type: "folder" },
   { id: "vacancies-folder", icon: "vacancies-folder", label: "Вакансии", type: "folder" },

@@ -134,8 +134,16 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
               return (
                 <button
                   key={item.id}
-                  onClick={() => onOpenProduct?.(item.id)}
-                  onDoubleClick={() => onOpenProduct?.(item.id)}
+                  onClick={(e) => {
+                    // Prevent the parent OSWindow onClick from refocusing the folder window
+                    // which could push the newly opened product window behind it.
+                    e.stopPropagation()
+                    onOpenProduct?.(item.id)
+                  }}
+                  onDoubleClick={(e) => {
+                    e.stopPropagation()
+                    onOpenProduct?.(item.id)
+                  }}
                   className="flex flex-col items-center gap-2 p-3 cursor-pointer hover:bg-[#FFD700] group transition-colors"
                   style={{
                     background: isInDevelopment ? "#cccccc" : "#ffffff",
