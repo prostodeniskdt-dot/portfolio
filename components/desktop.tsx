@@ -169,14 +169,39 @@ export const Desktop = memo(function Desktop({
   )
 
   const memoizedWindows = useMemo(
-    () =>
-      openWindows.map((windowId, index) => {
+    () => {
+      // First pass: calculate z-index for all windows
+      // Product windows should always appear above folder windows
+      const folderWindows: string[] = []
+      const productWindows: string[] = []
+      const otherWindows: string[] = []
+      
+      openWindows.forEach((windowId) => {
+        if (windowId.endsWith("-folder")) {
+          folderWindows.push(windowId)
+        } else if (windowId.startsWith("product-")) {
+          productWindows.push(windowId)
+        } else {
+          otherWindows.push(windowId)
+        }
+      })
+      
+      // Calculate z-index ranges:
+      // Folders: 10-49
+      // Products: 50-99 (or 100 if active)
+      // Other: 10-99 (or 100 if active)
+      
+      return openWindows.map((windowId, index) => {
         const config = windowConfigs[windowId]
         if (!config) return null
 
         // Handle folder windows
         if (windowId.endsWith("-folder")) {
           const folderId = windowId.replace("-folder", "")
+          const folderIndex = folderWindows.indexOf(windowId)
+          const zIndex = activeWindow === windowId 
+            ? 100 
+            : Math.max(10, 49 - (folderWindows.length - folderIndex - 1))
           return (
             <OSWindow
               key={windowId}
@@ -184,7 +209,7 @@ export const Desktop = memo(function Desktop({
               defaultPosition={config.defaultPosition}
               defaultSize={config.defaultSize}
               isActive={activeWindow === windowId}
-              zIndex={activeWindow === windowId ? 100 : Math.max(10, 100 - (openWindows.length - index))}
+              zIndex={zIndex}
               onClose={() => onClose(windowId)}
               onFocus={() => onFocus(windowId)}
               onMinimize={() => onMinimize(windowId)}
@@ -203,6 +228,11 @@ export const Desktop = memo(function Desktop({
         // Handle product windows
         if (windowId.startsWith("product-")) {
           const productId = windowId.replace("product-", "")
+          const productIndex = productWindows.indexOf(windowId)
+          // Product windows should always appear above folder windows
+          const zIndex = activeWindow === windowId 
+            ? 100 
+            : Math.max(50, 99 - (productWindows.length - productIndex - 1))
           return (
             <OSWindow
               key={windowId}
@@ -210,7 +240,7 @@ export const Desktop = memo(function Desktop({
               defaultPosition={config.defaultPosition}
               defaultSize={config.defaultSize}
               isActive={activeWindow === windowId}
-              zIndex={activeWindow === windowId ? 100 : Math.max(10, 100 - (openWindows.length - index))}
+              zIndex={zIndex}
               onClose={() => onClose(windowId)}
               onFocus={() => onFocus(windowId)}
               onMinimize={() => onMinimize(windowId)}
@@ -224,6 +254,11 @@ export const Desktop = memo(function Desktop({
         // Handle regular windows
         const Component = windowComponents[windowId]
         if (!Component) return null
+        
+        const otherIndex = otherWindows.indexOf(windowId)
+        const zIndex = activeWindow === windowId 
+          ? 100 
+          : Math.max(10, 99 - (otherWindows.length - otherIndex - 1))
 
         return (
           <OSWindow
@@ -232,7 +267,7 @@ export const Desktop = memo(function Desktop({
             defaultPosition={config.defaultPosition}
             defaultSize={config.defaultSize}
             isActive={activeWindow === windowId}
-            zIndex={activeWindow === windowId ? 100 : Math.max(10, 100 - (openWindows.length - index))}
+            zIndex={zIndex}
             onClose={() => onClose(windowId)}
             onFocus={() => onFocus(windowId)}
             onMinimize={() => onMinimize(windowId)}
@@ -241,7 +276,8 @@ export const Desktop = memo(function Desktop({
             <Component />
           </OSWindow>
         )
-      }),
+      })
+    },
     [openWindows, activeWindow, onClose, onFocus, onMinimize, onProductClick],
   )
 
