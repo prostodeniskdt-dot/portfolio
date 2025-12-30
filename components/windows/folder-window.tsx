@@ -40,9 +40,26 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
   }, [folder, searchQuery])
 
   useEffect(() => {
+    const checkScroll = () => {
+      if (contentRef.current) {
+        const { scrollHeight, clientHeight } = contentRef.current
+        setNeedsScroll(scrollHeight > clientHeight)
+      }
+    }
+
+    checkScroll()
+
+    // Используем ResizeObserver для отслеживания изменения размера контейнера
+    const resizeObserver = new ResizeObserver(() => {
+      checkScroll()
+    })
+
     if (contentRef.current) {
-      const { scrollHeight, clientHeight } = contentRef.current
-      setNeedsScroll(scrollHeight > clientHeight)
+      resizeObserver.observe(contentRef.current)
+    }
+
+    return () => {
+      resizeObserver.disconnect()
     }
   }, [folderItems, searchQuery])
 
