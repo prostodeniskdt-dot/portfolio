@@ -149,8 +149,18 @@ export const Desktop = memo(function Desktop({
                 </span>
               )
             })()}
-            <span className="text-xs text-[#FFD700] text-center font-bold drop-shadow-[1px_1px_0_#000] group-hover:bg-[#FFD700] group-hover:text-black px-2 py-0.5 transition-colors duration-200">
-              {item.label}
+            <span 
+              className="text-xs text-center font-bold drop-shadow-[1px_1px_0_#000] group-hover:bg-[#FFD700] group-hover:text-black px-2 py-0.5 transition-colors duration-200"
+              style={{
+                color: item.type === "folder" ? "#FFFFFF" : "#FFD700"
+              }}
+            >
+              {item.label.split('\n').map((line, i, arr) => (
+                <React.Fragment key={i}>
+                  {line}
+                  {i < arr.length - 1 && <br />}
+                </React.Fragment>
+              ))}
             </span>
           </button>
         )
@@ -296,8 +306,8 @@ export const Desktop = memo(function Desktop({
             marginLeft: "280px",
           }}
         >
-          {/* Desktop icons - отключены, используется SidebarNavigation вместо этого */}
-          {/* <div className="absolute bottom-16 left-4 flex flex-col-reverse gap-4 hidden md:flex">{memoizedIcons}</div> */}
+          {/* Desktop icons - три столбца */}
+          <div className="absolute bottom-16 left-4 grid grid-cols-3 gap-4 hidden md:grid">{memoizedIcons}</div>
 
           {/* Drop zone indicator */}
           <div

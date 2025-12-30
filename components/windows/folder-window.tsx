@@ -101,26 +101,35 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
           </div>
         ) : (
           <div className="grid grid-cols-3 gap-3">
-            {folderItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => onOpenProduct?.(item.id)}
-                onDoubleClick={() => onOpenProduct?.(item.id)}
-                className="flex flex-col items-center gap-2 p-3 cursor-pointer hover:bg-[#FFD700] group transition-colors"
-                style={{
-                  background: "#ffffff",
-                  border: "2px solid #000000",
-                }}
-              >
-                <span className="text-4xl">{item.icon}</span>
-                <span className="text-xs font-bold text-center text-black group-hover:text-black">
-                  {item.title}
-                </span>
-                <span className="text-[10px] text-center text-[#666666] group-hover:text-black line-clamp-2">
-                  {item.description}
-                </span>
-              </button>
-            ))}
+            {folderItems.map((item) => {
+              const isInDevelopment = item.id === "documents-package-3"
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => onOpenProduct?.(item.id)}
+                  onDoubleClick={() => onOpenProduct?.(item.id)}
+                  className="flex flex-col items-center gap-2 p-3 cursor-pointer hover:bg-[#FFD700] group transition-colors"
+                  style={{
+                    background: isInDevelopment ? "#cccccc" : "#ffffff",
+                    border: "2px solid #000000",
+                    opacity: isInDevelopment ? 0.7 : 1,
+                  }}
+                >
+                  <span className="text-4xl">{item.icon}</span>
+                  <span className="text-xs font-bold text-center text-black group-hover:text-black">
+                    {item.title}
+                  </span>
+                  <span className="text-[10px] text-center text-[#666666] group-hover:text-black line-clamp-2">
+                    {item.description}
+                  </span>
+                  {isInDevelopment && (
+                    <span className="text-[10px] text-center text-[#666666] font-bold mt-1">
+                      В разработке
+                    </span>
+                  )}
+                </button>
+              )
+            })}
           </div>
         )}
       </div>

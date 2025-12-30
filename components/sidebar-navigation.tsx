@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import React, { useState, useMemo } from "react"
 import { getPixelIcon } from "@/components/icons/pixel-icons"
 import { desktopIcons } from "@/lib/data"
 
@@ -27,9 +27,16 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
     })
   }, [])
 
-  // Разделяем элементы на две колонки: окна в первой, папки во второй
-  const windows = menuItems.filter(item => item.type !== "folder" && item.type !== "trash")
+  // Разделяем элементы: окна (без settings и animate-background), папки, действия внизу, корзина
+  const windows = menuItems.filter(item => 
+    item.type === "window" && 
+    item.id !== "settings" && 
+    item.id !== "animate-background"
+  )
   const folders = menuItems.filter(item => item.type === "folder")
+  const bottomActions = menuItems.filter(item => 
+    item.id === "animate-background" || item.id === "settings"
+  )
   const trash = menuItems.find(item => item.type === "trash")
 
   return (
@@ -171,7 +178,7 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
                   <span
                     className="text-xs font-bold text-center transition-all duration-200 px-1 py-0.5 rounded"
                     style={{
-                      color: "#FFD700",
+                      color: item.type === "folder" ? "#FFFFFF" : "#FFD700",
                       background: isHovered ? 'rgba(255, 215, 0, 0.2)' : 'transparent',
                       border: '1px solid rgba(255, 215, 0, 0.4)',
                       textShadow: isHovered
@@ -197,7 +204,12 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
                       justifyContent: "center",
                     }}
                   >
-                    {item.label}
+                    {item.label.split('\n').map((line, i) => (
+                      <React.Fragment key={i}>
+                        {line}
+                        {i < item.label.split('\n').length - 1 && <br />}
+                      </React.Fragment>
+                    ))}
                   </span>
                 </button>
               )
@@ -294,6 +306,120 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
                   <span
                     className="text-xs font-bold text-center transition-all duration-200 px-1 py-0.5 rounded"
                     style={{
+                      color: item.type === "folder" ? "#FFFFFF" : "#FFD700",
+                      background: isHovered ? 'rgba(255, 215, 0, 0.2)' : 'transparent',
+                      border: '1px solid rgba(255, 215, 0, 0.4)',
+                      textShadow: isHovered
+                        ? `
+                          0 0 8px rgba(255, 215, 0, 1),
+                          0 0 12px rgba(255, 215, 0, 0.8),
+                          2px 2px 0px rgba(0, 0, 0, 0.9),
+                          -1px -1px 0px rgba(0, 0, 0, 0.9)
+                        `
+                        : `
+                          0 0 4px rgba(255, 215, 0, 0.8),
+                          1px 1px 0px rgba(0, 0, 0, 0.9),
+                          -1px -1px 0px rgba(0, 0, 0, 0.9)
+                        `,
+                      transform: isHovered ? "scale(1.05)" : "scale(1)",
+                      width: '100px',
+                      minHeight: '28px',
+                      lineHeight: "1.2",
+                      wordBreak: "break-word",
+                      overflowWrap: "break-word",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {item.label.split('\n').map((line, i) => (
+                      <React.Fragment key={i}>
+                        {line}
+                        {i < item.label.split('\n').length - 1 && <br />}
+                      </React.Fragment>
+                    ))}
+                  </span>
+                </button>
+              )
+            })}
+          </nav>
+        </div>
+
+        {/* Действия внизу - Анимация фона и Настройки */}
+        {bottomActions.length > 0 && (
+          <div className="flex gap-3 items-center justify-center w-full px-2 mb-4">
+            {bottomActions.map((item) => {
+              const IconComponent = getPixelIcon(item.icon)
+              const isHovered = hoveredItem === item.id
+
+              const handleClick = () => {
+                if (item.type === "folder") {
+                  const folderId = item.id.replace("-folder", "")
+                  onItemClick(folderId === "products" ? "products-folder" : item.id)
+                } else {
+                  onItemClick(item.id)
+                }
+              }
+
+              return (
+                <button
+                  key={item.id}
+                  onClick={handleClick}
+                  onMouseEnter={() => setHoveredItem(item.id)}
+                  onMouseLeave={() => setHoveredItem(null)}
+                  className="flex flex-col items-center gap-2 p-2 transition-all duration-200 group"
+                  style={{
+                    cursor: "pointer",
+                    width: '100px',
+                    minHeight: '90px',
+                  }}
+                  aria-label={item.label}
+                >
+                  {/* Иконка с контрастным фоном */}
+                  <div
+                    className="transition-all duration-200 flex items-center justify-center"
+                    style={{
+                      width: '40px',
+                      height: '40px',
+                      background: isHovered ? '#FFED4E' : '#FFFFFF',
+                      border: '3px solid #FFD700',
+                      borderRadius: '4px',
+                      boxShadow: isHovered
+                        ? '0 0 20px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 215, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.4), inset 0 -2px 4px rgba(0, 0, 0, 0.2)'
+                        : '0 4px 12px rgba(255, 215, 0, 0.4), 0 0 8px rgba(255, 215, 0, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.3), inset 0 -1px 2px rgba(0, 0, 0, 0.1)',
+                      transform: isHovered ? "scale(1.1)" : "scale(1)",
+                    }}
+                  >
+                    <div
+                      className="transition-all duration-200"
+                      style={{
+                        filter: isHovered
+                          ? "drop-shadow(0 0 6px rgba(0, 0, 0, 0.8))"
+                          : "drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6))",
+                      }}
+                    >
+                      {IconComponent ? (
+                        <IconComponent
+                          size={32}
+                          className="transition-all duration-200"
+                        />
+                      ) : (
+                        <div
+                          className="w-8 h-8 flex items-center justify-center text-2xl transition-all duration-200"
+                          style={{
+                            color: "#000",
+                          }}
+                        >
+                          {item.icon}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Текст с улучшенной читаемостью */}
+                  <span
+                    className="text-xs font-bold text-center transition-all duration-200 px-1 py-0.5 rounded"
+                    style={{
                       color: "#FFD700",
                       background: isHovered ? 'rgba(255, 215, 0, 0.2)' : 'transparent',
                       border: '1px solid rgba(255, 215, 0, 0.4)',
@@ -320,13 +446,18 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
                       justifyContent: "center",
                     }}
                   >
-                    {item.label}
+                    {item.label.split('\n').map((line, i) => (
+                      <React.Fragment key={i}>
+                        {line}
+                        {i < item.label.split('\n').length - 1 && <br />}
+                      </React.Fragment>
+                    ))}
                   </span>
                 </button>
               )
             })}
-          </nav>
-        </div>
+          </div>
+        )}
 
         {/* Корзина внизу */}
         {trash && (

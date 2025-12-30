@@ -67,9 +67,10 @@ export default function Home() {
     // Map folder IDs to window IDs
     const folderWindowMap: Record<string, string> = {
       "products": "products-folder",
-      "lvl1-basic": "lvl1-basic-folder",
-      "lvl2-professional": "lvl2-professional-folder",
-      "lvl3-digital": "lvl3-digital-folder",
+      "individual-products": "individual-products-folder",
+      "it-products": "it-products-folder",
+      "vacancies": "vacancies-folder",
+      "advertising": "advertising-folder",
     }
     const windowId = folderWindowMap[folderId] || `${folderId}-folder`
     toggleWindow(windowId)

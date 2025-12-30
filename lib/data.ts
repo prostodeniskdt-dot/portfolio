@@ -203,7 +203,7 @@ export const products: Product[] = [
   {
     id: "documents-package-3",
     title: "Пакет документов №3",
-    description: "Полный премиум комплект документации для профессионального бара",
+    description: "Полный премиум комплект документации для профессионального бара (в разработке)",
     fullDescription:
       "Полный премиум комплект документации для профессионального бара. Максимально полный пакет документации, включающий все необходимое для работы высококлассного заведения.",
     icon: "📚",
@@ -734,23 +734,21 @@ export const products: Product[] = [
 ]
 
 export const folders: Record<string, Folder> = {
-  "lvl1-basic": {
-    id: "lvl1-basic",
-    title: "Базовые услуги",
+  "products": {
+    id: "products",
+    title: "Продукты BAR BOSS",
     icon: "📁",
     isFolder: true,
     items: [
-      "consultations-lvl1",
       "documents-package-1",
       "documents-package-2",
       "documents-package-3",
       "inventory-lvl1",
-      "individual-course-lvl1",
     ],
   },
-  "lvl2-professional": {
-    id: "lvl2-professional",
-    title: "Профессиональные услуги",
+  "individual-products": {
+    id: "individual-products",
+    title: "Индивидуальные продукты",
     icon: "📁",
     isFolder: true,
     items: [
@@ -758,19 +756,36 @@ export const folders: Record<string, Folder> = {
       "cocktail-menu-dev-lvl2",
       "venue-support-lvl2",
       "menu-design-lvl2",
+      "consultations-lvl1",
     ],
   },
-  "lvl3-digital": {
-    id: "lvl3-digital",
-    title: "Digital услуги",
+  "it-products": {
+    id: "it-products",
+    title: "IT продукты",
     icon: "📁",
     isFolder: true,
     items: [
       "websites-lvl3",
       "web-apps-lvl3",
       "gpt-integration-lvl3",
-      "advertising-lvl3",
+    ],
+  },
+  "vacancies": {
+    id: "vacancies",
+    title: "Вакансии",
+    icon: "📁",
+    isFolder: true,
+    items: [
       "vacancies-lvl3",
+    ],
+  },
+  "advertising": {
+    id: "advertising",
+    title: "Реклама на площадке",
+    icon: "📁",
+    isFolder: true,
+    items: [
+      "advertising-lvl3",
     ],
   },
 }
@@ -804,23 +819,35 @@ export const windowConfigs: Record<string, WindowConfig> = {
     component: PlayerWindow,
     icon: "player",
   },
-  "lvl1-basic-folder": {
-    title: "Базовые услуги",
+  "products-folder": {
+    title: "Продукты BAR BOSS",
     defaultPosition: { x: 100, y: 100 },
     defaultSize: { width: 600, height: 450 },
-    icon: "lvl1-basic-folder",
+    icon: "products-folder",
   },
-  "lvl2-professional-folder": {
-    title: "Профессиональные услуги",
+  "individual-products-folder": {
+    title: "Индивидуальные продукты",
     defaultPosition: { x: 150, y: 150 },
     defaultSize: { width: 600, height: 450 },
-    icon: "lvl2-professional-folder",
+    icon: "individual-products-folder",
   },
-  "lvl3-digital-folder": {
-    title: "Digital услуги",
+  "it-products-folder": {
+    title: "IT продукты",
     defaultPosition: { x: 200, y: 200 },
     defaultSize: { width: 600, height: 450 },
-    icon: "lvl3-digital-folder",
+    icon: "it-products-folder",
+  },
+  "vacancies-folder": {
+    title: "Вакансии",
+    defaultPosition: { x: 250, y: 250 },
+    defaultSize: { width: 600, height: 450 },
+    icon: "vacancies-folder",
+  },
+  "advertising-folder": {
+    title: "Реклама на площадке",
+    defaultPosition: { x: 300, y: 300 },
+    defaultSize: { width: 600, height: 450 },
+    icon: "advertising-folder",
   },
   // Динамически добавленные конфигурации для всех продуктов
   ...products.reduce((acc, product) => {
@@ -836,23 +863,27 @@ export const windowConfigs: Record<string, WindowConfig> = {
 
 export const taskbarItems: TaskbarItem[] = [
   { id: "about", label: "Команда", icon: "about" },
-  { id: "lvl1-basic-folder", label: "Базовые услуги", icon: "lvl1-basic-folder" },
-  { id: "lvl2-professional-folder", label: "Профессиональные услуги", icon: "lvl2-professional-folder" },
-  { id: "lvl3-digital-folder", label: "Digital услуги", icon: "lvl3-digital-folder" },
+  { id: "products-folder", label: "Продукты BAR BOSS", icon: "products-folder" },
+  { id: "individual-products-folder", label: "Индивидуальные продукты", icon: "individual-products-folder" },
+  { id: "it-products-folder", label: "IT продукты", icon: "it-products-folder" },
+  { id: "vacancies-folder", label: "Вакансии", icon: "vacancies-folder" },
+  { id: "advertising-folder", label: "Реклама на площадке", icon: "advertising-folder" },
   { id: "contact", label: "Контакты", icon: "contact" },
   { id: "settings", label: "Настройки", icon: "settings" },
   { id: "player", label: "Плеер", icon: "player" },
 ]
 
 export const desktopIcons: DesktopIcon[] = [
-  { id: "settings", icon: "settings", label: "Настройки", type: "window" },
-  { id: "animate-background", icon: "video", label: "Анимация фона", type: "action" },
   { id: "contact", icon: "contact", label: "Контакты", type: "window" },
   { id: "about", icon: "about", label: "Команда", type: "window" },
   { id: "player", icon: "player", label: "Плеер", type: "window" },
-  { id: "lvl1-basic-folder", icon: "lvl1-basic-folder", label: "Базовые услуги", type: "folder" },
-  { id: "lvl2-professional-folder", icon: "lvl2-professional-folder", label: "Профессиональные услуги", type: "folder" },
-  { id: "lvl3-digital-folder", icon: "lvl3-digital-folder", label: "Digital услуги", type: "folder" },
+  { id: "products-folder", icon: "products-folder", label: "Продукты\nBAR BOSS", type: "folder" },
+  { id: "individual-products-folder", icon: "individual-products-folder", label: "Индивидуальные\nпродукты", type: "folder" },
+  { id: "it-products-folder", icon: "it-products-folder", label: "IT\nпродукты", type: "folder" },
+  { id: "vacancies-folder", icon: "vacancies-folder", label: "Вакансии", type: "folder" },
+  { id: "advertising-folder", icon: "advertising-folder", label: "Реклама на\nплощадке", type: "folder" },
+  { id: "animate-background", icon: "video", label: "Анимация фона", type: "action" },
+  { id: "settings", icon: "settings", label: "Настройки", type: "window" },
   { id: "trash", icon: "trash", label: "Корзина", type: "trash" },
 ]
 
