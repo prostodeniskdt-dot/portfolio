@@ -36,6 +36,8 @@ export const OSWindow = memo(function OSWindow({
   const [resizeDirection, setResizeDirection] = useState<string | null>(null)
   const [isMaximized, setIsMaximized] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  // Hide visible scrollbars by default (on first open). Show after user resizes/maximizes.
+  const [scrollbarsVisible, setScrollbarsVisible] = useState(false)
   const dragOffset = useRef({ x: 0, y: 0 })
   const resizeStart = useRef({ x: 0, y: 0, width: 0, height: 0 })
   const previousPosition = useRef(defaultPosition)
@@ -98,6 +100,7 @@ export const OSWindow = memo(function OSWindow({
     if (isMaximized || isMobile) return
     e.stopPropagation()
     onFocus()
+    setScrollbarsVisible(true)
     setIsResizing(true)
     setResizeDirection(direction)
     resizeStart.current = {
@@ -165,6 +168,7 @@ export const OSWindow = memo(function OSWindow({
   const handleMaximize = (e: MouseEvent) => {
     e.stopPropagation()
     soundManager.playClick()
+    setScrollbarsVisible(true)
     if (isMaximized) {
       setPosition(previousPosition.current)
       setSize(previousSize.current)
@@ -196,6 +200,8 @@ export const OSWindow = memo(function OSWindow({
       aria-labelledby={`window-title-${title}`}
       aria-describedby={`window-content-${title}`}
       tabIndex={isActive ? 0 : -1}
+      data-barboss-window="true"
+      data-scrollbars={scrollbarsVisible ? "shown" : "hidden"}
       style={{
         left: isMaximized || isMobile ? 0 : position.x,
         top: isMaximized || isMobile ? 0 : position.y,

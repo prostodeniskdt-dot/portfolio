@@ -257,6 +257,26 @@
   }
 }
 
+/* Hide visible scrollbars inside OS windows until user resizes/maximizes */
+[data-barboss-window="true"][data-scrollbars="hidden"] {
+  scrollbar-width: none; /* Firefox */
+}
+
+[data-barboss-window="true"][data-scrollbars="hidden"]::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/* Also hide any nested scrollbars inside the window (Folder/Product/etc) */
+[data-barboss-window="true"][data-scrollbars="hidden"] * {
+  scrollbar-width: none; /* Firefox */
+}
+
+[data-barboss-window="true"][data-scrollbars="hidden"] *::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
 @keyframes scale-in {
   from {
     opacity: 0;
