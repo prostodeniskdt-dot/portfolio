@@ -184,7 +184,7 @@ export const Desktop = memo(function Desktop({
               defaultPosition={config.defaultPosition}
               defaultSize={config.defaultSize}
               isActive={activeWindow === windowId}
-              zIndex={activeWindow === windowId ? 50 : 10 + index}
+              zIndex={activeWindow === windowId ? 100 : Math.max(10, 100 - (openWindows.length - index))}
               onClose={() => onClose(windowId)}
               onFocus={() => onFocus(windowId)}
               onMinimize={() => onMinimize(windowId)}
@@ -210,7 +210,7 @@ export const Desktop = memo(function Desktop({
               defaultPosition={config.defaultPosition}
               defaultSize={config.defaultSize}
               isActive={activeWindow === windowId}
-              zIndex={activeWindow === windowId ? 50 : 10 + index}
+              zIndex={activeWindow === windowId ? 100 : Math.max(10, 100 - (openWindows.length - index))}
               onClose={() => onClose(windowId)}
               onFocus={() => onFocus(windowId)}
               onMinimize={() => onMinimize(windowId)}
@@ -232,7 +232,7 @@ export const Desktop = memo(function Desktop({
             defaultPosition={config.defaultPosition}
             defaultSize={config.defaultSize}
             isActive={activeWindow === windowId}
-            zIndex={activeWindow === windowId ? 50 : 10 + index}
+            zIndex={activeWindow === windowId ? 100 : Math.max(10, 100 - (openWindows.length - index))}
             onClose={() => onClose(windowId)}
             onFocus={() => onFocus(windowId)}
             onMinimize={() => onMinimize(windowId)}

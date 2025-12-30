@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState, useMemo, useRef, useEffect } from "react"
 import { folders, products } from "@/lib/data"
 
 interface FolderWindowProps {
@@ -12,6 +12,8 @@ interface FolderWindowProps {
 export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: FolderWindowProps) {
   const folder = folders[folderId]
   const [searchQuery, setSearchQuery] = useState("")
+  const [needsScroll, setNeedsScroll] = useState(false)
+  const contentRef = useRef<HTMLDivElement>(null)
 
   const folderItems = useMemo(() => {
     if (!folder) return []
@@ -36,6 +38,13 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
 
     return items
   }, [folder, searchQuery])
+
+  useEffect(() => {
+    if (contentRef.current) {
+      const { scrollHeight, clientHeight } = contentRef.current
+      setNeedsScroll(scrollHeight > clientHeight)
+    }
+  }, [folderItems, searchQuery])
 
   if (!folder) {
     return (
@@ -89,10 +98,12 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
 
       {/* Items Grid */}
       <div
-        className="flex-1 overflow-y-auto p-2"
+        ref={contentRef}
+        className="flex-1 p-2"
         style={{
           background: "#f5f0e1",
           border: "2px solid #000000",
+          overflowY: needsScroll ? "auto" : "hidden",
         }}
       >
         {folderItems.length === 0 ? (

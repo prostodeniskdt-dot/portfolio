@@ -822,31 +822,31 @@ export const windowConfigs: Record<string, WindowConfig> = {
   "products-folder": {
     title: "Продукты BAR BOSS",
     defaultPosition: { x: 100, y: 100 },
-    defaultSize: { width: 600, height: 450 },
+    defaultSize: { width: 800, height: 650 },
     icon: "products-folder",
   },
   "individual-products-folder": {
     title: "Индивидуальные продукты",
     defaultPosition: { x: 150, y: 150 },
-    defaultSize: { width: 600, height: 450 },
+    defaultSize: { width: 800, height: 650 },
     icon: "individual-products-folder",
   },
   "it-products-folder": {
     title: "IT продукты",
     defaultPosition: { x: 200, y: 200 },
-    defaultSize: { width: 600, height: 450 },
+    defaultSize: { width: 800, height: 650 },
     icon: "it-products-folder",
   },
   "vacancies-folder": {
     title: "Вакансии",
     defaultPosition: { x: 250, y: 250 },
-    defaultSize: { width: 600, height: 450 },
+    defaultSize: { width: 800, height: 650 },
     icon: "vacancies-folder",
   },
   "advertising-folder": {
     title: "Реклама на площадке",
     defaultPosition: { x: 300, y: 300 },
-    defaultSize: { width: 600, height: 450 },
+    defaultSize: { width: 800, height: 650 },
     icon: "advertising-folder",
   },
   // Динамически добавленные конфигурации для всех продуктов

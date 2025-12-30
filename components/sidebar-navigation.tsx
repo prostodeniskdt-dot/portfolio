@@ -27,24 +27,29 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
     })
   }, [])
 
-  // Объединяем все иконки (кроме корзины) и распределяем по трем столбцам
-  const allIcons = menuItems.filter(item => item.type !== "trash")
+  // Разделяем иконки по категориям
+  const productsFolder = menuItems.find(item => item.id === "products-folder")
+  const individualProductsFolder = menuItems.find(item => item.id === "individual-products-folder")
+  const itProductsFolder = menuItems.find(item => item.id === "it-products-folder")
+  const vacanciesFolder = menuItems.find(item => item.id === "vacancies-folder")
+  const advertisingFolder = menuItems.find(item => item.id === "advertising-folder")
+  const about = menuItems.find(item => item.id === "about")
+  const contact = menuItems.find(item => item.id === "contact")
+  const settings = menuItems.find(item => item.id === "settings")
+  const animateBackground = menuItems.find(item => item.id === "animate-background")
   const trash = menuItems.find(item => item.type === "trash")
-  
-  // Распределяем иконки по трем столбцам равномерно
-  const column1: typeof allIcons = []
-  const column2: typeof allIcons = []
-  const column3: typeof allIcons = []
-  
-  allIcons.forEach((item, index) => {
-    if (index % 3 === 0) {
-      column1.push(item)
-    } else if (index % 3 === 1) {
-      column2.push(item)
-    } else {
-      column3.push(item)
-    }
-  })
+
+  // Первый ряд: Продукты BAR BOSS, Индивидуальные продукты, IT Продукты
+  const column1 = [productsFolder, individualProductsFolder, itProductsFolder].filter(Boolean) as typeof menuItems
+
+  // Второй ряд: Вакансии, Реклама на площадке, Команда
+  const column2 = [vacanciesFolder, advertisingFolder, about].filter(Boolean) as typeof menuItems
+
+  // Третий ряд: Контакты
+  const column3 = [contact].filter(Boolean) as typeof menuItems
+
+  // Внизу: Настройки, Корзина, Анимация фона
+  const bottomRow = [settings, trash, animateBackground].filter(Boolean) as typeof menuItems
 
   return (
     <div 
@@ -483,74 +488,162 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
           </nav>
         </div>
 
-        {/* Корзина внизу */}
-        {trash && (
-          <div className="mt-auto mb-4">
-            <div
-              onDragOver={(e) => {
-                e.preventDefault()
-                e.stopPropagation()
-                if (draggedItem) {
-                  setDragOverTrash(true)
-                  e.dataTransfer.dropEffect = "move"
+        {/* Нижний ряд: Настройки, Корзина, Анимация фона */}
+        {bottomRow.length > 0 && (
+          <div className="flex gap-1.5 items-center justify-center w-full px-1 mb-4 mt-auto">
+            {bottomRow.map((item) => {
+              if (!item) return null
+              const IconComponent = getPixelIcon(item.icon)
+              const isHovered = hoveredItem === item.id
+              const isAnimateBackground = item.id === "animate-background"
+              const isTrash = item.type === "trash"
+
+              const handleClick = () => {
+                if (item.type === "folder") {
+                  const folderId = item.id.replace("-folder", "")
+                  onItemClick(folderId === "products" ? "products-folder" : item.id)
+                } else {
+                  onItemClick(item.id)
                 }
-              }}
-              onDragLeave={() => {
-                setDragOverTrash(false)
-              }}
-              onDrop={(e) => {
-                e.preventDefault()
-                e.stopPropagation()
-                setDragOverTrash(false)
-                if (draggedItem && onShowDeleteWarning) {
-                  onShowDeleteWarning()
-                }
+              }
+
+              const handleDragStart = (e: React.DragEvent) => {
+                if (item.type === "trash" || item.type === "action") return
+                setDraggedItem(item.id)
+                e.dataTransfer.effectAllowed = "move"
+                e.dataTransfer.setData("text/plain", item.id)
+              }
+
+              const handleDragEnd = () => {
                 setDraggedItem(null)
-              }}
-              className="flex flex-col items-center gap-2 p-2 transition-all duration-200"
-              style={{
-                cursor: "pointer",
-                width: '100px',
-                minHeight: '90px',
-                background: dragOverTrash ? 'rgba(255, 215, 0, 0.3)' : 'transparent',
-                border: dragOverTrash ? '2px dashed #FFD700' : '2px solid transparent',
-              }}
-            >
-              {(() => {
-                const IconComponent = getPixelIcon(trash.icon)
-                return IconComponent ? (
-                  <div
+                setDragOverTrash(false)
+              }
+
+              return (
+                <div
+                  key={item.id}
+                  onDragOver={isTrash ? (e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    if (draggedItem) {
+                      setDragOverTrash(true)
+                      e.dataTransfer.dropEffect = "move"
+                    }
+                  } : undefined}
+                  onDragLeave={isTrash ? () => {
+                    setDragOverTrash(false)
+                  } : undefined}
+                  onDrop={isTrash ? (e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    setDragOverTrash(false)
+                    if (draggedItem && onShowDeleteWarning) {
+                      onShowDeleteWarning()
+                    }
+                    setDraggedItem(null)
+                  } : undefined}
+                >
+                  <button
+                    onClick={handleClick}
+                    onMouseEnter={() => setHoveredItem(item.id)}
+                    onMouseLeave={() => setHoveredItem(null)}
+                    draggable={item.type !== "trash" && item.type !== "action"}
+                    onDragStart={handleDragStart}
+                    onDragEnd={handleDragEnd}
+                    className={`flex flex-col items-center gap-1.5 p-1.5 transition-all duration-200 group ${isAnimateBackground ? "animate-pulse" : ""}`}
                     style={{
-                      width: '36px',
-                      height: '36px',
-                      background: dragOverTrash ? '#FFED4E' : '#FFFFFF',
-                      border: '3px solid #FFD700',
-                      borderRadius: '4px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
+                      cursor: item.type !== "trash" && item.type !== "action" ? "grab" : "pointer",
+                      width: '110px',
+                      minHeight: '85px',
+                      opacity: draggedItem === item.id ? 0.5 : 1,
+                      background: isTrash && dragOverTrash ? 'rgba(255, 215, 0, 0.3)' : 'transparent',
+                      border: isTrash && dragOverTrash ? '2px dashed #FFD700' : '2px solid transparent',
                     }}
+                    aria-label={item.label}
                   >
-                    <IconComponent size={32} />
-                  </div>
-                ) : null
-              })()}
-              <span
-                className="text-xs font-bold text-center px-1 py-0.5 rounded"
-                style={{
-                  color: "#FFD700",
-                  background: 'transparent',
-                  border: '1px solid rgba(255, 215, 0, 0.4)',
-                  width: '100px',
-                  minHeight: '28px',
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                {trash.label}
-              </span>
-            </div>
+                    {/* Иконка с контрастным фоном */}
+                    <div
+                      className="transition-all duration-200 flex items-center justify-center"
+                      style={{
+                        width: '36px',
+                        height: '36px',
+                        background: (isTrash && dragOverTrash) ? '#FFED4E' : (isHovered ? '#FFED4E' : '#FFFFFF'),
+                        border: '3px solid #FFD700',
+                        borderRadius: '4px',
+                        boxShadow: isHovered
+                          ? '0 0 20px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 215, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.4), inset 0 -2px 4px rgba(0, 0, 0, 0.2)'
+                          : '0 4px 12px rgba(255, 215, 0, 0.4), 0 0 8px rgba(255, 215, 0, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.3), inset 0 -1px 2px rgba(0, 0, 0, 0.1)',
+                        transform: isHovered ? "scale(1.1)" : "scale(1)",
+                      }}
+                    >
+                      <div
+                        className="transition-all duration-200"
+                        style={{
+                          filter: isHovered
+                            ? "drop-shadow(0 0 6px rgba(0, 0, 0, 0.8))"
+                            : "drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6))",
+                        }}
+                      >
+                        {IconComponent ? (
+                          <IconComponent
+                            size={28}
+                            className="transition-all duration-200"
+                          />
+                        ) : (
+                          <div
+                            className="w-8 h-8 flex items-center justify-center text-2xl transition-all duration-200"
+                            style={{
+                              color: "#000",
+                            }}
+                          >
+                            {item.icon}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Текст с улучшенной читаемостью */}
+                    <span
+                      className="text-xs font-bold text-center transition-all duration-200 px-1 py-0.5 rounded"
+                      style={{
+                        color: item.type === "folder" ? "#FFFFFF" : "#FFD700",
+                        background: isHovered ? 'rgba(255, 215, 0, 0.2)' : 'transparent',
+                        border: '1px solid rgba(255, 215, 0, 0.4)',
+                        textShadow: isHovered
+                          ? `
+                            0 0 8px rgba(255, 215, 0, 1),
+                            0 0 12px rgba(255, 215, 0, 0.8),
+                            2px 2px 0px rgba(0, 0, 0, 0.9),
+                            -1px -1px 0px rgba(0, 0, 0, 0.9)
+                          `
+                          : `
+                            0 0 4px rgba(255, 215, 0, 0.8),
+                            1px 1px 0px rgba(0, 0, 0, 0.9),
+                            -1px -1px 0px rgba(0, 0, 0, 0.9)
+                          `,
+                        transform: isHovered ? "scale(1.05)" : "scale(1)",
+                        width: '110px',
+                        minHeight: '26px',
+                        fontSize: '11px',
+                        lineHeight: "1.2",
+                        wordBreak: "break-word",
+                        overflowWrap: "break-word",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      {item.label.split('\n').map((line, i) => (
+                        <React.Fragment key={i}>
+                          {line}
+                          {i < item.label.split('\n').length - 1 && <br />}
+                        </React.Fragment>
+                      ))}
+                    </span>
+                  </button>
+                </div>
+              )
+            })}
           </div>
         )}
       </div>
