@@ -293,7 +293,7 @@ export const Desktop = memo(function Desktop({
           onDrop={handleDrop}
           style={{
             background: "transparent",
-            marginLeft: "200px",
+            marginLeft: "280px",
           }}
         >
           {/* Desktop icons - отключены, используется SidebarNavigation вместо этого */}

@@ -37,7 +37,7 @@ export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
       <div 
         className="flex flex-col items-center justify-between py-6 px-4"
         style={{
-          width: '200px',
+          width: '280px',
           background: '#000000',
           borderRight: '3px solid #FFD700',
           boxShadow: '4px 0 20px rgba(0, 0, 0, 0.5)',
@@ -51,7 +51,7 @@ export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
           }}
         >
           <h1
-            className="text-xl font-bold"
+            className="text-3xl font-bold"
             style={{
               fontFamily: "Oswald, sans-serif",
               color: "#000000",
@@ -76,7 +76,7 @@ export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
         </div>
 
         {/* Иконки - две колонки */}
-        <div className="flex-1 flex gap-3 items-start justify-center w-full px-2 overflow-y-auto">
+        <div className="flex-1 flex gap-4 items-start justify-center w-full px-3 overflow-y-auto">
           {/* Первая колонка - окна */}
           <nav className="flex flex-col gap-6 items-center">
             {windows.map((item) => {
@@ -101,7 +101,7 @@ export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
                   className="flex flex-col items-center gap-2 p-3 transition-all duration-200 group"
                   style={{
                     cursor: "pointer",
-                    width: '85px',
+                    width: '110px',
                     minHeight: '100px',
                   }}
                   aria-label={item.label}
@@ -167,7 +167,7 @@ export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
                           -1px -1px 0px rgba(0, 0, 0, 0.9)
                         `,
                       transform: isHovered ? "scale(1.05)" : "scale(1)",
-                      width: '85px',
+                      width: '110px',
                       minHeight: '32px',
                       lineHeight: "1.2",
                       wordBreak: "break-word",
@@ -208,7 +208,7 @@ export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
                   className="flex flex-col items-center gap-2 p-3 transition-all duration-200 group"
                   style={{
                     cursor: "pointer",
-                    width: '85px',
+                    width: '110px',
                     minHeight: '100px',
                   }}
                   aria-label={item.label}
@@ -274,7 +274,7 @@ export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
                           -1px -1px 0px rgba(0, 0, 0, 0.9)
                         `,
                       transform: isHovered ? "scale(1.05)" : "scale(1)",
-                      width: '85px',
+                      width: '110px',
                       minHeight: '32px',
                       lineHeight: "1.2",
                       wordBreak: "break-word",
