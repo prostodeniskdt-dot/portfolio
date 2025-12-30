@@ -257,6 +257,69 @@ export function PixelVideoIcon({ size = 32, className = "" }: PixelIconProps) {
   )
 }
 
+export function PixelPlayerIcon({ size = 32, className = "" }: PixelIconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 32 32"
+      className={className}
+      style={iconStyle}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {/* Пиксельная иконка плеера в стиле Windows 95 */}
+      {/* Корпус плеера */}
+      <rect x="4" y="6" width="24" height="20" fill="#000000" stroke="#FFD700" strokeWidth="2" />
+      {/* Дисплей */}
+      <rect x="6" y="8" width="20" height="8" fill="#000000" stroke="#FFD700" strokeWidth="1" />
+      <rect x="7" y="9" width="18" height="6" fill="#FFD700" opacity="0.3" />
+      {/* Линии на дисплее (имитация экрана) */}
+      <rect x="8" y="10" width="16" height="1" fill="#FFD700" />
+      <rect x="8" y="12" width="12" height="1" fill="#FFD700" />
+      <rect x="8" y="14" width="14" height="1" fill="#FFD700" />
+      {/* Кнопки управления */}
+      <rect x="8" y="18" width="4" height="4" fill="#FFD700" stroke="#000000" strokeWidth="1" />
+      <rect x="13" y="18" width="4" height="4" fill="#FFD700" stroke="#000000" strokeWidth="1" />
+      <rect x="18" y="18" width="4" height="4" fill="#FFD700" stroke="#000000" strokeWidth="1" />
+      <rect x="23" y="18" width="4" height="4" fill="#FFD700" stroke="#000000" strokeWidth="1" />
+      {/* Иконка play на первой кнопке */}
+      <polygon points="9,19 9,21 11,20" fill="#000000" />
+    </svg>
+  )
+}
+
+export function PixelTrashIcon({ size = 32, className = "" }: PixelIconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 32 32"
+      className={className}
+      style={iconStyle}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {/* Пиксельная иконка корзины */}
+      {/* Крышка */}
+      <rect x="8" y="6" width="16" height="3" fill="#000000" stroke="#FFD700" strokeWidth="2" />
+      <rect x="9" y="7" width="14" height="1" fill="#FFD700" />
+      {/* Ручка */}
+      <rect x="14" y="4" width="4" height="2" fill="#FFD700" stroke="#000000" strokeWidth="1" />
+      {/* Корпус корзины */}
+      <rect x="8" y="9" width="16" height="16" fill="#000000" stroke="#FFD700" strokeWidth="2" />
+      {/* Вертикальные линии (прутья корзины) */}
+      <line x1="11" y1="9" x2="11" y2="25" stroke="#FFD700" strokeWidth="1" />
+      <line x1="16" y1="9" x2="16" y2="25" stroke="#FFD700" strokeWidth="1" />
+      <line x1="21" y1="9" x2="21" y2="25" stroke="#FFD700" strokeWidth="1" />
+      {/* Горизонтальные линии */}
+      <line x1="8" y1="13" x2="24" y2="13" stroke="#FFD700" strokeWidth="1" />
+      <line x1="8" y1="17" x2="24" y2="17" stroke="#FFD700" strokeWidth="1" />
+      <line x1="8" y1="21" x2="24" y2="21" stroke="#FFD700" strokeWidth="1" />
+    </svg>
+  )
+}
+
 // Маппинг иконок по ID
 export const pixelIcons: Record<string, React.ComponentType<PixelIconProps>> = {
   "about": PixelAboutIcon,
@@ -270,6 +333,8 @@ export const pixelIcons: Record<string, React.ComponentType<PixelIconProps>> = {
   "lvl2-professional-folder": PixelLvl2ProfessionalIcon,
   "lvl3-digital-folder": PixelLvl3DigitalIcon,
   "video": PixelVideoIcon,
+  "player": PixelPlayerIcon,
+  "trash": PixelTrashIcon,
 }
 
 // Хелпер для получения иконки

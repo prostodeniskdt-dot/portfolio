@@ -11,10 +11,12 @@ import { WindowSkeleton } from "@/components/window-skeleton"
 import { useWindowState } from "@/hooks/use-window-state"
 import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts"
 import { desktopIcons } from "@/lib/data"
+import { DeleteWarningModal } from "@/components/delete-warning-modal"
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
   const [isBackgroundAnimated, setIsBackgroundAnimated] = useState(false)
+  const [showDeleteWarning, setShowDeleteWarning] = useState(false)
   const {
     openWindows,
     activeWindow,
@@ -125,7 +127,14 @@ export default function Home() {
       <RetroBackground isAnimated={isBackgroundAnimated} />
       <div className="relative z-10 flex h-full flex-col">
         <TopBar />
-        <SidebarNavigation onItemClick={handleSidebarClick} />
+        <SidebarNavigation 
+          onItemClick={handleSidebarClick}
+          onShowDeleteWarning={() => setShowDeleteWarning(true)}
+        />
+        <DeleteWarningModal 
+          isOpen={showDeleteWarning} 
+          onClose={() => setShowDeleteWarning(false)} 
+        />
         <Suspense fallback={<WindowSkeleton />}>
         <Desktop
           openWindows={visibleWindows}

@@ -6,10 +6,13 @@ import { desktopIcons } from "@/lib/data"
 
 interface SidebarNavigationProps {
   onItemClick: (itemId: string) => void
+  onShowDeleteWarning?: () => void
 }
 
-export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
+export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarNavigationProps) {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
+  const [draggedItem, setDraggedItem] = useState<string | null>(null)
+  const [dragOverTrash, setDragOverTrash] = useState(false)
 
   // Используем desktopIcons напрямую, чтобы избежать дублирования данных
   // Фильтруем только уникальные элементы по id
@@ -92,17 +95,33 @@ export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
                 }
               }
 
+              const handleDragStart = (e: React.DragEvent) => {
+                if (item.type === "trash" || item.type === "action") return
+                setDraggedItem(item.id)
+                e.dataTransfer.effectAllowed = "move"
+                e.dataTransfer.setData("text/plain", item.id)
+              }
+
+              const handleDragEnd = () => {
+                setDraggedItem(null)
+                setDragOverTrash(false)
+              }
+
               return (
                 <button
                   key={item.id}
                   onClick={handleClick}
                   onMouseEnter={() => setHoveredItem(item.id)}
                   onMouseLeave={() => setHoveredItem(null)}
+                  draggable={item.type !== "trash" && item.type !== "action"}
+                  onDragStart={handleDragStart}
+                  onDragEnd={handleDragEnd}
                   className="flex flex-col items-center gap-2 p-3 transition-all duration-200 group"
                   style={{
-                    cursor: "pointer",
+                    cursor: item.type !== "trash" && item.type !== "action" ? "grab" : "pointer",
                     width: '110px',
                     minHeight: '100px',
+                    opacity: draggedItem === item.id ? 0.5 : 1,
                   }}
                   aria-label={item.label}
                 >
@@ -199,17 +218,33 @@ export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
                 }
               }
 
+              const handleDragStart = (e: React.DragEvent) => {
+                if (item.type === "trash" || item.type === "action") return
+                setDraggedItem(item.id)
+                e.dataTransfer.effectAllowed = "move"
+                e.dataTransfer.setData("text/plain", item.id)
+              }
+
+              const handleDragEnd = () => {
+                setDraggedItem(null)
+                setDragOverTrash(false)
+              }
+
               return (
                 <button
                   key={item.id}
                   onClick={handleClick}
                   onMouseEnter={() => setHoveredItem(item.id)}
                   onMouseLeave={() => setHoveredItem(null)}
+                  draggable={item.type !== "trash" && item.type !== "action"}
+                  onDragStart={handleDragStart}
+                  onDragEnd={handleDragEnd}
                   className="flex flex-col items-center gap-2 p-3 transition-all duration-200 group"
                   style={{
-                    cursor: "pointer",
+                    cursor: item.type !== "trash" && item.type !== "action" ? "grab" : "pointer",
                     width: '110px',
                     minHeight: '100px',
+                    opacity: draggedItem === item.id ? 0.5 : 1,
                   }}
                   aria-label={item.label}
                 >
@@ -291,6 +326,77 @@ export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
             })}
           </nav>
         </div>
+
+        {/* Корзина внизу */}
+        {trash && (
+          <div className="mt-auto mb-4">
+            <div
+              onDragOver={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                if (draggedItem) {
+                  setDragOverTrash(true)
+                  e.dataTransfer.dropEffect = "move"
+                }
+              }}
+              onDragLeave={() => {
+                setDragOverTrash(false)
+              }}
+              onDrop={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                setDragOverTrash(false)
+                if (draggedItem && onShowDeleteWarning) {
+                  onShowDeleteWarning()
+                }
+                setDraggedItem(null)
+              }}
+              className="flex flex-col items-center gap-2 p-3 transition-all duration-200"
+              style={{
+                cursor: "pointer",
+                width: '110px',
+                minHeight: '100px',
+                background: dragOverTrash ? 'rgba(255, 215, 0, 0.3)' : 'transparent',
+                border: dragOverTrash ? '2px dashed #FFD700' : '2px solid transparent',
+              }}
+            >
+              {(() => {
+                const IconComponent = getPixelIcon(trash.icon)
+                return IconComponent ? (
+                  <div
+                    style={{
+                      width: '44px',
+                      height: '44px',
+                      background: dragOverTrash ? '#FFED4E' : '#FFFFFF',
+                      border: '3px solid #FFD700',
+                      borderRadius: '4px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <IconComponent size={32} />
+                  </div>
+                ) : null
+              })()}
+              <span
+                className="text-xs font-bold text-center px-1.5 py-0.5 rounded"
+                style={{
+                  color: "#FFD700",
+                  background: 'transparent',
+                  border: '1px solid rgba(255, 215, 0, 0.4)',
+                  width: '110px',
+                  minHeight: '32px',
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                {trash.label}
+              </span>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )

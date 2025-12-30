@@ -31,8 +31,8 @@ const AboutWindow = dynamic(
   },
 )
 
-const PricesWindow = dynamic(
-  () => import("./windows/prices-window").then((mod) => ({ default: mod.PricesWindow })),
+const PlayerWindow = dynamic(
+  () => import("./windows/player-window").then((mod) => ({ default: mod.PlayerWindow })),
   {
     ssr: false,
     loading: () => (
@@ -94,9 +94,9 @@ const ProductWindowDynamic = dynamic(
 // Map window IDs to lazy-loaded components
 const windowComponents: Record<string, ComponentType> = {
   about: AboutWindow,
-  prices: PricesWindow,
   contact: ContactWindow,
   settings: SettingsWindow,
+  player: PlayerWindow,
 }
 
 export const Desktop = memo(function Desktop({

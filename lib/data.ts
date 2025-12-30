@@ -1,8 +1,8 @@
 import type React from "react"
 import { AboutWindow } from "@/components/windows/about-window"
-import { PricesWindow } from "@/components/windows/prices-window"
 import { ContactWindow } from "@/components/windows/contact-window"
 import { SettingsWindow } from "@/components/windows/settings-window"
+import { PlayerWindow } from "@/components/windows/player-window"
 
 export interface Course {
   title: string
@@ -66,7 +66,7 @@ export interface DesktopIcon {
   id: string
   icon: string
   label: string
-  type?: "folder" | "window" | "action"
+  type?: "folder" | "window" | "action" | "trash"
 }
 
 export const courses: Course[] = [
@@ -777,18 +777,11 @@ export const folders: Record<string, Folder> = {
 
 export const windowConfigs: Record<string, WindowConfig> = {
   about: {
-    title: "Об образовательном проекте",
+    title: "Команда",
     defaultPosition: { x: 40, y: 40 },
     defaultSize: { width: 450, height: 550 },
     component: AboutWindow,
     icon: "about",
-  },
-  prices: {
-    title: "Тарифы и цены",
-    defaultPosition: { x: 80, y: 420 },
-    defaultSize: { width: 360, height: 320 },
-    component: PricesWindow,
-    icon: "prices",
   },
   contact: {
     title: "Связаться с нами",
@@ -803,6 +796,13 @@ export const windowConfigs: Record<string, WindowConfig> = {
     defaultSize: { width: 400, height: 500 },
     component: SettingsWindow,
     icon: "settings",
+  },
+  player: {
+    title: "Медиа Плеер",
+    defaultPosition: { x: 200, y: 100 },
+    defaultSize: { width: 400, height: 500 },
+    component: PlayerWindow,
+    icon: "player",
   },
   "lvl1-basic-folder": {
     title: "Базовые услуги",
@@ -835,24 +835,25 @@ export const windowConfigs: Record<string, WindowConfig> = {
 }
 
 export const taskbarItems: TaskbarItem[] = [
-  { id: "about", label: "Об образовательном проекте", icon: "about" },
+  { id: "about", label: "Команда", icon: "about" },
   { id: "lvl1-basic-folder", label: "Базовые услуги", icon: "lvl1-basic-folder" },
   { id: "lvl2-professional-folder", label: "Профессиональные услуги", icon: "lvl2-professional-folder" },
   { id: "lvl3-digital-folder", label: "Digital услуги", icon: "lvl3-digital-folder" },
-  { id: "prices", label: "Тарифы", icon: "prices" },
   { id: "contact", label: "Контакты", icon: "contact" },
   { id: "settings", label: "Настройки", icon: "settings" },
+  { id: "player", label: "Плеер", icon: "player" },
 ]
 
 export const desktopIcons: DesktopIcon[] = [
   { id: "settings", icon: "settings", label: "Настройки", type: "window" },
   { id: "animate-background", icon: "video", label: "Анимация фона", type: "action" },
   { id: "contact", icon: "contact", label: "Контакты", type: "window" },
-  { id: "prices", icon: "prices", label: "Тарифы", type: "window" },
-  { id: "about", icon: "about", label: "Об образовательном проекте", type: "window" },
+  { id: "about", icon: "about", label: "Команда", type: "window" },
+  { id: "player", icon: "player", label: "Плеер", type: "window" },
   { id: "lvl1-basic-folder", icon: "lvl1-basic-folder", label: "Базовые услуги", type: "folder" },
   { id: "lvl2-professional-folder", icon: "lvl2-professional-folder", label: "Профессиональные услуги", type: "folder" },
   { id: "lvl3-digital-folder", icon: "lvl3-digital-folder", label: "Digital услуги", type: "folder" },
+  { id: "trash", icon: "trash", label: "Корзина", type: "trash" },
 ]
 
 

@@ -19,7 +19,7 @@ export function AboutWindow() {
           <h2 className="text-xl font-bold text-black animate-glow-text" style={{ color: "#000" }}>
             БАР БОСС ONLINE
           </h2>
-          <p className="text-xs text-[#666666]">Образовательный проект</p>
+          <p className="text-xs text-[#666666]">Команда</p>
           <div className="flex gap-2 mt-2">
             <span className="px-2 py-0.5 text-xs bg-[#FFD700] text-black font-bold hover:scale-105 transition-transform">
               с 2020
