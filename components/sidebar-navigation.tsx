@@ -80,9 +80,9 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
         </div>
 
         {/* Иконки - две колонки */}
-        <div className="flex-1 flex gap-4 items-start justify-center w-full px-3 overflow-y-auto">
+        <div className="flex-1 flex gap-3 items-start justify-center w-full px-2">
           {/* Первая колонка - окна */}
-          <nav className="flex flex-col gap-6 items-center">
+          <nav className="flex flex-col gap-4 items-center">
             {windows.map((item) => {
               const IconComponent = getPixelIcon(item.icon)
               const isHovered = hoveredItem === item.id
@@ -117,11 +117,11 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
                   draggable={item.type !== "trash" && item.type !== "action"}
                   onDragStart={handleDragStart}
                   onDragEnd={handleDragEnd}
-                  className="flex flex-col items-center gap-2 p-3 transition-all duration-200 group"
+                  className="flex flex-col items-center gap-2 p-2 transition-all duration-200 group"
                   style={{
                     cursor: item.type !== "trash" && item.type !== "action" ? "grab" : "pointer",
-                    width: '110px',
-                    minHeight: '100px',
+                    width: '100px',
+                    minHeight: '90px',
                     opacity: draggedItem === item.id ? 0.5 : 1,
                   }}
                   aria-label={item.label}
@@ -130,8 +130,8 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
                   <div
                     className="transition-all duration-200 flex items-center justify-center"
                     style={{
-                      width: '44px',
-                      height: '44px',
+                      width: '40px',
+                      height: '40px',
                       background: isHovered ? '#FFED4E' : '#FFFFFF',
                       border: '3px solid #FFD700',
                       borderRadius: '4px',
@@ -169,7 +169,7 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
 
                   {/* Текст с улучшенной читаемостью */}
                   <span
-                    className="text-xs font-bold text-center transition-all duration-200 px-1.5 py-0.5 rounded"
+                    className="text-xs font-bold text-center transition-all duration-200 px-1 py-0.5 rounded"
                     style={{
                       color: "#FFD700",
                       background: isHovered ? 'rgba(255, 215, 0, 0.2)' : 'transparent',
@@ -187,8 +187,8 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
                           -1px -1px 0px rgba(0, 0, 0, 0.9)
                         `,
                       transform: isHovered ? "scale(1.05)" : "scale(1)",
-                      width: '110px',
-                      minHeight: '32px',
+                      width: '100px',
+                      minHeight: '28px',
                       lineHeight: "1.2",
                       wordBreak: "break-word",
                       overflowWrap: "break-word",
@@ -205,7 +205,7 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
           </nav>
           
           {/* Вторая колонка - папки */}
-          <nav className="flex flex-col gap-6 items-center">
+          <nav className="flex flex-col gap-4 items-center">
             {folders.map((item) => {
               const IconComponent = getPixelIcon(item.icon)
               const isHovered = hoveredItem === item.id
@@ -240,11 +240,11 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
                   draggable={item.type !== "trash" && item.type !== "action"}
                   onDragStart={handleDragStart}
                   onDragEnd={handleDragEnd}
-                  className="flex flex-col items-center gap-2 p-3 transition-all duration-200 group"
+                  className="flex flex-col items-center gap-2 p-2 transition-all duration-200 group"
                   style={{
                     cursor: item.type !== "trash" && item.type !== "action" ? "grab" : "pointer",
-                    width: '110px',
-                    minHeight: '100px',
+                    width: '100px',
+                    minHeight: '90px',
                     opacity: draggedItem === item.id ? 0.5 : 1,
                   }}
                   aria-label={item.label}
@@ -253,8 +253,8 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
                   <div
                     className="transition-all duration-200 flex items-center justify-center"
                     style={{
-                      width: '44px',
-                      height: '44px',
+                      width: '40px',
+                      height: '40px',
                       background: isHovered ? '#FFED4E' : '#FFFFFF',
                       border: '3px solid #FFD700',
                       borderRadius: '4px',
@@ -292,7 +292,7 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
 
                   {/* Текст с улучшенной читаемостью */}
                   <span
-                    className="text-xs font-bold text-center transition-all duration-200 px-1.5 py-0.5 rounded"
+                    className="text-xs font-bold text-center transition-all duration-200 px-1 py-0.5 rounded"
                     style={{
                       color: "#FFD700",
                       background: isHovered ? 'rgba(255, 215, 0, 0.2)' : 'transparent',
@@ -310,8 +310,8 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
                           -1px -1px 0px rgba(0, 0, 0, 0.9)
                         `,
                       transform: isHovered ? "scale(1.05)" : "scale(1)",
-                      width: '110px',
-                      minHeight: '32px',
+                      width: '100px',
+                      minHeight: '28px',
                       lineHeight: "1.2",
                       wordBreak: "break-word",
                       overflowWrap: "break-word",
@@ -352,11 +352,11 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
                 }
                 setDraggedItem(null)
               }}
-              className="flex flex-col items-center gap-2 p-3 transition-all duration-200"
+              className="flex flex-col items-center gap-2 p-2 transition-all duration-200"
               style={{
                 cursor: "pointer",
-                width: '110px',
-                minHeight: '100px',
+                width: '100px',
+                minHeight: '90px',
                 background: dragOverTrash ? 'rgba(255, 215, 0, 0.3)' : 'transparent',
                 border: dragOverTrash ? '2px dashed #FFD700' : '2px solid transparent',
               }}
@@ -366,8 +366,8 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
                 return IconComponent ? (
                   <div
                     style={{
-                      width: '44px',
-                      height: '44px',
+                      width: '40px',
+                      height: '40px',
                       background: dragOverTrash ? '#FFED4E' : '#FFFFFF',
                       border: '3px solid #FFD700',
                       borderRadius: '4px',
@@ -381,13 +381,13 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
                 ) : null
               })()}
               <span
-                className="text-xs font-bold text-center px-1.5 py-0.5 rounded"
+                className="text-xs font-bold text-center px-1 py-0.5 rounded"
                 style={{
                   color: "#FFD700",
                   background: 'transparent',
                   border: '1px solid rgba(255, 215, 0, 0.4)',
-                  width: '110px',
-                  minHeight: '32px',
+                  width: '100px',
+                  minHeight: '28px',
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
