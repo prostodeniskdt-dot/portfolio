@@ -335,6 +335,10 @@ export const pixelIcons: Record<string, React.ComponentType<PixelIconProps>> = {
   "video": PixelVideoIcon,
   "player": PixelPlayerIcon,
   "trash": PixelTrashIcon,
+  "individual-products-folder": PixelLvl2ProfessionalIcon,
+  "it-products-folder": PixelLvl3DigitalIcon,
+  "vacancies-folder": PixelFolderIcon,
+  "advertising-folder": PixelFolderIcon,
 }
 
 // Хелпер для получения иконки

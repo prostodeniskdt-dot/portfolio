@@ -306,8 +306,8 @@ export const Desktop = memo(function Desktop({
             marginLeft: "420px",
           }}
         >
-          {/* Desktop icons - три столбца */}
-          <div className="absolute bottom-16 left-4 grid grid-cols-3 gap-4 hidden md:grid">{memoizedIcons}</div>
+          {/* Desktop icons - скрыто, так как все иконки в сайдбаре */}
+          {/* <div className="absolute bottom-16 left-4 grid grid-cols-3 gap-4 hidden">{memoizedIcons}</div> */}
 
           {/* Drop zone indicator */}
           <div
