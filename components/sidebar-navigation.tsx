@@ -43,16 +43,15 @@ export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
           boxShadow: '4px 0 20px rgba(0, 0, 0, 0.5)',
         }}
       >
-        {/* Логотип BAR BOSS ONLINE - вертикально */}
+        {/* Логотип BAR BOSS ONLINE - горизонтально в три строки */}
         <div 
-          className="flex flex-col items-center gap-2 mb-8"
+          className="flex flex-col items-center gap-1 mb-8"
           style={{
-            writingMode: 'vertical-rl',
-            textOrientation: 'mixed',
+            textAlign: 'center',
           }}
         >
           <h1
-            className="text-2xl font-bold"
+            className="text-xl font-bold"
             style={{
               fontFamily: "Oswald, sans-serif",
               color: "#000000",
@@ -67,18 +66,17 @@ export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
               `,
               WebkitTextStroke: "1px rgba(255, 215, 0, 0.5)",
               animation: "glow-text 2s ease-in-out infinite",
-              letterSpacing: "0.1em",
-              transform: "rotate(180deg)",
+              letterSpacing: "0.05em",
             }}
           >
-            <span style={{ color: "#000000" }}>BAR</span>{" "}
-            <span style={{ color: "#FFD700" }}>BOSS</span>{" "}
-            <span style={{ color: "#000000" }}>ONLINE</span>
+            <div style={{ color: "#000000" }}>BAR</div>
+            <div style={{ color: "#FFD700" }}>BOSS</div>
+            <div style={{ color: "#000000" }}>ONLINE</div>
           </h1>
         </div>
 
         {/* Иконки - две колонки */}
-        <div className="flex-1 flex gap-6 items-start justify-center w-full px-4 overflow-y-auto">
+        <div className="flex-1 flex gap-3 items-start justify-center w-full px-2 overflow-y-auto">
           {/* Первая колонка - окна */}
           <nav className="flex flex-col gap-6 items-center">
             {windows.map((item) => {
@@ -103,7 +101,7 @@ export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
                   className="flex flex-col items-center gap-2 p-3 transition-all duration-200 group"
                   style={{
                     cursor: "pointer",
-                    width: '120px',
+                    width: '85px',
                     minHeight: '100px',
                   }}
                   aria-label={item.label}
@@ -169,7 +167,7 @@ export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
                           -1px -1px 0px rgba(0, 0, 0, 0.9)
                         `,
                       transform: isHovered ? "scale(1.05)" : "scale(1)",
-                      width: '120px',
+                      width: '85px',
                       minHeight: '32px',
                       lineHeight: "1.2",
                       wordBreak: "break-word",
@@ -210,7 +208,7 @@ export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
                   className="flex flex-col items-center gap-2 p-3 transition-all duration-200 group"
                   style={{
                     cursor: "pointer",
-                    width: '120px',
+                    width: '85px',
                     minHeight: '100px',
                   }}
                   aria-label={item.label}
@@ -276,7 +274,7 @@ export function SidebarNavigation({ onItemClick }: SidebarNavigationProps) {
                           -1px -1px 0px rgba(0, 0, 0, 0.9)
                         `,
                       transform: isHovered ? "scale(1.05)" : "scale(1)",
-                      width: '120px',
+                      width: '85px',
                       minHeight: '32px',
                       lineHeight: "1.2",
                       wordBreak: "break-word",
