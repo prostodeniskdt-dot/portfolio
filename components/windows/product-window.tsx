@@ -2,6 +2,7 @@
 
 import { products } from "@/lib/data"
 import { toast } from "sonner"
+import { TELEGRAM_LEAD_URL } from "@/lib/links"
 
 interface ProductWindowProps {
   productId: string
@@ -22,9 +23,7 @@ export function ProductWindow({ productId }: ProductWindowProps) {
     toast.success(`Запрос на "${product.title}" отправлен!`, {
       description: "Мы свяжемся с вами в ближайшее время",
     })
-    // Можно добавить интеграцию с формой контактов
-    const event = new CustomEvent("openContactWindow")
-    window.dispatchEvent(event)
+    window.open(TELEGRAM_LEAD_URL, "_blank", "noreferrer")
   }
 
   return (

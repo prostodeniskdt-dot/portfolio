@@ -41,6 +41,8 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
   const advertisingFolder = byId.get("advertising-folder")
   const itProductsFolder = byId.get("it-products-folder")
   const about = byId.get("about")
+  const player = byId.get("player")
+  const socials = byId.get("socials")
 
   // Utility row (near Start menu)
   const settings = byId.get("settings")
@@ -58,8 +60,8 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
     about ?? null,
     // Row 3
     contact ?? null,
-    null,
-    null,
+    player ?? null,
+    socials ?? null,
   ]
 
   const utilityCells: Array<DesktopIcon | null> = [
@@ -265,8 +267,8 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
               }
               return <React.Fragment key={item.id}>{renderIcon(item)}</React.Fragment>
             })}
-          </div>
-        </div>
+                    </div>
+                  </div>
 
         {/* Utility row near Start menu */}
         <div className="w-full px-1 mt-auto" style={{ paddingBottom: "72px" }}>

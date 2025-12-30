@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { toast } from "sonner"
 import { prices } from "@/lib/data"
+import { TELEGRAM_LEAD_URL } from "@/lib/links"
 
 export function PricesWindow() {
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null)
@@ -17,7 +18,7 @@ export function PricesWindow() {
       action: {
         label: "Связаться",
         onClick: () => {
-          window.dispatchEvent(new CustomEvent("openContactWindow"))
+          window.open(TELEGRAM_LEAD_URL, "_blank", "noreferrer")
         },
       },
     })

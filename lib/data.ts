@@ -3,6 +3,7 @@ import { AboutWindow } from "@/components/windows/about-window"
 import { ContactWindow } from "@/components/windows/contact-window"
 import { SettingsWindow } from "@/components/windows/settings-window"
 import { PlayerWindow } from "@/components/windows/player-window"
+import { SocialsWindow } from "@/components/windows/socials-window"
 
 export interface Course {
   title: string
@@ -794,21 +795,21 @@ export const windowConfigs: Record<string, WindowConfig> = {
   about: {
     title: "Команда",
     defaultPosition: { x: 40, y: 40 },
-    defaultSize: { width: 450, height: 550 },
+    defaultSize: { width: 800, height: 650 },
     component: AboutWindow,
     icon: "about",
   },
   contact: {
     title: "Связаться с нами",
     defaultPosition: { x: 520, y: 380 },
-    defaultSize: { width: 360, height: 320 },
+    defaultSize: { width: 800, height: 650 },
     component: ContactWindow,
     icon: "contact",
   },
   settings: {
     title: "Настройки",
     defaultPosition: { x: 300, y: 200 },
-    defaultSize: { width: 400, height: 500 },
+    defaultSize: { width: 800, height: 650 },
     component: SettingsWindow,
     icon: "settings",
   },
@@ -818,6 +819,13 @@ export const windowConfigs: Record<string, WindowConfig> = {
     defaultSize: { width: 400, height: 500 },
     component: PlayerWindow,
     icon: "player",
+  },
+  socials: {
+    title: "Социальные сети",
+    defaultPosition: { x: 240, y: 120 },
+    defaultSize: { width: 800, height: 650 },
+    component: SocialsWindow,
+    icon: "🌐",
   },
   "products-folder": {
     title: "Продукты BAR BOSS",
@@ -869,12 +877,14 @@ export const taskbarItems: TaskbarItem[] = [
   { id: "vacancies-folder", label: "Вакансии", icon: "vacancies-folder" },
   { id: "advertising-folder", label: "Реклама на площадке", icon: "advertising-folder" },
   { id: "contact", label: "Контакты", icon: "contact" },
+  { id: "socials", label: "Социальные сети", icon: "🌐" },
   { id: "settings", label: "Настройки", icon: "settings" },
   { id: "player", label: "Плеер", icon: "player" },
 ]
 
 export const desktopIcons: DesktopIcon[] = [
   { id: "contact", icon: "contact", label: "Контакты", type: "window" },
+  { id: "socials", icon: "🌐", label: "Социальные\nсети", type: "window" },
   { id: "about", icon: "about", label: "Команда", type: "window" },
   { id: "player", icon: "player", label: "Плеер", type: "window" },
   { id: "products-folder", icon: "products-folder", label: "Продукты\nBAR BOSS\nONLINE", type: "folder" },
