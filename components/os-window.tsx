@@ -15,6 +15,7 @@ interface OSWindowProps {
   onFocus: () => void
   onMinimize: () => void
   icon?: string
+  isFolder?: boolean
 }
 
 export const OSWindow = memo(function OSWindow({
@@ -28,6 +29,7 @@ export const OSWindow = memo(function OSWindow({
   onFocus,
   onMinimize,
   icon = "📁",
+  isFolder = false,
 }: OSWindowProps) {
   const [position, setPosition] = useState(defaultPosition)
   const [size, setSize] = useState(defaultSize)
@@ -362,7 +364,21 @@ export const OSWindow = memo(function OSWindow({
           }}
         >
           <div className="flex-1 text-xs text-[#FFD700] px-2 flex items-center gap-1">
-            <span>Готово</span>
+            {isFolder ? (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  soundManager.playClick()
+                  onClose()
+                }}
+                className="text-xs text-[#FFD700] hover:text-[#FFD700] hover:underline cursor-pointer transition-all"
+                style={{ background: "transparent", border: "none", padding: 0 }}
+              >
+                Готово
+              </button>
+            ) : (
+              <span>Готово</span>
+            )}
             <span className="animate-blink">_</span>
           </div>
         </div>

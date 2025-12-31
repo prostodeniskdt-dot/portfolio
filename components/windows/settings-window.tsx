@@ -112,6 +112,34 @@ export function SettingsWindow() {
         </div>
       </div>
 
+      {/* Clippy Assistant section */}
+      <div
+        className="p-3"
+        style={{
+          background: "#f5f0e1",
+          border: "2px solid #000000",
+        }}
+      >
+        <h3 className="font-bold text-base mb-2">🤖 Помощник Clippy</h3>
+        <button
+          onClick={() => {
+            if (typeof window !== "undefined") {
+              localStorage.removeItem("barboss-clippy-hidden")
+              window.location.reload()
+            }
+          }}
+          className="w-full px-3 py-2 text-xs font-bold transition-colors hover:opacity-90"
+          style={{
+            background: "#FFD700",
+            color: "#000000",
+            border: "3px solid",
+            borderColor: "#d4a017 #000000 #000000 #d4a017",
+          }}
+        >
+          Показать помощника
+        </button>
+      </div>
+
       {/* Actions section */}
       <div
         className="p-3 space-y-2"

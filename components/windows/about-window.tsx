@@ -85,6 +85,33 @@ export function AboutWindow() {
           Создал BAR BOSS Online, чтобы делиться не теорией, а реальным опытом управления баром. 
           Вы получаете практику, которая работает в реальных условиях.
         </p>
+        
+        {/* Виталий - Достижения */}
+        <div className="mt-3 p-2" style={{ background: "#000000", border: "2px solid #FFD700" }}>
+          <h4 className="text-xs font-bold text-[#FFD700] mb-1">🏆 ДОСТИЖЕНИЯ:</h4>
+          <div className="space-y-0.5 text-xs text-[#FFD700]">
+            <div className="flex items-start gap-2">
+              <span>•</span>
+              <span>Запустил более 20 баров в России и СНГ</span>
+            </div>
+            <div className="flex items-start gap-2">
+              <span>•</span>
+              <span>Автор онлайн-курса по барному менеджменту с 500+ выпускниками</span>
+            </div>
+            <div className="flex items-start gap-2">
+              <span>•</span>
+              <span>Консультант федеральных сетей</span>
+            </div>
+            <div className="flex items-start gap-2">
+              <span>•</span>
+              <span>Спикер крупнейших барных форумов</span>
+            </div>
+            <div className="flex items-start gap-2">
+              <span>•</span>
+              <span>Эксперт по барному менеджменту</span>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Denis Kolodeshnikov section */}
@@ -121,6 +148,29 @@ export function AboutWindow() {
           Отвечает за внедрение AI-решений и автоматизацию барных процессов. 
           Помогает внедрять современные технологии для оптимизации работы заведений.
         </p>
+        
+        {/* Денис - Достижения */}
+        <div className="mt-3 p-2" style={{ background: "#000000", border: "2px solid #FFD700" }}>
+          <h4 className="text-xs font-bold text-[#FFD700] mb-1">🏆 ДОСТИЖЕНИЯ:</h4>
+          <div className="space-y-0.5 text-xs text-[#FFD700]">
+            <div className="flex items-start gap-2">
+              <span>•</span>
+              <span>Разработал AI-системы для автоматизации баров</span>
+            </div>
+            <div className="flex items-start gap-2">
+              <span>•</span>
+              <span>Внедрил чат-ботов для обработки заказов</span>
+            </div>
+            <div className="flex items-start gap-2">
+              <span>•</span>
+              <span>Создал аналитические дашборды для менеджмента</span>
+            </div>
+            <div className="flex items-start gap-2">
+              <span>•</span>
+              <span>Обучил команду работе с AI-инструментами</span>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Valeria Kolodeshnikova section */}
@@ -157,38 +207,27 @@ export function AboutWindow() {
           Управляет стратегией продвижения и коммуникацией с клиентами. 
           Создаёт эффективные маркетинговые кампании и развивает бренд BAR BOSS.
         </p>
-      </div>
-
-      {/* Achievements section */}
-      <div
-        className="p-3 animate-slide-up"
-        style={{
-          background: "#000000",
-          border: "2px solid #FFD700",
-          animationDelay: "0.2s",
-        }}
-      >
-        <h3 className="text-xs font-bold text-[#FFD700] mb-2">🏆 ДОСТИЖЕНИЯ:</h3>
-        <div className="space-y-1 text-xs text-[#FFD700]">
-          <div className="flex items-start gap-2">
-            <span>•</span>
-            <span>Запустил более 20 баров в России и СНГ</span>
-          </div>
-          <div className="flex items-start gap-2">
-            <span>•</span>
-            <span>Автор онлайн-курса по барному менеджменту с 500+ выпускниками</span>
-          </div>
-          <div className="flex items-start gap-2">
-            <span>•</span>
-            <span>Консультант федеральных сетей</span>
-          </div>
-          <div className="flex items-start gap-2">
-            <span>•</span>
-            <span>Спикер крупнейших барных форумов</span>
-          </div>
-          <div className="flex items-start gap-2">
-            <span>•</span>
-            <span>Эксперт по барному менеджменту</span>
+        
+        {/* Валерия - Достижения */}
+        <div className="mt-3 p-2" style={{ background: "#000000", border: "2px solid #FFD700" }}>
+          <h4 className="text-xs font-bold text-[#FFD700] mb-1">🏆 ДОСТИЖЕНИЯ:</h4>
+          <div className="space-y-0.5 text-xs text-[#FFD700]">
+            <div className="flex items-start gap-2">
+              <span>•</span>
+              <span>Увеличила охват аудитории на 300%</span>
+            </div>
+            <div className="flex items-start gap-2">
+              <span>•</span>
+              <span>Запустила успешные рекламные кампании</span>
+            </div>
+            <div className="flex items-start gap-2">
+              <span>•</span>
+              <span>Разработала стратегию контент-маркетинга</span>
+            </div>
+            <div className="flex items-start gap-2">
+              <span>•</span>
+              <span>Организовала участие в крупных конференциях</span>
+            </div>
           </div>
         </div>
       </div>
@@ -214,25 +253,6 @@ export function AboutWindow() {
             <span className="text-xs">{item.text}</span>
           </div>
         ))}
-      </div>
-
-      {/* Stats with animation */}
-      <div
-        className="p-2 text-xs space-y-1 animate-slide-up"
-        style={{
-          background: "#000000",
-          color: "#FFD700",
-          animationDelay: "0.4s",
-        }}
-      >
-        <div className="flex justify-between">
-          <span>📊 Завершённых курсов:</span>
-          <span className="font-bold animate-flicker">12,450+</span>
-        </div>
-        <div className="flex justify-between">
-          <span>⭐ Средняя оценка:</span>
-          <span className="font-bold animate-flicker">4.9/5</span>
-        </div>
       </div>
     </div>
   )

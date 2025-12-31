@@ -227,6 +227,7 @@ export const Desktop = memo(function Desktop({
               onFocus={() => onFocus(windowId)}
               onMinimize={() => onMinimize(windowId)}
               icon={config.icon}
+              isFolder={true}
             >
               <FolderWindowDynamic
                 folderId={folderId}

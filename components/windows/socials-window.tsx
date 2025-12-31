@@ -80,17 +80,31 @@ export function SocialsWindow() {
                 </span>
               </div>
               <div className="min-w-0 flex-1">
-                <div className="text-sm font-bold" style={{ color: "#000000" }}>
+                <a
+                  href={item.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="text-sm font-bold hover:underline cursor-pointer transition-all"
+                  style={{ color: "#000000" }}
+                >
                   {item.title}
-                </div>
+                </a>
                 {item.subtitle && (
                   <div className="text-[10px]" style={{ color: "#666666" }}>
                     {item.subtitle}
                   </div>
                 )}
-                <div className="text-xs underline break-all mt-1" style={{ color: "#000000" }}>
+                <a
+                  href={item.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="text-xs underline break-all mt-1 hover:opacity-80 cursor-pointer transition-all"
+                  style={{ color: "#000000" }}
+                >
                   {item.url}
-                </div>
+                </a>
               </div>
             </div>
           </button>

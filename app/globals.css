@@ -518,3 +518,30 @@
     font-size: 12px;
   }
 }
+
+/* Clippy Assistant animations */
+@keyframes clippy-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes clippy-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.clippy-bounce {
+  animation: clippy-bounce 2s ease-in-out infinite;
+}
+
+.clippy-pulse {
+  animation: clippy-pulse 2s ease-in-out infinite;
+}

@@ -12,6 +12,7 @@ import { useWindowState } from "@/hooks/use-window-state"
 import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts"
 import { desktopIcons } from "@/lib/data"
 import { DeleteWarningModal } from "@/components/delete-warning-modal"
+import { ClippyAssistant } from "@/components/clippy-assistant"
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
@@ -148,6 +149,11 @@ export default function Home() {
           onProductClick={handleOpenProduct}
         />
         </Suspense>
+        <ClippyAssistant 
+          onTipAction={(action) => {
+            action()
+          }}
+        />
         <Taskbar
           onItemClick={toggleWindow}
           openWindows={openWindows}
