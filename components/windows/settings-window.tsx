@@ -125,7 +125,7 @@ export function SettingsWindow() {
           onClick={() => {
             if (typeof window !== "undefined") {
               localStorage.removeItem("barboss-clippy-hidden")
-              window.location.reload()
+              window.dispatchEvent(new CustomEvent("show-clippy"))
             }
           }}
           className="w-full px-3 py-2 text-xs font-bold transition-colors hover:opacity-90"

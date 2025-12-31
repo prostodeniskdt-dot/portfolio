@@ -1,59 +1,18 @@
 "use client"
 
-import { useState, useEffect, useRef, useCallback } from "react"
+import { useState, useEffect, useRef } from "react"
 import { soundManager } from "@/lib/sounds"
 
-interface Tip {
-  id: string
-  message: string
-  context?: string
-  action?: {
-    label: string
-    onClick: () => void
-  }
-}
-
-const TIPS: Tip[] = [
-  {
-    id: "welcome",
-    message: "Привет! Я твой помощник Clippy. Нажми на любую иконку, чтобы открыть окно!",
-    context: "first-visit",
-  },
-  {
-    id: "products",
-    message: "Здесь наши продукты и услуги. Открой папку, чтобы узнать больше!",
-    context: "hover-products",
-  },
-  {
-    id: "contact",
-    message: "Нужна помощь? Открой 'Контакты' или нажми кнопку 'Написать в Telegram'!",
-    context: "open-contact",
-  },
-  {
-    id: "team",
-    message: "Хочешь узнать о нашей команде? Открой окно 'Команда'!",
-    context: "hover-about",
-  },
-  {
-    id: "socials",
-    message: "Подписывайся на нас в соцсетях! Открой 'Социальные сети'.",
-    context: "hover-socials",
-  },
-]
-
 interface ClippyAssistantProps {
-  onTipAction?: (action: () => void) => void
+  onOpenChat?: () => void
 }
 
-export function ClippyAssistant({ onTipAction }: ClippyAssistantProps) {
+export function ClippyAssistant({ onOpenChat }: ClippyAssistantProps) {
   const [isVisible, setIsVisible] = useState(true)
-  const [currentTip, setCurrentTip] = useState<Tip | null>(null)
-  const [isAnimating, setIsAnimating] = useState(false)
   const [position, setPosition] = useState({ x: 0, y: 0 })
   const isDragging = useRef(false)
   const dragOffset = useRef({ x: 0, y: 0 })
   const assistantRef = useRef<HTMLDivElement>(null)
-  const hasShownWelcome = useRef(false)
 
   // Инициализация позиции
   useEffect(() => {
@@ -65,41 +24,27 @@ export function ClippyAssistant({ onTipAction }: ClippyAssistantProps) {
     }
   }, [])
 
-  // Проверка первого визита и скрытого состояния
+  // Проверка скрытого состояния
   useEffect(() => {
     if (typeof window === "undefined") return
 
-    const hasVisited = localStorage.getItem("barboss-has-visited")
     const isHidden = localStorage.getItem("barboss-clippy-hidden") === "true"
 
     if (isHidden) {
       setIsVisible(false)
-      return
-    }
-
-    if (!hasVisited) {
-      localStorage.setItem("barboss-has-visited", "true")
-      setTimeout(() => {
-        showTip("welcome")
-        hasShownWelcome.current = true
-      }, 2000)
     }
   }, [])
 
-  // Показ подсказки
-  const showTip = useCallback((tipId: string) => {
-    const tip = TIPS.find((t) => t.id === tipId)
-    if (tip) {
-      setCurrentTip(tip)
-      setIsAnimating(true)
-      soundManager.playClick()
+  // Слушатель события для показа помощника
+  useEffect(() => {
+    const handleShowClippy = () => {
+      setIsVisible(true)
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("barboss-clippy-hidden")
+      }
     }
-  }, [])
-
-  // Скрытие подсказки
-  const hideTip = useCallback(() => {
-    setIsAnimating(false)
-    setTimeout(() => setCurrentTip(null), 300)
+    window.addEventListener("show-clippy", handleShowClippy)
+    return () => window.removeEventListener("show-clippy", handleShowClippy)
   }, [])
 
   // Перетаскивание
@@ -143,23 +88,6 @@ export function ClippyAssistant({ onTipAction }: ClippyAssistantProps) {
     }
   }, [isDragging.current])
 
-  // Слушаем события для контекстных подсказок
-  useEffect(() => {
-    const handleContextEvent = (e: Event) => {
-      const customEvent = e as CustomEvent<{ context?: string }>
-      const context = customEvent.detail?.context
-      if (context) {
-        const tip = TIPS.find((t) => t.context === context)
-        if (tip && tip.id !== currentTip?.id) {
-          showTip(tip.id)
-        }
-      }
-    }
-
-    window.addEventListener("clippy-context" as any, handleContextEvent)
-    return () => window.removeEventListener("clippy-context" as any, handleContextEvent)
-  }, [currentTip, showTip])
-
   // Анимация моргания
   const [isBlinking, setIsBlinking] = useState(false)
   useEffect(() => {
@@ -183,92 +111,12 @@ export function ClippyAssistant({ onTipAction }: ClippyAssistantProps) {
       }}
       onMouseDown={handleMouseDown}
     >
-      {/* Баллун с подсказкой */}
-      {currentTip && (
-        <div
-          className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 transition-all duration-300 ${
-            isAnimating ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
-          }`}
-          style={{
-            width: "280px",
-            animation: "slide-up 0.3s ease-out",
-          }}
-        >
-          <div
-            className="p-3 text-xs relative"
-            style={{
-              background: "#FFD700",
-              border: "3px solid #000000",
-              boxShadow: "4px 4px 0 rgba(0,0,0,0.3)",
-            }}
-          >
-            {/* Хвостик баллуна */}
-            <div
-              className="absolute top-full left-1/2 -translate-x-1/2 -mt-1"
-              style={{
-                width: 0,
-                height: 0,
-                borderLeft: "10px solid transparent",
-                borderRight: "10px solid transparent",
-                borderTop: "10px solid #000000",
-              }}
-            />
-            <div
-              className="absolute top-full left-1/2 -translate-x-1/2"
-              style={{
-                width: 0,
-                height: 0,
-                borderLeft: "8px solid transparent",
-                borderRight: "8px solid transparent",
-                borderTop: "8px solid #FFD700",
-              }}
-            />
-
-            <p className="text-black font-bold mb-2">{currentTip.message}</p>
-
-            {currentTip.action && (
-              <button
-                onClick={() => {
-                  if (currentTip.action) {
-                    currentTip.action.onClick()
-                    hideTip()
-                    onTipAction?.(currentTip.action.onClick)
-                  }
-                }}
-                className="w-full py-1.5 text-xs font-bold transition-all hover:scale-105"
-                style={{
-                  background: "#000000",
-                  color: "#FFD700",
-                  border: "2px solid #000000",
-                }}
-              >
-                {currentTip.action.label}
-              </button>
-            )}
-
-            <button
-              onClick={hideTip}
-              className="absolute top-1 right-1 w-5 h-5 flex items-center justify-center text-black hover:bg-black hover:text-[#FFD700] transition-colors"
-              style={{
-                border: "2px solid #000000",
-                background: "#FFD700",
-              }}
-            >
-              ×
-            </button>
-          </div>
-        </div>
-      )}
-
       {/* Аватар помощника */}
       <div
         className="relative cursor-pointer transition-transform hover:scale-110"
         onClick={() => {
-          if (!currentTip) {
-            showTip("welcome")
-          } else {
-            hideTip()
-          }
+          onOpenChat?.()
+          soundManager.playClick()
         }}
         style={{
           width: "80px",
@@ -292,18 +140,6 @@ export function ClippyAssistant({ onTipAction }: ClippyAssistantProps) {
             🤖
           </div>
         </div>
-
-        {/* Индикатор новых подсказок */}
-        {!currentTip && (
-          <div
-            className="absolute -top-1 -right-1 w-4 h-4 animate-bounce"
-            style={{
-              background: "#FF0000",
-              border: "2px solid #000000",
-              borderRadius: "50%",
-            }}
-          />
-        )}
       </div>
 
       {/* Кнопка скрыть */}

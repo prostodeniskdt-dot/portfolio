@@ -95,16 +95,6 @@ export function SocialsWindow() {
                     {item.subtitle}
                   </div>
                 )}
-                <a
-                  href={item.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                  className="text-xs underline break-all mt-1 hover:opacity-80 cursor-pointer transition-all"
-                  style={{ color: "#000000" }}
-                >
-                  {item.url}
-                </a>
               </div>
             </div>
           </button>

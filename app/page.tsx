@@ -111,6 +111,11 @@ export default function Home() {
     }
   }, [toggleWindow, handleOpenFolder])
 
+  // Handler for opening Clippy chat
+  const handleOpenClippy = useCallback(() => {
+    toggleWindow("clippy")
+  }, [toggleWindow])
+
   // Слушаем событие открытия окна контактов
   useEffect(() => {
     const handleOpenContact = () => {
@@ -149,11 +154,7 @@ export default function Home() {
           onProductClick={handleOpenProduct}
         />
         </Suspense>
-        <ClippyAssistant 
-          onTipAction={(action) => {
-            action()
-          }}
-        />
+        <ClippyAssistant onOpenChat={handleOpenClippy} />
         <Taskbar
           onItemClick={toggleWindow}
           openWindows={openWindows}

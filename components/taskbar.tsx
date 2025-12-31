@@ -187,8 +187,8 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
                 }}
                 className="w-full flex items-center gap-3 px-3 py-2 hover:bg-[#FFD700] hover:text-black text-black transition-colors duration-150"
               >
-                <span className="text-xl">🔌</span>
-                <span className="text-sm font-bold">Выход...</span>
+                <span className="text-xl">🔄</span>
+                <span className="text-sm font-bold">Перезагрузить</span>
               </button>
             </div>
           </div>
@@ -198,7 +198,7 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
       {/* Exit confirmation dialog */}
       {showExitConfirm && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center"
+          className="fixed inset-0 z-[9999] flex items-center justify-center"
           style={{
             background: "rgba(0, 0, 0, 0.7)",
           }}
@@ -223,7 +223,7 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
                   color: "#000000",
                 }}
               >
-                🔌 Выход из OS
+                🔄 Перезагрузить OS
               </h3>
               <p
                 className="text-sm mb-4"
@@ -231,7 +231,7 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
                   color: "#000000",
                 }}
               >
-                Вы уверены, что хотите выйти?
+                Вы уверены, что хотите перезагрузить?
               </p>
               <div className="flex gap-2 justify-end">
                 <button
@@ -251,9 +251,7 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
                     setIsExiting(true)
                     // Анимация закрытия
                     setTimeout(() => {
-                      // В реальном приложении здесь может быть редирект или закрытие приложения
-                      // Для веб-версии можно показать сообщение или закрыть все окна
-                      window.location.href = "/"
+                      window.location.reload()
                     }, 500)
                   }}
                   disabled={isExiting}
@@ -265,7 +263,7 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
                     borderColor: "#d4a017 #000000 #000000 #d4a017",
                   }}
                 >
-                  {isExiting ? "Выход..." : "Выход"}
+                  {isExiting ? "Перезагрузка..." : "Перезагрузить"}
                 </button>
               </div>
             </div>

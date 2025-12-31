@@ -4,6 +4,7 @@ import { ContactWindow } from "@/components/windows/contact-window"
 import { SettingsWindow } from "@/components/windows/settings-window"
 import { PlayerWindow } from "@/components/windows/player-window"
 import { SocialsWindow } from "@/components/windows/socials-window"
+import { ClippyChatWindow } from "@/components/windows/clippy-chat-window"
 
 export interface Course {
   title: string
@@ -826,6 +827,13 @@ export const windowConfigs: Record<string, WindowConfig> = {
     defaultSize: { width: 800, height: 650 },
     component: SocialsWindow,
     icon: "🌐",
+  },
+  clippy: {
+    title: "Помощник Clippy",
+    defaultPosition: { x: 300, y: 200 },
+    defaultSize: { width: 500, height: 600 },
+    component: ClippyChatWindow,
+    icon: "🤖",
   },
   "products-folder": {
     title: "Продукты BAR BOSS",

@@ -79,6 +79,18 @@ const SocialsWindow = dynamic(
   },
 )
 
+const ClippyChatWindow = dynamic(
+  () => import("./windows/clippy-chat-window").then((mod) => ({ default: mod.ClippyChatWindow })),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="p-4 flex items-center justify-center">
+        <div className="animate-pulse text-xs text-black">Загрузка...</div>
+      </div>
+    ),
+  },
+)
+
 const FolderWindowDynamic = dynamic(
   () => import("./windows/folder-window").then((mod) => ({ default: mod.FolderWindow })),
   {
@@ -110,6 +122,7 @@ const windowComponents: Record<string, ComponentType> = {
   settings: SettingsWindow,
   player: PlayerWindow,
   socials: SocialsWindow,
+  clippy: ClippyChatWindow,
 }
 
 export const Desktop = memo(function Desktop({
