@@ -67,6 +67,18 @@ const SettingsWindow = dynamic(
   },
 )
 
+const SocialsWindow = dynamic(
+  () => import("./windows/socials-window").then((mod) => ({ default: mod.SocialsWindow })),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="p-4 flex items-center justify-center">
+        <div className="animate-pulse text-xs text-black">Загрузка...</div>
+      </div>
+    ),
+  },
+)
+
 const FolderWindowDynamic = dynamic(
   () => import("./windows/folder-window").then((mod) => ({ default: mod.FolderWindow })),
   {
@@ -97,6 +109,7 @@ const windowComponents: Record<string, ComponentType> = {
   contact: ContactWindow,
   settings: SettingsWindow,
   player: PlayerWindow,
+  socials: SocialsWindow,
 }
 
 export const Desktop = memo(function Desktop({

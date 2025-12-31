@@ -87,6 +87,78 @@ export function AboutWindow() {
         </p>
       </div>
 
+      {/* Denis Kolodeshnikov section */}
+      <div
+        className="p-3 animate-slide-up"
+        style={{
+          background: "#f5f0e1",
+          border: "3px solid #000000",
+          animationDelay: "0.18s",
+        }}
+      >
+        <div className="flex items-start gap-3 mb-2">
+          <div
+            className="w-16 h-16 shrink-0 flex items-center justify-center"
+            style={{
+              background: "#000000",
+              border: "2px solid #FFD700",
+            }}
+          >
+            <span className="text-2xl">🤖</span>
+          </div>
+          <div className="flex-1">
+            <h3 className="text-sm font-bold text-black mb-1">Денис Колодешников</h3>
+            <p className="text-xs text-[#666666] mb-2">Руководитель ИИ направления</p>
+            <p className="text-xs text-black font-bold">
+              AI-эксперт • Автоматизация
+            </p>
+            <p className="text-xs text-[#666666] mt-1">
+              Санкт-Петербург 📍
+            </p>
+          </div>
+        </div>
+        <p className="text-xs leading-relaxed text-black mt-2">
+          Отвечает за внедрение AI-решений и автоматизацию барных процессов. 
+          Помогает внедрять современные технологии для оптимизации работы заведений.
+        </p>
+      </div>
+
+      {/* Valeria Kolodeshnikova section */}
+      <div
+        className="p-3 animate-slide-up"
+        style={{
+          background: "#f5f0e1",
+          border: "3px solid #000000",
+          animationDelay: "0.19s",
+        }}
+      >
+        <div className="flex items-start gap-3 mb-2">
+          <div
+            className="w-16 h-16 shrink-0 flex items-center justify-center"
+            style={{
+              background: "#000000",
+              border: "2px solid #FFD700",
+            }}
+          >
+            <span className="text-2xl">📈</span>
+          </div>
+          <div className="flex-1">
+            <h3 className="text-sm font-bold text-black mb-1">Валерия Колодешникова</h3>
+            <p className="text-xs text-[#666666] mb-2">Руководитель маркетингового отдела</p>
+            <p className="text-xs text-black font-bold">
+              Маркетолог • Коммуникации
+            </p>
+            <p className="text-xs text-[#666666] mt-1">
+              Санкт-Петербург 📍
+            </p>
+          </div>
+        </div>
+        <p className="text-xs leading-relaxed text-black mt-2">
+          Управляет стратегией продвижения и коммуникацией с клиентами. 
+          Создаёт эффективные маркетинговые кампании и развивает бренд BAR BOSS.
+        </p>
+      </div>
+
       {/* Achievements section */}
       <div
         className="p-3 animate-slide-up"

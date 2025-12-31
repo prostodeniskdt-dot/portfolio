@@ -1,4 +1,4 @@
-export const TELEGRAM_LEAD_URL = "https://t.me/@barboss_assistant"
+export const TELEGRAM_LEAD_URL = "https://t.me/barboss_assistant"
 
 export const SOCIAL_LINKS = {
   telegramChannel: "https://t.me/BarBoss87",
