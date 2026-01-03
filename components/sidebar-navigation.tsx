@@ -233,58 +233,85 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
             paddingLeft: '20px',
           }}
         >
-          {/* BAR - большой с увеличенным интервалом */}
+          {/* BAR - увеличенный интервал для выравнивания ширины */}
           <div
-            style={{
-              fontFamily: "Oswald, sans-serif",
-              fontSize: '72px',
-              fontWeight: 'bold',
-              color: "#FFD700",
-              letterSpacing: "0.35em",
-              textShadow: `
-                0 0 10px rgba(255, 215, 0, 0.8),
-                0 0 20px rgba(255, 215, 0, 0.6),
-                0 0 30px rgba(255, 215, 0, 0.4)
-              `,
-              lineHeight: 1,
-            }}
-          >
-            BAR
-          </div>
-          
-          {/* BOSS - средний размер */}
-          <div
-            style={{
-              fontFamily: "Oswald, sans-serif",
-              fontSize: '48px',
-              fontWeight: 'bold',
-              color: "#FFD700",
-              letterSpacing: "0.15em",
-              textShadow: `
-                0 0 10px rgba(255, 215, 0, 0.8),
-                0 0 20px rgba(255, 215, 0, 0.6),
-                0 0 30px rgba(255, 215, 0, 0.4)
-              `,
-              lineHeight: 1.1,
-            }}
-          >
-            BOSS
-          </div>
-          
-          {/* ONLINE - меньший размер */}
-          <div
+            className="logo-text"
             style={{
               fontFamily: "Oswald, sans-serif",
               fontSize: '36px',
               fontWeight: 'bold',
               color: "#FFD700",
-              letterSpacing: "0.1em",
+              letterSpacing: "0.85em",
               textShadow: `
                 0 0 10px rgba(255, 215, 0, 0.8),
                 0 0 20px rgba(255, 215, 0, 0.6),
-                0 0 30px rgba(255, 215, 0, 0.4)
+                0 0 30px rgba(255, 215, 0, 0.4),
+                2px 2px 0px rgba(255, 215, 0, 0.9),
+                -2px -2px 0px rgba(255, 215, 0, 0.9),
+                2px -2px 0px rgba(255, 215, 0, 0.9),
+                -2px 2px 0px rgba(255, 215, 0, 0.9)
               `,
-              lineHeight: 1.1,
+              WebkitTextStroke: "1px rgba(255, 215, 0, 0.5)",
+              animation: "glow-text 2s ease-in-out infinite",
+              lineHeight: 1.2,
+              cursor: "default",
+              transition: "all 0.3s ease",
+            }}
+          >
+            BAR
+          </div>
+          
+          {/* BOSS - средний интервал для выравнивания ширины */}
+          <div
+            className="logo-text"
+            style={{
+              fontFamily: "Oswald, sans-serif",
+              fontSize: '36px',
+              fontWeight: 'bold',
+              color: "#FFD700",
+              letterSpacing: "0.42em",
+              textShadow: `
+                0 0 10px rgba(255, 215, 0, 0.8),
+                0 0 20px rgba(255, 215, 0, 0.6),
+                0 0 30px rgba(255, 215, 0, 0.4),
+                2px 2px 0px rgba(255, 215, 0, 0.9),
+                -2px -2px 0px rgba(255, 215, 0, 0.9),
+                2px -2px 0px rgba(255, 215, 0, 0.9),
+                -2px 2px 0px rgba(255, 215, 0, 0.9)
+              `,
+              WebkitTextStroke: "1px rgba(255, 215, 0, 0.5)",
+              animation: "glow-text 2s ease-in-out infinite",
+              lineHeight: 1.2,
+              cursor: "default",
+              transition: "all 0.3s ease",
+            }}
+          >
+            BOSS
+          </div>
+          
+          {/* ONLINE - базовый интервал (самое длинное слово) */}
+          <div
+            className="logo-text"
+            style={{
+              fontFamily: "Oswald, sans-serif",
+              fontSize: '36px',
+              fontWeight: 'bold',
+              color: "#FFD700",
+              letterSpacing: "0.18em",
+              textShadow: `
+                0 0 10px rgba(255, 215, 0, 0.8),
+                0 0 20px rgba(255, 215, 0, 0.6),
+                0 0 30px rgba(255, 215, 0, 0.4),
+                2px 2px 0px rgba(255, 215, 0, 0.9),
+                -2px -2px 0px rgba(255, 215, 0, 0.9),
+                2px -2px 0px rgba(255, 215, 0, 0.9),
+                -2px 2px 0px rgba(255, 215, 0, 0.9)
+              `,
+              WebkitTextStroke: "1px rgba(255, 215, 0, 0.5)",
+              animation: "glow-text 2s ease-in-out infinite",
+              lineHeight: 1.2,
+              cursor: "default",
+              transition: "all 0.3s ease",
             }}
           >
             ONLINE

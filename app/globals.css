@@ -455,6 +455,25 @@
   box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
 }
 
+/* Logo text hover effect */
+.logo-text {
+  transition: all 0.3s ease;
+}
+
+.logo-text:hover {
+  text-shadow: 
+    0 0 20px rgba(255, 215, 0, 1),
+    0 0 40px rgba(255, 215, 0, 0.8),
+    0 0 60px rgba(255, 215, 0, 0.6),
+    0 0 80px rgba(255, 215, 0, 0.4),
+    2px 2px 0px rgba(255, 215, 0, 1),
+    -2px -2px 0px rgba(255, 215, 0, 1),
+    2px -2px 0px rgba(255, 215, 0, 1),
+    -2px 2px 0px rgba(255, 215, 0, 1) !important;
+  transform: scale(1.05);
+  animation: text-flicker 0.5s linear !important;
+}
+
 /* Улучшения визуальной части */
 * {
   image-rendering: -webkit-optimize-contrast;
