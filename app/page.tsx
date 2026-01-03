@@ -1,7 +1,6 @@
 "use client"
 
 import { useMemo, useCallback, useState, useEffect, Suspense } from "react"
-import { TopBar } from "@/components/top-bar"
 import { Desktop } from "@/components/desktop"
 import { Taskbar } from "@/components/taskbar"
 import { RetroBackground } from "@/components/retro-background"
@@ -136,7 +135,6 @@ export default function Home() {
     <div className="relative h-screen w-screen overflow-hidden">
       <RetroBackground isAnimated={isBackgroundAnimated} />
       <div className="relative z-10 flex h-full flex-col">
-        <TopBar />
         <SidebarNavigation 
           onItemClick={handleSidebarClick}
           onShowDeleteWarning={() => setShowDeleteWarning(true)}

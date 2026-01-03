@@ -225,36 +225,70 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
           boxShadow: '4px 0 20px rgba(0, 0, 0, 0.5)',
         }}
       >
-        {/* Логотип BAR BOSS ONLINE - горизонтально в три строки */}
+        {/* Логотип BAR BOSS ONLINE - выровнен влево */}
         <div 
-          className="flex flex-col items-center gap-1 mb-8"
+          className="flex flex-col items-start gap-0 mb-8"
           style={{
-            textAlign: 'center',
+            textAlign: 'left',
+            paddingLeft: '20px',
           }}
         >
-          <h1
-            className="text-3xl font-bold"
+          {/* BAR - большой с увеличенным интервалом */}
+          <div
             style={{
               fontFamily: "Oswald, sans-serif",
-              color: "#000000",
+              fontSize: '72px',
+              fontWeight: 'bold',
+              color: "#FFD700",
+              letterSpacing: "0.35em",
               textShadow: `
                 0 0 10px rgba(255, 215, 0, 0.8),
                 0 0 20px rgba(255, 215, 0, 0.6),
-                0 0 30px rgba(255, 215, 0, 0.4),
-                2px 2px 0px rgba(255, 215, 0, 0.9),
-                -2px -2px 0px rgba(255, 215, 0, 0.9),
-                2px -2px 0px rgba(255, 215, 0, 0.9),
-                -2px 2px 0px rgba(255, 215, 0, 0.9)
+                0 0 30px rgba(255, 215, 0, 0.4)
               `,
-              WebkitTextStroke: "1px rgba(255, 215, 0, 0.5)",
-              animation: "glow-text 2s ease-in-out infinite",
-              letterSpacing: "0.05em",
+              lineHeight: 1,
             }}
           >
-            <div style={{ color: "#000000" }}>BAR</div>
-            <div style={{ color: "#FFD700" }}>BOSS</div>
-            <div style={{ color: "#000000" }}>ONLINE</div>
-          </h1>
+            BAR
+          </div>
+          
+          {/* BOSS - средний размер */}
+          <div
+            style={{
+              fontFamily: "Oswald, sans-serif",
+              fontSize: '48px',
+              fontWeight: 'bold',
+              color: "#FFD700",
+              letterSpacing: "0.15em",
+              textShadow: `
+                0 0 10px rgba(255, 215, 0, 0.8),
+                0 0 20px rgba(255, 215, 0, 0.6),
+                0 0 30px rgba(255, 215, 0, 0.4)
+              `,
+              lineHeight: 1.1,
+            }}
+          >
+            BOSS
+          </div>
+          
+          {/* ONLINE - меньший размер */}
+          <div
+            style={{
+              fontFamily: "Oswald, sans-serif",
+              fontSize: '36px',
+              fontWeight: 'bold',
+              color: "#FFD700",
+              letterSpacing: "0.1em",
+              textShadow: `
+                0 0 10px rgba(255, 215, 0, 0.8),
+                0 0 20px rgba(255, 215, 0, 0.6),
+                0 0 30px rgba(255, 215, 0, 0.4)
+              `,
+              lineHeight: 1.1,
+            }}
+          >
+            ONLINE
+          </div>
         </div>
 
         {/* Иконки (main grid by rows) */}
