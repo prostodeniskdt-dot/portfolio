@@ -1182,7 +1182,7 @@ export const windowConfigs: Record<string, WindowConfig> = {
     defaultPosition: { x: 100, y: 100 },
     defaultSize: { width: 800, height: 650 },
     component: SocialsWindow,
-    icon: "🌐",
+    icon: "socials",
   },
   clippy: {
     title: "Помощник Clippy",
