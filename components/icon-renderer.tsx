@@ -13,8 +13,10 @@ interface IconRendererProps {
 export function IconRenderer({ icon, label, size = 48, className = "" }: IconRendererProps) {
   const [imageError, setImageError] = useState(false)
   
-  // Если иконка - эмодзи (длиннее 2 символов и не содержит '-'), используем эмодзи
-  if (icon.length > 2 && !icon.includes('-')) {
+  // Проверяем, является ли иконка эмодзи (короткая строка без латинских букв)
+  const hasOnlyEmoji = /^[\p{Emoji}\s]+$/u.test(icon) && icon.length <= 4
+  
+  if (hasOnlyEmoji) {
     return (
       <span className={`text-4xl drop-shadow-lg group-hover:animate-float transition-transform ${className}`} aria-hidden="true">
         {icon}
