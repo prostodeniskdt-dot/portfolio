@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from "react"
 import { getPixelIcon } from "@/components/icons/pixel-icons"
 import { desktopIcons, type DesktopIcon } from "@/lib/data"
+import { IconRenderer } from "./icon-renderer"
 
 interface SidebarNavigationProps {
   onItemClick: (itemId: string) => void
@@ -43,6 +44,9 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
   const about = byId.get("about")
   const player = byId.get("player")
   const socials = byId.get("socials")
+  const contestFolder = byId.get("contest-folder")
+  const friendsFolder = byId.get("friends-folder")
+  const legalDocumentsFolder = byId.get("legal-documents-folder")
 
   // Utility row (near Start menu)
   const settings = byId.get("settings")
@@ -62,6 +66,10 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
     contact ?? null,
     player ?? null,
     socials ?? null,
+    // Row 4
+    contestFolder ?? null,
+    friendsFolder ?? null,
+    legalDocumentsFolder ?? null,
   ]
 
   const utilityCells: Array<DesktopIcon | null> = [
@@ -136,16 +144,7 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
                 : "drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6))",
             }}
           >
-            {IconComponent ? (
-              <IconComponent size={28} className="transition-all duration-200" />
-            ) : (
-              <div
-                className="w-8 h-8 flex items-center justify-center text-2xl transition-all duration-200"
-                style={{ color: "#000" }}
-              >
-                {item.icon}
-              </div>
-            )}
+            <IconRenderer icon={item.icon} label={item.label} size={28} className="transition-all duration-200" />
           </div>
         </div>
 
