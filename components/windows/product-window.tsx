@@ -3,7 +3,6 @@
 import { products, contests, partners, legalDocuments } from "@/lib/data"
 import { toast } from "sonner"
 import { TELEGRAM_LEAD_URL } from "@/lib/links"
-import Image from "next/image"
 
 interface ProductWindowProps {
   productId: string
@@ -46,31 +45,9 @@ export function ProductWindow({ productId }: ProductWindowProps) {
       >
         <span className="text-4xl">{item.icon}</span>
         <div className="flex-1">
-          <div className="flex items-center gap-3">
-            <h2 className="text-xl font-bold text-black">{item.title}</h2>
-          </div>
+          <h2 className="text-xl font-bold text-black">{item.title}</h2>
           <p className="text-xs text-[#666666]">{item.category}</p>
         </div>
-        {/* Блок для промо-изображения справа от названия */}
-        {itemType === 'product' && 'promoImage' in item && item.promoImage && (
-          <div
-            className="flex-shrink-0"
-            style={{
-              border: "2px solid #000000",
-              background: "#FFFFFF",
-              padding: "4px",
-            }}
-          >
-            <Image
-              src={item.promoImage}
-              alt={`Промо ${item.title}`}
-              width={120}
-              height={80}
-              className="object-contain"
-              style={{ maxHeight: "80px", display: "block" }}
-            />
-          </div>
-        )}
       </div>
 
       {/* Description */}
@@ -83,26 +60,21 @@ export function ProductWindow({ productId }: ProductWindowProps) {
       >
         <div className="space-y-3">
           <div>
-            <div className="flex items-center gap-2 mb-1">
-              <h3 className="font-bold text-sm">Описание</h3>
-              {/* Кнопка Описание активна для пакета №1 */}
-              {itemType === 'product' && 'descriptionLink' in item && item.descriptionLink && (
+            {/* Заголовок Описание как активная ссылка без рамки для пакета №1 */}
+            {itemType === 'product' && 'descriptionLink' in item && item.descriptionLink ? (
+              <h3 className="font-bold text-sm mb-1">
                 <a
                   href={item.descriptionLink}
                   target="_blank"
                   rel="noreferrer"
-                  className="px-2 py-1 text-xs font-bold transition-all hover:scale-[1.02]"
-                  style={{
-                    background: "#000000",
-                    color: "#FFD700",
-                    border: "2px solid #FFD700",
-                  }}
+                  className="text-black hover:text-blue-600 underline"
                 >
-                  📋 Описание
+                  Описание
                 </a>
-              )}
-            </div>
-            {/* Текст описания без ссылки */}
+              </h3>
+            ) : (
+              <h3 className="font-bold text-sm mb-1">Описание</h3>
+            )}
             <p className="text-xs leading-relaxed">{item.fullDescription}</p>
           </div>
 

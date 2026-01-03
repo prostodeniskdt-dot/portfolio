@@ -261,7 +261,6 @@ export const products: Product[] = [
       "Чек-листы бармена",
       "Этапы запуска меню",
     ],
-    promoImage: "/images/promo/package-1-promo.png",
     descriptionLink: "https://docs.google.com/spreadsheets/d/1nJzu_JC8CosNfxZ0ehkX0UmE6vp1-9BUZBftax4mQeM/edit?gid=1771114408#gid=1771114408",
     videoReviewLink: "https://www.youtube.com/watch?v=IxavlBbHud4",
     shortVideoReviewLink: "https://www.youtube.com/watch?v=1zUcGNZrXHk&t=476s",
@@ -322,7 +321,6 @@ export const products: Product[] = [
       "KPI для команды",
       "KPI для менеджера бара",
     ],
-    promoImage: "/images/promo/package-2-promo.png",
     videoReviewLink: "https://www.youtube.com/watch?v=4HxPTyjpjRg",
     paymentLink: "https://docs.google.com/forms/d/e/1FAIpQLScAjjz8QvEV05E3l1szYx7mI4IQOeB61rmRdPnqL2jE9DqSqQ/viewform?usp=send_form",
   },
@@ -1163,6 +1161,7 @@ export const folders: Record<string, Folder> = {
       "venue-support-lvl2",
       "menu-design-lvl2",
       "consultations-lvl1",
+      "individual-courses",
     ],
   },
   "it-products": {
