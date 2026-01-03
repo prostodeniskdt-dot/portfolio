@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useMemo, useRef, useEffect } from "react"
-import { folders, products } from "@/lib/data"
+import { folders, products, contests, partners, legalDocuments } from "@/lib/data"
 
 interface FolderWindowProps {
   folderId: string
@@ -20,9 +20,20 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
 
     const items = folder.items
       .map((itemId) => {
+        // Ищем в разных массивах данных
         const product = products.find((p) => p.id === itemId)
-        if (!product) return null
-        return product
+        if (product) return { ...product, type: 'product' as const }
+        
+        const contest = contests.find((c) => c.id === itemId)
+        if (contest) return { ...contest, type: 'contest' as const }
+        
+        const partner = partners.find((p) => p.id === itemId)
+        if (partner) return { ...partner, type: 'partner' as const }
+        
+        const document = legalDocuments.find((d) => d.id === itemId)
+        if (document) return { ...document, type: 'document' as const }
+        
+        return null
       })
       .filter((item): item is NonNullable<typeof item> => item !== null)
 

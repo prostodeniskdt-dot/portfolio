@@ -1,6 +1,6 @@
 "use client"
 
-import { products } from "@/lib/data"
+import { products, contests, partners, legalDocuments } from "@/lib/data"
 import { toast } from "sonner"
 import { TELEGRAM_LEAD_URL } from "@/lib/links"
 
@@ -9,18 +9,25 @@ interface ProductWindowProps {
 }
 
 export function ProductWindow({ productId }: ProductWindowProps) {
+  // Ищем во всех массивах
   const product = products.find((p) => p.id === productId)
+  const contest = contests.find((c) => c.id === productId)
+  const partner = partners.find((p) => p.id === productId)
+  const document = legalDocuments.find((d) => d.id === productId)
+  
+  const item = product || contest || partner || document
+  const itemType = product ? 'product' : contest ? 'contest' : partner ? 'partner' : 'document'
 
-  if (!product) {
+  if (!item) {
     return (
       <div className="p-4 text-black text-sm">
-        <div className="text-red-600 font-bold">Ошибка: Продукт не найден</div>
+        <div className="text-red-600 font-bold">Ошибка: Элемент не найден</div>
       </div>
     )
   }
 
   const handleOrder = () => {
-    toast.success(`Запрос на "${product.title}" отправлен!`, {
+    toast.success(`Запрос на "${item.title}" отправлен!`, {
       description: "Мы свяжемся с вами в ближайшее время",
     })
     window.open(TELEGRAM_LEAD_URL, "_blank", "noreferrer")
@@ -36,10 +43,10 @@ export function ProductWindow({ productId }: ProductWindowProps) {
           border: "2px solid #000000",
         }}
       >
-        <span className="text-4xl">{product.icon}</span>
+        <span className="text-4xl">{item.icon}</span>
         <div className="flex-1">
-          <h2 className="text-xl font-bold text-black">{product.title}</h2>
-          <p className="text-xs text-[#666666]">{product.category}</p>
+          <h2 className="text-xl font-bold text-black">{item.title}</h2>
+          <p className="text-xs text-[#666666]">{item.category}</p>
         </div>
       </div>
 
@@ -54,36 +61,126 @@ export function ProductWindow({ productId }: ProductWindowProps) {
         <div className="space-y-3">
           <div>
             <h3 className="font-bold text-sm mb-1">Описание</h3>
-            <p className="text-xs leading-relaxed">{product.fullDescription}</p>
+            <p className="text-xs leading-relaxed">{item.fullDescription}</p>
           </div>
 
-          {product.price && (
+          {/* Для конкурсов */}
+          {itemType === 'contest' && 'prize' in item && item.prize && (
             <div>
-              <h3 className="font-bold text-sm mb-1">Цена</h3>
+              <h3 className="font-bold text-sm mb-1">Приз</h3>
               <p className="text-xs font-bold text-[#FFD700] bg-black px-2 py-1 inline-block">
-                {product.price}
+                {item.prize}
               </p>
             </div>
           )}
 
-          {product.duration && (
+          {itemType === 'contest' && 'deadline' in item && item.deadline && (
+            <div>
+              <h3 className="font-bold text-sm mb-1">Дедлайн</h3>
+              <p className="text-xs">{item.deadline}</p>
+            </div>
+          )}
+
+          {itemType === 'contest' && 'status' in item && item.status && (
+            <div>
+              <h3 className="font-bold text-sm mb-1">Статус</h3>
+              <p className="text-xs">
+                {item.status === 'active' ? '🟢 Активный' : 
+                 item.status === 'upcoming' ? '🔵 Скоро' : 
+                 '⚫ Завершен'}
+              </p>
+            </div>
+          )}
+
+          {/* Для продуктов */}
+          {'price' in item && item.price && (
+            <div>
+              <h3 className="font-bold text-sm mb-1">Цена</h3>
+              <p className="text-xs font-bold text-[#FFD700] bg-black px-2 py-1 inline-block">
+                {item.price}
+              </p>
+            </div>
+          )}
+
+          {'duration' in item && item.duration && (
             <div>
               <h3 className="font-bold text-sm mb-1">Длительность</h3>
-              <p className="text-xs">{product.duration}</p>
+              <p className="text-xs">{item.duration}</p>
             </div>
           )}
 
-          {product.level && (
+          {'level' in item && item.level && (
             <div>
               <h3 className="font-bold text-sm mb-1">Уровень</h3>
-              <p className="text-xs">{product.level}</p>
+              <p className="text-xs">{item.level}</p>
             </div>
           )}
 
+          {/* Для партнеров */}
+          {itemType === 'partner' && 'website' in item && item.website && (
+            <div>
+              <h3 className="font-bold text-sm mb-1">Сайт</h3>
+              <a 
+                href={item.website} 
+                target="_blank" 
+                rel="noreferrer"
+                className="text-xs text-blue-600 underline hover:text-blue-800 break-all"
+              >
+                {item.website}
+              </a>
+            </div>
+          )}
+
+          {itemType === 'partner' && 'contact' in item && item.contact && (
+            <div>
+              <h3 className="font-bold text-sm mb-1">Контакты</h3>
+              <p className="text-xs">{item.contact}</p>
+            </div>
+          )}
+
+          {/* Для документов */}
+          {itemType === 'document' && 'documentType' in item && (
+            <div>
+              <h3 className="font-bold text-sm mb-1">Тип документа</h3>
+              <p className="text-xs">{item.documentType}</p>
+            </div>
+          )}
+
+          {/* Правила конкурса */}
+          {itemType === 'contest' && 'rules' in item && item.rules && (
+            <div>
+              <h3 className="font-bold text-sm mb-2">Правила участия:</h3>
+              <ul className="space-y-1">
+                {item.rules.map((rule, index) => (
+                  <li key={index} className="text-xs flex items-center gap-2">
+                    <span className="text-[#FFD700] font-bold">•</span>
+                    <span>{rule}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Услуги партнера */}
+          {itemType === 'partner' && 'services' in item && item.services && (
+            <div>
+              <h3 className="font-bold text-sm mb-2">Услуги:</h3>
+              <ul className="space-y-1">
+                {item.services.map((service, index) => (
+                  <li key={index} className="text-xs flex items-center gap-2">
+                    <span className="text-[#FFD700] font-bold">✓</span>
+                    <span>{service}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Основные особенности */}
           <div>
             <h3 className="font-bold text-sm mb-2">Что входит:</h3>
             <ul className="space-y-1">
-              {product.features.map((feature, index) => (
+              {item.features.map((feature, index) => (
                 <li key={index} className="text-xs flex items-center gap-2">
                   <span className="text-[#FFD700] font-bold">✓</span>
                   <span>{feature}</span>
@@ -96,17 +193,52 @@ export function ProductWindow({ productId }: ProductWindowProps) {
 
       {/* Action Button */}
       <div className="p-2">
-        <button
-          onClick={handleOrder}
-          className="w-full py-2 text-sm font-bold transition-all duration-200 hover:scale-105"
-          style={{
-            background: "#000000",
-            color: "#FFD700",
-            border: "2px solid #FFD700",
-          }}
-        >
-          Заказать / Связаться
-        </button>
+        {itemType === 'document' ? (
+          <button
+            onClick={() => {
+              if ('downloadUrl' in item && item.downloadUrl) {
+                window.open(item.downloadUrl, "_blank", "noreferrer")
+              } else {
+                toast.info("Документ будет доступен для скачивания в ближайшее время")
+              }
+            }}
+            className="w-full py-2 text-xs font-bold transition-all hover:scale-[1.02]"
+            style={{
+              background: "#000000",
+              color: "#FFD700",
+              border: "3px solid",
+              borderColor: "#3a3a3a #FFD700 #FFD700 #3a3a3a",
+            }}
+          >
+            📥 Скачать документ
+          </button>
+        ) : itemType === 'partner' && 'website' in item && item.website ? (
+          <button
+            onClick={() => window.open(item.website, "_blank", "noreferrer")}
+            className="w-full py-2 text-xs font-bold transition-all hover:scale-[1.02]"
+            style={{
+              background: "#000000",
+              color: "#FFD700",
+              border: "3px solid",
+              borderColor: "#3a3a3a #FFD700 #FFD700 #3a3a3a",
+            }}
+          >
+            🌐 Перейти на сайт партнера
+          </button>
+        ) : (
+          <button
+            onClick={handleOrder}
+            className="w-full py-2 text-xs font-bold transition-all hover:scale-[1.02]"
+            style={{
+              background: "#000000",
+              color: "#FFD700",
+              border: "3px solid",
+              borderColor: "#3a3a3a #FFD700 #FFD700 #3a3a3a",
+            }}
+          >
+            {itemType === 'contest' ? '🎯 Участвовать' : 'Заказать / Связаться'}
+          </button>
+        )}
       </div>
     </div>
   )

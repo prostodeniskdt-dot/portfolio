@@ -166,13 +166,34 @@ export const Desktop = memo(function Desktop({
             style={{ animationDelay: `${index * 0.1}s` }}
           >
             {(() => {
+              // Если иконка - эмодзи (длиннее 2 символов и не содержит '-'), используем эмодзи
+              if (item.icon.length > 2 && !item.icon.includes('-')) {
+                return (
+                  <span className="text-4xl drop-shadow-lg group-hover:animate-float transition-transform" aria-hidden="true">
+                    {item.icon}
+                  </span>
+                )
+              }
+              
+              // Иначе используем изображение с fallback на SVG компонент
+              const imagePath = `/icons/desktop/${item.icon}.png`
               const IconComponent = getPixelIcon(item.icon)
-              return IconComponent ? (
-                <IconComponent size={48} className="drop-shadow-lg group-hover:animate-float transition-transform" />
-              ) : (
-                <span className="text-4xl drop-shadow-lg group-hover:animate-float transition-transform" aria-hidden="true">
-                  {item.icon}
-                </span>
+              
+              return (
+                <img 
+                  src={imagePath}
+                  alt={item.label}
+                  width={48}
+                  height={48}
+                  className="drop-shadow-lg group-hover:animate-float transition-transform"
+                  style={{ imageRendering: "pixelated" }}
+                  onError={(e) => {
+                    // Если изображение не найдено, скрываем img и показываем SVG или эмодзи
+                    const target = e.target as HTMLImageElement
+                    target.style.display = 'none'
+                    // SVG компонент будет отображаться через fallback ниже
+                  }}
+                />
               )
             })()}
             <span 

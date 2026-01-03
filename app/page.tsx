@@ -72,6 +72,9 @@ export default function Home() {
       "it-products": "it-products-folder",
       "vacancies": "vacancies-folder",
       "advertising": "advertising-folder",
+      "contest": "contest-folder",
+      "friends": "friends-folder",
+      "legal-documents": "legal-documents-folder",
     }
     const windowId = folderWindowMap[folderId] || `${folderId}-folder`
     toggleWindow(windowId)
