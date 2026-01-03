@@ -339,6 +339,9 @@ export const pixelIcons: Record<string, React.ComponentType<PixelIconProps>> = {
   "it-products-folder": PixelLvl3DigitalIcon,
   "vacancies-folder": PixelFolderIcon,
   "advertising-folder": PixelFolderIcon,
+  "contest-folder": PixelFolderIcon,
+  "friends-folder": PixelFolderIcon,
+  "legal-documents-folder": PixelFolderIcon,
 }
 
 // Хелпер для получения иконки

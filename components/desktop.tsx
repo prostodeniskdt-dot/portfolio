@@ -5,7 +5,7 @@ import dynamic from "next/dynamic"
 import { OSWindow } from "./os-window"
 import { windowConfigs, desktopIcons } from "@/lib/data"
 import { soundManager } from "@/lib/sounds"
-import { getPixelIcon } from "@/components/icons/pixel-icons"
+import { IconRenderer } from "./icon-renderer"
 
 interface DesktopProps {
   openWindows: string[]
@@ -165,37 +165,7 @@ export const Desktop = memo(function Desktop({
             className="flex flex-col items-center gap-1 p-2 cursor-pointer hover:bg-[#FFD700]/20 group w-20 select-none animate-slide-up hover-lift"
             style={{ animationDelay: `${index * 0.1}s` }}
           >
-            {(() => {
-              // Если иконка - эмодзи (длиннее 2 символов и не содержит '-'), используем эмодзи
-              if (item.icon.length > 2 && !item.icon.includes('-')) {
-                return (
-                  <span className="text-4xl drop-shadow-lg group-hover:animate-float transition-transform" aria-hidden="true">
-                    {item.icon}
-                  </span>
-                )
-              }
-              
-              // Иначе используем изображение с fallback на SVG компонент
-              const imagePath = `/icons/desktop/${item.icon}.png`
-              const IconComponent = getPixelIcon(item.icon)
-              
-              return (
-                <img 
-                  src={imagePath}
-                  alt={item.label}
-                  width={48}
-                  height={48}
-                  className="drop-shadow-lg group-hover:animate-float transition-transform"
-                  style={{ imageRendering: "pixelated" }}
-                  onError={(e) => {
-                    // Если изображение не найдено, скрываем img и показываем SVG или эмодзи
-                    const target = e.target as HTMLImageElement
-                    target.style.display = 'none'
-                    // SVG компонент будет отображаться через fallback ниже
-                  }}
-                />
-              )
-            })()}
+            <IconRenderer icon={item.icon} label={item.label} size={48} className="" />
             <span 
               className="text-xs text-center font-bold drop-shadow-[1px_1px_0_#000] group-hover:bg-[#FFD700] group-hover:text-black px-2 py-0.5 transition-colors duration-200"
               style={{
