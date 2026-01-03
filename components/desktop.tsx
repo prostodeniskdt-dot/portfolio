@@ -115,6 +115,18 @@ const ProductWindowDynamic = dynamic(
   },
 ) as ComponentType<{ productId: string }>
 
+const IndividualCoursesWindowDynamic = dynamic(
+  () => import("./windows/courses-window").then((mod) => ({ default: mod.IndividualCoursesWindow })),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="p-4 flex items-center justify-center">
+        <div className="animate-pulse text-xs text-black">Загрузка...</div>
+      </div>
+    ),
+  },
+)
+
 // Map window IDs to lazy-loaded components
 const windowComponents: Record<string, ComponentType> = {
   about: AboutWindow,
@@ -123,6 +135,7 @@ const windowComponents: Record<string, ComponentType> = {
   player: PlayerWindow,
   socials: SocialsWindow,
   clippy: ClippyChatWindow,
+  "individual-courses": IndividualCoursesWindowDynamic,
 }
 
 export const Desktop = memo(function Desktop({

@@ -3,6 +3,7 @@
 import { products, contests, partners, legalDocuments } from "@/lib/data"
 import { toast } from "sonner"
 import { TELEGRAM_LEAD_URL } from "@/lib/links"
+import Image from "next/image"
 
 interface ProductWindowProps {
   productId: string
@@ -45,7 +46,20 @@ export function ProductWindow({ productId }: ProductWindowProps) {
       >
         <span className="text-4xl">{item.icon}</span>
         <div className="flex-1">
-          <h2 className="text-xl font-bold text-black">{item.title}</h2>
+          <div className="flex items-center gap-3">
+            <h2 className="text-xl font-bold text-black">{item.title}</h2>
+            {/* Добавить изображение для пакетов документов */}
+            {itemType === 'product' && 'promoImage' in item && item.promoImage && (
+              <Image
+                src={item.promoImage}
+                alt={`Промо ${item.title}`}
+                width={120}
+                height={80}
+                className="object-contain"
+                style={{ maxHeight: "80px" }}
+              />
+            )}
+          </div>
           <p className="text-xs text-[#666666]">{item.category}</p>
         </div>
       </div>
@@ -61,8 +75,58 @@ export function ProductWindow({ productId }: ProductWindowProps) {
         <div className="space-y-3">
           <div>
             <h3 className="font-bold text-sm mb-1">Описание</h3>
-            <p className="text-xs leading-relaxed">{item.fullDescription}</p>
+            {/* Сделать описание активной ссылкой для пакета №1 */}
+            {itemType === 'product' && 'descriptionLink' in item && item.descriptionLink ? (
+              <a
+                href={item.descriptionLink}
+                target="_blank"
+                rel="noreferrer"
+                className="text-xs leading-relaxed text-blue-600 underline hover:text-blue-800 break-all"
+              >
+                {item.fullDescription}
+              </a>
+            ) : (
+              <p className="text-xs leading-relaxed">{item.fullDescription}</p>
+            )}
           </div>
+
+          {/* Видеообзоры для пакетов документов */}
+          {itemType === 'product' && 'videoReviewLink' in item && item.videoReviewLink && (
+            <div>
+              <a
+                href={item.videoReviewLink}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-block px-3 py-2 text-xs font-bold transition-all hover:scale-[1.02]"
+                style={{
+                  background: "#000000",
+                  color: "#FFD700",
+                  border: "2px solid #FFD700",
+                }}
+              >
+                🎥 Видеообзор
+              </a>
+            </div>
+          )}
+
+          {/* Краткий видео обзор для пакета №1 */}
+          {itemType === 'product' && 'shortVideoReviewLink' in item && item.shortVideoReviewLink && (
+            <div>
+              <a
+                href={item.shortVideoReviewLink}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-block px-3 py-2 text-xs font-bold transition-all hover:scale-[1.02]"
+                style={{
+                  background: "#000000",
+                  color: "#FFD700",
+                  border: "2px solid #FFD700",
+                }}
+              >
+                🎬 Краткий видео обзор
+              </a>
+            </div>
+          )}
 
           {/* Для конкурсов */}
           {itemType === 'contest' && 'prize' in item && item.prize && (
@@ -94,15 +158,34 @@ export function ProductWindow({ productId }: ProductWindowProps) {
 
           {/* Для продуктов */}
           {'price' in item && item.price && (
-            <div>
-              <h3 className="font-bold text-sm mb-1">Цена</h3>
-              <p className="text-xs font-bold text-[#FFD700] bg-black px-2 py-1 inline-block">
-                {item.price}
-              </p>
+            <div className="flex items-center gap-3">
+              <div>
+                <h3 className="font-bold text-sm mb-1">Цена</h3>
+                <p className="text-xs font-bold text-[#FFD700] bg-black px-2 py-1 inline-block">
+                  {item.price}
+                </p>
+              </div>
+              {/* Кнопка оплатить для пакетов документов */}
+              {itemType === 'product' && 'paymentLink' in item && item.paymentLink && (
+                <a
+                  href={item.paymentLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-4 py-2 text-xs font-bold transition-all hover:scale-[1.02]"
+                  style={{
+                    background: "#FFD700",
+                    color: "#000000",
+                    border: "2px solid #000000",
+                  }}
+                >
+                  💳 Оплатить
+                </a>
+              )}
             </div>
           )}
 
-          {'duration' in item && item.duration && (
+          {/* Убрать длительность для пакетов документов №1 и №2 */}
+          {'duration' in item && item.duration && item.id !== 'documents-package-1' && item.id !== 'documents-package-2' && (
             <div>
               <h3 className="font-bold text-sm mb-1">Длительность</h3>
               <p className="text-xs">{item.duration}</p>
@@ -225,6 +308,22 @@ export function ProductWindow({ productId }: ProductWindowProps) {
           >
             🌐 Перейти на сайт партнера
           </button>
+        ) : itemType === 'product' && 'paymentLink' in item && item.paymentLink ? (
+          // Для продуктов с paymentLink показываем кнопку оплатить вместо стандартной
+          <a
+            href={item.paymentLink}
+            target="_blank"
+            rel="noreferrer"
+            className="w-full py-2 text-xs font-bold transition-all hover:scale-[1.02] block text-center"
+            style={{
+              background: "#000000",
+              color: "#FFD700",
+              border: "3px solid",
+              borderColor: "#3a3a3a #FFD700 #FFD700 #3a3a3a",
+            }}
+          >
+            💳 Оплатить
+          </a>
         ) : (
           <button
             onClick={handleOrder}
