@@ -48,20 +48,29 @@ export function ProductWindow({ productId }: ProductWindowProps) {
         <div className="flex-1">
           <div className="flex items-center gap-3">
             <h2 className="text-xl font-bold text-black">{item.title}</h2>
-            {/* Добавить изображение для пакетов документов */}
-            {itemType === 'product' && 'promoImage' in item && item.promoImage && (
-              <Image
-                src={item.promoImage}
-                alt={`Промо ${item.title}`}
-                width={120}
-                height={80}
-                className="object-contain"
-                style={{ maxHeight: "80px" }}
-              />
-            )}
           </div>
           <p className="text-xs text-[#666666]">{item.category}</p>
         </div>
+        {/* Блок для промо-изображения справа от названия */}
+        {itemType === 'product' && 'promoImage' in item && item.promoImage && (
+          <div
+            className="flex-shrink-0"
+            style={{
+              border: "2px solid #000000",
+              background: "#FFFFFF",
+              padding: "4px",
+            }}
+          >
+            <Image
+              src={item.promoImage}
+              alt={`Промо ${item.title}`}
+              width={120}
+              height={80}
+              className="object-contain"
+              style={{ maxHeight: "80px", display: "block" }}
+            />
+          </div>
+        )}
       </div>
 
       {/* Description */}
@@ -74,20 +83,27 @@ export function ProductWindow({ productId }: ProductWindowProps) {
       >
         <div className="space-y-3">
           <div>
-            <h3 className="font-bold text-sm mb-1">Описание</h3>
-            {/* Сделать описание активной ссылкой для пакета №1 */}
-            {itemType === 'product' && 'descriptionLink' in item && item.descriptionLink ? (
-              <a
-                href={item.descriptionLink}
-                target="_blank"
-                rel="noreferrer"
-                className="text-xs leading-relaxed text-blue-600 underline hover:text-blue-800 break-all"
-              >
-                {item.fullDescription}
-              </a>
-            ) : (
-              <p className="text-xs leading-relaxed">{item.fullDescription}</p>
-            )}
+            <div className="flex items-center gap-2 mb-1">
+              <h3 className="font-bold text-sm">Описание</h3>
+              {/* Кнопка Описание активна для пакета №1 */}
+              {itemType === 'product' && 'descriptionLink' in item && item.descriptionLink && (
+                <a
+                  href={item.descriptionLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-2 py-1 text-xs font-bold transition-all hover:scale-[1.02]"
+                  style={{
+                    background: "#000000",
+                    color: "#FFD700",
+                    border: "2px solid #FFD700",
+                  }}
+                >
+                  📋 Описание
+                </a>
+              )}
+            </div>
+            {/* Текст описания без ссылки */}
+            <p className="text-xs leading-relaxed">{item.fullDescription}</p>
           </div>
 
           {/* Видеообзоры для пакетов документов */}
@@ -158,29 +174,37 @@ export function ProductWindow({ productId }: ProductWindowProps) {
 
           {/* Для продуктов */}
           {'price' in item && item.price && (
-            <div className="flex items-center gap-3">
-              <div>
-                <h3 className="font-bold text-sm mb-1">Цена</h3>
-                <p className="text-xs font-bold text-[#FFD700] bg-black px-2 py-1 inline-block">
-                  {item.price}
-                </p>
-              </div>
-              {/* Кнопка оплатить для пакетов документов */}
-              {itemType === 'product' && 'paymentLink' in item && item.paymentLink && (
-                <a
-                  href={item.paymentLink}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="px-4 py-2 text-xs font-bold transition-all hover:scale-[1.02]"
+            <div>
+              <h3 className="font-bold text-sm mb-1">Цена</h3>
+              <div className="flex items-center gap-3">
+                <div
+                  className="px-2 py-1"
                   style={{
-                    background: "#FFD700",
-                    color: "#000000",
+                    background: "#000000",
                     border: "2px solid #000000",
                   }}
                 >
-                  💳 Оплатить
-                </a>
-              )}
+                  <p className="text-xs font-bold text-[#FFD700]">
+                    {item.price}
+                  </p>
+                </div>
+                {/* Кнопка оплатить для пакетов документов - в таком же квадрате */}
+                {itemType === 'product' && 'paymentLink' in item && item.paymentLink && (
+                  <a
+                    href={item.paymentLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="px-2 py-1 text-xs font-bold transition-all hover:scale-[1.02] inline-block"
+                    style={{
+                      background: "#FFD700",
+                      color: "#000000",
+                      border: "2px solid #000000",
+                    }}
+                  >
+                    💳 Оплатить
+                  </a>
+                )}
+              </div>
             </div>
           )}
 
