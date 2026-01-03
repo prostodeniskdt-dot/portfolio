@@ -121,7 +121,7 @@ export function ProductWindow({ productId }: ProductWindowProps) {
             <div>
               <h3 className="font-bold text-sm mb-1">Приз</h3>
               <p className="text-xs font-bold text-[#FFD700] bg-black px-2 py-1 inline-block">
-                {item.prize}
+                {String(item.prize)}
               </p>
             </div>
           )}
@@ -129,7 +129,7 @@ export function ProductWindow({ productId }: ProductWindowProps) {
           {itemType === 'contest' && 'deadline' in item && item.deadline && (
             <div>
               <h3 className="font-bold text-sm mb-1">Дедлайн</h3>
-              <p className="text-xs">{item.deadline}</p>
+              <p className="text-xs">{String(item.deadline)}</p>
             </div>
           )}
 
@@ -144,8 +144,55 @@ export function ProductWindow({ productId }: ProductWindowProps) {
             </div>
           )}
 
-          {/* Для продуктов */}
-          {'price' in item && item.price && (
+          {/* Бейдж подписчиков для Telegram каналов */}
+          {itemType === 'product' && product && product.subscribers && (
+            <div>
+              <span 
+                className="inline-flex items-center gap-1 px-2 py-1 text-xs font-bold"
+                style={{
+                  background: "#0088cc",
+                  color: "#ffffff",
+                  border: "2px solid #006699",
+                }}
+              >
+                👥 {product.subscribers} подписчиков
+              </span>
+            </div>
+          )}
+
+          {/* Блок акции со старой ценой и скидкой */}
+          {itemType === 'product' && product && product.isPromo && product.originalPrice && (
+            <div 
+              className="p-3"
+              style={{
+                background: "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)",
+                border: "3px solid #000000",
+              }}
+            >
+              <div className="flex items-center gap-3 flex-wrap">
+                <span className="text-xs line-through text-[#666666]">
+                  {product.originalPrice}
+                </span>
+                <span className="text-lg font-bold text-black">
+                  {product.price}
+                </span>
+                {product.discount && (
+                  <span 
+                    className="px-2 py-1 text-xs font-bold"
+                    style={{
+                      background: "#FF0000",
+                      color: "#FFFFFF",
+                    }}
+                  >
+                    Экономия {product.discount}!
+                  </span>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Для продуктов (обычная цена, если не акция) */}
+          {'price' in item && item.price && !(itemType === 'product' && product?.isPromo) && (
             <div>
               <h3 className="font-bold text-sm mb-1">Цена</h3>
               <div className="flex items-center gap-3">
@@ -267,6 +314,20 @@ export function ProductWindow({ productId }: ProductWindowProps) {
               ))}
             </ul>
           </div>
+
+          {/* Блок доверия для рекламы в Telegram */}
+          {itemType === 'product' && 'category' in item && item.category === "Реклама в Telegram" && (
+            <div 
+              className="p-2 text-xs"
+              style={{
+                background: "#e8f4fd",
+                border: "1px solid #0088cc",
+                borderLeft: "4px solid #0088cc",
+              }}
+            >
+              💡 <strong>Индивидуальный подход:</strong> Мы подбираем формат и подачу под ваши задачи, согласовываем каждый материал перед публикацией.
+            </div>
+          )}
         </div>
       </div>
 

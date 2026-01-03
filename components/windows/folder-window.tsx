@@ -142,6 +142,10 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
           <div className="grid grid-cols-3 gap-3">
             {folderItems.map((item) => {
               const isInDevelopment = item.id === "documents-package-3"
+              const isPromo = 'isPromo' in item && item.isPromo
+              const hasSubscribers = 'subscribers' in item && item.subscribers
+              const hasPrice = 'price' in item && item.price
+              
               return (
                 <button
                   key={item.id}
@@ -155,13 +159,59 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                     e.stopPropagation()
                     onOpenProduct?.(item.id)
                   }}
-                  className="flex flex-col items-center gap-2 p-3 cursor-pointer hover:bg-[#FFD700] group transition-colors"
+                  className="flex flex-col items-center gap-2 p-3 cursor-pointer hover:bg-[#FFD700] group transition-colors relative"
                   style={{
-                    background: isInDevelopment ? "#cccccc" : "#ffffff",
-                    border: "2px solid #000000",
+                    background: isInDevelopment 
+                      ? "#cccccc" 
+                      : isPromo 
+                        ? "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)"
+                        : "#ffffff",
+                    border: isPromo 
+                      ? "3px solid #FF0000" 
+                      : "2px solid #000000",
                     opacity: isInDevelopment ? 0.7 : 1,
                   }}
                 >
+                  {/* Бейдж "АКЦИЯ" для промо-товаров */}
+                  {isPromo && (
+                    <span 
+                      className="absolute -top-2 -right-2 px-2 py-0.5 text-[10px] font-bold animate-pulse"
+                      style={{
+                        background: "#FF0000",
+                        color: "#FFFFFF",
+                        transform: "rotate(15deg)",
+                      }}
+                    >
+                      АКЦИЯ!
+                    </span>
+                  )}
+                  
+                  {/* Бейдж подписчиков */}
+                  {hasSubscribers && (
+                    <span 
+                      className="absolute top-1 left-1 px-1 py-0.5 text-[8px] font-bold"
+                      style={{
+                        background: "#0088cc",
+                        color: "#ffffff",
+                      }}
+                    >
+                      👥 {item.subscribers}
+                    </span>
+                  )}
+                  
+                  {/* Цена в правом верхнем углу (если не промо) */}
+                  {hasPrice && !isPromo && (
+                    <span 
+                      className="absolute top-1 right-1 px-1 py-0.5 text-[9px] font-bold"
+                      style={{
+                        background: "#000000",
+                        color: "#FFD700",
+                      }}
+                    >
+                      {item.price}
+                    </span>
+                  )}
+                  
                   <span className="text-4xl">{item.icon}</span>
                   <span className="text-xs font-bold text-center text-black group-hover:text-black">
                     {item.title}
@@ -169,6 +219,16 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                   <span className="text-[10px] text-center text-[#666666] group-hover:text-black line-clamp-2">
                     {item.description}
                   </span>
+                  
+                  {/* Цена для промо-товаров */}
+                  {isPromo && hasPrice && (
+                    <span 
+                      className="text-sm font-bold text-black mt-1"
+                    >
+                      {item.price}
+                    </span>
+                  )}
+                  
                   {isInDevelopment && (
                     <span className="text-[10px] text-center text-[#666666] font-bold mt-1">
                       В разработке
