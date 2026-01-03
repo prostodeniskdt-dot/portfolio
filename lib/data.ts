@@ -1151,43 +1151,43 @@ export const folders: Record<string, Folder> = {
 export const windowConfigs: Record<string, WindowConfig> = {
   about: {
     title: "Команда",
-    defaultPosition: { x: 40, y: 40 },
+    defaultPosition: { x: 100, y: 100 },
     defaultSize: { width: 800, height: 650 },
     component: AboutWindow,
     icon: "about",
   },
   contact: {
     title: "Связаться с нами",
-    defaultPosition: { x: 520, y: 380 },
+    defaultPosition: { x: 100, y: 100 },
     defaultSize: { width: 800, height: 650 },
     component: ContactWindow,
     icon: "contact",
   },
   settings: {
     title: "Настройки",
-    defaultPosition: { x: 300, y: 200 },
+    defaultPosition: { x: 100, y: 100 },
     defaultSize: { width: 800, height: 650 },
     component: SettingsWindow,
     icon: "settings",
   },
   player: {
     title: "Медиа Плеер",
-    defaultPosition: { x: 200, y: 100 },
-    defaultSize: { width: 400, height: 500 },
+    defaultPosition: { x: 100, y: 100 },
+    defaultSize: { width: 800, height: 650 },
     component: PlayerWindow,
     icon: "player",
   },
   socials: {
     title: "Социальные сети",
-    defaultPosition: { x: 240, y: 120 },
+    defaultPosition: { x: 100, y: 100 },
     defaultSize: { width: 800, height: 650 },
     component: SocialsWindow,
     icon: "🌐",
   },
   clippy: {
     title: "Помощник Clippy",
-    defaultPosition: { x: 300, y: 200 },
-    defaultSize: { width: 500, height: 600 },
+    defaultPosition: { x: 100, y: 100 },
+    defaultSize: { width: 800, height: 650 },
     component: ClippyChatWindow,
     icon: "🤖",
   },
@@ -1199,43 +1199,43 @@ export const windowConfigs: Record<string, WindowConfig> = {
   },
   "individual-products-folder": {
     title: "Индивидуальные продукты",
-    defaultPosition: { x: 150, y: 150 },
+    defaultPosition: { x: 100, y: 100 },
     defaultSize: { width: 800, height: 650 },
     icon: "individual-products-folder",
   },
   "it-products-folder": {
     title: "IT продукты",
-    defaultPosition: { x: 200, y: 200 },
+    defaultPosition: { x: 100, y: 100 },
     defaultSize: { width: 800, height: 650 },
     icon: "it-products-folder",
   },
   "vacancies-folder": {
     title: "Вакансии",
-    defaultPosition: { x: 250, y: 250 },
+    defaultPosition: { x: 100, y: 100 },
     defaultSize: { width: 800, height: 650 },
     icon: "vacancies-folder",
   },
   "advertising-folder": {
     title: "Реклама на площадке",
-    defaultPosition: { x: 300, y: 300 },
+    defaultPosition: { x: 100, y: 100 },
     defaultSize: { width: 800, height: 650 },
     icon: "advertising-folder",
   },
   "contest-folder": {
     title: "Конкурс",
-    defaultPosition: { x: 350, y: 350 },
+    defaultPosition: { x: 100, y: 100 },
     defaultSize: { width: 800, height: 650 },
     icon: "contest-folder",
   },
   "friends-folder": {
     title: "Друзья",
-    defaultPosition: { x: 400, y: 400 },
+    defaultPosition: { x: 100, y: 100 },
     defaultSize: { width: 800, height: 650 },
     icon: "friends-folder",
   },
   "legal-documents-folder": {
     title: "Юридические документы",
-    defaultPosition: { x: 450, y: 450 },
+    defaultPosition: { x: 100, y: 100 },
     defaultSize: { width: 800, height: 650 },
     icon: "legal-documents-folder",
   },
@@ -1243,8 +1243,8 @@ export const windowConfigs: Record<string, WindowConfig> = {
   ...products.reduce((acc, product) => {
     acc[`product-${product.id}`] = {
       title: product.title,
-      defaultPosition: { x: 200 + Math.random() * 100, y: 150 + Math.random() * 100 },
-      defaultSize: { width: 450, height: 550 },
+      defaultPosition: { x: 100, y: 100 },
+      defaultSize: { width: 800, height: 650 },
       icon: product.icon,
     }
     return acc
@@ -1253,8 +1253,8 @@ export const windowConfigs: Record<string, WindowConfig> = {
   ...contests.reduce((acc, contest) => {
     acc[`product-${contest.id}`] = {
       title: contest.title,
-      defaultPosition: { x: 200 + Math.random() * 100, y: 150 + Math.random() * 100 },
-      defaultSize: { width: 450, height: 550 },
+      defaultPosition: { x: 100, y: 100 },
+      defaultSize: { width: 800, height: 650 },
       icon: contest.icon,
     }
     return acc
@@ -1263,8 +1263,8 @@ export const windowConfigs: Record<string, WindowConfig> = {
   ...partners.reduce((acc, partner) => {
     acc[`product-${partner.id}`] = {
       title: partner.title,
-      defaultPosition: { x: 200 + Math.random() * 100, y: 150 + Math.random() * 100 },
-      defaultSize: { width: 450, height: 550 },
+      defaultPosition: { x: 100, y: 100 },
+      defaultSize: { width: 800, height: 650 },
       icon: partner.icon,
     }
     return acc
@@ -1273,8 +1273,8 @@ export const windowConfigs: Record<string, WindowConfig> = {
   ...legalDocuments.reduce((acc, document) => {
     acc[`product-${document.id}`] = {
       title: document.title,
-      defaultPosition: { x: 200 + Math.random() * 100, y: 150 + Math.random() * 100 },
-      defaultSize: { width: 450, height: 550 },
+      defaultPosition: { x: 100, y: 100 },
+      defaultSize: { width: 800, height: 650 },
       icon: document.icon,
     }
     return acc

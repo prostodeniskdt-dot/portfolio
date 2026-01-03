@@ -129,9 +129,9 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
             height: "60px",
             background: isTrash && dragOverTrash ? "#FFED4E" : isHovered ? "#FFED4E" : "transparent",
             border: "none",
-            borderRadius: "0",
+            borderRadius: "8px",
             boxShadow: isHovered
-              ? "0 0 16px rgba(255, 215, 0, 0.6)"
+              ? "0 0 20px rgba(255, 215, 0, 0.5), 0 0 40px rgba(255, 215, 0, 0.3)"
               : "none",
             transform: isHovered ? "scale(1.1)" : "scale(1)",
           }}
