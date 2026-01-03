@@ -1289,14 +1289,14 @@ export const taskbarItems: TaskbarItem[] = [
   { id: "vacancies-folder", label: "Вакансии", icon: "vacancies-folder" },
   { id: "advertising-folder", label: "Реклама на площадке", icon: "advertising-folder" },
   { id: "contact", label: "Контакты", icon: "contact" },
-  { id: "socials", label: "Социальные сети", icon: "🌐" },
+  { id: "socials", label: "Социальные сети", icon: "socials" },
   { id: "settings", label: "Настройки", icon: "settings" },
   { id: "player", label: "Плеер", icon: "player" },
 ]
 
 export const desktopIcons: DesktopIcon[] = [
   { id: "contact", icon: "contact", label: "Контакты", type: "window" },
-  { id: "socials", icon: "🌐", label: "Социальные\nсети", type: "window" },
+  { id: "socials", icon: "socials", label: "Социальные\nсети", type: "window" },
   { id: "about", icon: "about", label: "Команда", type: "window" },
   { id: "player", icon: "player", label: "Плеер", type: "window" },
   { id: "products-folder", icon: "products-folder", label: "Продукты\nBAR BOSS\nONLINE", type: "folder" },

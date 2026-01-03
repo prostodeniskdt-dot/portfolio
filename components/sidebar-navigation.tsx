@@ -125,9 +125,9 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
         <div
           className="transition-all duration-200 flex items-center justify-center"
           style={{
-            width: "36px",
-            height: "36px",
-            background: isTrash && dragOverTrash ? "#FFED4E" : isHovered ? "#FFED4E" : "#FFFFFF",
+            width: "48px",
+            height: "48px",
+            background: isTrash && dragOverTrash ? "#FFED4E" : isHovered ? "#FFED4E" : "transparent",
             border: "3px solid #FFD700",
             borderRadius: "4px",
             boxShadow: isHovered
@@ -144,7 +144,7 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
                 : "drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6))",
             }}
           >
-            <IconRenderer icon={item.icon} label={item.label} size={28} className="transition-all duration-200" />
+            <IconRenderer icon={item.icon} label={item.label} size={40} className="transition-all duration-200" />
           </div>
         </div>
 
