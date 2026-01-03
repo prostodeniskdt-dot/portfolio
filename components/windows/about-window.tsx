@@ -85,30 +85,30 @@ export function AboutWindow() {
           Создал BAR BOSS Online, чтобы делиться не теорией, а реальным опытом управления баром. 
           Вы получаете практику, которая работает в реальных условиях.
         </p>
-        
+
         {/* Виталий - Достижения */}
         <div className="mt-3 p-2" style={{ background: "#000000", border: "2px solid #FFD700" }}>
           <h4 className="text-xs font-bold text-[#FFD700] mb-1">🏆 ДОСТИЖЕНИЯ:</h4>
           <div className="space-y-0.5 text-xs text-[#FFD700]">
-            <div className="flex items-start gap-2">
-              <span>•</span>
-              <span>Запустил более 20 баров в России и СНГ</span>
-            </div>
-            <div className="flex items-start gap-2">
-              <span>•</span>
-              <span>Автор онлайн-курса по барному менеджменту с 500+ выпускниками</span>
-            </div>
-            <div className="flex items-start gap-2">
-              <span>•</span>
-              <span>Консультант федеральных сетей</span>
-            </div>
-            <div className="flex items-start gap-2">
-              <span>•</span>
-              <span>Спикер крупнейших барных форумов</span>
-            </div>
-            <div className="flex items-start gap-2">
-              <span>•</span>
-              <span>Эксперт по барному менеджменту</span>
+          <div className="flex items-start gap-2">
+            <span>•</span>
+            <span>Запустил более 20 баров в России и СНГ</span>
+          </div>
+          <div className="flex items-start gap-2">
+            <span>•</span>
+            <span>Автор онлайн-курса по барному менеджменту с 500+ выпускниками</span>
+          </div>
+          <div className="flex items-start gap-2">
+            <span>•</span>
+            <span>Консультант федеральных сетей</span>
+          </div>
+          <div className="flex items-start gap-2">
+            <span>•</span>
+            <span>Спикер крупнейших барных форумов</span>
+          </div>
+          <div className="flex items-start gap-2">
+            <span>•</span>
+            <span>Эксперт по барному менеджменту</span>
             </div>
           </div>
         </div>
