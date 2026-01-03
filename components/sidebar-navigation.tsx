@@ -125,14 +125,14 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
         <div
           className="transition-all duration-200 flex items-center justify-center"
           style={{
-            width: "48px",
-            height: "48px",
+            width: "60px",
+            height: "60px",
             background: isTrash && dragOverTrash ? "#FFED4E" : isHovered ? "#FFED4E" : "transparent",
-            border: "3px solid #FFD700",
-            borderRadius: "4px",
+            border: "none",
+            borderRadius: "0",
             boxShadow: isHovered
-              ? "0 0 20px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 215, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.4), inset 0 -2px 4px rgba(0, 0, 0, 0.2)"
-              : "0 4px 12px rgba(255, 215, 0, 0.4), 0 0 8px rgba(255, 215, 0, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.3), inset 0 -1px 2px rgba(0, 0, 0, 0.1)",
+              ? "0 0 16px rgba(255, 215, 0, 0.6)"
+              : "none",
             transform: isHovered ? "scale(1.1)" : "scale(1)",
           }}
         >
@@ -144,7 +144,7 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
                 : "drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6))",
             }}
           >
-            <IconRenderer icon={item.icon} label={item.label} size={40} className="transition-all duration-200" />
+            <IconRenderer icon={item.icon} label={item.label} size={56} className="transition-all duration-200" />
           </div>
         </div>
 
