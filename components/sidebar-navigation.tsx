@@ -230,7 +230,7 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
           className="flex flex-col items-start gap-0 mb-8"
           style={{
             textAlign: 'left',
-            paddingLeft: '12px',
+            paddingLeft: '18px',
           }}
         >
           {/* BAR - увеличенный интервал для выравнивания ширины */}
