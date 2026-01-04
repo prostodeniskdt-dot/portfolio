@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect } from "react"
 
-// Список треков (можно расширить, добавив автоматическое сканирование)
 const defaultTracks = [
   { id: 1, name: "Музыка для работы 1", url: "/music/Музыка для работы 1.mp3" },
   { id: 2, name: "Музыка для работы 2", url: "/music/Музыка для работы 2.mp3" },
@@ -18,7 +17,7 @@ export function PlayerWindow() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
-  const [volume, setVolume] = useState(1)
+  const [volume, setVolume] = useState(0.7)
   const audioRef = useRef<HTMLAudioElement>(null)
 
   const currentTrack = defaultTracks[currentTrackIndex]
@@ -71,6 +70,7 @@ export function PlayerWindow() {
     audio.pause()
     audio.currentTime = 0
     setIsPlaying(false)
+    setCurrentTime(0)
   }
 
   const handleNext = () => {
@@ -97,198 +97,376 @@ export function PlayerWindow() {
     }
   }
 
-  const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSeek = (e: React.MouseEvent<HTMLDivElement>) => {
     const audio = audioRef.current
-    if (!audio) return
-    const newTime = parseFloat(e.target.value)
+    if (!audio || !duration) return
+    const rect = e.currentTarget.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const percentage = x / rect.width
+    const newTime = percentage * duration
     audio.currentTime = newTime
     setCurrentTime(newTime)
   }
 
   const formatTime = (seconds: number) => {
-    if (isNaN(seconds)) return "0:00"
+    if (isNaN(seconds)) return "00:00"
     const mins = Math.floor(seconds / 60)
     const secs = Math.floor(seconds % 60)
-    return `${mins}:${secs.toString().padStart(2, "0")}`
+    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`
   }
+
+  const progressPercent = duration ? (currentTime / duration) * 100 : 0
 
   return (
     <div
-      className="p-4 space-y-4"
+      className="select-none"
       style={{
-        background: "#FFF8DC",
-        fontFamily: "monospace",
+        background: "linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 50%, #0d0d0d 100%)",
+        fontFamily: "'Arial', sans-serif",
+        border: "3px solid #FFD700",
+        borderRadius: "4px",
+        boxShadow: "inset 0 0 10px rgba(0,0,0,0.8), 0 4px 20px rgba(0,0,0,0.5)",
       }}
     >
       <audio ref={audioRef} src={currentTrack.url} preload="metadata" />
 
-      {/* Заголовок */}
+      {/* Winamp Header */}
       <div
-        className="text-center font-bold text-lg mb-4"
+        className="px-3 py-1 flex items-center justify-between"
         style={{
-          color: "#000000",
-          textShadow: "2px 2px 0px #FFD700",
+          background: "linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 100%)",
+          borderBottom: "1px solid #FFD700",
         }}
       >
-        МЕДИА ПЛЕЕР
+        <div className="flex items-center gap-2">
+          <span style={{ color: "#FFD700", fontSize: "10px", fontWeight: "bold" }}>⚡</span>
+          <span style={{ color: "#FFD700", fontSize: "11px", fontWeight: "bold", letterSpacing: "1px" }}>
+            BAR BOSS PLAYER
+          </span>
+        </div>
       </div>
 
-      {/* Текущий трек */}
+      {/* LED Display */}
       <div
-        className="p-3 border-2"
+        className="mx-2 mt-2 p-3"
         style={{
-          borderColor: "#000000",
-          background: "#000000",
-          color: "#FFD700",
+          background: "linear-gradient(180deg, #0a0a0a 0%, #1a1a0a 50%, #0a0a0a 100%)",
+          border: "2px solid #333",
+          borderRadius: "2px",
+          boxShadow: "inset 0 2px 8px rgba(0,0,0,0.9)",
         }}
       >
-        <div className="text-sm font-bold mb-1">Текущий трек:</div>
-        <div className="text-xs">{currentTrack.name}</div>
-      </div>
+        {/* Time and Status Row */}
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center gap-3">
+            {/* Play/Pause Indicator */}
+            <span
+              style={{
+                color: isPlaying ? "#00FF00" : "#FFD700",
+                fontSize: "16px",
+                textShadow: isPlaying ? "0 0 10px #00FF00" : "0 0 5px #FFD700",
+              }}
+            >
+              {isPlaying ? "▶" : "❚❚"}
+            </span>
+            {/* LED Time Display */}
+            <span
+              style={{
+                fontFamily: "'Courier New', monospace",
+                fontSize: "28px",
+                fontWeight: "bold",
+                color: "#00FF00",
+                textShadow: "0 0 10px #00FF00, 0 0 20px #00FF00",
+                letterSpacing: "2px",
+              }}
+            >
+              {formatTime(currentTime)}
+            </span>
+          </div>
+          <div className="text-right" style={{ color: "#888", fontSize: "10px" }}>
+            <div>kbps: 320</div>
+            <div>khz: 44</div>
+          </div>
+        </div>
 
-      {/* Прогресс-бар */}
-      <div className="space-y-2">
-        <input
-          type="range"
-          min="0"
-          max={duration || 0}
-          value={currentTime}
-          onChange={handleSeek}
-          className="w-full"
+        {/* Track Name Marquee */}
+        <div
+          className="overflow-hidden whitespace-nowrap mb-3"
           style={{
-            accentColor: "#FFD700",
+            background: "#0a0a0a",
+            padding: "4px 8px",
+            borderRadius: "2px",
           }}
-        />
-        <div className="flex justify-between text-xs" style={{ color: "#000000" }}>
+        >
+          <div
+            className="inline-block"
+            style={{
+              color: "#FFD700",
+              fontSize: "12px",
+              fontWeight: "bold",
+              animation: isPlaying ? "marquee 10s linear infinite" : "none",
+              textShadow: "0 0 5px #FFD700",
+            }}
+          >
+            ♫ {currentTrack.name} ♫ {currentTrack.name} ♫
+          </div>
+        </div>
+
+        {/* Progress Bar */}
+        <div
+          className="relative cursor-pointer"
+          style={{
+            height: "12px",
+            background: "linear-gradient(180deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%)",
+            border: "1px solid #444",
+            borderRadius: "2px",
+          }}
+          onClick={handleSeek}
+        >
+          <div
+            style={{
+              position: "absolute",
+              left: 0,
+              top: 0,
+              height: "100%",
+              width: `${progressPercent}%`,
+              background: "linear-gradient(180deg, #FFD700 0%, #B8860B 50%, #FFD700 100%)",
+              borderRadius: "1px",
+              transition: "width 0.1s linear",
+            }}
+          />
+          {/* Progress Thumb */}
+          <div
+            style={{
+              position: "absolute",
+              left: `${progressPercent}%`,
+              top: "50%",
+              transform: "translate(-50%, -50%)",
+              width: "8px",
+              height: "14px",
+              background: "linear-gradient(180deg, #666 0%, #444 50%, #333 100%)",
+              border: "1px solid #888",
+              borderRadius: "2px",
+            }}
+          />
+        </div>
+
+        {/* Time Labels */}
+        <div className="flex justify-between mt-1" style={{ color: "#888", fontSize: "10px" }}>
           <span>{formatTime(currentTime)}</span>
           <span>{formatTime(duration)}</span>
         </div>
       </div>
 
-      {/* Кнопки управления */}
-      <div className="flex gap-2 justify-center">
-        <button
-          onClick={handlePrevious}
-          className="px-4 py-2 border-2 font-bold text-sm"
-          style={{
-            borderColor: "#000000",
-            background: "#FFD700",
-            color: "#000000",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = "#FFED4E"
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = "#FFD700"
-          }}
-        >
-          ⏮
-        </button>
-        {isPlaying ? (
+      {/* Control Buttons */}
+      <div className="flex items-center justify-between px-3 py-2">
+        <div className="flex gap-1">
+          {/* Previous */}
           <button
-            onClick={handlePause}
-            className="px-4 py-2 border-2 font-bold text-sm"
+            onClick={handlePrevious}
+            className="transition-all active:scale-95"
             style={{
-              borderColor: "#000000",
-              background: "#FFD700",
-              color: "#000000",
+              width: "32px",
+              height: "24px",
+              background: "linear-gradient(180deg, #4a4a4a 0%, #3a3a3a 50%, #2a2a2a 100%)",
+              border: "1px solid #666",
+              borderRadius: "3px",
+              color: "#FFD700",
+              fontSize: "10px",
+              boxShadow: "0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)",
             }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "#FFED4E"
+            onMouseDown={(e) => {
+              e.currentTarget.style.boxShadow = "inset 0 2px 4px rgba(0,0,0,0.8)"
+            }}
+            onMouseUp={(e) => {
+              e.currentTarget.style.boxShadow = "0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)"
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = "#FFD700"
+              e.currentTarget.style.boxShadow = "0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)"
             }}
           >
-            ⏸
+            ⏮
           </button>
-        ) : (
+
+          {/* Play */}
           <button
             onClick={handlePlay}
-            className="px-4 py-2 border-2 font-bold text-sm"
+            className="transition-all active:scale-95"
             style={{
-              borderColor: "#000000",
-              background: "#FFD700",
-              color: "#000000",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "#FFED4E"
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "#FFD700"
+              width: "32px",
+              height: "24px",
+              background: isPlaying
+                ? "linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 50%, #1a1a1a 100%)"
+                : "linear-gradient(180deg, #4a4a4a 0%, #3a3a3a 50%, #2a2a2a 100%)",
+              border: "1px solid #666",
+              borderRadius: "3px",
+              color: isPlaying ? "#00FF00" : "#FFD700",
+              fontSize: "10px",
+              boxShadow: isPlaying
+                ? "inset 0 2px 4px rgba(0,0,0,0.8)"
+                : "0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)",
             }}
           >
             ▶
           </button>
-        )}
-        <button
-          onClick={handleStop}
-          className="px-4 py-2 border-2 font-bold text-sm"
-          style={{
-            borderColor: "#000000",
-            background: "#FFD700",
-            color: "#000000",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = "#FFED4E"
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = "#FFD700"
-          }}
-        >
-          ⏹
-        </button>
-        <button
-          onClick={handleNext}
-          className="px-4 py-2 border-2 font-bold text-sm"
-          style={{
-            borderColor: "#000000",
-            background: "#FFD700",
-            color: "#000000",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = "#FFED4E"
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = "#FFD700"
-          }}
-        >
-          ⏭
-        </button>
-      </div>
 
-      {/* Громкость */}
-      <div className="space-y-2">
-        <div className="text-xs font-bold" style={{ color: "#000000" }}>
-          Громкость: {Math.round(volume * 100)}%
+          {/* Pause */}
+          <button
+            onClick={handlePause}
+            className="transition-all active:scale-95"
+            style={{
+              width: "32px",
+              height: "24px",
+              background: "linear-gradient(180deg, #4a4a4a 0%, #3a3a3a 50%, #2a2a2a 100%)",
+              border: "1px solid #666",
+              borderRadius: "3px",
+              color: "#FFD700",
+              fontSize: "10px",
+              boxShadow: "0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)",
+            }}
+            onMouseDown={(e) => {
+              e.currentTarget.style.boxShadow = "inset 0 2px 4px rgba(0,0,0,0.8)"
+            }}
+            onMouseUp={(e) => {
+              e.currentTarget.style.boxShadow = "0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)"
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = "0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)"
+            }}
+          >
+            ⏸
+          </button>
+
+          {/* Stop */}
+          <button
+            onClick={handleStop}
+            className="transition-all active:scale-95"
+            style={{
+              width: "32px",
+              height: "24px",
+              background: "linear-gradient(180deg, #4a4a4a 0%, #3a3a3a 50%, #2a2a2a 100%)",
+              border: "1px solid #666",
+              borderRadius: "3px",
+              color: "#FFD700",
+              fontSize: "10px",
+              boxShadow: "0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)",
+            }}
+            onMouseDown={(e) => {
+              e.currentTarget.style.boxShadow = "inset 0 2px 4px rgba(0,0,0,0.8)"
+            }}
+            onMouseUp={(e) => {
+              e.currentTarget.style.boxShadow = "0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)"
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = "0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)"
+            }}
+          >
+            ⏹
+          </button>
+
+          {/* Next */}
+          <button
+            onClick={handleNext}
+            className="transition-all active:scale-95"
+            style={{
+              width: "32px",
+              height: "24px",
+              background: "linear-gradient(180deg, #4a4a4a 0%, #3a3a3a 50%, #2a2a2a 100%)",
+              border: "1px solid #666",
+              borderRadius: "3px",
+              color: "#FFD700",
+              fontSize: "10px",
+              boxShadow: "0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)",
+            }}
+            onMouseDown={(e) => {
+              e.currentTarget.style.boxShadow = "inset 0 2px 4px rgba(0,0,0,0.8)"
+            }}
+            onMouseUp={(e) => {
+              e.currentTarget.style.boxShadow = "0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)"
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = "0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)"
+            }}
+          >
+            ⏭
+          </button>
         </div>
-        <input
-          type="range"
-          min="0"
-          max="1"
-          step="0.01"
-          value={volume}
-          onChange={(e) => setVolume(parseFloat(e.target.value))}
-          className="w-full"
-          style={{
-            accentColor: "#FFD700",
-          }}
-        />
+
+        {/* Volume Control */}
+        <div className="flex items-center gap-2">
+          <span style={{ color: "#FFD700", fontSize: "12px" }}>
+            {volume === 0 ? "🔇" : volume < 0.5 ? "🔉" : "🔊"}
+          </span>
+          <div
+            className="relative cursor-pointer"
+            style={{
+              width: "80px",
+              height: "8px",
+              background: "linear-gradient(180deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%)",
+              border: "1px solid #444",
+              borderRadius: "2px",
+            }}
+            onClick={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect()
+              const x = e.clientX - rect.left
+              const newVolume = Math.max(0, Math.min(1, x / rect.width))
+              setVolume(newVolume)
+            }}
+          >
+            <div
+              style={{
+                position: "absolute",
+                left: 0,
+                top: 0,
+                height: "100%",
+                width: `${volume * 100}%`,
+                background: "linear-gradient(180deg, #FFD700 0%, #B8860B 50%, #FFD700 100%)",
+                borderRadius: "1px",
+              }}
+            />
+            <div
+              style={{
+                position: "absolute",
+                left: `${volume * 100}%`,
+                top: "50%",
+                transform: "translate(-50%, -50%)",
+                width: "6px",
+                height: "10px",
+                background: "linear-gradient(180deg, #666 0%, #444 50%, #333 100%)",
+                border: "1px solid #888",
+                borderRadius: "2px",
+              }}
+            />
+          </div>
+        </div>
       </div>
 
-      {/* Список треков */}
+      {/* Playlist Separator */}
       <div
-        className="p-3 border-2 space-y-1"
+        className="mx-2 flex items-center gap-2 py-1"
         style={{
-          borderColor: "#000000",
-          background: "#000000",
+          borderTop: "1px solid #444",
+          borderBottom: "1px solid #444",
+          background: "linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%)",
+        }}
+      >
+        <span style={{ color: "#FFD700", fontSize: "10px", fontWeight: "bold", paddingLeft: "8px" }}>
+          PLAYLIST
+        </span>
+        <div style={{ flex: 1, height: "1px", background: "#444" }} />
+      </div>
+
+      {/* Playlist */}
+      <div
+        className="mx-2 mb-2"
+        style={{
+          background: "#0a0a0a",
+          border: "1px solid #333",
+          borderRadius: "2px",
           maxHeight: "150px",
           overflowY: "auto",
         }}
       >
-        <div className="text-xs font-bold mb-2" style={{ color: "#FFD700" }}>
-          Список треков:
-        </div>
         {defaultTracks.map((track, index) => (
           <button
             key={track.id}
@@ -302,42 +480,49 @@ export function PlayerWindow() {
                 }, 100)
               }
             }}
-            className="w-full text-left px-2 py-1 text-xs"
+            className="w-full text-left px-2 py-1 transition-colors"
             style={{
-              color: index === currentTrackIndex ? "#FFD700" : "#FFFFFF",
-              background: index === currentTrackIndex ? "rgba(255, 215, 0, 0.2)" : "transparent",
-              border: index === currentTrackIndex ? "1px solid #FFD700" : "1px solid transparent",
+              color: index === currentTrackIndex ? "#FFD700" : "#CCCCCC",
+              background: index === currentTrackIndex 
+                ? "linear-gradient(90deg, rgba(255,215,0,0.2) 0%, rgba(255,215,0,0.1) 100%)" 
+                : "transparent",
+              fontSize: "11px",
+              fontFamily: "'Arial', sans-serif",
+              borderBottom: "1px solid #1a1a1a",
             }}
             onMouseEnter={(e) => {
               if (index !== currentTrackIndex) {
-                e.currentTarget.style.background = "rgba(255, 215, 0, 0.1)"
+                e.currentTarget.style.background = "rgba(255,215,0,0.05)"
+                e.currentTarget.style.color = "#FFD700"
               }
             }}
             onMouseLeave={(e) => {
               if (index !== currentTrackIndex) {
                 e.currentTarget.style.background = "transparent"
+                e.currentTarget.style.color = "#CCCCCC"
               }
             }}
           >
-            {index + 1}. {track.name}
+            <span style={{ color: "#888", marginRight: "8px" }}>{index + 1}.</span>
+            {track.name}
+            {index === currentTrackIndex && isPlaying && (
+              <span style={{ color: "#00FF00", marginLeft: "8px" }}>▶</span>
+            )}
           </button>
         ))}
       </div>
 
-      {/* Инструкция */}
-      <div
-        className="p-2 text-xs border-2"
-        style={{
-          borderColor: "#FFD700",
-          background: "rgba(255, 215, 0, 0.1)",
-          color: "#000000",
-        }}
-      >
-        <div className="font-bold mb-1">Инструкция:</div>
-        <div>Поместите файлы музыки (MP3, OGG, WAV) в папку public/music/</div>
-        <div>Обновите список треков в player-window.tsx</div>
-      </div>
+      {/* CSS for marquee animation */}
+      <style jsx>{`
+        @keyframes marquee {
+          0% {
+            transform: translateX(0%);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+      `}</style>
     </div>
   )
 }
-
