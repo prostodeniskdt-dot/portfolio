@@ -190,42 +190,6 @@ export function ContactWindow() {
         </div>
       </div>
 
-      {/* Response Time Card */}
-      <div
-        className="p-3 transition-all duration-150 hover:scale-[1.01]"
-        style={{
-          background: "#f5f0e1",
-          border: "2px solid #000000",
-          boxShadow: "4px 4px 0 rgba(0,0,0,0.1)",
-        }}
-      >
-        <div className="flex items-start gap-3">
-          <div
-            className="w-10 h-10 shrink-0 flex items-center justify-center"
-            style={{
-              background: "#000000",
-              border: "2px solid #FFD700",
-            }}
-          >
-            <span className="text-xl">⏱️</span>
-          </div>
-          <div className="flex-1">
-            <div className="text-xs font-bold mb-1">Время ответа</div>
-            <div className="text-xs space-y-0.5">
-              <div>Отвечаю лично, обычно в тот же день</div>
-              <div>
-                Если ответ не пришёл в течение суток — напишите на{" "}
-                <a
-                  className="underline hover:text-[#FFD700] transition-colors"
-                  href="mailto:vitaly.arshuk@gmail.com"
-                >
-                  vitaly.arshuk@gmail.com
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   )
 }

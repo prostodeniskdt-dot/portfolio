@@ -22,10 +22,10 @@ export function AboutWindow() {
           <p className="text-xs text-[#666666]">Команда</p>
           <div className="flex gap-2 mt-2">
             <span className="px-2 py-0.5 text-xs bg-[#FFD700] text-black font-bold hover:scale-105 transition-transform">
-              с 2020
+              с 2021
             </span>
             <span className="px-2 py-0.5 text-xs bg-black text-[#FFD700] font-bold hover:scale-105 transition-transform">
-              5000+ студентов
+              1000+ студентов
             </span>
           </div>
         </div>
@@ -62,13 +62,14 @@ export function AboutWindow() {
       >
         <div className="flex items-start gap-3 mb-2">
           <div
-            className="w-16 h-16 shrink-0 flex items-center justify-center"
+            className="w-32 h-32 shrink-0 overflow-hidden flex items-center justify-center"
             style={{
               background: "#000000",
-              border: "2px solid #FFD700",
+              border: "3px solid #FFD700",
             }}
           >
-            <span className="text-2xl">👨‍💼</span>
+            {/* Замените emoji на изображение: <img src="/images/team/vitaly.jpg" alt="Виталий Аршук" className="w-full h-full object-cover" /> */}
+            <span className="text-4xl">👨‍💼</span>
           </div>
           <div className="flex-1">
             <h3 className="text-sm font-bold text-black mb-1">Виталий Аршук</h3>
@@ -125,13 +126,14 @@ export function AboutWindow() {
       >
         <div className="flex items-start gap-3 mb-2">
           <div
-            className="w-16 h-16 shrink-0 flex items-center justify-center"
+            className="w-32 h-32 shrink-0 overflow-hidden flex items-center justify-center"
             style={{
               background: "#000000",
-              border: "2px solid #FFD700",
+              border: "3px solid #FFD700",
             }}
           >
-            <span className="text-2xl">🤖</span>
+            {/* Замените emoji на изображение: <img src="/images/team/denis.jpg" alt="Денис Колодешников" className="w-full h-full object-cover" /> */}
+            <span className="text-4xl">🤖</span>
           </div>
           <div className="flex-1">
             <h3 className="text-sm font-bold text-black mb-1">Денис Колодешников</h3>
@@ -184,13 +186,14 @@ export function AboutWindow() {
       >
         <div className="flex items-start gap-3 mb-2">
           <div
-            className="w-16 h-16 shrink-0 flex items-center justify-center"
+            className="w-32 h-32 shrink-0 overflow-hidden flex items-center justify-center"
             style={{
               background: "#000000",
-              border: "2px solid #FFD700",
+              border: "3px solid #FFD700",
             }}
           >
-            <span className="text-2xl">📈</span>
+            {/* Замените emoji на изображение: <img src="/images/team/valeria.jpg" alt="Валерия Колодешникова" className="w-full h-full object-cover" /> */}
+            <span className="text-4xl">📈</span>
           </div>
           <div className="flex-1">
             <h3 className="text-sm font-bold text-black mb-1">Валерия Колодешникова</h3>

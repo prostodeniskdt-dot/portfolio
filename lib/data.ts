@@ -1205,7 +1205,7 @@ export const legalDocuments: LegalDocument[] = [
 export const folders: Record<string, Folder> = {
   "products": {
     id: "products",
-    title: "Продукты BAR BOSS",
+    title: "Продукты",
     icon: "📁",
     isFolder: true,
     items: [
@@ -1323,7 +1323,7 @@ export const windowConfigs: Record<string, WindowConfig> = {
     icon: "settings",
   },
   player: {
-    title: "Медиа Плеер",
+    title: "Музыка для работы",
     defaultPosition: { x: 100, y: 100 },
     defaultSize: { width: 800, height: 650 },
     component: PlayerWindow,
@@ -1351,7 +1351,7 @@ export const windowConfigs: Record<string, WindowConfig> = {
     icon: "individual-courses",
   },
   "products-folder": {
-    title: "Продукты BAR BOSS",
+    title: "Продукты",
     defaultPosition: { x: 100, y: 100 },
     defaultSize: { width: 800, height: 650 },
     icon: "products-folder",
@@ -1442,7 +1442,7 @@ export const windowConfigs: Record<string, WindowConfig> = {
 
 export const taskbarItems: TaskbarItem[] = [
   { id: "about", label: "Команда", icon: "about" },
-  { id: "products-folder", label: "Продукты BAR BOSS", icon: "products-folder" },
+  { id: "products-folder", label: "Продукты", icon: "products-folder" },
   { id: "individual-products-folder", label: "Индивидуальные продукты", icon: "individual-products-folder" },
   { id: "it-products-folder", label: "IT продукты", icon: "it-products-folder" },
   { id: "vacancies-folder", label: "Вакансии", icon: "vacancies-folder" },
@@ -1450,15 +1450,15 @@ export const taskbarItems: TaskbarItem[] = [
   { id: "contact", label: "Контакты", icon: "contact" },
   { id: "socials", label: "Социальные сети", icon: "socials" },
   { id: "settings", label: "Настройки", icon: "settings" },
-  { id: "player", label: "Плеер", icon: "player" },
+  { id: "player", label: "Музыка для работы", icon: "player" },
 ]
 
 export const desktopIcons: DesktopIcon[] = [
   { id: "contact", icon: "contact", label: "Контакты", type: "window" },
   { id: "socials", icon: "socials", label: "Социальные\nсети", type: "window" },
   { id: "about", icon: "about", label: "Команда", type: "window" },
-  { id: "player", icon: "player", label: "Плеер", type: "window" },
-  { id: "products-folder", icon: "products-folder", label: "Продукты\nBAR BOSS\nONLINE", type: "folder" },
+  { id: "player", icon: "player", label: "Музыка\nдля работы", type: "window" },
+  { id: "products-folder", icon: "products-folder", label: "Продукты", type: "folder" },
   { id: "individual-products-folder", icon: "individual-products-folder", label: "Индивидуальные\nпродукты", type: "folder" },
   { id: "it-products-folder", icon: "it-products-folder", label: "IT\nпродукты", type: "folder" },
   { id: "vacancies-folder", icon: "vacancies-folder", label: "Вакансии", type: "folder" },
