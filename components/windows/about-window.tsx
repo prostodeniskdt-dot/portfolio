@@ -36,21 +36,6 @@ export function AboutWindow() {
         <div className="absolute inset-0 animate-shimmer" />
       </div>
 
-      {/* Description with slide animation */}
-      <div
-        className="p-3 animate-slide-up hover-lift"
-        style={{
-          background: "#FFD700",
-          border: "2px solid #000000",
-          animationDelay: "0.1s",
-        }}
-      >
-        <p className="text-xs leading-relaxed text-black font-bold">
-          ⚡ Образовательный проект, где вы освоите востребованные навыки дизайна,
-          программирования и digital-маркетинга. Учитесь у практиков!
-        </p>
-      </div>
-
       {/* Founder section */}
       <div
         className="p-3 animate-slide-up"
@@ -62,14 +47,12 @@ export function AboutWindow() {
       >
         <div className="flex items-start gap-3 mb-2">
           <div
-            className="w-32 h-32 shrink-0 overflow-hidden flex items-center justify-center"
+            className="w-32 h-32 shrink-0 overflow-hidden"
             style={{
-              background: "#000000",
               border: "3px solid #FFD700",
             }}
           >
-            {/* Замените emoji на изображение: <img src="/images/team/vitaly.jpg" alt="Виталий Аршук" className="w-full h-full object-cover" /> */}
-            <span className="text-4xl">👨‍💼</span>
+            <img src="/images/team/vitaly.jpg" alt="Виталий Аршук" className="w-full h-full object-cover" />
           </div>
           <div className="flex-1">
             <h3 className="text-sm font-bold text-black mb-1">Виталий Аршук</h3>
@@ -126,14 +109,12 @@ export function AboutWindow() {
       >
         <div className="flex items-start gap-3 mb-2">
           <div
-            className="w-32 h-32 shrink-0 overflow-hidden flex items-center justify-center"
+            className="w-32 h-32 shrink-0 overflow-hidden"
             style={{
-              background: "#000000",
               border: "3px solid #FFD700",
             }}
           >
-            {/* Замените emoji на изображение: <img src="/images/team/denis.jpg" alt="Денис Колодешников" className="w-full h-full object-cover" /> */}
-            <span className="text-4xl">🤖</span>
+            <img src="/images/team/denis.jpg" alt="Денис Колодешников" className="w-full h-full object-cover" />
           </div>
           <div className="flex-1">
             <h3 className="text-sm font-bold text-black mb-1">Денис Колодешников</h3>
@@ -186,14 +167,12 @@ export function AboutWindow() {
       >
         <div className="flex items-start gap-3 mb-2">
           <div
-            className="w-32 h-32 shrink-0 overflow-hidden flex items-center justify-center"
+            className="w-32 h-32 shrink-0 overflow-hidden"
             style={{
-              background: "#000000",
               border: "3px solid #FFD700",
             }}
           >
-            {/* Замените emoji на изображение: <img src="/images/team/valeria.jpg" alt="Валерия Колодешникова" className="w-full h-full object-cover" /> */}
-            <span className="text-4xl">📈</span>
+            <img src="/images/team/valeria.jpg" alt="Валерия Колодешникова" className="w-full h-full object-cover" />
           </div>
           <div className="flex-1">
             <h3 className="text-sm font-bold text-black mb-1">Валерия Колодешникова</h3>
@@ -235,28 +214,6 @@ export function AboutWindow() {
         </div>
       </div>
 
-      {/* Features with staggered animations */}
-      <div className="grid grid-cols-2 gap-2">
-        {[
-          { icon: "🎯", text: "Практика с первого дня" },
-          { icon: "👨‍🏫", text: "Менторская поддержка" },
-          { icon: "📜", text: "Сертификат по окончании" },
-          { icon: "💼", text: "Помощь с трудоустройством" },
-        ].map((item, i) => (
-          <div
-            key={i}
-            className="flex items-center gap-2 p-2 animate-slide-up hover-lift cursor-pointer"
-            style={{
-              background: "#f5f0e1",
-              border: "2px solid #000000",
-              animationDelay: `${0.25 + i * 0.05}s`,
-            }}
-          >
-            <span className="text-lg">{item.icon}</span>
-            <span className="text-xs">{item.text}</span>
-          </div>
-        ))}
-      </div>
     </div>
   )
 }
