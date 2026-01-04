@@ -10,8 +10,6 @@ interface ClippyAssistantProps {
 export function ClippyAssistant({ onOpenChat }: ClippyAssistantProps) {
   const [isVisible, setIsVisible] = useState(true)
   const [position, setPosition] = useState({ x: 0, y: 0 })
-  const isDragging = useRef(false)
-  const dragOffset = useRef({ x: 0, y: 0 })
   const assistantRef = useRef<HTMLDivElement>(null)
 
   // Инициализация позиции
@@ -47,47 +45,6 @@ export function ClippyAssistant({ onOpenChat }: ClippyAssistantProps) {
     return () => window.removeEventListener("show-clippy", handleShowClippy)
   }, [])
 
-  // Перетаскивание
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (e.button !== 0) return
-    e.preventDefault()
-    e.stopPropagation()
-    isDragging.current = true
-    const rect = assistantRef.current?.getBoundingClientRect()
-    if (rect) {
-      dragOffset.current = {
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
-      }
-    }
-    soundManager.playClick()
-  }
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (isDragging.current) {
-        setPosition({
-          x: e.clientX - dragOffset.current.x,
-          y: e.clientY - dragOffset.current.y,
-        })
-      }
-    }
-
-    const handleMouseUp = () => {
-      isDragging.current = false
-    }
-
-    if (isDragging.current) {
-      window.addEventListener("mousemove", handleMouseMove)
-      window.addEventListener("mouseup", handleMouseUp)
-    }
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove)
-      window.removeEventListener("mouseup", handleMouseUp)
-    }
-  }, [isDragging.current])
-
   // Анимация моргания
   const [isBlinking, setIsBlinking] = useState(false)
   useEffect(() => {
@@ -103,13 +60,12 @@ export function ClippyAssistant({ onOpenChat }: ClippyAssistantProps) {
   return (
     <div
       ref={assistantRef}
-      className="fixed z-50 cursor-move select-none"
+      className="fixed z-50 cursor-pointer select-none"
       style={{
         left: `${position.x}px`,
         top: `${position.y}px`,
         imageRendering: "pixelated",
       }}
-      onMouseDown={handleMouseDown}
     >
       {/* Аватар помощника */}
       <div
@@ -137,7 +93,7 @@ export function ClippyAssistant({ onOpenChat }: ClippyAssistantProps) {
             className={`text-4xl transition-opacity ${isBlinking ? "opacity-50" : "opacity-100"}`}
             style={{ fontFamily: "monospace" }}
           >
-            🤖
+            🐕
           </div>
         </div>
       </div>

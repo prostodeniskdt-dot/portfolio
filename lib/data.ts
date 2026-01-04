@@ -1341,7 +1341,7 @@ export const windowConfigs: Record<string, WindowConfig> = {
     defaultPosition: { x: 100, y: 100 },
     defaultSize: { width: 800, height: 650 },
     component: ClippyChatWindow,
-    icon: "🤖",
+    icon: "🐕",
   },
   "individual-courses": {
     title: "Индивидуальные курсы",

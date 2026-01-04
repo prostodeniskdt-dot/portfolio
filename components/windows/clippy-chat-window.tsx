@@ -95,7 +95,7 @@ export function ClippyChatWindow() {
           border: "2px solid #000000",
         }}
       >
-        <div className="text-xs font-bold">🤖 Помощник Clippy</div>
+        <div className="text-xs font-bold">🐕 Помощник Clippy</div>
         <div className="text-[10px]" style={{ color: "#000000", opacity: 0.8 }}>
           Задайте вопрос или выберите из популярных
         </div>

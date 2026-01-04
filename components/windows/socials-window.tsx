@@ -3,7 +3,7 @@
 import { SOCIAL_LINKS } from "@/lib/links"
 
 type SocialItem = {
-  id: "telegram" | "telegram-otomosom" | "instagram" | "youtube"
+  id: "telegram" | "instagram" | "youtube"
   title: string
   subtitle?: string
   url: string
@@ -21,17 +21,9 @@ const socials: SocialItem[] = [
     icon: "💬",
   },
   {
-    id: "telegram-otomosom",
-    title: "Telegram",
-    subtitle: "о том о сём",
-    url: SOCIAL_LINKS.telegramOtomosom,
-    accent: "#f8cf2c",
-    icon: "💬",
-  },
-  {
     id: "instagram",
     title: "Instagram",
-    subtitle: "Meta Platforms Inc. признана экстремистской организацией в РФ",
+    subtitle: "В РФ Instagram запрещен",
     url: SOCIAL_LINKS.instagram,
     accent: "#ff8800",
     icon: "📸",
