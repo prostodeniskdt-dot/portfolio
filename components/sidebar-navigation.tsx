@@ -227,10 +227,10 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
       >
         {/* Логотип BAR BOSS ONLINE - выровнен влево */}
         <div 
-          className="flex flex-col items-start gap-0 mb-8"
+          className="flex flex-col items-start gap-0 mb-8 w-full"
           style={{
             textAlign: 'left',
-            paddingLeft: '18px',
+            paddingLeft: '4px',
           }}
         >
           {/* BAR - увеличенный интервал для выравнивания ширины */}
