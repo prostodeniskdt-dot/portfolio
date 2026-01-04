@@ -458,20 +458,19 @@
 /* Logo text hover effect */
 .logo-text {
   transition: all 0.3s ease;
+  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.3);
 }
 
 .logo-text:hover {
   text-shadow: 
-    0 0 20px rgba(255, 215, 0, 1),
-    0 0 40px rgba(255, 215, 0, 0.8),
-    0 0 60px rgba(255, 215, 0, 0.6),
-    0 0 80px rgba(255, 215, 0, 0.4),
-    2px 2px 0px rgba(255, 215, 0, 1),
-    -2px -2px 0px rgba(255, 215, 0, 1),
-    2px -2px 0px rgba(255, 215, 0, 1),
-    -2px 2px 0px rgba(255, 215, 0, 1) !important;
-  transform: scale(1.05);
-  animation: text-flicker 0.5s linear !important;
+    0 0 10px rgba(255, 215, 0, 0.8),
+    0 0 20px rgba(255, 215, 0, 0.5),
+    3px 3px 0px rgba(0, 0, 0, 0.9),
+    -1px -1px 0px rgba(0, 0, 0, 0.9),
+    1px -1px 0px rgba(0, 0, 0, 0.9),
+    -1px 1px 0px rgba(0, 0, 0, 0.9) !important;
+  -webkit-text-stroke: 2px rgba(0, 0, 0, 0.8);
+  transform: scale(1.02);
 }
 
 /* Улучшения визуальной части */
