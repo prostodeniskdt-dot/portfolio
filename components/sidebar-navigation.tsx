@@ -230,7 +230,7 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
           className="flex flex-col items-start gap-0 mb-8"
           style={{
             textAlign: 'left',
-            paddingLeft: '20px',
+            paddingLeft: '8px',
           }}
         >
           {/* BAR - увеличенный интервал для выравнивания ширины */}
@@ -241,7 +241,7 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
               fontSize: '36px',
               fontWeight: 'bold',
               color: "#FFD700",
-              letterSpacing: "0.85em",
+              letterSpacing: "1.05em",
               textShadow: `
                 0 0 10px rgba(255, 215, 0, 0.8),
                 0 0 20px rgba(255, 215, 0, 0.6),
@@ -269,7 +269,7 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
               fontSize: '36px',
               fontWeight: 'bold',
               color: "#FFD700",
-              letterSpacing: "0.42em",
+              letterSpacing: "0.55em",
               textShadow: `
                 0 0 10px rgba(255, 215, 0, 0.8),
                 0 0 20px rgba(255, 215, 0, 0.6),
