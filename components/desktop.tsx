@@ -285,6 +285,9 @@ export const Desktop = memo(function Desktop({
         // Handle regular windows
         const Component = windowComponents[windowId]
         if (!Component) return null
+
+        // Пропускаем плеер, так как он теперь standalone
+        if (windowId === "player") return null
         
         const otherIndex = otherWindows.indexOf(windowId)
         const zIndex = activeWindow === windowId 

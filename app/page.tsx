@@ -12,11 +12,13 @@ import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts"
 import { desktopIcons } from "@/lib/data"
 import { DeleteWarningModal } from "@/components/delete-warning-modal"
 import { ClippyAssistant } from "@/components/clippy-assistant"
+import { StandalonePlayer } from "@/components/standalone-player"
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
   const [isBackgroundAnimated, setIsBackgroundAnimated] = useState(false)
   const [showDeleteWarning, setShowDeleteWarning] = useState(false)
+  const [isPlayerOpen, setIsPlayerOpen] = useState(false)
   const {
     openWindows,
     activeWindow,
@@ -54,7 +56,10 @@ export default function Home() {
     if (taskbarMenuOpen) {
       setTaskbarMenuOpen(false)
     }
-  }, [taskbarMenuOpen])
+    if (isPlayerOpen) {
+      setIsPlayerOpen(false)
+    }
+  }, [taskbarMenuOpen, isPlayerOpen])
 
   useKeyboardShortcuts({
     onAltTab: handleAltTab,
@@ -94,6 +99,8 @@ export default function Home() {
       if (windowId === "animate-background") {
         setIsBackgroundAnimated(prev => !prev)
       }
+    } else if (windowId === "player") {
+      setIsPlayerOpen(true)
     } else {
       toggleWindow(windowId)
     }
@@ -103,6 +110,10 @@ export default function Home() {
   const handleSidebarClick = useCallback((itemId: string) => {
     if (itemId === "animate-background") {
       setIsBackgroundAnimated(prev => !prev)
+      return
+    }
+    if (itemId === "player") {
+      setIsPlayerOpen(true)
       return
     }
     if (itemId.endsWith("-folder")) {
@@ -157,11 +168,24 @@ export default function Home() {
         </Suspense>
         <ClippyAssistant onOpenChat={handleOpenClippy} />
         <Taskbar
-          onItemClick={toggleWindow}
+          onItemClick={(itemId) => {
+            if (itemId === "player") {
+              setIsPlayerOpen(true)
+            } else {
+              toggleWindow(itemId)
+            }
+          }}
           openWindows={openWindows}
           minimizedWindows={minimizedWindows}
           onMenuStateChange={setTaskbarMenuOpen}
         />
+        {/* Standalone Player */}
+        {isPlayerOpen && (
+          <StandalonePlayer 
+            onClose={() => setIsPlayerOpen(false)}
+            defaultPosition={{ x: 100, y: 100 }}
+          />
+        )}
       </div>
     </div>
   )
