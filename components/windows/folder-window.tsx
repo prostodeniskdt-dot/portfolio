@@ -175,7 +175,7 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                   {/* Бейдж "АКЦИЯ" для промо-товаров */}
                   {isPromo && (
                     <span 
-                      className="absolute -top-2 -right-2 px-2 py-0.5 text-sm font-bold animate-pulse"
+                      className="absolute -top-2 -right-2 px-2 py-0.5 text-[10px] font-bold animate-pulse"
                       style={{
                         background: "#FF0000",
                         color: "#FFFFFF",
@@ -189,7 +189,7 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                   {/* Бейдж подписчиков */}
                   {hasSubscribers && (
                     <span 
-                      className="absolute top-1 left-1 px-1 py-0.5 text-xs font-bold"
+                      className="absolute top-1 left-1 px-1 py-0.5 text-[8px] font-bold"
                       style={{
                         background: "#0088cc",
                         color: "#ffffff",
@@ -202,7 +202,7 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                   {/* Цена в правом верхнем углу (если не промо) */}
                   {hasPrice && !isPromo && (
                     <span 
-                      className="absolute top-1 right-1 px-1 py-0.5 text-xs font-bold"
+                      className="absolute top-1 right-1 px-1 py-0.5 text-[9px] font-bold"
                       style={{
                         background: "#000000",
                         color: "#FFD700",
@@ -213,24 +213,24 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                   )}
                   
                   <span className="text-4xl">{item.icon}</span>
-                  <span className="text-base font-bold text-center text-black group-hover:text-black">
+                  <span className="text-xs font-bold text-center text-black group-hover:text-black">
                     {item.title}
                   </span>
-                  <span className="text-sm text-center text-[#666666] group-hover:text-black line-clamp-2">
+                  <span className="text-[10px] text-center text-[#666666] group-hover:text-black line-clamp-2">
                     {item.description}
                   </span>
                   
                   {/* Цена для промо-товаров */}
                   {isPromo && hasPrice && (
                     <span 
-                      className="text-base font-bold text-black mt-1"
+                      className="text-sm font-bold text-black mt-1"
                     >
                       {item.price}
                     </span>
                   )}
                   
                   {isInDevelopment && (
-                    <span className="text-sm text-center text-[#666666] font-bold mt-1">
+                    <span className="text-[10px] text-center text-[#666666] font-bold mt-1">
                       В разработке
                     </span>
                   )}
