@@ -180,7 +180,7 @@ export const Desktop = memo(function Desktop({
           >
             <IconRenderer icon={item.icon} label={item.label} size={48} className="" />
             <span 
-              className="text-xs text-center font-bold drop-shadow-[1px_1px_0_#000] group-hover:bg-[#FFD700] group-hover:text-black px-2 py-0.5 transition-colors duration-200"
+              className="text-sm text-center font-bold drop-shadow-[1px_1px_0_#000] group-hover:bg-[#FFD700] group-hover:text-black px-2 py-0.5 transition-colors duration-200"
               style={{
                 color: item.type === "folder" ? "#FFFFFF" : "#FFD700"
               }}
