@@ -75,7 +75,16 @@ export function ProductWindow({ productId }: ProductWindowProps) {
             ) : (
               <h3 className="font-bold text-sm mb-1">Описание</h3>
             )}
-            <p className="text-xs leading-relaxed">{item.fullDescription}</p>
+            {itemType === 'document' ? (
+              <div 
+                className="text-xs leading-relaxed whitespace-pre-line"
+                style={{ fontFamily: 'inherit' }}
+              >
+                {item.fullDescription}
+              </div>
+            ) : (
+              <p className="text-xs leading-relaxed">{item.fullDescription}</p>
+            )}
           </div>
 
           {/* Видеообзоры для пакетов документов */}
@@ -333,26 +342,7 @@ export function ProductWindow({ productId }: ProductWindowProps) {
 
       {/* Action Button */}
       <div className="p-2">
-        {itemType === 'document' ? (
-          <button
-            onClick={() => {
-              if ('downloadUrl' in item && item.downloadUrl) {
-                window.open(item.downloadUrl, "_blank", "noreferrer")
-              } else {
-                toast.info("Документ будет доступен для скачивания в ближайшее время")
-              }
-            }}
-            className="w-full py-2 text-xs font-bold transition-all hover:scale-[1.02]"
-            style={{
-              background: "#000000",
-              color: "#FFD700",
-              border: "3px solid",
-              borderColor: "#3a3a3a #FFD700 #FFD700 #3a3a3a",
-            }}
-          >
-            📥 Скачать документ
-          </button>
-        ) : itemType === 'partner' && 'website' in item && item.website ? (
+        {itemType === 'document' ? null : itemType === 'partner' && 'website' in item && item.website ? (
           <button
             onClick={() => window.open(item.website, "_blank", "noreferrer")}
             className="w-full py-2 text-xs font-bold transition-all hover:scale-[1.02]"
