@@ -39,7 +39,7 @@ export const DesktopFolder = memo(function DesktopFolder({
       >
         {icon}
       </span>
-      <span className="text-sm text-[#FFD700] text-center font-bold drop-shadow-[1px_1px_0_#000] group-hover:bg-[#FFD700] group-hover:text-black px-2 py-0.5 transition-colors duration-200">
+      <span className="text-base text-[#FFD700] text-center font-bold drop-shadow-[1px_1px_0_#000] group-hover:bg-[#FFD700] group-hover:text-black px-2 py-0.5 transition-colors duration-200">
         {label}
       </span>
     </button>
