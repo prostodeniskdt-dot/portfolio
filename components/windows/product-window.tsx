@@ -8,6 +8,18 @@ interface ProductWindowProps {
   productId: string
 }
 
+// Функция для рендеринга markdown жирного текста
+function renderMarkdown(text: string) {
+  const parts = text.split(/(\*\*[^*]+\*\*)/g)
+  return parts.map((part, index) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      const boldText = part.slice(2, -2)
+      return <strong key={index} className="font-bold">{boldText}</strong>
+    }
+    return <span key={index}>{part}</span>
+  })
+}
+
 export function ProductWindow({ productId }: ProductWindowProps) {
   // Ищем во всех массивах
   const product = products.find((p) => p.id === productId)
@@ -80,7 +92,7 @@ export function ProductWindow({ productId }: ProductWindowProps) {
                 className="text-xs leading-relaxed whitespace-pre-line"
                 style={{ fontFamily: 'inherit' }}
               >
-                {item.fullDescription}
+                {renderMarkdown(item.fullDescription)}
               </div>
             ) : (
               <p className="text-xs leading-relaxed">{item.fullDescription}</p>
@@ -273,14 +285,6 @@ export function ProductWindow({ productId }: ProductWindowProps) {
             </div>
           )}
 
-          {/* Для документов */}
-          {itemType === 'document' && 'documentType' in item && (
-            <div>
-              <h3 className="font-bold text-sm mb-1">Тип документа</h3>
-              <p className="text-xs">{item.documentType}</p>
-            </div>
-          )}
-
           {/* Правила конкурса */}
           {itemType === 'contest' && 'rules' in item && item.rules && (
             <div>
@@ -311,18 +315,20 @@ export function ProductWindow({ productId }: ProductWindowProps) {
             </div>
           )}
 
-          {/* Основные особенности */}
-          <div>
-            <h3 className="font-bold text-sm mb-2">Что входит:</h3>
-            <ul className="space-y-1">
-              {item.features.map((feature, index) => (
-                <li key={index} className="text-xs flex items-center gap-2">
-                  <span className="text-[#FFD700] font-bold">✓</span>
-                  <span>{feature}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* Основные особенности - только для не-документов */}
+          {itemType !== 'document' && item.features && item.features.length > 0 && (
+            <div>
+              <h3 className="font-bold text-sm mb-2">Что входит:</h3>
+              <ul className="space-y-1">
+                {item.features.map((feature, index) => (
+                  <li key={index} className="text-xs flex items-center gap-2">
+                    <span className="text-[#FFD700] font-bold">✓</span>
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           {/* Блок доверия для рекламы в Telegram */}
           {itemType === 'product' && 'category' in item && item.category === "Реклама в Telegram" && (
