@@ -13,6 +13,7 @@ import { desktopIcons } from "@/lib/data"
 import { DeleteWarningModal } from "@/components/delete-warning-modal"
 import { ClippyAssistant } from "@/components/clippy-assistant"
 import { StandalonePlayer } from "@/components/standalone-player"
+import { CookieConsent } from "@/components/cookie-consent"
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
@@ -187,6 +188,7 @@ export default function Home() {
             defaultPosition={{ x: 100, y: 100 }}
           />
         )}
+        <CookieConsent />
       </div>
     </div>
   )
