@@ -105,7 +105,9 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
           ← Назад
         </button>
         <div className="flex-1" />
-        <span className="text-xs font-bold text-black">{folderItems.length} элементов</span>
+        <span className="text-xs font-bold text-black">
+          {folderItems.length} {folderItems.length === 1 ? 'элемент' : folderItems.length >= 2 && folderItems.length <= 4 ? 'элемента' : 'элементов'}
+        </span>
       </div>
 
       {/* Search */}

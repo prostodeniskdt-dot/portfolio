@@ -47,7 +47,7 @@ export function AboutWindow() {
       >
         <div className="flex items-start gap-3 mb-2">
           <div
-            className="w-32 h-32 shrink-0 overflow-hidden"
+            className="w-48 h-48 shrink-0 overflow-hidden"
             style={{
               border: "3px solid #FFD700",
             }}
@@ -58,7 +58,7 @@ export function AboutWindow() {
             <h3 className="text-sm font-bold text-black mb-1">Виталий Аршук</h3>
             <p className="text-xs text-[#666666] mb-2">Основатель BAR BOSS</p>
             <p className="text-xs text-black font-bold">
-              Бар-менеджер • Эксперт
+              Менеджер бара • Эксперт
             </p>
             <p className="text-xs text-[#666666] mt-1">
               17 лет в барной индустрии
@@ -109,7 +109,7 @@ export function AboutWindow() {
       >
         <div className="flex items-start gap-3 mb-2">
           <div
-            className="w-32 h-32 shrink-0 overflow-hidden"
+            className="w-48 h-48 shrink-0 overflow-hidden"
             style={{
               border: "3px solid #FFD700",
             }}
@@ -124,6 +124,9 @@ export function AboutWindow() {
             </p>
             <p className="text-xs text-[#666666] mt-1">
               Санкт-Петербург 📍
+            </p>
+            <p className="text-xs text-[#666666] mt-1">
+              5 лет в индустрии, работал на руководящих позициях
             </p>
           </div>
         </div>
@@ -167,7 +170,7 @@ export function AboutWindow() {
       >
         <div className="flex items-start gap-3 mb-2">
           <div
-            className="w-32 h-32 shrink-0 overflow-hidden"
+            className="w-48 h-48 shrink-0 overflow-hidden"
             style={{
               border: "3px solid #FFD700",
             }}

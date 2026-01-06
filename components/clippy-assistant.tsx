@@ -79,19 +79,19 @@ export function ClippyAssistant({ onOpenChat }: ClippyAssistantProps) {
           height: "80px",
         }}
       >
-        {/* Простая пиксельная иконка помощника */}
+        {/* Простая пиксельная иконка помощника - черный доберман */}
         <div
           className="w-full h-full flex items-center justify-center"
           style={{
-            background: "#FFD700",
-            border: "3px solid #000000",
+            background: "#000000",
+            border: "3px solid #FFD700",
             boxShadow: "4px 4px 0 rgba(0,0,0,0.3)",
             imageRendering: "pixelated",
           }}
         >
           <div
             className={`text-4xl transition-opacity ${isBlinking ? "opacity-50" : "opacity-100"}`}
-            style={{ fontFamily: "monospace" }}
+            style={{ fontFamily: "monospace", filter: "grayscale(100%) brightness(0.3)" }}
           >
             🐕
           </div>

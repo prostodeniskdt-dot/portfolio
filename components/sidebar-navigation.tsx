@@ -225,96 +225,27 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
           boxShadow: '4px 0 20px rgba(0, 0, 0, 0.5)',
         }}
       >
-        {/* Логотип BAR BOSS ONLINE - выровнен влево */}
+        {/* Логотип BAR BOSS ONLINE - одна строка в белом цвете */}
         <div 
-          className="flex flex-col items-start gap-0 mb-8 w-full"
+          className="flex items-center justify-start mb-8 w-full"
           style={{
             textAlign: 'left',
             paddingLeft: '25px',
           }}
         >
-          {/* BAR - увеличенный интервал для выравнивания ширины */}
           <div
             className="logo-text"
             style={{
               fontFamily: "Oswald, sans-serif",
-              fontSize: '36px',
+              fontSize: '32px',
               fontWeight: 'bold',
-              color: "#FFD700",
-              letterSpacing: "1.05em",
-              textShadow: `
-                0 0 10px rgba(255, 215, 0, 0.8),
-                0 0 20px rgba(255, 215, 0, 0.6),
-                0 0 30px rgba(255, 215, 0, 0.4),
-                2px 2px 0px rgba(255, 215, 0, 0.9),
-                -2px -2px 0px rgba(255, 215, 0, 0.9),
-                2px -2px 0px rgba(255, 215, 0, 0.9),
-                -2px 2px 0px rgba(255, 215, 0, 0.9)
-              `,
-              WebkitTextStroke: "1px rgba(255, 215, 0, 0.5)",
-              animation: "glow-text 2s ease-in-out infinite",
+              color: "#FFFFFF",
+              letterSpacing: "0.1em",
               lineHeight: 1.2,
               cursor: "default",
-              transition: "all 0.3s ease",
             }}
           >
-            BAR
-          </div>
-          
-          {/* BOSS - средний интервал для выравнивания ширины */}
-          <div
-            className="logo-text"
-            style={{
-              fontFamily: "Oswald, sans-serif",
-              fontSize: '36px',
-              fontWeight: 'bold',
-              color: "#FFD700",
-              letterSpacing: "0.55em",
-              textShadow: `
-                0 0 10px rgba(255, 215, 0, 0.8),
-                0 0 20px rgba(255, 215, 0, 0.6),
-                0 0 30px rgba(255, 215, 0, 0.4),
-                2px 2px 0px rgba(255, 215, 0, 0.9),
-                -2px -2px 0px rgba(255, 215, 0, 0.9),
-                2px -2px 0px rgba(255, 215, 0, 0.9),
-                -2px 2px 0px rgba(255, 215, 0, 0.9)
-              `,
-              WebkitTextStroke: "1px rgba(255, 215, 0, 0.5)",
-              animation: "glow-text 2s ease-in-out infinite",
-              lineHeight: 1.2,
-              cursor: "default",
-              transition: "all 0.3s ease",
-            }}
-          >
-            BOSS
-          </div>
-          
-          {/* ONLINE - базовый интервал (самое длинное слово) */}
-          <div
-            className="logo-text"
-            style={{
-              fontFamily: "Oswald, sans-serif",
-              fontSize: '36px',
-              fontWeight: 'bold',
-              color: "#FFD700",
-              letterSpacing: "0.18em",
-              textShadow: `
-                0 0 10px rgba(255, 215, 0, 0.8),
-                0 0 20px rgba(255, 215, 0, 0.6),
-                0 0 30px rgba(255, 215, 0, 0.4),
-                2px 2px 0px rgba(255, 215, 0, 0.9),
-                -2px -2px 0px rgba(255, 215, 0, 0.9),
-                2px -2px 0px rgba(255, 215, 0, 0.9),
-                -2px 2px 0px rgba(255, 215, 0, 0.9)
-              `,
-              WebkitTextStroke: "1px rgba(255, 215, 0, 0.5)",
-              animation: "glow-text 2s ease-in-out infinite",
-              lineHeight: 1.2,
-              cursor: "default",
-              transition: "all 0.3s ease",
-            }}
-          >
-            ONLINE
+            BAR BOSS ONLINE
           </div>
         </div>
 

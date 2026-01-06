@@ -108,9 +108,9 @@ export function ProductWindow({ productId }: ProductWindowProps) {
                 rel="noreferrer"
                 className="inline-block px-3 py-2 text-xs font-bold transition-all hover:scale-[1.02]"
                 style={{
-                  background: "#000000",
-                  color: "#FFD700",
-                  border: "2px solid #FFD700",
+                  background: "#FFFFFF",
+                  color: "#000000",
+                  border: "2px solid #000000",
                 }}
               >
                 🎥 Видеообзор
@@ -127,9 +127,9 @@ export function ProductWindow({ productId }: ProductWindowProps) {
                 rel="noreferrer"
                 className="inline-block px-3 py-2 text-xs font-bold transition-all hover:scale-[1.02]"
                 style={{
-                  background: "#000000",
-                  color: "#FFD700",
-                  border: "2px solid #FFD700",
+                  background: "#FFFFFF",
+                  color: "#000000",
+                  border: "2px solid #000000",
                 }}
               >
                 🎬 Краткий видео обзор
@@ -360,6 +360,20 @@ export function ProductWindow({ productId }: ProductWindowProps) {
             }}
           >
             🌐 Перейти на сайт партнера
+          </button>
+        ) : itemType === 'product' && productId === 'documents-package-3' ? (
+          // Пакет документов №3 неактивен
+          <button
+            disabled
+            className="w-full py-2 text-xs font-bold opacity-50 cursor-not-allowed"
+            style={{
+              background: "#cccccc",
+              color: "#666666",
+              border: "3px solid",
+              borderColor: "#999999 #666666 #666666 #999999",
+            }}
+          >
+            Недоступно
           </button>
         ) : itemType === 'product' && 'paymentLink' in item && item.paymentLink ? (
           // Для продуктов с paymentLink показываем кнопку оплатить вместо стандартной
