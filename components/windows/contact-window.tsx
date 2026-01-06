@@ -20,9 +20,8 @@ export function ContactWindow() {
       </div>
 
       {/* Primary CTA */}
-      <button
-        onClick={() => window.open(TELEGRAM_LEAD_URL, "_blank", "noreferrer")}
-        className="w-full p-3 text-left transition-all duration-150 hover:scale-[1.01]"
+      <div
+        className="w-full p-3 text-left"
         style={{
           background: "#000000",
           border: "3px solid #FFD700",
@@ -30,11 +29,20 @@ export function ContactWindow() {
           boxShadow: "8px 8px 0 rgba(184,134,11,0.25)",
         }}
       >
-        <div className="text-sm font-bold">⚡ Написать в Telegram</div>
-        <div className="text-[10px]" style={{ color: "#FFD700", opacity: 0.9 }}>
-          Быстрее всего отвечаем здесь: {TELEGRAM_LEAD_URL}
+        <div className="text-sm font-bold mb-1">⚡ Написать в Telegram</div>
+        <div className="text-xs">
+          Быстрее всего отвечаем здесь:{" "}
+          <a
+            href={TELEGRAM_LEAD_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="underline hover:text-white transition-colors"
+            style={{ color: "#FFD700" }}
+          >
+            {TELEGRAM_LEAD_URL}
+          </a>
         </div>
-      </button>
+      </div>
 
       {/* Phone & Telegram Card */}
       <div
@@ -78,9 +86,10 @@ export function ContactWindow() {
               >
                 {SOCIAL_LINKS.priorityTelegram}
               </a>
-              <div className="text-[10px]" style={{ color: "#666666" }}>
+              {" "}
+              <span className="text-[10px]" style={{ color: "#666666" }}>
                 ⚡ Быстрее всего отвечаю в Telegram
-              </div>
+              </span>
             </div>
           </div>
         </div>

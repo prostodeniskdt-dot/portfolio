@@ -243,6 +243,7 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
               letterSpacing: "0.1em",
               lineHeight: 1.2,
               cursor: "default",
+              textShadow: "none",
             }}
           >
             BAR BOSS ONLINE

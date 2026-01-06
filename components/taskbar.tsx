@@ -104,7 +104,7 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
         <span className={isMobile ? "text-sm" : "text-lg"} aria-hidden="true">
           ⚡
         </span>
-        {!isMobile && <span className="text-sm font-bold">BARBOSS</span>}
+        {!isMobile && <span className="text-sm font-bold">BAR BOSS</span>}
       </button>
 
       {startOpen && (
@@ -166,7 +166,7 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
                       </span>
                     )
                   })()}
-                  <span className="text-sm font-bold">{item.label}</span>
+                  <span className="text-sm font-bold">{item.id === "socials" ? "Социальные сети" : item.label}</span>
                 </button>
               ))}
               <div className="h-px bg-[#000000] my-2 mx-3" />

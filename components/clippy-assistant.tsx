@@ -83,8 +83,8 @@ export function ClippyAssistant({ onOpenChat }: ClippyAssistantProps) {
         <div
           className="w-full h-full flex items-center justify-center"
           style={{
-            background: "#000000",
-            border: "3px solid #FFD700",
+            background: "#FFFFFF",
+            border: "3px solid #000000",
             boxShadow: "4px 4px 0 rgba(0,0,0,0.3)",
             imageRendering: "pixelated",
           }}

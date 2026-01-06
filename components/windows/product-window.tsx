@@ -94,6 +94,24 @@ export function ProductWindow({ productId }: ProductWindowProps) {
               >
                 {renderMarkdown(item.fullDescription)}
               </div>
+            ) : itemType === 'contest' && item.id === 'contest-ginster' ? (
+              <div className="text-xs leading-relaxed space-y-2">
+                <p>Продолжаем знакомить вас с <a href="https://ginstermixmaster.ru/" target="_blank" rel="noreferrer" className="underline text-blue-600 hover:text-blue-800">GINSTER MIXMASTER</a></p>
+                <p>В сентябре совместно с <a href="https://t.me/ratingtelling" target="_blank" rel="noreferrer" className="underline text-blue-600 hover:text-blue-800">Ratingtelling</a> (Российская исследовательская компания) организовали <a href="https://t.me/ratingtelling/3384" target="_blank" rel="noreferrer" className="underline text-blue-600 hover:text-blue-800">презентацию и дегустацию</a> Ginster Cola для экспертов в барной индустрии</p>
+                <p><strong>Простая задача:</strong> оценить новинку в чистом виде, в авторских подачах и как ингредиент в коктейлях</p>
+                <p>Изучите <a href="https://t.me/ratingtelling/3388" target="_blank" rel="noreferrer" className="underline text-blue-600 hover:text-blue-800">результаты дегустации</a> и в каких коктейлях себя лучше проявил Ginster Cola</p>
+                <p>Это вам поможет в создании своего авторского коктейля</p>
+                <div className="mt-3 p-2" style={{ background: "#FFD700", border: "2px solid #000000" }}>
+                  <p className="font-bold mb-2">✏️ КАК ПРИНЯТЬ УЧАСТИЕ:</p>
+                  <p className="mb-2">Подробности конкурса <a href="https://t.me/BarBoss87/1627" target="_blank" rel="noreferrer" className="underline text-blue-600 hover:text-blue-800">тут</a> и <a href="https://ginstermixmaster.ru/" target="_blank" rel="noreferrer" className="underline text-blue-600 hover:text-blue-800">здесь</a></p>
+                  <p className="mb-2">🔍 Читайте внимательно правила</p>
+                  <p className="mb-1"><strong>🗓 КОНКУРС ПРОХОДИТ</strong></p>
+                  <p className="mb-1">с 15 декабря по 14 февраля</p>
+                  <p className="mb-1"><strong>🏆 ОБЪЯВИМ ПОБЕДИТЕЛЯ</strong></p>
+                  <p className="mb-1">28 февраля 2026 года</p>
+                  <p className="mt-2">🤝 Удачи Вам</p>
+                </div>
+              </div>
             ) : (
               <p className="text-xs leading-relaxed">{item.fullDescription}</p>
             )}

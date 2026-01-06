@@ -54,7 +54,7 @@ export function AboutWindow() {
           >
             <img src="/images/team/vitaly.jpg" alt="Виталий Аршук" className="w-full h-full object-cover" />
           </div>
-          <div className="flex-1">
+          <div className="flex-1 ml-4">
             <h3 className="text-sm font-bold text-black mb-1">Виталий Аршук</h3>
             <p className="text-xs text-[#666666] mb-2">Основатель BAR BOSS</p>
             <p className="text-xs text-black font-bold">
@@ -116,7 +116,7 @@ export function AboutWindow() {
           >
             <img src="/images/team/denis.jpg" alt="Денис Колодешников" className="w-full h-full object-cover" />
           </div>
-          <div className="flex-1">
+          <div className="flex-1 ml-4">
             <h3 className="text-sm font-bold text-black mb-1">Денис Колодешников</h3>
             <p className="text-xs text-[#666666] mb-2">Руководитель ИИ направления</p>
             <p className="text-xs text-black font-bold">
@@ -177,7 +177,7 @@ export function AboutWindow() {
           >
             <img src="/images/team/valeria.jpg" alt="Валерия Колодешникова" className="w-full h-full object-cover" />
           </div>
-          <div className="flex-1">
+          <div className="flex-1 ml-4">
             <h3 className="text-sm font-bold text-black mb-1">Валерия Колодешникова</h3>
             <p className="text-xs text-[#666666] mb-2">Руководитель маркетингового отдела</p>
             <p className="text-xs text-black font-bold">
