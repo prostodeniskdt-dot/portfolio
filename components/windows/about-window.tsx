@@ -37,14 +37,21 @@ export function AboutWindow() {
       </div>
 
       {/* Founder section */}
-      <div className="animate-slide-up" style={{ animationDelay: "0.15s" }}>
+      <div 
+        className="animate-slide-up p-4" 
+        style={{ 
+          animationDelay: "0.15s",
+          background: "#f5f0e1",
+          border: "3px solid #000000",
+        }}
+      >
         <div className="flex gap-4 items-start">
           {/* Портрет слева */}
-          <div className="w-64 h-80 shrink-0 overflow-hidden relative">
+          <div className="w-64 shrink-0 overflow-hidden relative" style={{ minHeight: "fit-content" }}>
             <img 
               src="/images/team/vitaly.jpg" 
               alt="Виталий Аршук" 
-              className="w-full h-full object-cover" 
+              className="w-full h-auto object-cover" 
             />
           </div>
 
@@ -101,14 +108,21 @@ export function AboutWindow() {
       </div>
 
       {/* Denis Kolodeshnikov section */}
-      <div className="animate-slide-up" style={{ animationDelay: "0.18s" }}>
+      <div 
+        className="animate-slide-up p-4" 
+        style={{ 
+          animationDelay: "0.18s",
+          background: "#f5f0e1",
+          border: "3px solid #000000",
+        }}
+      >
         <div className="flex gap-4 items-start">
           {/* Портрет слева */}
-          <div className="w-64 h-80 shrink-0 overflow-hidden relative">
+          <div className="w-64 shrink-0 overflow-hidden relative" style={{ minHeight: "fit-content" }}>
             <img 
               src="/images/team/denis.jpg" 
               alt="Денис Колодешников" 
-              className="w-full h-full object-cover" 
+              className="w-full h-auto object-cover" 
             />
           </div>
 
@@ -164,14 +178,21 @@ export function AboutWindow() {
       </div>
 
       {/* Valeria Kolodeshnikova section */}
-      <div className="animate-slide-up" style={{ animationDelay: "0.19s" }}>
+      <div 
+        className="animate-slide-up p-4" 
+        style={{ 
+          animationDelay: "0.19s",
+          background: "#f5f0e1",
+          border: "3px solid #000000",
+        }}
+      >
         <div className="flex gap-4 items-start">
           {/* Портрет слева */}
-          <div className="w-64 h-80 shrink-0 overflow-hidden relative">
+          <div className="w-64 shrink-0 overflow-hidden relative" style={{ minHeight: "fit-content" }}>
             <img 
               src="/images/team/valeria.jpg" 
               alt="Валерия Колодешникова" 
-              className="w-full h-full object-cover" 
+              className="w-full h-auto object-cover" 
             />
           </div>
 
