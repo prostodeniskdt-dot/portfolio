@@ -131,7 +131,7 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
             border: "none",
             borderRadius: "8px",
             boxShadow: isHovered
-              ? "0 0 20px rgba(255, 215, 0, 0.5), 0 0 40px rgba(255, 215, 0, 0.3)"
+              ? "0 0 20px rgba(255, 215, 0, 0.25), 0 0 40px rgba(255, 215, 0, 0.15)"
               : "none",
             transform: isHovered ? "scale(1.1)" : "scale(1)",
           }}
@@ -153,11 +153,11 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
           className="text-xs font-bold text-center transition-all duration-200 px-1 py-0.5 rounded"
           style={{
             color: "#FFFFFF",
-            background: isHovered ? "rgba(255, 215, 0, 0.2)" : "transparent",
+            background: isHovered ? "rgba(255, 215, 0, 0.1)" : "transparent",
             border: "none",
             textShadow: isHovered
-              ? "0 0 8px rgba(255, 215, 0, 1), 0 0 12px rgba(255, 215, 0, 0.8), 2px 2px 0px rgba(0, 0, 0, 0.9), -1px -1px 0px rgba(0, 0, 0, 0.9)"
-              : "0 0 4px rgba(255, 215, 0, 0.8), 1px 1px 0px rgba(0, 0, 0, 0.9), -1px -1px 0px rgba(0, 0, 0, 0.9)",
+              ? "0 0 8px rgba(255, 215, 0, 0.5), 0 0 12px rgba(255, 215, 0, 0.4), 2px 2px 0px rgba(0, 0, 0, 0.9), -1px -1px 0px rgba(0, 0, 0, 0.9)"
+              : "0 0 4px rgba(255, 215, 0, 0.4), 1px 1px 0px rgba(0, 0, 0, 0.9), -1px -1px 0px rgba(0, 0, 0, 0.9)",
             transform: isHovered ? "scale(1.05)" : "scale(1)",
             width: "110px",
             minHeight: "26px",

@@ -266,6 +266,53 @@ export function ProductWindow({ productId }: ProductWindowProps) {
             </div>
           )}
 
+          {/* Кнопки для инвентаря */}
+          {itemType === 'product' && productId === 'inventory-lvl1' && (
+            <div>
+              <div className="flex flex-col gap-2 mt-3">
+                <a
+                  href="https://t.me/BarBoss87/1620"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-3 py-2 text-xs font-bold transition-all hover:scale-[1.02] text-center"
+                  style={{
+                    background: "#FFD700",
+                    color: "#000000",
+                    border: "2px solid #000000",
+                  }}
+                >
+                  📦 Распаковка набора BY BAR BOSS
+                </a>
+                <a
+                  href="https://t.me/BarBoss87/1634"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-3 py-2 text-xs font-bold transition-all hover:scale-[1.02] text-center"
+                  style={{
+                    background: "#FFD700",
+                    color: "#000000",
+                    border: "2px solid #000000",
+                  }}
+                >
+                  🎒 Отцовский набор, все что нужно для снятия ивента
+                </a>
+                <a
+                  href="https://t.me/BarBoss87/1644"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-3 py-2 text-xs font-bold transition-all hover:scale-[1.02] text-center"
+                  style={{
+                    background: "#FFD700",
+                    color: "#000000",
+                    border: "2px solid #000000",
+                  }}
+                >
+                  📖 Короткая инструкция по пользованию приложением
+                </a>
+              </div>
+            </div>
+          )}
+
           {/* Убрать длительность для пакетов документов №1 и №2 */}
           {'duration' in item && item.duration && item.id !== 'documents-package-1' && item.id !== 'documents-package-2' && (
             <div>
