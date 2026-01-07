@@ -45,42 +45,42 @@ export function AboutWindow() {
           border: "3px solid #000000",
         }}
       >
-        <div className="flex gap-4 items-start">
+        <div className="flex gap-4 items-stretch">
           {/* Портрет слева */}
-          <div className="w-64 shrink-0 overflow-hidden relative" style={{ minHeight: "fit-content" }}>
+          <div className="w-64 shrink-0 overflow-hidden relative">
             <img 
               src="/images/team/vitaly.jpg" 
               alt="Виталий Аршук" 
-              className="w-full h-auto object-cover" 
+              className="w-full h-full object-cover" 
             />
           </div>
 
           {/* Текстовая информация справа */}
-          <div className="flex-1 flex flex-col gap-3">
+          <div className="flex-1 flex flex-col gap-2 h-full">
             {/* Верхняя секция - информация */}
-            <div className="bg-white p-4">
-              <h3 className="text-base font-bold text-black mb-1">Виталий Аршук</h3>
-              <p className="text-sm text-[#666666] mb-2">Основатель BAR BOSS</p>
-              <p className="text-sm text-black font-bold mb-1">
+            <div className="bg-white p-3">
+              <h3 className="text-sm font-bold text-black mb-0.5">Виталий Аршук</h3>
+              <p className="text-xs text-[#666666] mb-1">Основатель BAR BOSS</p>
+              <p className="text-xs text-black font-bold mb-0.5">
                 Менеджер бара • Эксперт
               </p>
-              <p className="text-sm text-[#666666]">
+              <p className="text-xs text-[#666666]">
                 17 лет в барной индустрии
               </p>
             </div>
 
             {/* Средняя секция - описание */}
-            <div className="bg-white p-4">
-              <p className="text-sm leading-relaxed text-black">
+            <div className="bg-white p-3">
+              <p className="text-xs leading-relaxed text-black">
                 Создал BAR BOSS Online, чтобы делиться не теорией, а реальным опытом управления баром. 
                 Вы получаете практику, которая работает в реальных условиях.
               </p>
             </div>
 
             {/* Нижняя секция - достижения */}
-            <div className="bg-black p-4" style={{ border: "2px solid #FFD700" }}>
-              <h4 className="text-sm font-bold text-[#FFD700] mb-2">🏆 ДОСТИЖЕНИЯ:</h4>
-              <div className="space-y-1 text-sm text-[#FFD700]">
+            <div className="bg-black p-3 flex-1 flex flex-col" style={{ border: "2px solid #FFD700" }}>
+              <h4 className="text-xs font-bold text-[#FFD700] mb-1">🏆 ДОСТИЖЕНИЯ:</h4>
+              <div className="space-y-0.5 text-xs text-[#FFD700] flex-1">
                 <div className="flex items-start gap-2">
                   <span>•</span>
                   <span>Запустил более 20 баров в России и СНГ</span>
@@ -116,45 +116,45 @@ export function AboutWindow() {
           border: "3px solid #000000",
         }}
       >
-        <div className="flex gap-4 items-start">
+        <div className="flex gap-4 items-stretch">
           {/* Портрет слева */}
-          <div className="w-64 shrink-0 overflow-hidden relative" style={{ minHeight: "fit-content" }}>
+          <div className="w-64 shrink-0 overflow-hidden relative">
             <img 
               src="/images/team/denis.jpg" 
               alt="Денис Колодешников" 
-              className="w-full h-auto object-cover" 
+              className="w-full h-full object-cover" 
             />
           </div>
 
           {/* Текстовая информация справа */}
-          <div className="flex-1 flex flex-col gap-3">
+          <div className="flex-1 flex flex-col gap-2 h-full">
             {/* Верхняя секция - информация */}
-            <div className="bg-white p-4">
-              <h3 className="text-base font-bold text-black mb-1">Денис Колодешников</h3>
-              <p className="text-sm text-[#666666] mb-2">Руководитель ИИ направления</p>
-              <p className="text-sm text-black font-bold mb-1">
+            <div className="bg-white p-3">
+              <h3 className="text-sm font-bold text-black mb-0.5">Денис Колодешников</h3>
+              <p className="text-xs text-[#666666] mb-1">Руководитель ИИ направления</p>
+              <p className="text-xs text-black font-bold mb-0.5">
                 AI-эксперт • Автоматизация
               </p>
-              <p className="text-sm text-[#666666]">
+              <p className="text-xs text-[#666666]">
                 Санкт-Петербург 📍
               </p>
-              <p className="text-sm text-[#666666] mt-1">
+              <p className="text-xs text-[#666666] mt-0.5">
                 5 лет в индустрии, работал на руководящих позициях
               </p>
             </div>
 
             {/* Средняя секция - описание */}
-            <div className="bg-white p-4">
-              <p className="text-sm leading-relaxed text-black">
+            <div className="bg-white p-3">
+              <p className="text-xs leading-relaxed text-black">
                 Отвечает за внедрение AI-решений и автоматизацию барных процессов. 
                 Помогает внедрять современные технологии для оптимизации работы заведений.
               </p>
             </div>
 
             {/* Нижняя секция - достижения */}
-            <div className="bg-black p-4" style={{ border: "2px solid #FFD700" }}>
-              <h4 className="text-sm font-bold text-[#FFD700] mb-2">🏆 ДОСТИЖЕНИЯ:</h4>
-              <div className="space-y-1 text-sm text-[#FFD700]">
+            <div className="bg-black p-3 flex-1 flex flex-col" style={{ border: "2px solid #FFD700" }}>
+              <h4 className="text-xs font-bold text-[#FFD700] mb-1">🏆 ДОСТИЖЕНИЯ:</h4>
+              <div className="space-y-0.5 text-xs text-[#FFD700] flex-1">
                 <div className="flex items-start gap-2">
                   <span>•</span>
                   <span>Разработал AI-системы для автоматизации баров</span>
@@ -186,42 +186,42 @@ export function AboutWindow() {
           border: "3px solid #000000",
         }}
       >
-        <div className="flex gap-4 items-start">
+        <div className="flex gap-4 items-stretch">
           {/* Портрет слева */}
-          <div className="w-64 shrink-0 overflow-hidden relative" style={{ minHeight: "fit-content" }}>
+          <div className="w-64 shrink-0 overflow-hidden relative">
             <img 
               src="/images/team/valeria.jpg" 
               alt="Валерия Колодешникова" 
-              className="w-full h-auto object-cover" 
+              className="w-full h-full object-cover" 
             />
           </div>
 
           {/* Текстовая информация справа */}
-          <div className="flex-1 flex flex-col gap-3">
+          <div className="flex-1 flex flex-col gap-2 h-full">
             {/* Верхняя секция - информация */}
-            <div className="bg-white p-4">
-              <h3 className="text-base font-bold text-black mb-1">Валерия Колодешникова</h3>
-              <p className="text-sm text-[#666666] mb-2">Руководитель маркетингового отдела</p>
-              <p className="text-sm text-black font-bold mb-1">
+            <div className="bg-white p-3">
+              <h3 className="text-sm font-bold text-black mb-0.5">Валерия Колодешникова</h3>
+              <p className="text-xs text-[#666666] mb-1">Руководитель маркетингового отдела</p>
+              <p className="text-xs text-black font-bold mb-0.5">
                 Маркетолог • Коммуникации
               </p>
-              <p className="text-sm text-[#666666]">
+              <p className="text-xs text-[#666666]">
                 Санкт-Петербург 📍
               </p>
             </div>
 
             {/* Средняя секция - описание */}
-            <div className="bg-white p-4">
-              <p className="text-sm leading-relaxed text-black">
+            <div className="bg-white p-3">
+              <p className="text-xs leading-relaxed text-black">
                 Управляет стратегией продвижения и коммуникацией с клиентами. 
                 Создаёт эффективные маркетинговые кампании и развивает бренд BAR BOSS.
               </p>
             </div>
 
             {/* Нижняя секция - достижения */}
-            <div className="bg-black p-4" style={{ border: "2px solid #FFD700" }}>
-              <h4 className="text-sm font-bold text-[#FFD700] mb-2">🏆 ДОСТИЖЕНИЯ:</h4>
-              <div className="space-y-1 text-sm text-[#FFD700]">
+            <div className="bg-black p-3 flex-1 flex flex-col" style={{ border: "2px solid #FFD700" }}>
+              <h4 className="text-xs font-bold text-[#FFD700] mb-1">🏆 ДОСТИЖЕНИЯ:</h4>
+              <div className="space-y-0.5 text-xs text-[#FFD700] flex-1">
                 <div className="flex items-start gap-2">
                   <span>•</span>
                   <span>Увеличила охват аудитории на 300%</span>
