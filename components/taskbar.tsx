@@ -156,16 +156,9 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
                   className="w-full flex items-center gap-3 px-3 py-2 hover:bg-[#FFD700] hover:text-black text-black text-left transition-all duration-150 animate-slide-up"
                   style={{ animationDelay: `${index * 0.05}s` }}
                 >
-                  {(() => {
-                    const IconComponent = getPixelIcon(item.icon)
-                    return IconComponent ? (
-                      <IconComponent size={20} />
-                    ) : (
-                      <span className="text-xl" aria-hidden="true">
-                        {item.icon}
-                      </span>
-                    )
-                  })()}
+                  {item.id === "clippy" ? (
+                    <span className="text-xl" aria-hidden="true">🐕</span>
+                  ) : null}
                   <span className="text-sm font-bold">{item.id === "socials" ? "Социальные сети" : item.label}</span>
                 </button>
               ))}

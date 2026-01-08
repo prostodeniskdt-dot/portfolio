@@ -140,6 +140,124 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
           <div className="text-center p-8 text-sm">
             <span>Элементы не найдены</span>
           </div>
+        ) : folderId === "advertising" ? (
+          // Custom layout for advertising folder
+          <div className="space-y-3">
+            {/* First row: website, barboss, otomosom in one line */}
+            <div className="grid grid-cols-3 gap-3">
+              {folderItems
+                .filter(item => item.id === "ad-website" || item.id === "ad-telegram-barboss" || item.id === "ad-telegram-otomosom")
+                .map((item) => {
+                  const isPromo = 'isPromo' in item && item.isPromo
+                  const hasSubscribers = 'subscribers' in item && item.subscribers
+                  const hasPrice = 'price' in item && item.price
+                  
+                  return (
+                    <button
+                      key={item.id}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        onOpenProduct?.(item.id)
+                      }}
+                      onDoubleClick={(e) => {
+                        e.stopPropagation()
+                        onOpenProduct?.(item.id)
+                      }}
+                      className="flex flex-col items-center gap-2 p-3 cursor-pointer hover:bg-[#FFD700] group transition-colors relative"
+                      style={{
+                        background: isPromo 
+                          ? "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)"
+                          : "#ffffff",
+                        border: isPromo 
+                          ? "3px solid #FF0000" 
+                          : "2px solid #000000",
+                      }}
+                    >
+                      {hasSubscribers && (
+                        <span 
+                          className="absolute top-1 left-1 px-1 py-0.5 text-[8px] font-bold"
+                          style={{
+                            background: "#0088cc",
+                            color: "#ffffff",
+                          }}
+                        >
+                          👥 {item.subscribers}
+                        </span>
+                      )}
+                      {hasPrice && !isPromo && (
+                        <span 
+                          className="absolute top-1 right-1 px-1 py-0.5 text-[9px] font-bold"
+                          style={{
+                            background: "#000000",
+                            color: "#FFD700",
+                          }}
+                        >
+                          {item.price}
+                        </span>
+                      )}
+                      <span className="text-4xl">{item.icon}</span>
+                      <span className="text-xs font-bold text-center text-black group-hover:text-black">
+                        {item.title}
+                      </span>
+                      <span className="text-[10px] text-center text-[#666666] group-hover:text-black line-clamp-2">
+                        {item.description}
+                      </span>
+                      {isPromo && hasPrice && (
+                        <span 
+                          className="text-sm font-bold text-black mt-1"
+                        >
+                          {item.price}
+                        </span>
+                      )}
+                    </button>
+                  )
+                })}
+            </div>
+            {/* Second row: package-all under barboss */}
+            <div className="grid grid-cols-3 gap-3">
+              <div style={{ width: "100%", height: "0" }}></div>
+              {folderItems
+                .filter(item => item.id === "ad-package-all")
+                .map((item) => {
+                  const hasPrice = 'price' in item && item.price
+                  
+                  return (
+                    <button
+                      key={item.id}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        onOpenProduct?.(item.id)
+                      }}
+                      onDoubleClick={(e) => {
+                        e.stopPropagation()
+                        onOpenProduct?.(item.id)
+                      }}
+                      className="flex flex-col items-center gap-2 p-3 cursor-pointer hover:bg-[#FFD700] group transition-colors relative animate-pulse"
+                      style={{
+                        background: "#000000",
+                        border: "2px solid #000000",
+                      }}
+                    >
+                      <span className="text-4xl">{item.icon}</span>
+                      <span className="text-xs font-bold text-center text-[#FFD700] group-hover:text-[#FFD700]">
+                        {item.title}
+                      </span>
+                      <span className="text-[10px] text-center text-[#FFD700] group-hover:text-[#FFD700] line-clamp-2">
+                        {item.description}
+                      </span>
+                      {hasPrice && (
+                        <span 
+                          className="text-sm font-bold text-[#FFD700] mt-1"
+                        >
+                          {item.price}
+                        </span>
+                      )}
+                    </button>
+                  )
+                })}
+              <div style={{ width: "100%", height: "0" }}></div>
+            </div>
+          </div>
         ) : (
           <div className="grid grid-cols-3 gap-3">
             {folderItems.map((item) => {
@@ -155,13 +273,18 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                     // Prevent the parent OSWindow onClick from refocusing the folder window
                     // which could push the newly opened product window behind it.
                     e.stopPropagation()
-                    onOpenProduct?.(item.id)
+                    if (!isInDevelopment) {
+                      onOpenProduct?.(item.id)
+                    }
                   }}
                   onDoubleClick={(e) => {
                     e.stopPropagation()
-                    onOpenProduct?.(item.id)
+                    if (!isInDevelopment) {
+                      onOpenProduct?.(item.id)
+                    }
                   }}
-                  className="flex flex-col items-center gap-2 p-3 cursor-pointer hover:bg-[#FFD700] group transition-colors relative"
+                  disabled={isInDevelopment}
+                  className="flex flex-col items-center gap-2 p-3 transition-colors relative"
                   style={{
                     background: isInDevelopment 
                       ? "#cccccc" 
@@ -172,6 +295,7 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                       ? "3px solid #FF0000" 
                       : "2px solid #000000",
                     opacity: isInDevelopment ? 0.7 : 1,
+                    cursor: isInDevelopment ? "not-allowed" : "pointer",
                   }}
                 >
                   {/* Бейдж "АКЦИЯ" для промо-товаров */}

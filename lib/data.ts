@@ -368,9 +368,6 @@ export const products: Product[] = [
       "Проверенные бренды",
       "Гарантия качества",
       "Кастомные наборы под запрос",
-      "📦 Распаковка набора BY BAR BOSS: https://t.me/BarBoss87/1620",
-      "🎒 Отцовский набор, все что нужно для снятия ивента: https://t.me/BarBoss87/1634",
-      "📖 Короткая инструкция по пользованию приложением: https://t.me/BarBoss87/1644",
     ],
     duration: "Доставка по запросу",
   },
@@ -1514,7 +1511,7 @@ export const folders: Record<string, Folder> = {
   },
   "it-products": {
     id: "it-products",
-    title: "IT продукты",
+    title: "IT-продукты",
     icon: "📁",
     isFolder: true,
     items: [
@@ -1644,7 +1641,7 @@ export const windowConfigs: Record<string, WindowConfig> = {
     icon: "individual-products-folder",
   },
   "it-products-folder": {
-    title: "IT продукты",
+    title: "IT-продукты",
     defaultPosition: { x: 100, y: 100 },
     defaultSize: { width: 800, height: 650 },
     icon: "it-products-folder",
@@ -1725,12 +1722,13 @@ export const taskbarItems: TaskbarItem[] = [
   { id: "about", label: "Команда", icon: "about" },
   { id: "products-folder", label: "Продукты", icon: "products-folder" },
   { id: "individual-products-folder", label: "Индивидуальные продукты", icon: "individual-products-folder" },
-  { id: "it-products-folder", label: "IT продукты", icon: "it-products-folder" },
+  { id: "it-products-folder", label: "IT-продукты", icon: "it-products-folder" },
   { id: "vacancies-folder", label: "Вакансии", icon: "vacancies-folder" },
   { id: "advertising-folder", label: "Реклама на площадке", icon: "advertising-folder" },
   { id: "contact", label: "Контакты", icon: "contact" },
   { id: "socials", label: "Социальные сети", icon: "socials" },
   { id: "settings", label: "Настройки", icon: "settings" },
+  { id: "clippy", label: "HELP", icon: "🐕" },
   { id: "player", label: "Музыка для работы", icon: "player" },
 ]
 
@@ -1741,7 +1739,7 @@ export const desktopIcons: DesktopIcon[] = [
   { id: "player", icon: "player", label: "Музыка\nдля работы", type: "window" },
   { id: "products-folder", icon: "products-folder", label: "Продукты", type: "folder" },
   { id: "individual-products-folder", icon: "individual-products-folder", label: "Индивидуальные\nпродукты", type: "folder" },
-  { id: "it-products-folder", icon: "it-products-folder", label: "IT\nпродукты", type: "folder" },
+  { id: "it-products-folder", icon: "it-products-folder", label: "IT-\nпродукты", type: "folder" },
   { id: "vacancies-folder", icon: "vacancies-folder", label: "Вакансии", type: "folder" },
   { id: "advertising-folder", icon: "advertising-folder", label: "Реклама на\nплощадке", type: "folder" },
   { id: "contest-folder", icon: "contest-folder", label: "Конкурсы и\nмероприятия", type: "folder" },

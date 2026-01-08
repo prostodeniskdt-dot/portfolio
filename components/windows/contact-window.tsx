@@ -14,9 +14,6 @@ export function ContactWindow() {
         }}
       >
         <div className="text-xs font-bold">📬 Контакты</div>
-        <div className="text-[10px]" style={{ color: "#000000", opacity: 0.8 }}>
-          Все лиды принимаем в Telegram (приоритетный канал)
-        </div>
       </div>
 
       {/* Primary CTA */}
@@ -30,7 +27,7 @@ export function ContactWindow() {
         }}
       >
         <div className="text-sm font-bold mb-1">⚡ Написать в Telegram</div>
-        <div className="text-xs">
+        <div className="text-xs mb-2">
           Быстрее всего отвечаем здесь:{" "}
           <a
             href={TELEGRAM_LEAD_URL}
@@ -42,6 +39,19 @@ export function ContactWindow() {
             {TELEGRAM_LEAD_URL}
           </a>
         </div>
+        <a
+          href={TELEGRAM_LEAD_URL}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-block px-3 py-1 text-xs font-bold transition-all hover:scale-[1.02]"
+          style={{
+            background: "#FFD700",
+            color: "#000000",
+            border: "2px solid #000000",
+          }}
+        >
+          Перейти
+        </a>
       </div>
 
       {/* Phone & Telegram Card */}
@@ -86,7 +96,21 @@ export function ContactWindow() {
               >
                 {SOCIAL_LINKS.priorityTelegram}
               </a>
-              {" "}
+              <div className="mt-2">
+                <a
+                  href={SOCIAL_LINKS.priorityTelegram}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-block px-3 py-1 text-xs font-bold transition-all hover:scale-[1.02]"
+                  style={{
+                    background: "#FFD700",
+                    color: "#000000",
+                    border: "2px solid #000000",
+                  }}
+                >
+                  Перейти
+                </a>
+              </div>
               <span className="text-[10px]" style={{ color: "#666666" }}>
                 ⚡ Быстрее всего отвечаю в Telegram
               </span>
@@ -114,7 +138,7 @@ export function ContactWindow() {
           >
             <span className="text-xl">📧</span>
           </div>
-          <div className="flex-1 space-y-1">
+          <div className="flex-1 space-y-2">
             <div className="text-xs font-bold">Email</div>
             <div className="text-xs">
               Основной:{" "}
@@ -125,13 +149,17 @@ export function ContactWindow() {
                 vitaly.arshuk@gmail.com
               </a>
             </div>
-            <div className="text-xs">
-              Общий:{" "}
+            <div>
               <a
-                className="underline hover:text-[#FFD700] transition-colors"
-                href="mailto:info@barboss.ru"
+                href="mailto:vitaly.arshuk@gmail.com"
+                className="inline-block px-3 py-1 text-xs font-bold transition-all hover:scale-[1.02]"
+                style={{
+                  background: "#FFD700",
+                  color: "#000000",
+                  border: "2px solid #000000",
+                }}
               >
-                info@barboss.ru
+                Перейти
               </a>
             </div>
           </div>
@@ -159,13 +187,26 @@ export function ContactWindow() {
           </div>
           <div className="flex-1">
             <div className="text-xs font-bold mb-1">Юридический адрес</div>
-            <div className="text-xs" style={{ color: "#000000" }}>
+            <div className="text-xs mb-2" style={{ color: "#000000" }}>
               216500, Россия, обл. Смоленская,
               <br />
               г. Рославль, ул. Красноармейская,
               <br />
               д. 102А, кв. 32
             </div>
+            <a
+              href="https://yandex.ru/maps/?text=216500,+Россия,+обл.+Смоленская,+г.+Рославль,+ул.+Красноармейская,+д.+102А,+кв.+32"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-block px-3 py-1 text-xs font-bold transition-all hover:scale-[1.02]"
+              style={{
+                background: "#FFD700",
+                color: "#000000",
+                border: "2px solid #000000",
+              }}
+            >
+              Перейти
+            </a>
           </div>
         </div>
       </div>
@@ -191,7 +232,7 @@ export function ContactWindow() {
           </div>
           <div className="flex-1">
             <div className="text-xs font-bold mb-1">График работы</div>
-            <div className="text-xs space-y-0.5">
+            <div className="text-xs mb-2 space-y-0.5">
               <div>Понедельник - Пятница: 9:00 - 21:00</div>
               <div>Суббота - Воскресенье: 10:00 - 18:00</div>
             </div>

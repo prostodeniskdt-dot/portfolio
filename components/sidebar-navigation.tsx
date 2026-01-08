@@ -253,9 +253,26 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
         {/* Иконки (main grid by rows) */}
         <div className="flex-1 w-full px-1">
           <div className="grid grid-cols-3 gap-x-1.5 gap-y-2.5 items-start justify-items-center w-full">
-            {mainGridCells.map((item, idx) => {
+            {/* Row 1: Products folders */}
+            {mainGridCells.slice(0, 3).map((item, idx) => {
               if (!item) {
                 return <div key={`empty-${idx}`} style={{ width: "110px", minHeight: "85px" }} />
+              }
+              return <React.Fragment key={item.id}>{renderIcon(item)}</React.Fragment>
+            })}
+            {/* White divider line */}
+            <div 
+              className="col-span-3 w-full mb-2 mt-1"
+              style={{
+                height: "1px",
+                background: "#FFFFFF",
+                opacity: 0.3,
+              }}
+            />
+            {/* Row 2 onwards */}
+            {mainGridCells.slice(3).map((item, idx) => {
+              if (!item) {
+                return <div key={`empty-${idx + 3}`} style={{ width: "110px", minHeight: "85px" }} />
               }
               return <React.Fragment key={item.id}>{renderIcon(item)}</React.Fragment>
             })}

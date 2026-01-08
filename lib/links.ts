@@ -5,6 +5,7 @@ export const SOCIAL_LINKS = {
   instagram: "https://www.instagram.com/arshuk_vitaly?igsh=ZDkxMmtpcWVhYWU2",
   youtube: "https://www.youtube.com/@barbossonline",
   priorityTelegram: "https://t.me/+79102537167",
+  tomSemm: "https://t.me/TomSemm",
 } as const
 
 
