@@ -10,22 +10,28 @@ const MOBILE_BREAKPOINT = 768
 interface SidebarNavigationProps {
   onItemClick: (itemId: string) => void
   onShowDeleteWarning?: () => void
+  isMobile?: boolean
+  isOpen?: boolean
 }
 
-export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarNavigationProps) {
+export function SidebarNavigation({ onItemClick, onShowDeleteWarning, isMobile: isMobileProp, isOpen }: SidebarNavigationProps) {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
   const [draggedItem, setDraggedItem] = useState<string | null>(null)
   const [dragOverTrash, setDragOverTrash] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
+  const [isMobile, setIsMobile] = useState(isMobileProp ?? false)
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
+    if (isMobileProp !== undefined) {
+      setIsMobile(isMobileProp)
+    } else {
+      const checkMobile = () => {
+        setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
+      }
+      checkMobile()
+      window.addEventListener("resize", checkMobile)
+      return () => window.removeEventListener("resize", checkMobile)
     }
-    checkMobile()
-    window.addEventListener("resize", checkMobile)
-    return () => window.removeEventListener("resize", checkMobile)
-  }, [])
+  }, [isMobileProp])
 
   // Используем desktopIcons напрямую, чтобы избежать дублирования данных
   // Фильтруем только уникальные элементы по id
@@ -224,10 +230,13 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
 
   return (
     <div 
-      className="absolute left-0 top-0 h-full z-20 flex transition-transform duration-300"
+      className="absolute left-0 top-0 h-full flex transition-transform duration-300"
       style={{ 
         fontFamily: "Oswald, sans-serif",
-        transform: isMobile ? "translateX(-100%)" : "translateX(0)",
+        transform: isMobile && !isOpen ? "translateX(-100%)" : "translateX(0)",
+        zIndex: isMobile ? 40 : 20,
+        position: "fixed",
+        height: "100vh",
       }}
     >
       {/* Вертикальная черная полоска с логотипом */}
@@ -239,6 +248,9 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
           borderRight: '3px solid #FFD700',
           boxShadow: '4px 0 20px rgba(0, 0, 0, 0.5)',
           maxWidth: isMobile ? '90vw' : undefined,
+          height: '100%',
+          overflowY: 'auto',
+          WebkitOverflowScrolling: 'touch',
         }}
       >
         {/* Логотип BAR BOSS ONLINE - одна строка в белом цвете */}

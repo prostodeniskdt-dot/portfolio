@@ -157,20 +157,21 @@ export default function Home() {
   }
 
   return (
-    <div className="relative h-screen w-screen overflow-hidden">
+    <div className="relative h-screen w-screen overflow-hidden" style={{ position: "relative" }}>
       <RetroBackground isAnimated={isBackgroundAnimated} />
-      <div className="relative z-10 flex h-full flex-col">
+      <div className="relative flex h-full flex-col" style={{ zIndex: 10 }}>
         {/* Кнопка для открытия sidebar на мобильных */}
         {isMobile && (
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="fixed top-3 left-3 z-30 p-2.5 bg-black border-2 border-[#FFD700] text-[#FFD700] font-bold transition-all active:bg-[#FFD700] active:text-black shadow-lg"
+            className="fixed top-3 left-3 p-2.5 bg-black border-2 border-[#FFD700] text-[#FFD700] font-bold transition-all active:bg-[#FFD700] active:text-black shadow-lg"
             aria-label="Открыть меню"
             style={{
               minWidth: "48px",
               minHeight: "48px",
               fontSize: "20px",
               borderRadius: "4px",
+              zIndex: 50,
             }}
           >
             ☰
@@ -179,28 +180,26 @@ export default function Home() {
         {/* Overlay для закрытия sidebar на мобильных */}
         {isMobile && sidebarOpen && (
           <div
-            className="fixed inset-0 bg-black/60 z-25"
+            className="fixed inset-0 bg-black/60"
             onClick={() => setSidebarOpen(false)}
             aria-hidden="true"
-            style={{ backdropFilter: "blur(2px)" }}
+            style={{ 
+              backdropFilter: "blur(2px)",
+              zIndex: 35,
+            }}
           />
         )}
-        <div 
-          className="transition-transform duration-300"
-          style={{
-            transform: isMobile && !sidebarOpen ? "translateX(-100%)" : "translateX(0)",
+        <SidebarNavigation 
+          onItemClick={(itemId) => {
+            handleSidebarClick(itemId)
+            if (isMobile) {
+              setSidebarOpen(false)
+            }
           }}
-        >
-          <SidebarNavigation 
-            onItemClick={(itemId) => {
-              handleSidebarClick(itemId)
-              if (isMobile) {
-                setSidebarOpen(false)
-              }
-            }}
-            onShowDeleteWarning={() => setShowDeleteWarning(true)}
-          />
-        </div>
+          onShowDeleteWarning={() => setShowDeleteWarning(true)}
+          isMobile={isMobile}
+          isOpen={sidebarOpen}
+        />
         <DeleteWarningModal 
           isOpen={showDeleteWarning} 
           onClose={() => setShowDeleteWarning(false)} 

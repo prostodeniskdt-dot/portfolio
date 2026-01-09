@@ -393,7 +393,10 @@ export const Desktop = memo(function Desktop({
           style={{
             background: "transparent",
             marginLeft: isMobile ? "0" : "420px",
-            transition: "margin-left 0.3s ease",
+            marginBottom: isMobile ? "48px" : "0",
+            transition: "margin-left 0.3s ease, margin-bottom 0.3s ease",
+            width: isMobile ? "100%" : undefined,
+            minHeight: isMobile ? "calc(100vh - 48px)" : undefined,
           }}
         >
           {/* Desktop icons - скрыто, так как все иконки в сайдбаре */}
