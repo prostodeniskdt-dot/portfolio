@@ -355,8 +355,6 @@ export const OSWindow = memo(function OSWindow({
               style={{
                 minWidth: isMobile ? "44px" : undefined,
                 minHeight: isMobile ? "44px" : undefined,
-              }}
-              style={{
                 background: "#000000",
                 color: "#FFD700",
                 border: "2px solid",
@@ -373,8 +371,6 @@ export const OSWindow = memo(function OSWindow({
               style={{
                 minWidth: isMobile ? "44px" : undefined,
                 minHeight: isMobile ? "44px" : undefined,
-              }}
-              style={{
                 background: "#000000",
                 color: "#FFD700",
                 border: "2px solid",
@@ -410,8 +406,6 @@ export const OSWindow = memo(function OSWindow({
               style={{
                 minWidth: isMobile ? "44px" : undefined,
                 minHeight: isMobile ? "44px" : undefined,
-              }}
-              style={{
                 background: "#000000",
                 color: "#FFD700",
                 border: "2px solid",
