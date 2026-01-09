@@ -74,7 +74,7 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
     <footer
       role="toolbar"
       aria-label="Панель задач"
-      className={`${isMobile ? "h-10" : "h-12"} flex items-center px-2 relative animate-slide-up`}
+      className={`${isMobile ? "h-12" : "h-12"} flex items-center ${isMobile ? "px-1" : "px-2"} relative animate-slide-up`}
       style={{
         background: "#000000",
         borderTop: "3px solid #FFD700",

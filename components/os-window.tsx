@@ -274,9 +274,9 @@ export const OSWindow = memo(function OSWindow({
           left: isMaximized || isMobile ? 0 : position.x,
           top: isMaximized || isMobile ? 0 : position.y,
           width: isMaximized || isMobile ? "100%" : Math.max(isMobile ? MOBILE_MIN_WIDTH : MIN_WIDTH, size.width),
-          height: isMaximized || isMobile ? "calc(100vh - 80px)" : Math.max(MIN_HEIGHT, size.height),
+          height: isMaximized || isMobile ? "calc(100vh - 50px)" : Math.max(MIN_HEIGHT, size.height),
           minWidth: isMobile ? "100vw" : MIN_WIDTH,
-          minHeight: isMobile ? "calc(100vh - 80px)" : MIN_HEIGHT,
+          minHeight: isMobile ? "calc(100vh - 50px)" : MIN_HEIGHT,
           zIndex,
           transition: isMaximized || isMobile ? "all 0.25s ease-out" : isResizing ? undefined : "none",
           maxWidth: isMobile ? "100vw" : undefined,
@@ -309,7 +309,7 @@ export const OSWindow = memo(function OSWindow({
       >
         {/* Title bar */}
         <div
-          className={`${isMobile ? "h-12" : "h-8"} flex items-center justify-between ${isMobile ? "px-3" : "px-2"} ${isMobile ? "cursor-default" : "cursor-move"} select-none shrink-0 transition-colors duration-200`}
+          className={`${isMobile ? "h-14" : "h-8"} flex items-center justify-between ${isMobile ? "px-2" : "px-2"} ${isMobile ? "cursor-default" : "cursor-move"} select-none shrink-0 transition-colors duration-200`}
           style={{
             background: isActive ? "#FFD700" : "#3a3a3a",
           }}
@@ -430,7 +430,7 @@ export const OSWindow = memo(function OSWindow({
             WebkitOverflowScrolling: "touch", // Smooth scrolling on iOS
           }}
         >
-          <div className={isMobile ? "p-2" : "p-3"}>{children}</div>
+          <div className={isMobile ? "p-3" : "p-3"} style={{ fontSize: isMobile ? "14px" : undefined }}>{children}</div>
         </div>
 
         {/* Status bar with blinking cursor */}

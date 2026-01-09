@@ -125,8 +125,8 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
         } ${isMobile ? "active:scale-95" : ""}`}
         style={{
           cursor: item.type !== "trash" && item.type !== "action" ? "grab" : "pointer",
-          width: isMobile ? "90px" : "110px",
-          minHeight: isMobile ? "75px" : "85px",
+          width: isMobile ? (typeof window !== "undefined" && window.innerWidth < 375 ? "80px" : "90px") : "110px",
+          minHeight: isMobile ? (typeof window !== "undefined" && window.innerWidth < 375 ? "70px" : "75px") : "85px",
           opacity: draggedItem === item.id ? 0.5 : 1,
           background: isTrash && dragOverTrash ? "rgba(255, 215, 0, 0.3)" : "transparent",
           border: isTrash && dragOverTrash ? "2px dashed #FFD700" : "2px solid transparent",
@@ -137,8 +137,8 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
         <div
           className="transition-all duration-200 flex items-center justify-center"
           style={{
-            width: isMobile ? "50px" : "60px",
-            height: isMobile ? "50px" : "60px",
+            width: isMobile ? (typeof window !== "undefined" && window.innerWidth < 375 ? "44px" : "50px") : "60px",
+            height: isMobile ? (typeof window !== "undefined" && window.innerWidth < 375 ? "44px" : "50px") : "60px",
             background: isTrash && dragOverTrash ? "#FFED4E" : isHovered ? "#FFED4E" : "transparent",
             border: "none",
             borderRadius: "8px",
@@ -156,7 +156,7 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
                 : "drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6))",
             }}
           >
-            <IconRenderer icon={item.icon} label={item.label} size={isMobile ? 46 : 56} className="transition-all duration-200" />
+            <IconRenderer icon={item.icon} label={item.label} size={isMobile ? (typeof window !== "undefined" && window.innerWidth < 375 ? 40 : 46) : 56} className="transition-all duration-200" />
           </div>
         </div>
 
@@ -171,9 +171,9 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
               ? "0 0 8px rgba(255, 215, 0, 0.5), 0 0 12px rgba(255, 215, 0, 0.4), 2px 2px 0px rgba(0, 0, 0, 0.9), -1px -1px 0px rgba(0, 0, 0, 0.9)"
               : "0 0 4px rgba(255, 215, 0, 0.4), 1px 1px 0px rgba(0, 0, 0, 0.9), -1px -1px 0px rgba(0, 0, 0, 0.9)",
             transform: isHovered ? "scale(1.05)" : "scale(1)",
-            width: isMobile ? "90px" : "110px",
-            minHeight: isMobile ? "22px" : "26px",
-            fontSize: isMobile ? "10px" : "11px",
+            width: isMobile ? (typeof window !== "undefined" && window.innerWidth < 375 ? "80px" : "90px") : "110px",
+            minHeight: isMobile ? (typeof window !== "undefined" && window.innerWidth < 375 ? "20px" : "22px") : "26px",
+            fontSize: isMobile ? (typeof window !== "undefined" && window.innerWidth < 375 ? "9px" : "10px") : "11px",
             lineHeight: "1.2",
             wordBreak: "break-word",
             overflowWrap: "break-word",
@@ -234,10 +234,11 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
       <div 
         className="flex flex-col items-center py-6 px-4"
         style={{
-          width: isMobile ? '280px' : '360px',
+          width: isMobile ? (typeof window !== "undefined" && window.innerWidth < 375 ? '260px' : '280px') : '360px',
           background: '#000000',
           borderRight: '3px solid #FFD700',
           boxShadow: '4px 0 20px rgba(0, 0, 0, 0.5)',
+          maxWidth: isMobile ? '90vw' : undefined,
         }}
       >
         {/* Логотип BAR BOSS ONLINE - одна строка в белом цвете */}

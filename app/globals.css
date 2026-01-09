@@ -574,7 +574,7 @@
 @media (max-width: 375px) {
   /* Very small mobile devices */
   body {
-    font-size: 11px;
+    font-size: 13px;
   }
 
   /* Максимально крупные кнопки для очень маленьких экранов */
@@ -584,9 +584,37 @@
     padding: 8px;
   }
 
-  /* Уменьшаем отступы в окнах */
+  /* Улучшаем отступы в окнах */
   [data-barboss-window="true"] {
-    padding: 4px;
+    padding: 2px;
+  }
+
+  /* Улучшаем читаемость текста */
+  p, span, div {
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: 360px) {
+  /* Extra small mobile devices */
+  body {
+    font-size: 12px;
+  }
+
+  /* Еще более крупные кнопки */
+  button, a {
+    min-height: 48px;
+    min-width: 48px;
+    padding: 10px;
+  }
+
+  /* Компактные отступы */
+  .p-3 {
+    padding: 0.5rem;
+  }
+
+  .p-4 {
+    padding: 0.75rem;
   }
 }
 

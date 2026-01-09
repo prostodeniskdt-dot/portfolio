@@ -164,11 +164,13 @@ export default function Home() {
         {isMobile && (
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="fixed top-2 left-2 z-30 p-2 bg-black border-2 border-[#FFD700] text-[#FFD700] font-bold transition-all hover:bg-[#FFD700] hover:text-black"
+            className="fixed top-3 left-3 z-30 p-2.5 bg-black border-2 border-[#FFD700] text-[#FFD700] font-bold transition-all active:bg-[#FFD700] active:text-black shadow-lg"
             aria-label="Открыть меню"
             style={{
-              minWidth: "44px",
-              minHeight: "44px",
+              minWidth: "48px",
+              minHeight: "48px",
+              fontSize: "20px",
+              borderRadius: "4px",
             }}
           >
             ☰
@@ -177,12 +179,18 @@ export default function Home() {
         {/* Overlay для закрытия sidebar на мобильных */}
         {isMobile && sidebarOpen && (
           <div
-            className="fixed inset-0 bg-black/50 z-25"
+            className="fixed inset-0 bg-black/60 z-25"
             onClick={() => setSidebarOpen(false)}
             aria-hidden="true"
+            style={{ backdropFilter: "blur(2px)" }}
           />
         )}
-        <div className={`transition-transform duration-300 ${isMobile && !sidebarOpen ? "-translate-x-full" : ""}`}>
+        <div 
+          className="transition-transform duration-300"
+          style={{
+            transform: isMobile && !sidebarOpen ? "translateX(-100%)" : "translateX(0)",
+          }}
+        >
           <SidebarNavigation 
             onItemClick={(itemId) => {
               handleSidebarClick(itemId)
