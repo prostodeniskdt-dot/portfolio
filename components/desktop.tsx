@@ -175,12 +175,20 @@ export const Desktop = memo(function Desktop({
               handleClick()
             }}
             aria-label={`Открыть ${item.label}`}
-            className="flex flex-col items-center gap-1 p-2 cursor-pointer hover:bg-[#FFD700]/20 group w-20 select-none animate-slide-up hover-lift"
-            style={{ animationDelay: `${index * 0.1}s` }}
+            className="flex flex-col items-center gap-1 p-2 cursor-pointer hover:bg-[#FFD700]/20 active:bg-[#FFD700]/30 group select-none animate-slide-up hover-lift touch-manipulation"
+            style={{ 
+              animationDelay: `${index * 0.1}s`,
+              width: typeof window !== "undefined" && window.innerWidth < 768 ? "80px" : "80px",
+            }}
           >
-            <IconRenderer icon={item.icon} label={item.label} size={48} className="" />
+            <IconRenderer 
+              icon={item.icon} 
+              label={item.label} 
+              size={typeof window !== "undefined" && window.innerWidth < 768 ? 40 : 48} 
+              className="" 
+            />
             <span 
-              className="text-sm text-center font-bold drop-shadow-[1px_1px_0_#000] group-hover:bg-[#FFD700] group-hover:text-black px-2 py-0.5 transition-colors duration-200"
+              className={`${typeof window !== "undefined" && window.innerWidth < 768 ? "text-xs" : "text-sm"} text-center font-bold drop-shadow-[1px_1px_0_#000] group-hover:bg-[#FFD700] group-hover:text-black group-active:bg-[#FFD700] group-active:text-black px-2 py-0.5 transition-colors duration-200`}
               style={{
                 color: item.type === "folder" ? "#FFFFFF" : "#FFD700"
               }}

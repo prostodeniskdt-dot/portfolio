@@ -31,6 +31,21 @@ export function handleError(error: unknown): { message: string; code?: string } 
 
 export function logError(error: unknown, context?: string) {
   const errorInfo = handleError(error)
+  
+  // Log to Sentry if available
+  if (typeof window !== "undefined" && (window as any).Sentry) {
+    const Sentry = (window as any).Sentry
+    Sentry.captureException(error, {
+      tags: {
+        context: context || "unknown",
+        errorCode: errorInfo.code,
+      },
+      extra: {
+        message: errorInfo.message,
+      },
+    })
+  }
+  
   console.error(`[Error${context ? ` in ${context}` : ""}]`, {
     message: errorInfo.message,
     code: errorInfo.code,

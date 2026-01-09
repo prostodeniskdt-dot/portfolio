@@ -7,6 +7,9 @@ import { SocialsWindow } from "@/components/windows/socials-window"
 import { ClippyChatWindow } from "@/components/windows/clippy-chat-window"
 import { IndividualCoursesWindow } from "@/components/windows/courses-window"
 
+// Re-export types
+export * from "./data/types"
+
 export interface Course {
   title: string
   description: string

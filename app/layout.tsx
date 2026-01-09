@@ -35,12 +35,12 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://portfolio-six-blue-37.vercel.app"),
+  metadataBase: new URL("https://barbossonline.com"),
   openGraph: {
     title: "БАР БОСС ONLINE | Онлайн-школа креативных профессий",
     description:
       "Освойте востребованные навыки дизайна, программирования и digital-маркетинга. Учитесь у практиков!",
-    url: "https://portfolio-six-blue-37.vercel.app",
+    url: "https://barbossonline.com",
     siteName: "БАР БОСС ONLINE",
     locale: "ru_RU",
     type: "website",
@@ -70,8 +70,8 @@ const structuredData = {
   name: "БАР БОСС ONLINE",
   description:
     "Онлайн-школа креативных профессий. Обучение дизайну, программированию и digital-маркетингу.",
-  url: "https://portfolio-six-blue-37.vercel.app",
-  logo: "https://portfolio-six-blue-37.vercel.app/icon.svg",
+  url: "https://barbossonline.com",
+  logo: "https://barbossonline.com/icon.svg",
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "customer service",
@@ -84,6 +84,29 @@ const structuredData = {
     lowPrice: "19900",
     highPrice: "39900",
     priceCurrency: "RUB",
+  },
+  // Добавляем структурированные данные для продуктов
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Услуги БАР БОСС ONLINE",
+    itemListElement: [
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Консультации по барному бизнесу",
+          description: "Три персональных созвона для глубокого разбора вашего бара",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Индивидуальный курс барного менеджмента",
+          description: "Персональная программа обучения барному менеджменту",
+        },
+      },
+    ],
   },
 }
 

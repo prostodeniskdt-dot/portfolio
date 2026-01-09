@@ -517,16 +517,44 @@
   transition: box-shadow 0.3s ease;
 }
 
+/* Touch optimizations for mobile */
+.touch-manipulation {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
 /* Responsive design - Mobile and Tablet */
 @media (max-width: 768px) {
   /* Mobile optimizations */
   body {
     font-size: 14px;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
   }
 
   /* Hide desktop-specific elements on mobile */
   .desktop-only {
     display: none;
+  }
+
+  /* Улучшенная прокрутка на мобильных */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Улучшенные кнопки для touch */
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(255, 215, 0, 0.3);
+  }
+
+  /* Улучшенные окна на мобильных */
+  [data-barboss-window="true"] {
+    touch-action: pan-y;
   }
 }
 
@@ -534,6 +562,12 @@
   /* Small mobile devices */
   body {
     font-size: 12px;
+  }
+
+  /* Еще более крупные кнопки для маленьких экранов */
+  button, a {
+    min-height: 48px;
+    min-width: 48px;
   }
 }
 

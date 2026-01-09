@@ -51,7 +51,15 @@ export const OSWindow = memo(function OSWindow({
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768)
+      const isMobileDevice = window.innerWidth < 768 || 
+        ('ontouchstart' in window || navigator.maxTouchPoints > 0)
+      setIsMobile(isMobileDevice)
+      
+      // На мобильных устройствах автоматически максимизируем окно при открытии
+      if (isMobileDevice && !isMaximized) {
+        setIsMaximized(true)
+        setScrollbarsVisible(true)
+      }
     }
     checkMobile()
     window.addEventListener("resize", checkMobile)
@@ -62,6 +70,41 @@ export const OSWindow = memo(function OSWindow({
   useEffect(() => {
     soundManager.playWindowOpen()
   }, [])
+
+  // Touch handlers for mobile
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (isMaximized || !isMobile) return
+    onFocus()
+    const touch = e.touches[0]
+    setIsDragging(true)
+    dragOffset.current = {
+      x: touch.clientX - position.x,
+      y: touch.clientY - position.y,
+    }
+  }
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (!isDragging || isMaximized || !isMobile) return
+    e.preventDefault()
+    const touch = e.touches[0]
+    const newX = touch.clientX - dragOffset.current.x
+    const newY = touch.clientY - dragOffset.current.y
+
+    const maxX = typeof window !== "undefined" ? window.innerWidth - defaultSize.width : 0
+    const maxY = typeof window !== "undefined" ? window.innerHeight - 80 - defaultSize.height : 0
+
+    const constrainedX = Math.max(0, Math.min(newX, maxX))
+    const constrainedY = Math.max(0, Math.min(newY, maxY))
+
+    setPosition({
+      x: constrainedX,
+      y: constrainedY,
+    })
+  }
+
+  const handleTouchEnd = () => {
+    setIsDragging(false)
+  }
 
   const handleMouseDown = (e: MouseEvent<HTMLDivElement>) => {
     if (isMaximized || isMobile) return
@@ -204,22 +247,26 @@ export const OSWindow = memo(function OSWindow({
       tabIndex={isActive ? 0 : -1}
       data-barboss-window="true"
       data-scrollbars={scrollbarsVisible ? "shown" : "hidden"}
-      style={{
-        left: isMaximized || isMobile ? 0 : position.x,
-        top: isMaximized || isMobile ? 0 : position.y,
-        width: isMaximized || isMobile ? "100%" : Math.max(MIN_WIDTH, size.width),
-        height: isMaximized || isMobile ? "calc(100vh - 80px)" : Math.max(MIN_HEIGHT, size.height),
-        minWidth: MIN_WIDTH,
-        minHeight: MIN_HEIGHT,
-        zIndex,
-        transition: isMaximized || isMobile ? "all 0.25s ease-out" : isResizing ? undefined : "none",
-        maxWidth: isMobile ? "100vw" : undefined,
-        maxHeight: isMobile ? "100vh" : undefined,
-      }}
+        style={{
+          left: isMaximized || isMobile ? 0 : position.x,
+          top: isMaximized || isMobile ? 0 : position.y,
+          width: isMaximized || isMobile ? "100%" : Math.max(MIN_WIDTH, size.width),
+          height: isMaximized || isMobile ? "calc(100vh - 80px)" : Math.max(MIN_HEIGHT, size.height),
+          minWidth: isMobile ? "100vw" : MIN_WIDTH,
+          minHeight: isMobile ? "calc(100vh - 80px)" : MIN_HEIGHT,
+          zIndex,
+          transition: isMaximized || isMobile ? "all 0.25s ease-out" : isResizing ? undefined : "none",
+          maxWidth: isMobile ? "100vw" : undefined,
+          maxHeight: isMobile ? "100vh" : undefined,
+          touchAction: isMobile ? "pan-y" : "auto",
+        }}
       onClick={onFocus}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
       onKeyDown={(e) => {
         if (e.key === "Escape" && isActive) {
           handleClose()
@@ -239,12 +286,13 @@ export const OSWindow = memo(function OSWindow({
       >
         {/* Title bar */}
         <div
-          className="h-8 flex items-center justify-between px-2 cursor-move select-none shrink-0 transition-colors duration-200"
+          className={`${isMobile ? "h-10" : "h-8"} flex items-center justify-between px-2 ${isMobile ? "cursor-default" : "cursor-move"} select-none shrink-0 transition-colors duration-200`}
           style={{
             background: isActive ? "#FFD700" : "#3a3a3a",
           }}
           onMouseDown={handleMouseDown}
           onDoubleClick={handleMaximize}
+          onTouchStart={handleTouchStart}
           role="button"
           aria-label={`Окно ${title}`}
           tabIndex={0}
@@ -275,12 +323,12 @@ export const OSWindow = memo(function OSWindow({
           </div>
 
           {/* Window controls with hover animations */}
-          <div className="flex items-center gap-1">
+          <div className={`flex items-center gap-1 ${isMobile ? "gap-2" : ""}`}>
             {/* Minimize */}
             <button
               onClick={handleMinimize}
               aria-label="Свернуть окно"
-              className="w-5 h-5 flex items-center justify-center text-xs font-bold transition-all duration-150 hover:scale-110 hover:bg-[#FFD700] hover:text-black"
+              className={`${isMobile ? "w-8 h-8 text-sm" : "w-5 h-5 text-xs"} flex items-center justify-center font-bold transition-all duration-150 ${isMobile ? "active:scale-95" : "hover:scale-110 hover:bg-[#FFD700] hover:text-black"}`}
               style={{
                 background: "#000000",
                 color: "#FFD700",
@@ -294,7 +342,7 @@ export const OSWindow = memo(function OSWindow({
             <button
               onClick={handleMaximize}
               aria-label={isMaximized ? "Восстановить размер окна" : "Развернуть окно"}
-              className="w-5 h-5 flex items-center justify-center transition-all duration-150 hover:scale-110 hover:bg-[#FFD700] group"
+              className={`${isMobile ? "w-8 h-8" : "w-5 h-5"} flex items-center justify-center transition-all duration-150 ${isMobile ? "active:scale-95" : "hover:scale-110 hover:bg-[#FFD700]"} group`}
               style={{
                 background: "#000000",
                 color: "#FFD700",
@@ -327,7 +375,7 @@ export const OSWindow = memo(function OSWindow({
                 handleClose()
               }}
               aria-label="Закрыть окно"
-              className="w-5 h-5 flex items-center justify-center text-sm font-bold transition-all duration-150 hover:scale-110 hover:bg-red-600 hover:text-white"
+              className={`${isMobile ? "w-8 h-8 text-base" : "w-5 h-5 text-sm"} flex items-center justify-center font-bold transition-all duration-150 ${isMobile ? "active:scale-95 active:bg-red-600 active:text-white" : "hover:scale-110 hover:bg-red-600 hover:text-white"}`}
               style={{
                 background: "#000000",
                 color: "#FFD700",
@@ -343,16 +391,17 @@ export const OSWindow = memo(function OSWindow({
         {/* Content area */}
         <div
           id={`window-content-${title}`}
-          className="flex-1 overflow-auto m-2"
+          className={`flex-1 overflow-auto ${isMobile ? "m-1" : "m-2"}`}
           role="region"
           aria-label={`Содержимое окна ${title}`}
           style={{
             background: "#ffffff",
             border: "3px solid",
             borderColor: "#000000 #FFD700 #FFD700 #000000",
+            WebkitOverflowScrolling: "touch", // Smooth scrolling on iOS
           }}
         >
-          <div className="p-3">{children}</div>
+          <div className={isMobile ? "p-2" : "p-3"}>{children}</div>
         </div>
 
         {/* Status bar with blinking cursor */}

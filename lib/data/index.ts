@@ -1,0 +1,11 @@
+// Main data export file - re-exports all data from modules
+export * from "./types"
+export * from "./courses"
+export { products } from "./products"
+export { contests } from "./contests"
+export { partners } from "./partners"
+export { legalDocuments } from "./legal-documents"
+export { folders } from "./folders"
+export { windowConfigs } from "./window-configs"
+export { taskbarItems } from "./taskbar-items"
+export { desktopIcons } from "./desktop-icons"
