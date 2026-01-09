@@ -49,20 +49,6 @@ npm run test:ui
 
 **URL проекта:** https://barbossonline.com
 
-## Настройка Sentry
-
-Для мониторинга ошибок необходимо настроить Sentry:
-
-1. Создайте проект на [sentry.io](https://sentry.io)
-2. Скопируйте `.env.example` в `.env.local`
-3. Заполните переменные окружения:
-   - `NEXT_PUBLIC_SENTRY_DSN` - DSN для клиентской части
-   - `SENTRY_DSN` - DSN для серверной части
-   - `SENTRY_ORG` - название организации в Sentry
-   - `SENTRY_PROJECT` - название проекта в Sentry
-
-После настройки ошибки будут автоматически отправляться в Sentry.
-
 ## Структура проекта
 
 ```

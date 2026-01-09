@@ -85,29 +85,6 @@ const structuredData = {
     highPrice: "39900",
     priceCurrency: "RUB",
   },
-  // Добавляем структурированные данные для продуктов
-  hasOfferCatalog: {
-    "@type": "OfferCatalog",
-    name: "Услуги БАР БОСС ONLINE",
-    itemListElement: [
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "Консультации по барному бизнесу",
-          description: "Три персональных созвона для глубокого разбора вашего бара",
-        },
-      },
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "Индивидуальный курс барного менеджмента",
-          description: "Персональная программа обучения барному менеджменту",
-        },
-      },
-    ],
-  },
 }
 
 export default function RootLayout({
