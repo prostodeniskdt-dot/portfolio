@@ -1,6 +1,6 @@
 "use client"
 
-import React, { memo, useMemo, useState, type ComponentType } from "react"
+import React, { memo, useMemo, useState, useEffect, type ComponentType } from "react"
 import dynamic from "next/dynamic"
 import { OSWindow } from "./os-window"
 import { windowConfigs, desktopIcons } from "@/lib/data"
@@ -372,6 +372,17 @@ export const Desktop = memo(function Desktop({
         }
       }
 
+      const [isMobile, setIsMobile] = useState(false)
+
+      useEffect(() => {
+        const checkMobile = () => {
+          setIsMobile(window.innerWidth < 768)
+        }
+        checkMobile()
+        window.addEventListener("resize", checkMobile)
+        return () => window.removeEventListener("resize", checkMobile)
+      }, [])
+
       return (
         <main
           className="relative flex-1"
@@ -381,7 +392,8 @@ export const Desktop = memo(function Desktop({
           onDrop={handleDrop}
           style={{
             background: "transparent",
-            marginLeft: "420px",
+            marginLeft: isMobile ? "0" : "420px",
+            transition: "margin-left 0.3s ease",
           }}
         >
           {/* Desktop icons - скрыто, так как все иконки в сайдбаре */}

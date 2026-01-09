@@ -30,6 +30,12 @@ export const metadata: Metadata = {
   authors: [{ name: "БАР БОСС ONLINE" }],
   creator: "БАР БОСС ONLINE",
   publisher: "БАР БОСС ONLINE",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
+    userScalable: true,
+  },
   formatDetection: {
     email: false,
     address: false,

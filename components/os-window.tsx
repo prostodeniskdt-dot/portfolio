@@ -44,10 +44,13 @@ export const OSWindow = memo(function OSWindow({
   const resizeStart = useRef({ x: 0, y: 0, width: 0, height: 0 })
   const previousPosition = useRef(defaultPosition)
   const previousSize = useRef(defaultSize)
+  const touchStartTime = useRef(0)
+  const touchStartPos = useRef({ x: 0, y: 0 })
 
-  // Minimum window size
+  // Minimum window size - адаптивные размеры для мобильных
   const MIN_WIDTH = 300
   const MIN_HEIGHT = 200
+  const MOBILE_MIN_WIDTH = 280
 
   useEffect(() => {
     const checkMobile = () => {
@@ -71,11 +74,13 @@ export const OSWindow = memo(function OSWindow({
     soundManager.playWindowOpen()
   }, [])
 
-  // Touch handlers for mobile
+  // Touch handlers for mobile - улучшенная обработка жестов
   const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     if (isMaximized || !isMobile) return
-    onFocus()
     const touch = e.touches[0]
+    touchStartTime.current = Date.now()
+    touchStartPos.current = { x: touch.clientX, y: touch.clientY }
+    onFocus()
     setIsDragging(true)
     dragOffset.current = {
       x: touch.clientX - position.x,
@@ -102,7 +107,24 @@ export const OSWindow = memo(function OSWindow({
     })
   }
 
-  const handleTouchEnd = () => {
+  const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (!isMobile) return
+    
+    // Проверка на двойное касание для максимизации
+    const touchEndTime = Date.now()
+    const timeDiff = touchEndTime - touchStartTime.current
+    
+    if (timeDiff < 300 && isDragging) {
+      const touch = e.changedTouches[0]
+      const moveX = Math.abs(touch.clientX - touchStartPos.current.x)
+      const moveY = Math.abs(touch.clientY - touchStartPos.current.y)
+      
+      // Если движение минимальное, считаем это двойным касанием
+      if (moveX < 10 && moveY < 10) {
+        handleMaximize(e as unknown as MouseEvent)
+      }
+    }
+    
     setIsDragging(false)
   }
 
@@ -167,12 +189,13 @@ export const OSWindow = memo(function OSWindow({
       let newHeight = size.height
       let newX = position.x
       let newY = position.y
+      const minWidth = isMobile ? MOBILE_MIN_WIDTH : MIN_WIDTH
 
       if (resizeDirection?.includes("e")) {
-        newWidth = Math.max(MIN_WIDTH, resizeStart.current.width + deltaX)
+        newWidth = Math.max(minWidth, resizeStart.current.width + deltaX)
       }
       if (resizeDirection?.includes("w")) {
-        newWidth = Math.max(MIN_WIDTH, resizeStart.current.width - deltaX)
+        newWidth = Math.max(minWidth, resizeStart.current.width - deltaX)
         newX = position.x + (resizeStart.current.width - newWidth)
       }
       if (resizeDirection?.includes("s")) {
@@ -250,7 +273,7 @@ export const OSWindow = memo(function OSWindow({
         style={{
           left: isMaximized || isMobile ? 0 : position.x,
           top: isMaximized || isMobile ? 0 : position.y,
-          width: isMaximized || isMobile ? "100%" : Math.max(MIN_WIDTH, size.width),
+          width: isMaximized || isMobile ? "100%" : Math.max(isMobile ? MOBILE_MIN_WIDTH : MIN_WIDTH, size.width),
           height: isMaximized || isMobile ? "calc(100vh - 80px)" : Math.max(MIN_HEIGHT, size.height),
           minWidth: isMobile ? "100vw" : MIN_WIDTH,
           minHeight: isMobile ? "calc(100vh - 80px)" : MIN_HEIGHT,
@@ -286,7 +309,7 @@ export const OSWindow = memo(function OSWindow({
       >
         {/* Title bar */}
         <div
-          className={`${isMobile ? "h-10" : "h-8"} flex items-center justify-between px-2 ${isMobile ? "cursor-default" : "cursor-move"} select-none shrink-0 transition-colors duration-200`}
+          className={`${isMobile ? "h-12" : "h-8"} flex items-center justify-between ${isMobile ? "px-3" : "px-2"} ${isMobile ? "cursor-default" : "cursor-move"} select-none shrink-0 transition-colors duration-200`}
           style={{
             background: isActive ? "#FFD700" : "#3a3a3a",
           }}
@@ -328,7 +351,11 @@ export const OSWindow = memo(function OSWindow({
             <button
               onClick={handleMinimize}
               aria-label="Свернуть окно"
-              className={`${isMobile ? "w-8 h-8 text-sm" : "w-5 h-5 text-xs"} flex items-center justify-center font-bold transition-all duration-150 ${isMobile ? "active:scale-95" : "hover:scale-110 hover:bg-[#FFD700] hover:text-black"}`}
+              className={`${isMobile ? "w-10 h-10 text-base" : "w-5 h-5 text-xs"} flex items-center justify-center font-bold transition-all duration-150 ${isMobile ? "active:scale-95" : "hover:scale-110 hover:bg-[#FFD700] hover:text-black"}`}
+              style={{
+                minWidth: isMobile ? "44px" : undefined,
+                minHeight: isMobile ? "44px" : undefined,
+              }}
               style={{
                 background: "#000000",
                 color: "#FFD700",
@@ -342,7 +369,11 @@ export const OSWindow = memo(function OSWindow({
             <button
               onClick={handleMaximize}
               aria-label={isMaximized ? "Восстановить размер окна" : "Развернуть окно"}
-              className={`${isMobile ? "w-8 h-8" : "w-5 h-5"} flex items-center justify-center transition-all duration-150 ${isMobile ? "active:scale-95" : "hover:scale-110 hover:bg-[#FFD700]"} group`}
+              className={`${isMobile ? "w-10 h-10" : "w-5 h-5"} flex items-center justify-center transition-all duration-150 ${isMobile ? "active:scale-95" : "hover:scale-110 hover:bg-[#FFD700]"} group`}
+              style={{
+                minWidth: isMobile ? "44px" : undefined,
+                minHeight: isMobile ? "44px" : undefined,
+              }}
               style={{
                 background: "#000000",
                 color: "#FFD700",
@@ -375,7 +406,11 @@ export const OSWindow = memo(function OSWindow({
                 handleClose()
               }}
               aria-label="Закрыть окно"
-              className={`${isMobile ? "w-8 h-8 text-base" : "w-5 h-5 text-sm"} flex items-center justify-center font-bold transition-all duration-150 ${isMobile ? "active:scale-95 active:bg-red-600 active:text-white" : "hover:scale-110 hover:bg-red-600 hover:text-white"}`}
+              className={`${isMobile ? "w-10 h-10 text-lg" : "w-5 h-5 text-sm"} flex items-center justify-center font-bold transition-all duration-150 ${isMobile ? "active:scale-95 active:bg-red-600 active:text-white" : "hover:scale-110 hover:bg-red-600 hover:text-white"}`}
+              style={{
+                minWidth: isMobile ? "44px" : undefined,
+                minHeight: isMobile ? "44px" : undefined,
+              }}
               style={{
                 background: "#000000",
                 color: "#FFD700",

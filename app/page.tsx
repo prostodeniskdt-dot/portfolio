@@ -19,6 +19,8 @@ export default function Home() {
   const [isBackgroundAnimated, setIsBackgroundAnimated] = useState(false)
   const [showDeleteWarning, setShowDeleteWarning] = useState(false)
   const [isPlayerOpen, setIsPlayerOpen] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
   const {
     openWindows,
     activeWindow,
@@ -136,6 +138,20 @@ export default function Home() {
     return () => window.removeEventListener("openContactWindow", handleOpenContact)
   }, [toggleWindow])
 
+  // Проверка мобильного устройства
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobile = window.innerWidth < 768
+      setIsMobile(mobile)
+      if (!mobile) {
+        setSidebarOpen(false)
+      }
+    }
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
+
   if (isLoading) {
     return <LoadingScreen onComplete={() => setIsLoading(false)} />
   }
@@ -144,10 +160,39 @@ export default function Home() {
     <div className="relative h-screen w-screen overflow-hidden">
       <RetroBackground isAnimated={isBackgroundAnimated} />
       <div className="relative z-10 flex h-full flex-col">
-        <SidebarNavigation 
-          onItemClick={handleSidebarClick}
-          onShowDeleteWarning={() => setShowDeleteWarning(true)}
-        />
+        {/* Кнопка для открытия sidebar на мобильных */}
+        {isMobile && (
+          <button
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="fixed top-2 left-2 z-30 p-2 bg-black border-2 border-[#FFD700] text-[#FFD700] font-bold transition-all hover:bg-[#FFD700] hover:text-black"
+            aria-label="Открыть меню"
+            style={{
+              minWidth: "44px",
+              minHeight: "44px",
+            }}
+          >
+            ☰
+          </button>
+        )}
+        {/* Overlay для закрытия sidebar на мобильных */}
+        {isMobile && sidebarOpen && (
+          <div
+            className="fixed inset-0 bg-black/50 z-25"
+            onClick={() => setSidebarOpen(false)}
+            aria-hidden="true"
+          />
+        )}
+        <div className={`transition-transform duration-300 ${isMobile && !sidebarOpen ? "-translate-x-full" : ""}`}>
+          <SidebarNavigation 
+            onItemClick={(itemId) => {
+              handleSidebarClick(itemId)
+              if (isMobile) {
+                setSidebarOpen(false)
+              }
+            }}
+            onShowDeleteWarning={() => setShowDeleteWarning(true)}
+          />
+        </div>
         <DeleteWarningModal 
           isOpen={showDeleteWarning} 
           onClose={() => setShowDeleteWarning(false)} 

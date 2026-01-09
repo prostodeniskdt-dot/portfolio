@@ -571,6 +571,25 @@
   }
 }
 
+@media (max-width: 375px) {
+  /* Very small mobile devices */
+  body {
+    font-size: 11px;
+  }
+
+  /* Максимально крупные кнопки для очень маленьких экранов */
+  button, a {
+    min-height: 48px;
+    min-width: 48px;
+    padding: 8px;
+  }
+
+  /* Уменьшаем отступы в окнах */
+  [data-barboss-window="true"] {
+    padding: 4px;
+  }
+}
+
 /* Clippy Assistant animations */
 @keyframes clippy-bounce {
   0%, 100% {

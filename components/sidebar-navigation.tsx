@@ -224,14 +224,17 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
 
   return (
     <div 
-      className="absolute left-0 top-0 h-full z-20 flex"
-      style={{ fontFamily: "Oswald, sans-serif" }}
+      className="absolute left-0 top-0 h-full z-20 flex transition-transform duration-300"
+      style={{ 
+        fontFamily: "Oswald, sans-serif",
+        transform: isMobile ? "translateX(-100%)" : "translateX(0)",
+      }}
     >
       {/* Вертикальная черная полоска с логотипом */}
       <div 
         className="flex flex-col items-center py-6 px-4"
         style={{
-          width: '360px',
+          width: isMobile ? '280px' : '360px',
           background: '#000000',
           borderRight: '3px solid #FFD700',
           boxShadow: '4px 0 20px rgba(0, 0, 0, 0.5)',
@@ -242,14 +245,14 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
           className="flex items-center justify-start mb-8 w-full"
           style={{
             textAlign: 'left',
-            paddingLeft: '25px',
+            paddingLeft: isMobile ? '15px' : '25px',
           }}
         >
           <div
             className="logo-text"
             style={{
               fontFamily: "Oswald, sans-serif",
-              fontSize: '32px',
+              fontSize: isMobile ? '24px' : '32px',
               fontWeight: 'bold',
               color: "#FFFFFF",
               letterSpacing: "0.1em",
@@ -258,7 +261,7 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
               textShadow: "none",
             }}
           >
-            BAR BOSS ONLINE
+            {isMobile ? "BAR BOSS" : "BAR BOSS ONLINE"}
           </div>
         </div>
 
@@ -268,7 +271,7 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
             {/* Row 1: Products folders */}
             {mainGridCells.slice(0, 3).map((item, idx) => {
               if (!item) {
-                return <div key={`empty-${idx}`} style={{ width: "110px", minHeight: "85px" }} />
+                return <div key={`empty-${idx}`} style={{ width: isMobile ? "90px" : "110px", minHeight: isMobile ? "75px" : "85px" }} />
               }
               return <React.Fragment key={item.id}>{renderIcon(item)}</React.Fragment>
             })}
@@ -284,7 +287,7 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
             {/* Row 2 onwards */}
             {mainGridCells.slice(3).map((item, idx) => {
               if (!item) {
-                return <div key={`empty-${idx + 3}`} style={{ width: "110px", minHeight: "85px" }} />
+                return <div key={`empty-${idx + 3}`} style={{ width: isMobile ? "90px" : "110px", minHeight: isMobile ? "75px" : "85px" }} />
               }
               return <React.Fragment key={item.id}>{renderIcon(item)}</React.Fragment>
             })}
@@ -296,7 +299,7 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning }: SidebarN
           <div className="grid grid-cols-3 gap-x-1.5 gap-y-2.5 items-start justify-items-center w-full">
             {utilityCells.map((item, idx) => {
               if (!item) {
-                return <div key={`utility-empty-${idx}`} style={{ width: "110px", minHeight: "85px" }} />
+                return <div key={`utility-empty-${idx}`} style={{ width: isMobile ? "90px" : "110px", minHeight: isMobile ? "75px" : "85px" }} />
               }
               return <React.Fragment key={item.id}>{renderIcon(item)}</React.Fragment>
             })}

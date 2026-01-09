@@ -93,7 +93,11 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
         aria-label="Меню BARBOSS"
         aria-expanded={startOpen}
         aria-haspopup="menu"
-        className={`${isMobile ? "h-7 px-2" : "h-9 px-3"} flex items-center gap-2 mr-2 transition-all duration-200 ${startOpen ? "animate-pulse-glow" : "hover-lift"}`}
+        className={`${isMobile ? "h-9 px-3" : "h-9 px-3"} flex items-center gap-2 mr-2 transition-all duration-200 ${startOpen ? "animate-pulse-glow" : "hover-lift"} ${isMobile ? "active:scale-95" : ""}`}
+        style={{
+          minWidth: isMobile ? "44px" : undefined,
+          minHeight: isMobile ? "44px" : undefined,
+        }}
         style={{
           background: startOpen ? "#FFD700" : "#1a1a1a",
           border: "3px solid",
@@ -117,7 +121,8 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
             border: "3px solid",
             borderColor: "#FFD700 #000000 #000000 #FFD700",
             boxShadow: "8px 8px 0 rgba(184,134,11,0.3), 0 0 30px rgba(184,134,11,0.2)",
-            minWidth: "220px",
+            minWidth: isMobile ? "200px" : "220px",
+            maxWidth: isMobile ? "90vw" : "400px",
             zIndex: 1000,
           }}
         >
@@ -153,10 +158,13 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
                     setStartOpen(false)
                     onMenuStateChange?.(false)
                   }}
-                  className="w-full flex items-center gap-3 px-3 py-2 hover:bg-[#FFD700] hover:text-black text-black text-left transition-all duration-150 animate-slide-up"
-                  style={{ animationDelay: `${index * 0.05}s` }}
+                  className={`w-full flex items-center gap-3 px-3 py-2 ${isMobile ? "py-3 active:bg-[#FFD700] active:text-black" : "hover:bg-[#FFD700] hover:text-black"} text-black text-left transition-all duration-150 animate-slide-up`}
+                  style={{ 
+                    animationDelay: `${index * 0.05}s`,
+                    minHeight: isMobile ? "44px" : undefined,
+                  }}
                 >
-                  <span className="text-sm font-bold">{item.id === "socials" ? "Социальные сети" : item.label}</span>
+                  <span className={`${isMobile ? "text-base" : "text-sm"} font-bold`}>{item.id === "socials" ? "Социальные сети" : item.label}</span>
                 </button>
               ))}
               <div className="h-px bg-[#000000] my-2 mx-3" />
@@ -265,7 +273,7 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
       <div className="w-0.5 h-8 mx-2 bg-[#FFD700]" />
 
       {/* Open windows with animations */}
-      <div className="flex-1 flex items-center gap-2 overflow-x-auto">
+      <div className="flex-1 flex items-center gap-2 overflow-x-auto" style={{ WebkitOverflowScrolling: "touch" }}>
         {openWindows.map((windowId) => {
           const item = taskbarItems.find((i) => i.id === windowId)
           if (!item) return null
@@ -277,7 +285,10 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
                 soundManager.playClick()
                 onItemClick(windowId)
               }}
-              className={`${isMobile ? "h-7 px-2 min-w-[60px]" : "h-9 px-3 min-w-[140px] max-w-[180px]"} flex items-center gap-2 transition-all duration-200 animate-scale-in hover:scale-105`}
+              className={`${isMobile ? "h-9 px-3 min-w-[80px] flex-shrink-0" : "h-9 px-3 min-w-[140px] max-w-[180px]"} flex items-center gap-2 transition-all duration-200 animate-scale-in ${isMobile ? "active:scale-95" : "hover:scale-105"}`}
+              style={{
+                minHeight: isMobile ? "44px" : undefined,
+              }}
               style={{
                 background: isMinimized ? "#000000" : "#1a1a1a",
                 border: "3px solid",
@@ -301,11 +312,12 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
 
       {/* System tray with glow effect */}
       <div
-        className={`${isMobile ? "h-7 px-2 gap-2" : "h-8 px-3 gap-3"} flex items-center transition-all duration-300 hover:shadow-[0_0_15px_rgba(184,134,11,0.3)]`}
+        className={`${isMobile ? "h-9 px-2 gap-2" : "h-8 px-3 gap-3"} flex items-center transition-all duration-300 ${isMobile ? "" : "hover:shadow-[0_0_15px_rgba(184,134,11,0.3)]"}`}
         style={{
           background: "#1a1a1a",
           border: "2px solid",
           borderColor: "#000000 #FFD700 #FFD700 #000000",
+          minHeight: isMobile ? "44px" : undefined,
         }}
       >
         {!isMobile && (
@@ -348,7 +360,7 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
             <span className="text-xs font-bold">HELP</span>
           </button>
         )}
-        <span className={`${isMobile ? "text-xs" : "text-sm"} text-[#FFD700] font-bold animate-flicker`}>{time}</span>
+        <span className={`${isMobile ? "text-sm" : "text-sm"} text-[#FFD700] font-bold animate-flicker`} style={{ minWidth: isMobile ? "50px" : undefined }}>{time}</span>
       </div>
     </footer>
   )
