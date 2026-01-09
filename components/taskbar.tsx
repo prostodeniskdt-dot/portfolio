@@ -97,8 +97,6 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
         style={{
           minWidth: isMobile ? "44px" : undefined,
           minHeight: isMobile ? "44px" : undefined,
-        }}
-        style={{
           background: startOpen ? "#FFD700" : "#1a1a1a",
           border: "3px solid",
           borderColor: startOpen ? "#000000 #FFD700 #FFD700 #000000" : "#FFD700 #000000 #000000 #FFD700",
@@ -288,8 +286,6 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
               className={`${isMobile ? "h-9 px-3 min-w-[80px] flex-shrink-0" : "h-9 px-3 min-w-[140px] max-w-[180px]"} flex items-center gap-2 transition-all duration-200 animate-scale-in ${isMobile ? "active:scale-95" : "hover:scale-105"}`}
               style={{
                 minHeight: isMobile ? "44px" : undefined,
-              }}
-              style={{
                 background: isMinimized ? "#000000" : "#1a1a1a",
                 border: "3px solid",
                 borderColor: isMinimized ? "#FFD700 #000000 #000000 #FFD700" : "#000000 #FFD700 #FFD700 #000000",
