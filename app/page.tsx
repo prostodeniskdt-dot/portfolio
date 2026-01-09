@@ -11,7 +11,6 @@ import { useWindowState } from "@/hooks/use-window-state"
 import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts"
 import { desktopIcons } from "@/lib/data"
 import { DeleteWarningModal } from "@/components/delete-warning-modal"
-import { ClippyAssistant } from "@/components/clippy-assistant"
 import { StandalonePlayer } from "@/components/standalone-player"
 import { CookieConsent } from "@/components/cookie-consent"
 
@@ -127,10 +126,6 @@ export default function Home() {
     }
   }, [toggleWindow, handleOpenFolder])
 
-  // Handler for opening Clippy chat
-  const handleOpenClippy = useCallback(() => {
-    toggleWindow("clippy")
-  }, [toggleWindow])
 
   // Слушаем событие открытия окна контактов
   useEffect(() => {
@@ -169,7 +164,6 @@ export default function Home() {
           onProductClick={handleOpenProduct}
         />
         </Suspense>
-        <ClippyAssistant onOpenChat={handleOpenClippy} />
         <Taskbar
           onItemClick={(itemId: string) => {
             if (itemId === "player") {

@@ -156,9 +156,6 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
                   className="w-full flex items-center gap-3 px-3 py-2 hover:bg-[#FFD700] hover:text-black text-black text-left transition-all duration-150 animate-slide-up"
                   style={{ animationDelay: `${index * 0.05}s` }}
                 >
-                  {item.id === "clippy" ? (
-                    <span className="text-xl" aria-hidden="true">🐕</span>
-                  ) : null}
                   <span className="text-sm font-bold">{item.id === "socials" ? "Социальные сети" : item.label}</span>
                 </button>
               ))}
@@ -329,6 +326,26 @@ export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStat
             aria-label={soundEnabled ? "Отключить звук" : "Включить звук"}
           >
             🔊
+          </button>
+        )}
+        {!isMobile && (
+          <button
+            onClick={() => {
+              soundManager.playClick()
+              onItemClick("clippy")
+            }}
+            className={`${isMobile ? "h-7 px-2" : "h-8 px-2"} flex items-center gap-1.5 transition-all duration-200 hover:scale-105`}
+            style={{
+              background: "#1a1a1a",
+              border: "2px solid",
+              borderColor: "#000000 #FFD700 #FFD700 #000000",
+              color: "#FFD700",
+            }}
+            aria-label="Помощь"
+            title="HELP"
+          >
+            <span className="text-sm">🐕</span>
+            <span className="text-xs font-bold">HELP</span>
           </button>
         )}
         <span className={`${isMobile ? "text-xs" : "text-sm"} text-[#FFD700] font-bold animate-flicker`}>{time}</span>

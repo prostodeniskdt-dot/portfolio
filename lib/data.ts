@@ -1728,7 +1728,6 @@ export const taskbarItems: TaskbarItem[] = [
   { id: "contact", label: "Контакты", icon: "contact" },
   { id: "socials", label: "Социальные сети", icon: "socials" },
   { id: "settings", label: "Настройки", icon: "settings" },
-  { id: "clippy", label: "HELP", icon: "🐕" },
   { id: "player", label: "Музыка для работы", icon: "player" },
 ]
 
@@ -1739,7 +1738,7 @@ export const desktopIcons: DesktopIcon[] = [
   { id: "player", icon: "player", label: "Музыка\nдля работы", type: "window" },
   { id: "products-folder", icon: "products-folder", label: "Продукты", type: "folder" },
   { id: "individual-products-folder", icon: "individual-products-folder", label: "Индивидуальные\nпродукты", type: "folder" },
-  { id: "it-products-folder", icon: "it-products-folder", label: "IT-\nпродукты", type: "folder" },
+  { id: "it-products-folder", icon: "it-products-folder", label: "IT-продукты", type: "folder" },
   { id: "vacancies-folder", icon: "vacancies-folder", label: "Вакансии", type: "folder" },
   { id: "advertising-folder", icon: "advertising-folder", label: "Реклама на\nплощадке", type: "folder" },
   { id: "contest-folder", icon: "contest-folder", label: "Конкурсы и\nмероприятия", type: "folder" },
