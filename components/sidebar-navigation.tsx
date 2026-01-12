@@ -90,7 +90,7 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning, isMobile: 
     legalDocumentsFolder ?? null,
   ]
 
-  const utilityCells: Array<DesktopIcon | null> = [
+  const utilityCells: Array<DesktopIcon | null> = isMobile ? [] : [
     settings ?? null,
     animateBackground ?? null,
     trash ?? null,
@@ -237,6 +237,8 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning, isMobile: 
         zIndex: isMobile ? 40 : 20,
         position: "fixed",
         height: "100vh",
+        // На мобильных сайдбар всегда видим (не скрывается)
+        visibility: isMobile ? "visible" : undefined,
       }}
     >
       {/* Вертикальная черная полоска с логотипом */}
@@ -307,17 +309,19 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning, isMobile: 
                     </div>
                   </div>
 
-        {/* Utility row near Start menu */}
-        <div className="w-full px-1 mt-auto" style={{ paddingBottom: "72px" }}>
-          <div className="grid grid-cols-3 gap-x-1.5 gap-y-2.5 items-start justify-items-center w-full">
-            {utilityCells.map((item, idx) => {
-              if (!item) {
-                return <div key={`utility-empty-${idx}`} style={{ width: isMobile ? "90px" : "110px", minHeight: isMobile ? "75px" : "85px" }} />
-              }
-              return <React.Fragment key={item.id}>{renderIcon(item)}</React.Fragment>
-            })}
+        {/* Utility row near Start menu - скрыто на мобильных */}
+        {!isMobile && (
+          <div className="w-full px-1 mt-auto" style={{ paddingBottom: "72px" }}>
+            <div className="grid grid-cols-3 gap-x-1.5 gap-y-2.5 items-start justify-items-center w-full">
+              {utilityCells.map((item, idx) => {
+                if (!item) {
+                  return <div key={`utility-empty-${idx}`} style={{ width: isMobile ? "90px" : "110px", minHeight: isMobile ? "75px" : "85px" }} />
+                }
+                return <React.Fragment key={item.id}>{renderIcon(item)}</React.Fragment>
+              })}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   )
