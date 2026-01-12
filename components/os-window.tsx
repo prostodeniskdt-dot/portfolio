@@ -50,7 +50,7 @@ export const OSWindow = memo(function OSWindow({
   const swipeDistance = useRef<number>(0)
   const [isSwipeClosing, setIsSwipeClosing] = useState(false)
   const windowRef = useRef<HTMLDivElement>(null)
-  const scrollableContentRef = useRef<HTMLDivElement | null>(null)
+  const scrollableContentRef = useRef<HTMLElement | null>(null)
   const touchStartScrollTop = useRef<number>(0)
   const touchStartElement = useRef<HTMLElement | null>(null)
 
