@@ -46,6 +46,10 @@ export const OSWindow = memo(function OSWindow({
   const previousSize = useRef(defaultSize)
   const touchStartTime = useRef(0)
   const touchStartPos = useRef({ x: 0, y: 0 })
+  const swipeStartY = useRef<number | null>(null)
+  const swipeDistance = useRef<number>(0)
+  const [isSwipeClosing, setIsSwipeClosing] = useState(false)
+  const windowRef = useRef<HTMLDivElement>(null)
 
   // Minimum window size - адаптивные размеры для мобильных
   const MIN_WIDTH = 300
@@ -76,10 +80,22 @@ export const OSWindow = memo(function OSWindow({
 
   // Touch handlers for mobile - улучшенная обработка жестов
   const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (isMaximized || !isMobile) return
+    if (!isMobile) return
+    
     const touch = e.touches[0]
     touchStartTime.current = Date.now()
     touchStartPos.current = { x: touch.clientX, y: touch.clientY }
+    swipeStartY.current = touch.clientY
+    swipeDistance.current = 0
+    setIsSwipeClosing(false)
+    
+    // Если окно максимизировано, обрабатываем только свайп для закрытия
+    if (isMaximized) {
+      onFocus()
+      return
+    }
+    
+    // Если не максимизировано, обрабатываем перетаскивание
     onFocus()
     setIsDragging(true)
     dragOffset.current = {
@@ -89,9 +105,34 @@ export const OSWindow = memo(function OSWindow({
   }
 
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (!isDragging || isMaximized || !isMobile) return
-    e.preventDefault()
+    if (!isMobile) return
+    
     const touch = e.touches[0]
+    
+    // Если окно максимизировано, обрабатываем свайп для закрытия
+    if (isMaximized && swipeStartY.current !== null) {
+      const deltaY = touch.clientY - swipeStartY.current
+      swipeDistance.current = deltaY
+      
+      // Если свайп вниз больше 50px или вверх больше 100px
+      if (deltaY > 50 || deltaY < -100) {
+        setIsSwipeClosing(true)
+        // Визуальная обратная связь - затемнение и сдвиг окна
+        if (windowRef.current) {
+          const opacity = Math.max(0.3, 1 - Math.abs(deltaY) / 400)
+          const transform = `translateY(${deltaY}px)`
+          windowRef.current.style.opacity = String(opacity)
+          windowRef.current.style.transform = transform
+        }
+      }
+      e.preventDefault()
+      return
+    }
+    
+    // Если не максимизировано и не перетаскиваем, выходим
+    if (!isDragging || isMaximized) return
+    
+    e.preventDefault()
     const newX = touch.clientX - dragOffset.current.x
     const newY = touch.clientY - dragOffset.current.y
 
@@ -110,21 +151,49 @@ export const OSWindow = memo(function OSWindow({
   const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
     if (!isMobile) return
     
-    // Проверка на двойное касание для максимизации
-    const touchEndTime = Date.now()
-    const timeDiff = touchEndTime - touchStartTime.current
-    
-    if (timeDiff < 300 && isDragging) {
+    // Обработка свайпа для закрытия
+    if (isMaximized && swipeStartY.current !== null) {
       const touch = e.changedTouches[0]
-      const moveX = Math.abs(touch.clientX - touchStartPos.current.x)
-      const moveY = Math.abs(touch.clientY - touchStartPos.current.y)
+      const finalDeltaY = touch.clientY - swipeStartY.current
+      const timeDiff = Date.now() - touchStartTime.current
+      const swipeSpeed = timeDiff > 0 ? Math.abs(finalDeltaY) / timeDiff : 0
       
-      // Если движение минимальное, считаем это двойным касанием
-      if (moveX < 10 && moveY < 10) {
-        handleMaximize(e as unknown as MouseEvent)
+      // Закрываем если свайп вниз > 100px или вверх > 150px, или быстрый свайп > 0.5
+      if (finalDeltaY > 100 || finalDeltaY < -150 || swipeSpeed > 0.5) {
+        handleClose()
+        return
+      }
+      
+      // Возвращаем окно на место
+      setIsSwipeClosing(false)
+      if (windowRef.current) {
+        windowRef.current.style.opacity = "1"
+        windowRef.current.style.transform = "translateY(0)"
+      }
+      swipeStartY.current = null
+      swipeDistance.current = 0
+      return
+    }
+    
+    // Проверка на двойное касание для максимизации (только если не максимизировано)
+    if (!isMaximized) {
+      const touchEndTime = Date.now()
+      const timeDiff = touchEndTime - touchStartTime.current
+      
+      if (timeDiff < 300 && isDragging) {
+        const touch = e.changedTouches[0]
+        const moveX = Math.abs(touch.clientX - touchStartPos.current.x)
+        const moveY = Math.abs(touch.clientY - touchStartPos.current.y)
+        
+        // Если движение минимальное, считаем это двойным касанием
+        if (moveX < 10 && moveY < 10) {
+          handleMaximize(e as unknown as MouseEvent)
+        }
       }
     }
     
+    swipeStartY.current = null
+    swipeDistance.current = 0
     setIsDragging(false)
   }
 
@@ -257,11 +326,22 @@ export const OSWindow = memo(function OSWindow({
 
   const handleClose = () => {
     soundManager.playWindowClose()
-    onClose()
+    // Плавная анимация закрытия на мобильных
+    if (isMobile && windowRef.current) {
+      windowRef.current.style.transition = "opacity 0.2s ease-out, transform 0.2s ease-out"
+      windowRef.current.style.opacity = "0"
+      windowRef.current.style.transform = "scale(0.95)"
+      setTimeout(() => {
+        onClose()
+      }, 200)
+    } else {
+      onClose()
+    }
   }
 
   return (
     <div
+      ref={windowRef}
       className="absolute animate-window-open"
       role="dialog"
       aria-modal="false"
@@ -274,20 +354,26 @@ export const OSWindow = memo(function OSWindow({
           left: isMaximized || isMobile ? 0 : position.x,
           top: isMaximized || isMobile ? 0 : position.y,
           width: isMaximized || isMobile ? "100%" : Math.max(isMobile ? MOBILE_MIN_WIDTH : MIN_WIDTH, size.width),
-          height: isMaximized || isMobile ? "calc(100vh - 50px)" : Math.max(MIN_HEIGHT, size.height),
+          height: isMaximized || isMobile ? "100vh" : Math.max(MIN_HEIGHT, size.height),
           minWidth: isMobile ? "100vw" : MIN_WIDTH,
-          minHeight: isMobile ? "calc(100vh - 50px)" : MIN_HEIGHT,
+          minHeight: isMobile ? "100vh" : MIN_HEIGHT,
           zIndex,
-          transition: isMaximized || isMobile ? "all 0.25s ease-out" : isResizing ? undefined : "none",
+          transition: isSwipeClosing ? "none" : (isMaximized || isMobile ? "all 0.25s ease-out" : isResizing ? undefined : "none"),
           maxWidth: isMobile ? "100vw" : undefined,
           maxHeight: isMobile ? "100vh" : undefined,
-          touchAction: isMobile ? "pan-y" : "auto",
+          touchAction: isMobile ? (isMaximized ? "pan-y" : "auto") : "auto",
         }}
       onClick={onFocus}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
-      onTouchStart={handleTouchStart}
+      onTouchStart={(e) => {
+        // Не обрабатываем свайп если клик на интерактивном элементе
+        const target = e.target as HTMLElement
+        if (!target.closest('button') && !target.closest('a') && !target.closest('input')) {
+          handleTouchStart(e)
+        }
+      }}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
       onKeyDown={(e) => {
@@ -315,7 +401,13 @@ export const OSWindow = memo(function OSWindow({
           }}
           onMouseDown={handleMouseDown}
           onDoubleClick={handleMaximize}
-          onTouchStart={handleTouchStart}
+          onTouchStart={(e) => {
+            // Обрабатываем свайп только если клик не на кнопке
+            const target = e.target as HTMLElement
+            if (!target.closest('button[aria-label="Назад"]')) {
+              handleTouchStart(e)
+            }
+          }}
           role="button"
           aria-label={`Окно ${title}`}
           tabIndex={0}
@@ -325,7 +417,27 @@ export const OSWindow = memo(function OSWindow({
             }
           }}
         >
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-1">
+            {/* Кнопка "Назад" на мобильных */}
+            {isMobile && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  handleClose()
+                }}
+                className="px-2 py-1 font-bold text-xs mr-1 transition-all active:scale-95"
+                style={{
+                  background: "#FFD700",
+                  border: "2px solid #000000",
+                  color: "#000000",
+                  minWidth: "50px",
+                  minHeight: "32px",
+                }}
+                aria-label="Назад"
+              >
+                ← Назад
+              </button>
+            )}
             {(() => {
               const IconComponent = typeof icon === "string" && getPixelIcon(icon)
               return IconComponent ? (
