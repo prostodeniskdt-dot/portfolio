@@ -237,6 +237,7 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning, isMobile: 
         zIndex: isMobile ? 40 : 20,
         position: "fixed",
         height: "100vh",
+        width: isMobile ? "100%" : undefined,
         // На мобильных сайдбар всегда видим (не скрывается)
         visibility: isMobile ? "visible" : undefined,
       }}
@@ -245,11 +246,11 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning, isMobile: 
       <div 
         className="flex flex-col items-center py-6 px-4"
         style={{
-          width: isMobile ? (typeof window !== "undefined" && window.innerWidth < 375 ? '260px' : '280px') : '360px',
+          width: isMobile ? '100%' : '360px',
           background: '#000000',
-          borderRight: '3px solid #FFD700',
-          boxShadow: '4px 0 20px rgba(0, 0, 0, 0.5)',
-          maxWidth: isMobile ? '90vw' : undefined,
+          borderRight: isMobile ? 'none' : '3px solid #FFD700',
+          boxShadow: isMobile ? 'none' : '4px 0 20px rgba(0, 0, 0, 0.5)',
+          maxWidth: isMobile ? '100%' : undefined,
           height: '100%',
           overflowY: 'auto',
           WebkitOverflowScrolling: 'touch',
@@ -276,7 +277,7 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning, isMobile: 
               textShadow: "none",
             }}
           >
-            {isMobile ? "BAR BOSS" : "BAR BOSS ONLINE"}
+            BAR BOSS ONLINE
           </div>
         </div>
 
