@@ -644,3 +644,26 @@
 .clippy-pulse {
   animation: clippy-pulse 2s ease-in-out infinite;
 }
+
+/* Отключение анимаций на мобильных устройствах */
+@media (max-width: 767px) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+  }
+  
+  /* Исключения для критичных анимаций */
+  .animate-window-open {
+    animation-duration: 0.15s !important;
+  }
+  
+  /* Отключение эффектов для производительности */
+  .hover-lift:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
