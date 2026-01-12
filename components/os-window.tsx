@@ -46,13 +46,7 @@ export const OSWindow = memo(function OSWindow({
   const previousSize = useRef(defaultSize)
   const touchStartTime = useRef(0)
   const touchStartPos = useRef({ x: 0, y: 0 })
-  const swipeStartY = useRef<number | null>(null)
-  const swipeDistance = useRef<number>(0)
-  const [isSwipeClosing, setIsSwipeClosing] = useState(false)
   const windowRef = useRef<HTMLDivElement>(null)
-  const scrollableContentRef = useRef<HTMLElement | null>(null)
-  const touchStartScrollTop = useRef<number>(0)
-  const touchStartElement = useRef<HTMLElement | null>(null)
 
   // Minimum window size - адаптивные размеры для мобильных
   const MIN_WIDTH = 300
@@ -81,44 +75,15 @@ export const OSWindow = memo(function OSWindow({
     soundManager.playWindowOpen()
   }, [])
 
-  // Touch handlers for mobile - улучшенная обработка жестов
+  // Touch handlers for mobile
   const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     if (!isMobile) return
     
     const touch = e.touches[0]
     touchStartTime.current = Date.now()
     touchStartPos.current = { x: touch.clientX, y: touch.clientY }
-    swipeStartY.current = touch.clientY
-    swipeDistance.current = 0
-    setIsSwipeClosing(false)
     
-    // Определяем начальный элемент касания
-    touchStartElement.current = e.target as HTMLElement
-    
-    // Если это папка, проверяем scrollTop контента
-    if (isFolder && isMaximized) {
-      // Ищем скроллируемый контент внутри папки
-      const scrollableContent = windowRef.current?.querySelector('[style*="overflow-y"]') as HTMLElement
-      if (!scrollableContent) {
-        // Пробуем найти через ref или другие селекторы
-        const contentDiv = windowRef.current?.querySelector('div[class*="flex-1"]') as HTMLElement
-        if (contentDiv && (contentDiv.scrollHeight > contentDiv.clientHeight)) {
-          scrollableContentRef.current = contentDiv
-          touchStartScrollTop.current = contentDiv.scrollTop || 0
-        } else {
-          scrollableContentRef.current = null
-          touchStartScrollTop.current = 0
-        }
-      } else {
-        scrollableContentRef.current = scrollableContent
-        touchStartScrollTop.current = scrollableContent.scrollTop || 0
-      }
-    } else {
-      scrollableContentRef.current = null
-      touchStartScrollTop.current = 0
-    }
-    
-    // Если окно максимизировано, обрабатываем только свайп для закрытия
+    // Если окно максимизировано, не обрабатываем перетаскивание
     if (isMaximized) {
       onFocus()
       return
@@ -136,67 +101,11 @@ export const OSWindow = memo(function OSWindow({
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
     if (!isMobile) return
     
-    const touch = e.touches[0]
-    
-    // Если окно максимизировано, обрабатываем свайп для закрытия с умной проверкой
-    if (isMaximized && swipeStartY.current !== null) {
-      const deltaY = touch.clientY - swipeStartY.current
-      
-      // Умное определение: проверяем, можно ли закрывать
-      let canSwipeClose = false
-      
-      // 1. Если свайп начинается в заголовке - всегда можно закрывать
-      const titleBar = windowRef.current?.querySelector('[role="button"][aria-label*="Окно"]') as HTMLElement
-      const isTouchInTitleBar = titleBar && (
-        touchStartElement.current?.closest('[role="button"][aria-label*="Окно"]') === titleBar ||
-        (touch.clientY - (titleBar.getBoundingClientRect().top + titleBar.offsetHeight)) < 0
-      )
-      
-      if (isTouchInTitleBar) {
-        canSwipeClose = true
-      } else if (isFolder && scrollableContentRef.current) {
-        // 2. Для папок: проверяем scrollTop
-        const currentScrollTop = scrollableContentRef.current.scrollTop
-        const scrollHeight = scrollableContentRef.current.scrollHeight
-        const clientHeight = scrollableContentRef.current.clientHeight
-        const isScrollable = scrollHeight > clientHeight
-        
-        // Закрываем только если:
-        // - контент в начале (scrollTop === 0) И свайп вниз
-        // - или контент не прокручивается
-        if (!isScrollable || (currentScrollTop === 0 && deltaY > 0)) {
-          canSwipeClose = true
-        }
-      } else {
-        // 3. Для других окон - всегда можно закрывать
-        canSwipeClose = true
-      }
-      
-      if (canSwipeClose) {
-        swipeDistance.current = deltaY
-        
-        // Если свайп вниз больше 50px или вверх больше 100px
-        if (deltaY > 50 || deltaY < -100) {
-          setIsSwipeClosing(true)
-          // Визуальная обратная связь - затемнение и сдвиг окна
-          if (windowRef.current) {
-            const opacity = Math.max(0.3, 1 - Math.abs(deltaY) / 400)
-            const transform = `translateY(${deltaY}px)`
-            windowRef.current.style.opacity = String(opacity)
-            windowRef.current.style.transform = transform
-          }
-        }
-        e.preventDefault()
-        return
-      }
-      // Если нельзя закрывать, позволяем скролл работать нормально
-      return
-    }
-    
-    // Если не максимизировано и не перетаскиваем, выходим
-    if (!isDragging || isMaximized) return
+    // Если максимизировано, не обрабатываем перемещение
+    if (isMaximized || !isDragging) return
     
     e.preventDefault()
+    const touch = e.touches[0]
     const newX = touch.clientX - dragOffset.current.x
     const newY = touch.clientY - dragOffset.current.y
 
@@ -215,58 +124,6 @@ export const OSWindow = memo(function OSWindow({
   const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
     if (!isMobile) return
     
-    // Обработка свайпа для закрытия
-    if (isMaximized && swipeStartY.current !== null) {
-      const touch = e.changedTouches[0]
-      const finalDeltaY = touch.clientY - swipeStartY.current
-      const timeDiff = Date.now() - touchStartTime.current
-      const swipeSpeed = timeDiff > 0 ? Math.abs(finalDeltaY) / timeDiff : 0
-      
-      // Проверяем, можно ли закрывать (та же логика что в handleTouchMove)
-      let canSwipeClose = false
-      
-      const titleBar = windowRef.current?.querySelector('[role="button"][aria-label*="Окно"]') as HTMLElement
-      const isTouchInTitleBar = titleBar && (
-        touchStartElement.current?.closest('[role="button"][aria-label*="Окно"]') === titleBar ||
-        (touch.clientY - (titleBar.getBoundingClientRect().top + titleBar.offsetHeight)) < 0
-      )
-      
-      if (isTouchInTitleBar) {
-        canSwipeClose = true
-      } else if (isFolder && scrollableContentRef.current) {
-        const currentScrollTop = scrollableContentRef.current.scrollTop
-        const scrollHeight = scrollableContentRef.current.scrollHeight
-        const clientHeight = scrollableContentRef.current.clientHeight
-        const isScrollable = scrollHeight > clientHeight
-        
-        if (!isScrollable || (currentScrollTop === 0 && finalDeltaY > 0)) {
-          canSwipeClose = true
-        }
-      } else {
-        canSwipeClose = true
-      }
-      
-      // Закрываем только если разрешено
-      if (canSwipeClose && (finalDeltaY > 100 || finalDeltaY < -150 || swipeSpeed > 0.5)) {
-        handleClose()
-        scrollableContentRef.current = null
-        touchStartElement.current = null
-        return
-      }
-      
-      // Возвращаем окно на место
-      setIsSwipeClosing(false)
-      if (windowRef.current) {
-        windowRef.current.style.opacity = "1"
-        windowRef.current.style.transform = "translateY(0)"
-      }
-      swipeStartY.current = null
-      swipeDistance.current = 0
-      scrollableContentRef.current = null
-      touchStartElement.current = null
-      return
-    }
-    
     // Проверка на двойное касание для максимизации (только если не максимизировано)
     if (!isMaximized) {
       const touchEndTime = Date.now()
@@ -284,10 +141,6 @@ export const OSWindow = memo(function OSWindow({
       }
     }
     
-    swipeStartY.current = null
-    swipeDistance.current = 0
-    scrollableContentRef.current = null
-    touchStartElement.current = null
     setIsDragging(false)
   }
 
@@ -452,7 +305,7 @@ export const OSWindow = memo(function OSWindow({
           minWidth: isMobile ? "100vw" : MIN_WIDTH,
           minHeight: isMobile ? "100vh" : MIN_HEIGHT,
           zIndex,
-          transition: isSwipeClosing ? "none" : (isMaximized || isMobile ? "all 0.25s ease-out" : isResizing ? undefined : "none"),
+          transition: isMaximized || isMobile ? "all 0.25s ease-out" : isResizing ? undefined : "none",
           maxWidth: isMobile ? "100vw" : undefined,
           maxHeight: isMobile ? "100vh" : undefined,
           touchAction: isMobile ? (isMaximized ? "pan-y" : "auto") : "auto",
@@ -461,13 +314,7 @@ export const OSWindow = memo(function OSWindow({
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
-      onTouchStart={(e) => {
-        // Не обрабатываем свайп если клик на интерактивном элементе
-        const target = e.target as HTMLElement
-        if (!target.closest('button') && !target.closest('a') && !target.closest('input')) {
-          handleTouchStart(e)
-        }
-      }}
+      onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
       onKeyDown={(e) => {
