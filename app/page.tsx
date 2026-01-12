@@ -2,6 +2,7 @@
 
 import { useMemo, useCallback, useState, useEffect, Suspense } from "react"
 import { Desktop } from "@/components/desktop"
+import { MobileWindows } from "@/components/mobile-windows"
 import { Taskbar } from "@/components/taskbar"
 import { RetroBackground } from "@/components/retro-background"
 import { SidebarNavigation } from "@/components/sidebar-navigation"
@@ -168,41 +169,9 @@ export default function Home() {
     <div className="relative h-screen w-screen overflow-hidden" style={{ position: "relative" }}>
       <RetroBackground isAnimated={isMobile ? false : isBackgroundAnimated} isMobile={isMobile} />
       <div className="relative flex h-full flex-col" style={{ zIndex: 10 }}>
-        {/* Кнопка для открытия sidebar на мобильных - показывается только когда сайдбар закрыт */}
-        {isMobile && !sidebarOpen && (
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="fixed top-3 left-3 p-2.5 bg-black border-2 border-[#FFD700] text-[#FFD700] font-bold transition-all active:bg-[#FFD700] active:text-black shadow-lg"
-            aria-label="Открыть меню"
-            style={{
-              minWidth: "48px",
-              minHeight: "48px",
-              fontSize: "20px",
-              borderRadius: "4px",
-              zIndex: 50,
-            }}
-          >
-            ☰
-          </button>
-        )}
-        {/* Overlay для закрытия sidebar на мобильных */}
-        {isMobile && sidebarOpen && (
-          <div
-            className="fixed inset-0 bg-black/60"
-            onClick={() => setSidebarOpen(false)}
-            aria-hidden="true"
-            style={{ 
-              backdropFilter: "blur(2px)",
-              zIndex: 35,
-            }}
-          />
-        )}
         <SidebarNavigation 
           onItemClick={(itemId) => {
             handleSidebarClick(itemId)
-            if (isMobile) {
-              setSidebarOpen(false)
-            }
           }}
           onShowDeleteWarning={() => setShowDeleteWarning(true)}
           isMobile={isMobile}
@@ -225,6 +194,17 @@ export default function Home() {
               onProductClick={handleOpenProduct}
             />
           </Suspense>
+        )}
+        {isMobile && (
+          <MobileWindows
+            openWindows={openWindows}
+            activeWindow={activeWindow}
+            minimizedWindows={minimizedWindows}
+            onClose={closeWindow}
+            onFocus={bringToFront}
+            onMinimize={minimizeWindow}
+            onProductClick={handleOpenProduct}
+          />
         )}
         <Taskbar
           onItemClick={(itemId: string) => {
