@@ -576,7 +576,7 @@ export function StandalonePlayer({ onClose, defaultPosition = { x: 100, y: 100 }
           background: "linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%)",
         }}
       >
-        <span style={{ color: "#FFD700", fontSize: "10px", fontWeight: "bold", paddingLeft: "8px" }}>
+        <span style={{ color: "#FFD700", fontSize: isMobile ? "11px" : "10px", fontWeight: "bold", paddingLeft: "8px" }}>
           PLAYLIST
         </span>
         <div style={{ flex: 1, height: "1px", background: "#444" }} />
