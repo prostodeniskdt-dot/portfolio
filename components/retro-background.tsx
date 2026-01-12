@@ -4,9 +4,10 @@ import { useState, useEffect, useRef } from "react"
 
 interface RetroBackgroundProps {
   isAnimated?: boolean
+  isMobile?: boolean
 }
 
-export function RetroBackground({ isAnimated = false }: RetroBackgroundProps) {
+export function RetroBackground({ isAnimated = false, isMobile = false }: RetroBackgroundProps) {
   const [showVideo, setShowVideo] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
 
@@ -54,39 +55,43 @@ export function RetroBackground({ isAnimated = false }: RetroBackgroundProps) {
 
   return (
     <div className="absolute inset-0 overflow-hidden">
-      {/* Изображение (первый кадр видео) */}
-      <img
-        src="/background.jpg"
-        alt="Background"
-        className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
-        style={{ 
-          imageRendering: "crisp-edges",
-          opacity: showVideo ? 0 : 1,
-          pointerEvents: showVideo ? "none" : "auto"
-        }}
-      />
+      {/* Изображение (первый кадр видео) - скрыто на мобильных */}
+      {!isMobile && (
+        <img
+          src="/background.jpg"
+          alt="Background"
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
+          style={{ 
+            imageRendering: "crisp-edges",
+            opacity: showVideo ? 0 : 1,
+            pointerEvents: showVideo ? "none" : "auto"
+          }}
+        />
+      )}
       
-      {/* Видео - всегда рендерим, но скрываем когда не нужно */}
-      <video
-        ref={videoRef}
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
-        className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
-        style={{ 
-          imageRendering: "crisp-edges",
-          opacity: showVideo ? 1 : 0,
-          pointerEvents: showVideo ? "auto" : "none",
-          display: showVideo ? "block" : "none"
-        }}
-      >
-        <source src="/background.mp4" type="video/mp4" />
-        <source src="/background.webm" type="video/webm" />
-        {/* Fallback сообщение */}
-        Ваш браузер не поддерживает видео.
-      </video>
+      {/* Видео - скрыто на мобильных */}
+      {!isMobile && (
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
+          style={{ 
+            imageRendering: "crisp-edges",
+            opacity: showVideo ? 1 : 0,
+            pointerEvents: showVideo ? "auto" : "none",
+            display: showVideo ? "block" : "none"
+          }}
+        >
+          <source src="/background.mp4" type="video/mp4" />
+          <source src="/background.webm" type="video/webm" />
+          {/* Fallback сообщение */}
+          Ваш браузер не поддерживает видео.
+        </video>
+      )}
       
       {/* Затемняющий оверлей для улучшения читаемости интерфейса */}
       <div
