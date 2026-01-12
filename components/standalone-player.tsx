@@ -19,8 +19,18 @@ interface StandalonePlayerProps {
 }
 
 export function StandalonePlayer({ onClose, defaultPosition = { x: 100, y: 100 } }: StandalonePlayerProps) {
-  const [position, setPosition] = useState(defaultPosition)
+  const [position, setPosition] = useState(() => {
+    if (typeof window !== "undefined") {
+      const isMobileDevice = window.innerWidth < 768
+      if (isMobileDevice) {
+        // Центрируем снизу на мобильных
+        return { x: window.innerWidth / 2 - 200, y: window.innerHeight - 250 }
+      }
+    }
+    return defaultPosition
+  })
   const [isDragging, setIsDragging] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const dragOffset = useRef({ x: 0, y: 0 })
   const playerRef = useRef<HTMLDivElement>(null)
 
@@ -38,8 +48,21 @@ export function StandalonePlayer({ onClose, defaultPosition = { x: 100, y: 100 }
     soundManager.playWindowOpen()
   }, [])
 
+  // Определение мобильного устройства
+  useEffect(() => {
+    const checkMobile = () => {
+      const isMobileDevice = window.innerWidth < 768 || 
+        ('ontouchstart' in window || navigator.maxTouchPoints > 0)
+      setIsMobile(isMobileDevice)
+    }
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
+
   // Drag handlers
   const handleHeaderMouseDown = (e: MouseEvent<HTMLDivElement>) => {
+    if (isMobile) return // Отключаем перетаскивание на мобильных
     if (e.button !== 0) return
     e.preventDefault()
     e.stopPropagation()
@@ -86,7 +109,7 @@ export function StandalonePlayer({ onClose, defaultPosition = { x: 100, y: 100 }
       window.removeEventListener("mousemove", handleMouseMove as any)
       window.removeEventListener("mouseup", handleMouseUp)
     }
-  }, [isDragging])
+  }, [isDragging, isMobile])
 
   // Audio handlers
   useEffect(() => {
@@ -195,14 +218,19 @@ export function StandalonePlayer({ onClose, defaultPosition = { x: 100, y: 100 }
 
   const progressPercent = duration ? (currentTime / duration) * 100 : 0
 
+  const buttonSize = isMobile ? { width: "44px", height: "44px", fontSize: "16px" } : { width: "32px", height: "24px", fontSize: "10px" }
+
   return (
     <div
       ref={playerRef}
       className="fixed select-none"
       style={{
-        left: `${position.x}px`,
-        top: `${position.y}px`,
-        width: "400px",
+        left: isMobile ? "50%" : `${position.x}px`,
+        top: isMobile ? "auto" : `${position.y}px`,
+        bottom: isMobile ? "20px" : "auto",
+        transform: isMobile ? "translateX(-50%)" : "none",
+        width: isMobile ? "calc(100vw - 20px)" : "400px",
+        maxWidth: isMobile ? "400px" : undefined,
         zIndex: 1000,
         background: "linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 50%, #0d0d0d 100%)",
         fontFamily: "'Arial', sans-serif",
@@ -215,16 +243,16 @@ export function StandalonePlayer({ onClose, defaultPosition = { x: 100, y: 100 }
 
       {/* Winamp Header with drag and close */}
       <div
-        className="px-3 py-1 flex items-center justify-between cursor-move"
+        className={`px-3 py-1 flex items-center justify-between ${isMobile ? "" : "cursor-move"}`}
         style={{
           background: "linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 100%)",
           borderBottom: "1px solid #FFD700",
         }}
-        onMouseDown={handleHeaderMouseDown}
+        onMouseDown={isMobile ? undefined : handleHeaderMouseDown}
       >
         <div className="flex items-center gap-2">
           <span style={{ color: "#FFD700", fontSize: "10px", fontWeight: "bold" }}>⚡</span>
-          <span style={{ color: "#FFD700", fontSize: "11px", fontWeight: "bold", letterSpacing: "1px" }}>
+          <span style={{ color: "#FFD700", fontSize: isMobile ? "14px" : "11px", fontWeight: "bold", letterSpacing: "1px" }}>
             BAR BOSS PLAYER
           </span>
         </div>
@@ -244,7 +272,7 @@ export function StandalonePlayer({ onClose, defaultPosition = { x: 100, y: 100 }
 
       {/* LED Display */}
       <div
-        className="mx-2 mt-2 p-3"
+        className={`mx-2 mt-2 ${isMobile ? "p-2" : "p-3"}`}
         style={{
           background: "linear-gradient(180deg, #0a0a0a 0%, #1a1a0a 50%, #0a0a0a 100%)",
           border: "2px solid #333",
@@ -269,7 +297,7 @@ export function StandalonePlayer({ onClose, defaultPosition = { x: 100, y: 100 }
             <span
               style={{
                 fontFamily: "'Courier New', monospace",
-                fontSize: "28px",
+                fontSize: isMobile ? "24px" : "28px",
                 fontWeight: "bold",
                 color: "#00FF00",
                 textShadow: "0 0 10px #00FF00, 0 0 20px #00FF00",
@@ -279,10 +307,12 @@ export function StandalonePlayer({ onClose, defaultPosition = { x: 100, y: 100 }
               {formatTime(currentTime)}
             </span>
           </div>
-          <div className="text-right" style={{ color: "#888", fontSize: "10px" }}>
-            <div>kbps: 320</div>
-            <div>khz: 44</div>
-          </div>
+          {!isMobile && (
+            <div className="text-right" style={{ color: "#888", fontSize: "10px" }}>
+              <div>kbps: 320</div>
+              <div>khz: 44</div>
+            </div>
+          )}
         </div>
 
         {/* Track Name Marquee */}
@@ -312,7 +342,7 @@ export function StandalonePlayer({ onClose, defaultPosition = { x: 100, y: 100 }
         <div
           className="relative cursor-pointer"
           style={{
-            height: "12px",
+            height: isMobile ? "16px" : "12px",
             background: "linear-gradient(180deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%)",
             border: "1px solid #444",
             borderRadius: "2px",
@@ -338,8 +368,8 @@ export function StandalonePlayer({ onClose, defaultPosition = { x: 100, y: 100 }
               left: `${progressPercent}%`,
               top: "50%",
               transform: "translate(-50%, -50%)",
-              width: "8px",
-              height: "14px",
+              width: isMobile ? "12px" : "8px",
+              height: isMobile ? "18px" : "14px",
               background: "linear-gradient(180deg, #666 0%, #444 50%, #333 100%)",
               border: "1px solid #888",
               borderRadius: "2px",
@@ -348,27 +378,27 @@ export function StandalonePlayer({ onClose, defaultPosition = { x: 100, y: 100 }
         </div>
 
         {/* Time Labels */}
-        <div className="flex justify-between mt-1" style={{ color: "#888", fontSize: "10px" }}>
+        <div className="flex justify-between mt-1" style={{ color: "#888", fontSize: isMobile ? "9px" : "10px" }}>
           <span>{formatTime(currentTime)}</span>
           <span>{formatTime(duration)}</span>
         </div>
       </div>
 
       {/* Control Buttons */}
-      <div className="flex items-center justify-between px-3 py-2">
-        <div className="flex gap-1">
+      <div className={`flex items-center justify-between ${isMobile ? "px-2 py-2" : "px-3 py-2"}`}>
+        <div className={`flex ${isMobile ? "gap-2" : "gap-1"}`}>
           {/* Previous */}
           <button
             onClick={handlePrevious}
             className="transition-all active:scale-95"
             style={{
-              width: "32px",
-              height: "24px",
+              width: buttonSize.width,
+              height: buttonSize.height,
               background: "linear-gradient(180deg, #4a4a4a 0%, #3a3a3a 50%, #2a2a2a 100%)",
               border: "1px solid #666",
               borderRadius: "3px",
               color: "#FFD700",
-              fontSize: "10px",
+              fontSize: buttonSize.fontSize,
               boxShadow: "0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)",
             }}
             onMouseDown={(e) => {
@@ -389,15 +419,15 @@ export function StandalonePlayer({ onClose, defaultPosition = { x: 100, y: 100 }
             onClick={handlePlay}
             className="transition-all active:scale-95"
             style={{
-              width: "32px",
-              height: "24px",
+              width: buttonSize.width,
+              height: buttonSize.height,
               background: isPlaying
                 ? "linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 50%, #1a1a1a 100%)"
                 : "linear-gradient(180deg, #4a4a4a 0%, #3a3a3a 50%, #2a2a2a 100%)",
               border: "1px solid #666",
               borderRadius: "3px",
               color: isPlaying ? "#00FF00" : "#FFD700",
-              fontSize: "10px",
+              fontSize: buttonSize.fontSize,
               boxShadow: isPlaying
                 ? "inset 0 2px 4px rgba(0,0,0,0.8)"
                 : "0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)",
@@ -411,13 +441,13 @@ export function StandalonePlayer({ onClose, defaultPosition = { x: 100, y: 100 }
             onClick={handlePause}
             className="transition-all active:scale-95"
             style={{
-              width: "32px",
-              height: "24px",
+              width: buttonSize.width,
+              height: buttonSize.height,
               background: "linear-gradient(180deg, #4a4a4a 0%, #3a3a3a 50%, #2a2a2a 100%)",
               border: "1px solid #666",
               borderRadius: "3px",
               color: "#FFD700",
-              fontSize: "10px",
+              fontSize: buttonSize.fontSize,
               boxShadow: "0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)",
             }}
             onMouseDown={(e) => {
@@ -438,13 +468,13 @@ export function StandalonePlayer({ onClose, defaultPosition = { x: 100, y: 100 }
             onClick={handleStop}
             className="transition-all active:scale-95"
             style={{
-              width: "32px",
-              height: "24px",
+              width: buttonSize.width,
+              height: buttonSize.height,
               background: "linear-gradient(180deg, #4a4a4a 0%, #3a3a3a 50%, #2a2a2a 100%)",
               border: "1px solid #666",
               borderRadius: "3px",
               color: "#FFD700",
-              fontSize: "10px",
+              fontSize: buttonSize.fontSize,
               boxShadow: "0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)",
             }}
             onMouseDown={(e) => {
@@ -465,13 +495,13 @@ export function StandalonePlayer({ onClose, defaultPosition = { x: 100, y: 100 }
             onClick={handleNext}
             className="transition-all active:scale-95"
             style={{
-              width: "32px",
-              height: "24px",
+              width: buttonSize.width,
+              height: buttonSize.height,
               background: "linear-gradient(180deg, #4a4a4a 0%, #3a3a3a 50%, #2a2a2a 100%)",
               border: "1px solid #666",
               borderRadius: "3px",
               color: "#FFD700",
-              fontSize: "10px",
+              fontSize: buttonSize.fontSize,
               boxShadow: "0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)",
             }}
             onMouseDown={(e) => {
@@ -490,14 +520,14 @@ export function StandalonePlayer({ onClose, defaultPosition = { x: 100, y: 100 }
 
         {/* Volume Control */}
         <div className="flex items-center gap-2">
-          <span style={{ color: "#FFD700", fontSize: "12px" }}>
+          <span style={{ color: "#FFD700", fontSize: isMobile ? "14px" : "12px" }}>
             {volume === 0 ? "🔇" : volume < 0.5 ? "🔉" : "🔊"}
           </span>
           <div
             className="relative cursor-pointer"
             style={{
-              width: "80px",
-              height: "8px",
+              width: isMobile ? "100px" : "80px",
+              height: isMobile ? "12px" : "8px",
               background: "linear-gradient(180deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%)",
               border: "1px solid #444",
               borderRadius: "2px",
@@ -526,8 +556,8 @@ export function StandalonePlayer({ onClose, defaultPosition = { x: 100, y: 100 }
                 left: `${volume * 100}%`,
                 top: "50%",
                 transform: "translate(-50%, -50%)",
-                width: "6px",
-                height: "10px",
+                width: isMobile ? "10px" : "6px",
+                height: isMobile ? "14px" : "10px",
                 background: "linear-gradient(180deg, #666 0%, #444 50%, #333 100%)",
                 border: "1px solid #888",
                 borderRadius: "2px",
@@ -559,7 +589,7 @@ export function StandalonePlayer({ onClose, defaultPosition = { x: 100, y: 100 }
           background: "#0a0a0a",
           border: "1px solid #333",
           borderRadius: "2px",
-          maxHeight: "150px",
+          maxHeight: isMobile ? "120px" : "150px",
           overflowY: "auto",
         }}
       >
@@ -582,7 +612,7 @@ export function StandalonePlayer({ onClose, defaultPosition = { x: 100, y: 100 }
               background: index === currentTrackIndex 
                 ? "linear-gradient(90deg, rgba(255,215,0,0.2) 0%, rgba(255,215,0,0.1) 100%)" 
                 : "transparent",
-              fontSize: "11px",
+              fontSize: isMobile ? "10px" : "11px",
               fontFamily: "'Arial', sans-serif",
               borderBottom: "1px solid #1a1a1a",
             }}
