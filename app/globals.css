@@ -666,4 +666,101 @@
     transform: none;
     box-shadow: none;
   }
+
+  /* Адаптация шрифтов для мобильных устройств */
+  /* Основной текст - уменьшаем с text-sm (14px) на 12px и text-xs (12px) на 10px */
+  [data-barboss-window="true"] .text-sm {
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+  }
+
+  [data-barboss-window="true"] .text-xs {
+    font-size: 10px !important;
+    line-height: 1.3 !important;
+  }
+
+  /* Заголовки - уменьшаем пропорционально */
+  [data-barboss-window="true"] .text-xl {
+    font-size: 16px !important;
+    line-height: 1.3 !important;
+  }
+
+  [data-barboss-window="true"] h2.text-xl {
+    font-size: 18px !important;
+    line-height: 1.2 !important;
+  }
+
+  [data-barboss-window="true"] h3 {
+    font-size: 13px !important;
+    line-height: 1.3 !important;
+  }
+
+  [data-barboss-window="true"] h4 {
+    font-size: 11px !important;
+    line-height: 1.3 !important;
+  }
+
+  /* Улучшаем перенос длинных слов */
+  [data-barboss-window="true"] {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+
+  /* Специфичные стили для текстового контента */
+  [data-barboss-window="true"] p,
+  [data-barboss-window="true"] span,
+  [data-barboss-window="true"] div {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+  }
+
+  /* Улучшаем читаемость маленьких текстов */
+  [data-barboss-window="true"] .leading-relaxed {
+    line-height: 1.5 !important;
+  }
+
+  /* Адаптация кнопок */
+  [data-barboss-window="true"] button,
+  [data-barboss-window="true"] a {
+    font-size: 10px !important;
+    padding: 6px 12px !important;
+  }
+
+  [data-barboss-window="true"] .px-3 {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+
+  [data-barboss-window="true"] .py-2 {
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+  }
+
+  /* Адаптация padding для лучшего использования пространства */
+  [data-barboss-window="true"] .p-3 {
+    padding: 10px !important;
+  }
+
+  [data-barboss-window="true"] .p-4 {
+    padding: 12px !important;
+  }
+
+  /* Уменьшаем gaps */
+  [data-barboss-window="true"] .gap-4 {
+    gap: 12px !important;
+  }
+
+  [data-barboss-window="true"] .gap-3 {
+    gap: 10px !important;
+  }
+
+  [data-barboss-window="true"] .space-y-4 > * + * {
+    margin-top: 12px !important;
+  }
+
+  [data-barboss-window="true"] .space-y-3 > * + * {
+    margin-top: 10px !important;
+  }
 }
