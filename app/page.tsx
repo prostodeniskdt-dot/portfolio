@@ -21,6 +21,14 @@ export default function Home() {
   const [isPlayerOpen, setIsPlayerOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  
+  // Сайдбар открыт по умолчанию на мобильных
+  useEffect(() => {
+    if (isMobile) {
+      setSidebarOpen(true)
+    }
+  }, [isMobile])
+  
   const {
     openWindows,
     activeWindow,
@@ -158,10 +166,10 @@ export default function Home() {
 
   return (
     <div className="relative h-screen w-screen overflow-hidden" style={{ position: "relative" }}>
-      <RetroBackground isAnimated={isBackgroundAnimated} />
+      <RetroBackground isAnimated={isMobile ? false : isBackgroundAnimated} isMobile={isMobile} />
       <div className="relative flex h-full flex-col" style={{ zIndex: 10 }}>
-        {/* Кнопка для открытия sidebar на мобильных */}
-        {isMobile && (
+        {/* Кнопка для открытия sidebar на мобильных - показывается только когда сайдбар закрыт */}
+        {isMobile && !sidebarOpen && (
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
             className="fixed top-3 left-3 p-2.5 bg-black border-2 border-[#FFD700] text-[#FFD700] font-bold transition-all active:bg-[#FFD700] active:text-black shadow-lg"
@@ -204,18 +212,20 @@ export default function Home() {
           isOpen={showDeleteWarning} 
           onClose={() => setShowDeleteWarning(false)} 
         />
-        <Suspense fallback={<WindowSkeleton />}>
-        <Desktop
-          openWindows={visibleWindows}
-          activeWindow={activeWindow}
-          onClose={closeWindow}
-          onFocus={bringToFront}
-          onIconClick={handleIconClick}
-          onMinimize={minimizeWindow}
-          onFolderClick={handleOpenFolder}
-          onProductClick={handleOpenProduct}
-        />
-        </Suspense>
+        {!isMobile && (
+          <Suspense fallback={<WindowSkeleton />}>
+            <Desktop
+              openWindows={visibleWindows}
+              activeWindow={activeWindow}
+              onClose={closeWindow}
+              onFocus={bringToFront}
+              onIconClick={handleIconClick}
+              onMinimize={minimizeWindow}
+              onFolderClick={handleOpenFolder}
+              onProductClick={handleOpenProduct}
+            />
+          </Suspense>
+        )}
         <Taskbar
           onItemClick={(itemId: string) => {
             if (itemId === "player") {
