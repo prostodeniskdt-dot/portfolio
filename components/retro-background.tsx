@@ -54,7 +54,10 @@ export function RetroBackground({ isAnimated = false, isMobile = false }: RetroB
   }, [showVideo])
 
   return (
-    <div className="absolute inset-0 overflow-hidden">
+    <div 
+      className="absolute inset-0 overflow-hidden"
+      style={isMobile ? { background: "#000000" } : {}}
+    >
       {/* Изображение (первый кадр видео) - скрыто на мобильных */}
       {!isMobile && (
         <img
