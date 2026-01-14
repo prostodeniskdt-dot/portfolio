@@ -3,6 +3,7 @@
 import { products, contests, partners, legalDocuments } from "@/lib/data"
 import { toast } from "sonner"
 import { TELEGRAM_LEAD_URL } from "@/lib/links"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 interface ProductWindowProps {
   productId: string
@@ -21,6 +22,7 @@ function renderMarkdown(text: string) {
 }
 
 export function ProductWindow({ productId }: ProductWindowProps) {
+  const isMobile = useIsMobile()
   // Ищем во всех массивах
   const product = products.find((p) => p.id === productId)
   const contest = contests.find((c) => c.id === productId)
@@ -55,9 +57,9 @@ export function ProductWindow({ productId }: ProductWindowProps) {
           border: "2px solid #000000",
         }}
       >
-        <span className="text-4xl">{item.icon}</span>
+        <span className={isMobile ? "text-3xl" : "text-4xl"}>{item.icon}</span>
         <div className="flex-1">
-          <h2 className="text-xl font-bold text-black">{item.title}</h2>
+          <h2 className={`${isMobile ? "text-lg" : "text-xl"} font-bold text-black`}>{item.title}</h2>
           <p className="text-xs text-[#666666]">{item.category}</p>
         </div>
       </div>
@@ -116,6 +118,28 @@ export function ProductWindow({ productId }: ProductWindowProps) {
               <p className="text-xs leading-relaxed">{item.fullDescription}</p>
             )}
           </div>
+
+          {/* Изображение статистики для Telegram каналов */}
+          {itemType === 'product' && (productId === 'ad-telegram-barboss' || productId === 'ad-telegram-otomosom') && (
+            <div className="w-full">
+              <img
+                src={productId === 'ad-telegram-barboss' 
+                  ? "/images/stats/telegram-barboss-stats.jpg"
+                  : "/images/stats/telegram-otomosom-stats.jpg"
+                }
+                alt={productId === 'ad-telegram-barboss'
+                  ? "Статистика Telegram BAR BOSS ONLINE"
+                  : "Статистика Telegram О том о сём"
+                }
+                className="w-full h-auto"
+                style={{
+                  border: "2px solid #000000",
+                  maxWidth: "100%",
+                  objectFit: "contain",
+                }}
+              />
+            </div>
+          )}
 
           {/* Видеообзоры для пакетов документов */}
           {itemType === 'product' && 'videoReviewLink' in item && item.videoReviewLink && (
