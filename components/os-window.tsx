@@ -404,7 +404,7 @@ export const OSWindow = memo(function OSWindow({
             <button
               onClick={handleMinimize}
               aria-label="Свернуть окно"
-              className={`${isMobile ? "w-10 h-10 text-base" : "w-5 h-5 text-xs"} flex items-center justify-center font-bold transition-all duration-150 ${isMobile ? "active:scale-95" : "hover:scale-110 hover:bg-[#FFD700] hover:text-black"}`}
+              className={`${isMobile ? "w-10 h-10 text-2xl" : "w-5 h-5 text-xs"} flex items-center justify-center font-bold transition-all duration-150 ${isMobile ? "active:scale-95" : "hover:scale-110 hover:bg-[#FFD700] hover:text-black"}`}
               style={{
                 minWidth: isMobile ? "44px" : undefined,
                 minHeight: isMobile ? "44px" : undefined,
@@ -431,20 +431,20 @@ export const OSWindow = memo(function OSWindow({
               }}
             >
               {isMaximized ? (
-                <div className="relative w-3 h-2.5">
+                <div className={`relative ${isMobile ? "w-5 h-4" : "w-3 h-2.5"}`}>
                   <div
-                    className="absolute top-0 right-0 w-2 h-2 border-2 border-[#FFD700] group-hover:border-black"
-                    style={{ borderTopWidth: "3px" }}
+                    className={`absolute top-0 right-0 ${isMobile ? "w-3 h-3 border-2" : "w-2 h-2 border-2"} border-[#FFD700] group-hover:border-black`}
+                    style={{ borderTopWidth: isMobile ? "4px" : "3px" }}
                   />
                   <div
-                    className="absolute bottom-0 left-0 w-2 h-2 border-2 border-[#FFD700] group-hover:border-black bg-black group-hover:bg-[#FFD700]"
-                    style={{ borderTopWidth: "3px" }}
+                    className={`absolute bottom-0 left-0 ${isMobile ? "w-3 h-3 border-2" : "w-2 h-2 border-2"} border-[#FFD700] group-hover:border-black bg-black group-hover:bg-[#FFD700]`}
+                    style={{ borderTopWidth: isMobile ? "4px" : "3px" }}
                   />
                 </div>
               ) : (
                 <div
-                  className="w-3 h-2.5 border-2 border-[#FFD700] group-hover:border-black"
-                  style={{ borderTopWidth: "3px" }}
+                  className={`${isMobile ? "w-5 h-4 border-2" : "w-3 h-2.5 border-2"} border-[#FFD700] group-hover:border-black`}
+                  style={{ borderTopWidth: isMobile ? "4px" : "3px" }}
                 />
               )}
             </button>
@@ -455,7 +455,7 @@ export const OSWindow = memo(function OSWindow({
                 handleClose()
               }}
               aria-label="Закрыть окно"
-              className={`${isMobile ? "w-9 h-9 text-base" : "w-5 h-5 text-sm"} flex items-center justify-center font-bold transition-all duration-150 ${isMobile ? "active:scale-95 active:bg-red-600 active:text-white" : "hover:scale-110 hover:bg-red-600 hover:text-white"}`}
+              className={`${isMobile ? "w-9 h-9 text-2xl" : "w-5 h-5 text-sm"} flex items-center justify-center font-bold transition-all duration-150 ${isMobile ? "active:scale-95 active:bg-red-600 active:text-white" : "hover:scale-110 hover:bg-red-600 hover:text-white"}`}
               style={{
                 minWidth: isMobile ? "36px" : undefined,
                 minHeight: isMobile ? "36px" : undefined,
