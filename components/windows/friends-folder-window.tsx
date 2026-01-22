@@ -208,8 +208,6 @@ export function FriendsFolderWindow({
                     }}
                     className="flex flex-col items-center gap-2 p-2 sm:p-3 cursor-pointer transition-colors hover:bg-[#FFD700] group"
                     style={{
-                      background: "#ffffff",
-                      border: "2px solid #000000",
                       minHeight: isMobile ? "120px" : "140px",
                       touchAction: "manipulation",
                     }}
@@ -262,8 +260,6 @@ export function FriendsFolderWindow({
                     }}
                     className="flex flex-col items-center gap-2 p-2 sm:p-3 cursor-pointer transition-colors hover:bg-[#FFD700] group"
                     style={{
-                      background: "#ffffff",
-                      border: "2px solid #000000",
                       minHeight: isMobile ? "120px" : "140px",
                       touchAction: "manipulation",
                     }}
