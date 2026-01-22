@@ -61,16 +61,18 @@ export function FriendsFolderWindow({
     
     if (currentSubfolder) {
       // Фильтруем файлы
-      return items.filter(
-        (item: FriendFile) =>
+      const files = items as FriendFile[]
+      return files.filter(
+        (item) =>
           item.name.toLowerCase().includes(query)
-      ) as typeof items
+      )
     } else {
       // Фильтруем подпапки
-      return items.filter(
-        (item: FriendSubfolder & { friendId: string }) =>
+      const subfolders = items as (FriendSubfolder & { friendId: string })[]
+      return subfolders.filter(
+        (item) =>
           item.name.toLowerCase().includes(query)
-      ) as typeof items
+      )
     }
   }, [items, searchQuery, currentSubfolder])
 
