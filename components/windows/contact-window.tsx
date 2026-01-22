@@ -1,8 +1,10 @@
 "use client"
 
 import { TELEGRAM_LEAD_URL, SOCIAL_LINKS } from "@/lib/links"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 export function ContactWindow() {
+  const isMobile = useIsMobile()
   return (
     <div className="text-black text-sm space-y-3">
       {/* Header */}
@@ -71,7 +73,7 @@ export function ContactWindow() {
               border: "2px solid #FFD700",
             }}
           >
-            <span className="text-xl">📞</span>
+            <span className={isMobile ? "text-lg" : "text-xl"}>📞</span>
           </div>
           <div className="flex-1 space-y-2">
             <div className="text-xs font-bold">Телефон и Telegram</div>
@@ -136,7 +138,7 @@ export function ContactWindow() {
               border: "2px solid #FFD700",
             }}
           >
-            <span className="text-xl">📧</span>
+            <span className={isMobile ? "text-lg" : "text-xl"}>📧</span>
           </div>
           <div className="flex-1 space-y-2">
             <div className="text-xs font-bold">Email</div>
@@ -183,7 +185,7 @@ export function ContactWindow() {
               border: "2px solid #FFD700",
             }}
           >
-            <span className="text-xl">📍</span>
+            <span className={isMobile ? "text-lg" : "text-xl"}>📍</span>
           </div>
           <div className="flex-1">
             <div className="text-xs font-bold mb-1">Юридический адрес</div>
@@ -228,7 +230,7 @@ export function ContactWindow() {
               border: "2px solid #FFD700",
             }}
           >
-            <span className="text-xl">🕒</span>
+            <span className={isMobile ? "text-lg" : "text-xl"}>🕒</span>
           </div>
           <div className="flex-1">
             <div className="text-xs font-bold mb-1">График работы</div>

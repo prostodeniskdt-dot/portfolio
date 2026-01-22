@@ -455,10 +455,10 @@ export const OSWindow = memo(function OSWindow({
                 handleClose()
               }}
               aria-label="Закрыть окно"
-              className={`${isMobile ? "w-10 h-10 text-lg" : "w-5 h-5 text-sm"} flex items-center justify-center font-bold transition-all duration-150 ${isMobile ? "active:scale-95 active:bg-red-600 active:text-white" : "hover:scale-110 hover:bg-red-600 hover:text-white"}`}
+              className={`${isMobile ? "w-9 h-9 text-base" : "w-5 h-5 text-sm"} flex items-center justify-center font-bold transition-all duration-150 ${isMobile ? "active:scale-95 active:bg-red-600 active:text-white" : "hover:scale-110 hover:bg-red-600 hover:text-white"}`}
               style={{
-                minWidth: isMobile ? "44px" : undefined,
-                minHeight: isMobile ? "44px" : undefined,
+                minWidth: isMobile ? "36px" : undefined,
+                minHeight: isMobile ? "36px" : undefined,
                 background: "#000000",
                 color: "#FFD700",
                 border: "2px solid",

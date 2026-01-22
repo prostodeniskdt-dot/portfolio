@@ -113,3 +113,27 @@ export interface DesktopIcon {
   label: string
   type?: "folder" | "window" | "action" | "trash"
 }
+
+export interface FriendFile {
+  id: string
+  name: string
+  type: 'description' | 'image' | 'video'
+  thumbnail?: string // Путь к кастомному превью (для описания)
+  filePath?: string // Путь к файлу (для изображений/видео)
+  friendId: string // ID друга, которому принадлежит файл
+  order: number // Порядок отображения
+}
+
+export interface Friend {
+  id: string
+  name: string
+  description: string
+  fullDescription: string
+  thumbnail: string // Превью для файла "описание"
+  files: FriendFile[] // Массив файлов друга
+  category: string
+  website?: string
+  contact?: string
+  features: string[]
+  services?: string[]
+}

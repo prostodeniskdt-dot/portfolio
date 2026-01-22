@@ -2,6 +2,8 @@
 
 import { useState, useMemo, useRef, useEffect } from "react"
 import { folders, products, contests, partners, legalDocuments } from "@/lib/data"
+import { useIsMobile } from "@/hooks/use-mobile"
+import { FriendsFolderWindow } from "./friends-folder-window"
 
 interface FolderWindowProps {
   folderId: string
@@ -10,6 +12,12 @@ interface FolderWindowProps {
 }
 
 export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: FolderWindowProps) {
+  // Специальная обработка для папки "friends"
+  if (folderId === "friends") {
+    return <FriendsFolderWindow folderId={folderId} onOpenProduct={onOpenProduct} onNavigateBack={onNavigateBack} />
+  }
+
+  const isMobile = useIsMobile()
   const folder = folders[folderId]
   const [searchQuery, setSearchQuery] = useState("")
   const [needsScroll, setNeedsScroll] = useState(false)
@@ -195,7 +203,7 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                           {item.price}
                         </span>
                       )}
-                      <span className="text-4xl">{item.icon}</span>
+                      <span className={isMobile ? "text-3xl" : "text-4xl"}>{item.icon}</span>
                       <span className="text-xs font-bold text-center text-black group-hover:text-black">
                         {item.title}
                       </span>
@@ -238,7 +246,7 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                         border: "2px solid #000000",
                       }}
                     >
-                      <span className="text-4xl">{item.icon}</span>
+                      <span className={isMobile ? "text-3xl" : "text-4xl"}>{item.icon}</span>
                       <span className="text-xs font-bold text-center text-[#FFD700] group-hover:text-[#FFD700]">
                         {item.title}
                       </span>
@@ -338,7 +346,7 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                     </span>
                   )}
                   
-                  <span className="text-4xl">{item.icon}</span>
+                  <span className={isMobile ? "text-3xl" : "text-4xl"}>{item.icon}</span>
                   <span className="text-xs font-bold text-center text-black group-hover:text-black">
                     {item.title}
                   </span>

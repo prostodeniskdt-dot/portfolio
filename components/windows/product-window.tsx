@@ -4,6 +4,7 @@ import { products, contests, partners, legalDocuments } from "@/lib/data"
 import { toast } from "sonner"
 import { TELEGRAM_LEAD_URL } from "@/lib/links"
 import { useIsMobile } from "@/hooks/use-mobile"
+import { FriendDescriptionWindow } from "./friend-description-window"
 
 interface ProductWindowProps {
   productId: string
@@ -22,6 +23,11 @@ function renderMarkdown(text: string) {
 }
 
 export function ProductWindow({ productId }: ProductWindowProps) {
+  // Проверяем, является ли это описанием друга
+  if (productId.startsWith('friend-')) {
+    return <FriendDescriptionWindow friendId={productId} />
+  }
+
   const isMobile = useIsMobile()
   // Ищем во всех массивах
   const product = products.find((p) => p.id === productId)

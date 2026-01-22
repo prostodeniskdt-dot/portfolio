@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { getPixelIcon } from "@/components/icons/pixel-icons"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 interface IconRendererProps {
   icon: string
@@ -11,6 +12,7 @@ interface IconRendererProps {
 }
 
 export function IconRenderer({ icon, label, size = 48, className = "" }: IconRendererProps) {
+  const isMobile = useIsMobile()
   const [imageError, setImageError] = useState(false)
   
   // Проверяем, является ли иконка эмодзи (короткая строка без латинских букв)
@@ -18,7 +20,7 @@ export function IconRenderer({ icon, label, size = 48, className = "" }: IconRen
   
   if (hasOnlyEmoji) {
     return (
-      <span className={`text-4xl drop-shadow-lg group-hover:animate-float transition-transform ${className}`} aria-hidden="true">
+      <span className={`${isMobile ? "text-3xl" : "text-4xl"} drop-shadow-lg group-hover:animate-float transition-transform ${className}`} aria-hidden="true">
         {icon}
       </span>
     )

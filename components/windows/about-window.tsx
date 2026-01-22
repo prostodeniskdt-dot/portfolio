@@ -1,6 +1,9 @@
 "use client"
 
+import { useIsMobile } from "@/hooks/use-mobile"
+
 export function AboutWindow() {
+  const isMobile = useIsMobile()
   return (
     <div className="text-black text-sm space-y-6">
       {/* Header with animation */}
@@ -12,11 +15,11 @@ export function AboutWindow() {
             border: "3px solid #000000",
           }}
         >
-          <span className="text-4xl animate-bounce-subtle">⚡</span>
+          <span className={`${isMobile ? "text-3xl" : "text-4xl"} animate-bounce-subtle`}>⚡</span>
         </div>
 
         <div className="flex-1">
-          <h2 className="text-xl font-bold text-black animate-glow-text" style={{ color: "#000" }}>
+          <h2 className={`${isMobile ? "text-lg" : "text-xl"} font-bold text-black animate-glow-text`} style={{ color: "#000" }}>
             БАР БОСС ONLINE
           </h2>
           <p className="text-xs text-[#666666]">Команда</p>

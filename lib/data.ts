@@ -11,7 +11,10 @@ import { IndividualCoursesWindow } from "@/components/windows/courses-window"
 export * from "./data/types"
 
 // Import types for use in this file
-import type { Course, PricePlan, Contact, Product, Contest, Partner, LegalDocument, Folder, DesktopIcon, WindowConfig, TaskbarItem } from "./data/types"
+import type { Course, PricePlan, Contact, Product, Contest, Partner, LegalDocument, Folder, DesktopIcon, WindowConfig, TaskbarItem, Friend } from "./data/types"
+
+// Import friends data
+import { friends } from "./data/friends"
 
 export const courses: Course[] = [
   {
@@ -1640,5 +1643,8 @@ export const desktopIcons: DesktopIcon[] = [
   { id: "settings", icon: "settings", label: "Настройки", type: "window" },
   { id: "trash", icon: "trash", label: "Корзина", type: "trash" },
 ]
+
+// Export friends data
+export { friends }
 
 
