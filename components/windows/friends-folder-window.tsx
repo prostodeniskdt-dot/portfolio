@@ -218,7 +218,6 @@ export function FriendsFolderWindow({
                     <div className="flex items-center justify-center" style={{ minHeight: isMobile ? "48px" : "64px" }}>
                       {file.type === "description" ? (
                         <DescriptionFileIcon
-                          thumbnail={file.thumbnail || ""}
                           size={isMobile ? 48 : 64}
                           alt={file.name}
                           className="group-hover:scale-105 transition-transform"

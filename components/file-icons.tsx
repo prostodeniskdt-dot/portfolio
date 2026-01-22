@@ -103,56 +103,46 @@ export function VideoFileIcon({ size = 64, className = "" }: FileIconProps) {
   )
 }
 
-// Компонент для кастомного превью описания
+// Компонент для иконки файла описания (документ Word)
 interface DescriptionFileIconProps {
-  thumbnail: string
   size?: number
   className?: string
   alt?: string
 }
 
 export function DescriptionFileIcon({ 
-  thumbnail, 
   size = 64, 
   className = "",
   alt = "Описание"
 }: DescriptionFileIconProps) {
   const isMobile = useIsMobile()
   const iconSize = isMobile ? 48 : size
-  const [imageError, setImageError] = React.useState(false)
 
-  if (imageError) {
-    // Fallback на простую иконку документа
-    return (
-      <svg
-        width={iconSize}
-        height={iconSize}
-        viewBox="0 0 64 64"
-        className={className}
-        style={{ imageRendering: "pixelated" }}
-      >
-        <rect width="64" height="64" fill="#FFFFFF" stroke="#000000" strokeWidth="2" />
-        <rect x="16" y="16" width="32" height="32" fill="#4A90E2" />
-        <line x1="20" y1="24" x2="44" y2="24" stroke="#000000" strokeWidth="2" />
-        <line x1="20" y1="32" x2="44" y2="32" stroke="#000000" strokeWidth="2" />
-        <line x1="20" y1="40" x2="36" y2="40" stroke="#000000" strokeWidth="2" />
-      </svg>
-    )
-  }
-
+  // Иконка документа Word - белый лист с синими линиями текста
   return (
-    <img
-      src={thumbnail}
-      alt={alt}
+    <svg
       width={iconSize}
       height={iconSize}
+      viewBox="0 0 64 64"
       className={className}
-      style={{ 
-        imageRendering: "crisp-edges",
-        objectFit: "cover",
-        border: "2px solid #000000"
-      }}
-      onError={() => setImageError(true)}
-    />
+      style={{ imageRendering: "pixelated" }}
+    >
+      {/* Белый фон листа */}
+      <rect width="64" height="64" fill="#FFFFFF" stroke="#000000" strokeWidth="2" />
+      
+      {/* Синий прямоугольник вверху (как в Word) */}
+      <rect x="8" y="8" width="48" height="12" fill="#2B579A" />
+      
+      {/* Белые линии в синем прямоугольнике */}
+      <line x1="12" y1="12" x2="52" y2="12" stroke="#FFFFFF" strokeWidth="1.5" />
+      <line x1="12" y1="15" x2="40" y2="15" stroke="#FFFFFF" strokeWidth="1.5" />
+      
+      {/* Синие линии текста */}
+      <line x1="12" y1="26" x2="52" y2="26" stroke="#2B579A" strokeWidth="2" />
+      <line x1="12" y1="32" x2="52" y2="32" stroke="#2B579A" strokeWidth="2" />
+      <line x1="12" y1="38" x2="52" y2="38" stroke="#2B579A" strokeWidth="2" />
+      <line x1="12" y1="44" x2="48" y2="44" stroke="#2B579A" strokeWidth="2" />
+      <line x1="12" y1="50" x2="44" y2="50" stroke="#2B579A" strokeWidth="2" />
+    </svg>
   )
 }

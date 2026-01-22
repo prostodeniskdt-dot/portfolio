@@ -35,7 +35,6 @@ export const friends: Friend[] = [
             id: "desc-cocktail-design",
             name: "описание",
             type: "description",
-            thumbnail: "/friends/cocktail-design/description-thumbnail.png",
             friendId: "cocktail-design",
             order: 0,
           },
