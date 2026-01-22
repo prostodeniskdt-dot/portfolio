@@ -124,13 +124,21 @@ export interface FriendFile {
   order: number // Порядок отображения
 }
 
+export interface FriendSubfolder {
+  id: string
+  name: string
+  logo?: string // Путь к логотипу команды (1280x1280)
+  files: FriendFile[] // Массив файлов в подпапке
+}
+
 export interface Friend {
   id: string
   name: string
   description: string
   fullDescription: string
   thumbnail: string // Превью для файла "описание"
-  files: FriendFile[] // Массив файлов друга
+  files: FriendFile[] // Массив файлов друга (deprecated, используйте subfolders)
+  subfolders?: FriendSubfolder[] // Подпапки с файлами
   category: string
   website?: string
   contact?: string

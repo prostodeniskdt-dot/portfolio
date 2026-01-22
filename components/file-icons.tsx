@@ -8,6 +8,47 @@ interface FileIconProps {
   className?: string
 }
 
+// Иконка папки - желтая папка
+export function FolderIcon({ size = 64, className = "", logo }: FileIconProps & { logo?: string }) {
+  const isMobile = useIsMobile()
+  const iconSize = isMobile ? 48 : size
+  const [imageError, setImageError] = React.useState(false)
+
+  // Если есть логотип, показываем его
+  if (logo && !imageError) {
+    return (
+      <img
+        src={logo}
+        alt="Folder"
+        width={iconSize}
+        height={iconSize}
+        className={className}
+        style={{ 
+          imageRendering: "crisp-edges",
+          objectFit: "cover",
+          border: "2px solid #000000"
+        }}
+        onError={() => setImageError(true)}
+      />
+    )
+  }
+
+  // Стандартная желтая папка
+  return (
+    <svg
+      width={iconSize}
+      height={iconSize}
+      viewBox="0 0 64 64"
+      className={className}
+      style={{ imageRendering: "pixelated" }}
+    >
+      {/* Желтая папка */}
+      <path d="M8 16 L8 56 L56 56 L56 24 L32 24 L28 16 Z" fill="#FFD700" stroke="#000000" strokeWidth="2" />
+      <path d="M8 16 L28 16 L32 24 L56 24" fill="#FFA500" stroke="#000000" strokeWidth="1" />
+    </svg>
+  )
+}
+
 // Иконка изображения - белый лист с синим пейзажем
 export function ImageFileIcon({ size = 64, className = "" }: FileIconProps) {
   const isMobile = useIsMobile()
