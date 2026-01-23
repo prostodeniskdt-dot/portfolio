@@ -272,10 +272,15 @@ export const Desktop = memo(function Desktop({
           const zIndex = activeWindow === windowId 
             ? 100 
             : Math.max(50, 99 - (productWindows.length - productIndex - 1))
+
+          // Для рекламных продуктов в верхней плашке показываем название папки
+          const isAdvertisingProduct = productId.startsWith("ad-")
+          const windowTitle = isAdvertisingProduct ? "Реклама на площадке" : config.title
+
           return (
             <OSWindow
               key={windowId}
-              title={config.title}
+              title={windowTitle}
               defaultPosition={config.defaultPosition}
               defaultSize={config.defaultSize}
               isActive={activeWindow === windowId}

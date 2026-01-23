@@ -202,10 +202,15 @@ export function MobileWindows({
           const zIndex = activeWindow === windowId 
             ? 100 
             : 60 + productIndex
+
+          // Для рекламных продуктов в верхней плашке показываем название папки
+          const isAdvertisingProduct = productId.startsWith("ad-")
+          const windowTitle = isAdvertisingProduct ? "Реклама на площадке" : config.title
+
           return (
             <OSWindow
               key={windowId}
-              title={config.title}
+              title={windowTitle}
               defaultPosition={{ x: 0, y: 0 }}
               defaultSize={{ width: screenWidth, height: screenHeight }}
               isActive={activeWindow === windowId}
