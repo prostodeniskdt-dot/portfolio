@@ -404,7 +404,7 @@ export const OSWindow = memo(function OSWindow({
             <button
               onClick={handleMinimize}
               aria-label="Свернуть окно"
-              className={`${isMobile ? "w-10 h-10" : "w-5 h-5"} flex items-center justify-center font-bold transition-all duration-150 ${isMobile ? "active:scale-95" : "hover:scale-110 hover:bg-[#FFD700] hover:text-black"}`}
+              className={`${isMobile ? "w-10 h-10" : "w-5 h-5"} flex items-end justify-center font-bold transition-all duration-150 ${isMobile ? "active:scale-95" : "hover:scale-110 hover:bg-[#FFD700] hover:text-black"}`}
               style={{
                 minWidth: isMobile ? "44px" : undefined,
                 minHeight: isMobile ? "44px" : undefined,
@@ -412,17 +412,18 @@ export const OSWindow = memo(function OSWindow({
                 color: "#FFD700",
                 border: "2px solid",
                 borderColor: "#3a3a3a #FFD700 #FFD700 #3a3a3a",
+                paddingBottom: isMobile ? "8px" : "4px",
               }}
             >
-              <span 
+              <div
                 aria-hidden="true"
-                className={`${isMobile ? "text-4xl leading-none" : "text-xl leading-none"}`}
                 style={{
-                  fontSize: isMobile ? "32px" : "20px",
-                  lineHeight: "1",
-                  fontWeight: "bold",
+                  width: isMobile ? "20px" : "12px",
+                  height: isMobile ? "3px" : "2px",
+                  background: "#FFD700",
+                  border: "none",
                 }}
-              >_</span>
+              />
             </button>
             {/* Maximize */}
             <button
