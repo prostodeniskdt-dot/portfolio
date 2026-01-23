@@ -142,6 +142,14 @@ export interface Friend {
   category: string
   website?: string
   contact?: string
+  phone?: string
+  address?: string
+  telegramManager?: string // Ссылка на менеджеров в Telegram
+  socials?: {
+    vk?: string
+    instagram?: string
+    telegram?: string
+  }
   features: string[]
   services?: string[]
 }

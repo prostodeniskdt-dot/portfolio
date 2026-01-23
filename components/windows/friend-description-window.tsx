@@ -61,7 +61,7 @@ export function FriendDescriptionWindow({ friendId }: FriendDescriptionWindowPro
         <div className="space-y-3">
           <div>
             <h3 className="font-bold text-sm mb-1">Описание</h3>
-            <p className="text-xs leading-relaxed">{friend.fullDescription}</p>
+            <p className="text-xs leading-relaxed whitespace-pre-line">{friend.fullDescription}</p>
           </div>
 
           {/* Features */}
@@ -96,24 +96,22 @@ export function FriendDescriptionWindow({ friendId }: FriendDescriptionWindowPro
               border: "2px solid #000000",
             }}
           >
-            <h3 className="font-bold text-sm mb-2">Контакты</h3>
+            <h3 className="font-bold text-sm mb-2">Способы связи</h3>
             <div className="space-y-2 text-xs">
-              {friend.website && (
+              {friend.phone && (
                 <div>
-                  <span className="font-bold">🌐 Сайт: </span>
+                  <span className="font-bold">📞 Телефон: </span>
                   <a
-                    href={friend.website}
-                    target="_blank"
-                    rel="noreferrer"
+                    href={`tel:${friend.phone.replace(/\s/g, '')}`}
                     className="text-blue-600 hover:text-blue-800 underline"
                   >
-                    {friend.website}
+                    {friend.phone}
                   </a>
                 </div>
               )}
               {friend.contact && (
                 <div>
-                  <span className="font-bold">📧 Контакт: </span>
+                  <span className="font-bold">📧 Email: </span>
                   <a
                     href={`mailto:${friend.contact}`}
                     className="text-blue-600 hover:text-blue-800 underline"
@@ -122,8 +120,107 @@ export function FriendDescriptionWindow({ friendId }: FriendDescriptionWindowPro
                   </a>
                 </div>
               )}
+              {friend.address && (
+                <div>
+                  <span className="font-bold">📍 Адрес офиса: </span>
+                  <span>{friend.address}</span>
+                </div>
+              )}
             </div>
           </div>
+
+          {/* Website and Telegram Manager Buttons */}
+          <div className="flex flex-col gap-2">
+            {friend.website && (
+              <a
+                href={friend.website}
+                target="_blank"
+                rel="noreferrer"
+                className="px-3 py-2 text-xs font-bold transition-all hover:scale-[1.02] text-center"
+                style={{
+                  background: "#FFD700",
+                  color: "#000000",
+                  border: "2px solid #000000",
+                }}
+              >
+                🌐 Оформить заказ на сайте
+              </a>
+            )}
+            {friend.telegramManager && (
+              <a
+                href={friend.telegramManager}
+                target="_blank"
+                rel="noreferrer"
+                className="px-3 py-2 text-xs font-bold transition-all hover:scale-[1.02] text-center"
+                style={{
+                  background: "#0088cc",
+                  color: "#FFFFFF",
+                  border: "2px solid #000000",
+                }}
+              >
+                💬 Написать менеджерам в Telegram
+              </a>
+            )}
+          </div>
+
+          {/* Social Networks */}
+          {friend.socials && (friend.socials.vk || friend.socials.instagram || friend.socials.telegram) && (
+            <div>
+              <h3 className="font-bold text-sm mb-2">Соцсети</h3>
+              <div className="flex flex-col gap-2">
+                {friend.socials.vk && (
+                  <a
+                    href={friend.socials.vk}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="px-3 py-2 text-xs font-bold transition-all hover:scale-[1.02] text-center"
+                    style={{
+                      background: "#0077FF",
+                      color: "#FFFFFF",
+                      border: "2px solid #000000",
+                    }}
+                  >
+                    ВКонтакте
+                  </a>
+                )}
+                {friend.socials.instagram && (
+                  <div>
+                    <a
+                      href={friend.socials.instagram}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="px-3 py-2 text-xs font-bold transition-all hover:scale-[1.02] text-center block"
+                      style={{
+                        background: "linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)",
+                        color: "#FFFFFF",
+                        border: "2px solid #000000",
+                      }}
+                    >
+                      Instagram
+                    </a>
+                    <p className="text-[10px] text-[#666666] mt-1 text-center">
+                      * Instagram запрещен на территории Российской Федерации
+                    </p>
+                  </div>
+                )}
+                {friend.socials.telegram && (
+                  <a
+                    href={friend.socials.telegram}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="px-3 py-2 text-xs font-bold transition-all hover:scale-[1.02] text-center"
+                    style={{
+                      background: "#0088cc",
+                      color: "#FFFFFF",
+                      border: "2px solid #000000",
+                    }}
+                  >
+                    Telegram
+                  </a>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
