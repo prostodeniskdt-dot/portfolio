@@ -29,7 +29,7 @@ export const friends: Friend[] = [
       {
         id: "cocktail-design-folder",
         name: "Cocktail Design",
-        logo: "/friends/cocktail-design/logo.png", // Логотип команды 1280x1280
+        logo: "/friends/cocktail-design/logo.png.png", // Логотип команды 1280x1280 (исправлю название файла)
         files: [
           {
             id: "desc-cocktail-design",
@@ -85,6 +85,30 @@ export const friends: Friend[] = [
             filePath: "/friends/cocktail-design/6.png",
             friendId: "cocktail-design",
             order: 6,
+          },
+          {
+            id: "img-cocktail-design-7",
+            name: "7.png",
+            type: "image",
+            filePath: "/friends/cocktail-design/7.png",
+            friendId: "cocktail-design",
+            order: 7,
+          },
+          {
+            id: "img-cocktail-design-8",
+            name: "8.png",
+            type: "image",
+            filePath: "/friends/cocktail-design/8.png",
+            friendId: "cocktail-design",
+            order: 8,
+          },
+          {
+            id: "img-cocktail-design-9",
+            name: "9.png",
+            type: "image",
+            filePath: "/friends/cocktail-design/9.png",
+            friendId: "cocktail-design",
+            order: 9,
           },
         ],
       },
