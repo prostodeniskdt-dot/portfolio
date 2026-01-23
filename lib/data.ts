@@ -1611,6 +1611,16 @@ export const windowConfigs: Record<string, WindowConfig> = {
     }
     return acc
   }, {} as Record<string, WindowConfig>),
+  // Динамически добавленные конфигурации для друзей
+  ...friends.reduce((acc, friend) => {
+    acc[`product-friend-${friend.id}`] = {
+      title: friend.name,
+      defaultPosition: { x: 100, y: 100 },
+      defaultSize: { width: 800, height: 650 },
+      icon: friend.thumbnail || "📁",
+    }
+    return acc
+  }, {} as Record<string, WindowConfig>),
 }
 
 export const taskbarItems: TaskbarItem[] = [

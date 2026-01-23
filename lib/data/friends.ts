@@ -65,7 +65,7 @@ export const friends: Friend[] = [
         files: [
           {
             id: "desc-cocktail-design",
-            name: "описание",
+            name: "О Cocktail Design",
             type: "description",
             friendId: "cocktail-design",
             order: 0,
