@@ -66,7 +66,9 @@ export function ProductWindow({ productId }: ProductWindowProps) {
         <span className={isMobile ? "text-3xl" : "text-4xl"}>{item.icon}</span>
         <div className="flex-1">
           <h2 className={`${isMobile ? "text-lg" : "text-xl"} font-bold text-black`}>{item.title}</h2>
-          <p className="text-xs text-[#666666]">{item.category}</p>
+          <p className="text-xs text-[#666666]">
+            {itemType === "product" && productId.startsWith("ad-") ? "Реклама на площадке" : item.category}
+          </p>
         </div>
       </div>
 

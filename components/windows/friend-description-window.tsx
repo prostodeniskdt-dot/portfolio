@@ -32,21 +32,9 @@ export function FriendDescriptionWindow({ friendId }: FriendDescriptionWindowPro
           border: "2px solid #000000",
         }}
       >
-        {friend.thumbnail && (
-          <img
-            src={friend.thumbnail}
-            alt={friend.name}
-            width={isMobile ? 48 : 64}
-            height={isMobile ? 48 : 64}
-            style={{
-              border: "2px solid #000000",
-              objectFit: "cover",
-            }}
-          />
-        )}
         <div className="flex-1">
           <h2 className={`${isMobile ? "text-lg" : "text-xl"} font-bold text-black`}>{friend.name}</h2>
-          <p className="text-xs text-[#666666]">{friend.category}</p>
+          <p className="text-xs text-[#666666]">Друг</p>
         </div>
       </div>
 
