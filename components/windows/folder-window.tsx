@@ -221,13 +221,14 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                   )
                 })}
             </div>
-            {/* Second row: package-all under barboss */}
+            {/* Second row: package-all and animated side by side */}
             <div className="grid grid-cols-3 gap-3">
               <div style={{ width: "100%", height: "0" }}></div>
               {folderItems
-                .filter(item => item.id === "ad-package-all")
+                .filter(item => item.id === "ad-package-all" || item.id === "ad-animated")
                 .map((item) => {
                   const hasPrice = 'price' in item && item.price
+                  const isAnimated = item.id === "ad-animated"
                   
                   return (
                     <button
@@ -240,22 +241,22 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                         e.stopPropagation()
                         onOpenProduct?.(item.id)
                       }}
-                      className="flex flex-col items-center gap-2 p-3 cursor-pointer hover:bg-[#FFD700] group transition-colors relative animate-pulse"
+                      className={`flex flex-col items-center gap-2 p-3 cursor-pointer hover:bg-[#FFD700] group transition-colors relative ${isAnimated ? '' : 'animate-pulse'}`}
                       style={{
-                        background: "#000000",
+                        background: isAnimated ? "#ffffff" : "#000000",
                         border: "2px solid #000000",
                       }}
                     >
                       <span className={isMobile ? "text-3xl" : "text-4xl"}>{item.icon}</span>
-                      <span className="text-xs font-bold text-center text-[#FFD700] group-hover:text-[#FFD700]">
+                      <span className={`text-xs font-bold text-center ${isAnimated ? 'text-black group-hover:text-black' : 'text-[#FFD700] group-hover:text-[#FFD700]'}`}>
                         {item.title}
                       </span>
-                      <span className="text-[10px] text-center text-[#FFD700] group-hover:text-[#FFD700] line-clamp-2">
+                      <span className={`text-[10px] text-center ${isAnimated ? 'text-[#666666] group-hover:text-black' : 'text-[#FFD700] group-hover:text-[#FFD700]'} line-clamp-2`}>
                         {item.description}
                       </span>
                       {hasPrice && (
                         <span 
-                          className="text-sm font-bold text-[#FFD700] mt-1"
+                          className={`text-sm font-bold mt-1 ${isAnimated ? 'text-black' : 'text-[#FFD700]'}`}
                         >
                           {item.price}
                         </span>
