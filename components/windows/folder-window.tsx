@@ -226,6 +226,12 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
               <div style={{ width: "100%", height: "0" }}></div>
               {folderItems
                 .filter(item => item.id === "ad-package-all" || item.id === "ad-animated")
+                .sort((a, b) => {
+                  // Ensure ad-package-all comes first, then ad-animated
+                  if (a.id === "ad-package-all") return -1
+                  if (b.id === "ad-package-all") return 1
+                  return 0
+                })
                 .map((item) => {
                   const hasPrice = 'price' in item && item.price
                   const isAnimated = item.id === "ad-animated"
