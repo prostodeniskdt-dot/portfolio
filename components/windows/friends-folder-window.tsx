@@ -212,23 +212,56 @@ export function FriendsFolderWindow({
                       touchAction: "manipulation",
                     }}
                   >
-                    {/* Иконка файла */}
-                    <div className="flex items-center justify-center" style={{ minHeight: isMobile ? "48px" : "64px" }}>
+                    {/* Превью файла или иконка */}
+                    <div 
+                      className="flex items-center justify-center group-hover:scale-105 transition-transform"
+                      style={{ 
+                        minHeight: isMobile ? "48px" : "64px",
+                        width: isMobile ? "48px" : "64px",
+                        maxWidth: isMobile ? "48px" : "64px",
+                      }}
+                    >
                       {file.type === "description" ? (
                         <DescriptionFileIcon
                           size={isMobile ? 48 : 64}
                           alt={file.name}
-                          className="group-hover:scale-105 transition-transform"
                         />
-                      ) : file.type === "image" ? (
-                        <ImageFileIcon
-                          size={isMobile ? 48 : 64}
-                          className="group-hover:scale-105 transition-transform"
+                      ) : file.type === "image" && file.filePath ? (
+                        // Превью изображения
+                        <img
+                          src={file.filePath}
+                          alt={file.name}
+                          className="w-full h-full object-cover"
+                          style={{
+                            border: "2px solid #000000",
+                            imageRendering: "crisp-edges",
+                            maxHeight: isMobile ? "48px" : "64px",
+                            maxWidth: isMobile ? "48px" : "64px",
+                          }}
+                          loading="lazy"
+                        />
+                      ) : file.type === "video" && file.filePath ? (
+                        // Превью видео (первый кадр)
+                        <video
+                          src={file.filePath}
+                          className="w-full h-full object-cover"
+                          style={{
+                            border: "2px solid #000000",
+                            maxHeight: isMobile ? "48px" : "64px",
+                            maxWidth: isMobile ? "48px" : "64px",
+                          }}
+                          muted
+                          playsInline
+                          preload="metadata"
+                          onMouseEnter={(e) => {
+                            // При наведении показываем первый кадр
+                            const video = e.currentTarget
+                            video.currentTime = 0.1
+                          }}
                         />
                       ) : (
                         <VideoFileIcon
                           size={isMobile ? 48 : 64}
-                          className="group-hover:scale-105 transition-transform"
                         />
                       )}
                     </div>

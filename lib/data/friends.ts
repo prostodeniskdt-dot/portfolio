@@ -29,7 +29,7 @@ export const friends: Friend[] = [
       {
         id: "cocktail-design-folder",
         name: "Cocktail Design",
-        logo: "/friends/cocktail-design/logo.png.png", // Логотип команды 1280x1280 (исправлю название файла)
+        logo: "/friends/cocktail-design/logo.png",
         files: [
           {
             id: "desc-cocktail-design",
@@ -40,7 +40,7 @@ export const friends: Friend[] = [
           },
           {
             id: "img-cocktail-design-1",
-            name: "1.png",
+            name: "Отпечаток льда",
             type: "image",
             filePath: "/friends/cocktail-design/1.png",
             friendId: "cocktail-design",
@@ -48,7 +48,7 @@ export const friends: Friend[] = [
           },
           {
             id: "img-cocktail-design-2",
-            name: "2.png",
+            name: "Отпечаток льда. Практика",
             type: "image",
             filePath: "/friends/cocktail-design/2.png",
             friendId: "cocktail-design",
@@ -56,7 +56,7 @@ export const friends: Friend[] = [
           },
           {
             id: "img-cocktail-design-3",
-            name: "3.png",
+            name: "Фирменный стрейнер",
             type: "image",
             filePath: "/friends/cocktail-design/3.png",
             friendId: "cocktail-design",
@@ -64,7 +64,7 @@ export const friends: Friend[] = [
           },
           {
             id: "img-cocktail-design-4",
-            name: "4.png",
+            name: "Набор стрейнеров",
             type: "image",
             filePath: "/friends/cocktail-design/4.png",
             friendId: "cocktail-design",
@@ -72,7 +72,7 @@ export const friends: Friend[] = [
           },
           {
             id: "img-cocktail-design-5",
-            name: "5.png",
+            name: "Гарниш для коктейля",
             type: "image",
             filePath: "/friends/cocktail-design/5.png",
             friendId: "cocktail-design",
@@ -80,7 +80,7 @@ export const friends: Friend[] = [
           },
           {
             id: "img-cocktail-design-6",
-            name: "6.png",
+            name: "Гарниш для коктейля. Листок",
             type: "image",
             filePath: "/friends/cocktail-design/6.png",
             friendId: "cocktail-design",
@@ -88,7 +88,7 @@ export const friends: Friend[] = [
           },
           {
             id: "img-cocktail-design-7",
-            name: "7.png",
+            name: "Гарниш для коктейля. Цветок",
             type: "image",
             filePath: "/friends/cocktail-design/7.png",
             friendId: "cocktail-design",
@@ -96,7 +96,7 @@ export const friends: Friend[] = [
           },
           {
             id: "img-cocktail-design-8",
-            name: "8.png",
+            name: "Набор VINTAGE · LEAVES",
             type: "image",
             filePath: "/friends/cocktail-design/8.png",
             friendId: "cocktail-design",
@@ -104,11 +104,43 @@ export const friends: Friend[] = [
           },
           {
             id: "img-cocktail-design-9",
-            name: "9.png",
+            name: "Стрейнер VINTAGE · LEAVES",
             type: "image",
             filePath: "/friends/cocktail-design/9.png",
             friendId: "cocktail-design",
             order: 9,
+          },
+          {
+            id: "video-cocktail-design-1",
+            name: "video1.mp4",
+            type: "video",
+            filePath: "/friends/cocktail-design/video1.mp4",
+            friendId: "cocktail-design",
+            order: 10,
+          },
+          {
+            id: "video-cocktail-design-2",
+            name: "video2.mp4",
+            type: "video",
+            filePath: "/friends/cocktail-design/video2.mp4",
+            friendId: "cocktail-design",
+            order: 11,
+          },
+          {
+            id: "video-cocktail-design-3",
+            name: "video3.mp4",
+            type: "video",
+            filePath: "/friends/cocktail-design/video3.mp4",
+            friendId: "cocktail-design",
+            order: 12,
+          },
+          {
+            id: "video-cocktail-design-4",
+            name: "video4.mp4",
+            type: "video",
+            filePath: "/friends/cocktail-design/video4.mp4",
+            friendId: "cocktail-design",
+            order: 13,
           },
         ],
       },
