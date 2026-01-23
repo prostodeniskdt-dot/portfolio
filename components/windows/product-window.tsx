@@ -122,6 +122,98 @@ export function ProductWindow({ productId }: ProductWindowProps) {
                   <p className="mt-2">🤝 Удачи Вам</p>
                 </div>
               </div>
+            ) : itemType === 'product' && productId === 'ad-telegram-barboss' ? (
+              <div className="text-xs leading-relaxed space-y-3">
+                <p>Аудитория канала - представители барного и ресторанного комьюнити, преимущественно руководители и ЛПР. Контент узкоспециализированный, посвящён барному менеджменту.</p>
+                
+                <div>
+                  <h4 className="font-bold mb-1">Стоимость размещения - 7 500 ₽.</h4>
+                  <p>Оплата по безналичному расчёту возможна, стоимость с учётом налога 6% - 7 950 ₽.</p>
+                </div>
+
+                <div>
+                  <h4 className="font-bold mb-1">В стоимость входит:</h4>
+                  <ul className="space-y-1 ml-4">
+                    <li>• пост + сторис</li>
+                    <li>• дизайн поста в фирменном стиле канала</li>
+                    <li>• адаптация текста под стилистику канала</li>
+                    <li>• пост остаётся в ленте (удаление возможно по запросу)</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="font-bold mb-1">Условия сотрудничества:</h4>
+                  <ul className="space-y-1 ml-4">
+                    <li>• материалы для публикации - за 3 календарных дня</li>
+                    <li>• 100% предоплата</li>
+                    <li>• согласование поста перед публикацией</li>
+                    <li>• маркировка со стороны заказчика</li>
+                  </ul>
+                </div>
+              </div>
+            ) : itemType === 'product' && productId === 'ad-telegram-otomosom' ? (
+              <div className="text-xs leading-relaxed space-y-3">
+                <p>Аудитория канала - представители барного и ресторанного комьюнити</p>
+                
+                <div>
+                  <h4 className="font-bold mb-1">Стоимость размещения - 5 000 ₽.</h4>
+                  <p>Оплата по безналичному расчёту возможна, стоимость с учётом налога 6% - 5 300 ₽.</p>
+                </div>
+
+                <div>
+                  <h4 className="font-bold mb-1">В стоимость входит:</h4>
+                  <ul className="space-y-1 ml-4">
+                    <li>• пост + сторис</li>
+                    <li>• дизайн поста может быть в стиле заказчика или на усмотрение автора</li>
+                    <li>• адаптация текста под стилистику канала</li>
+                    <li>• пост остаётся в ленте (удаление возможно по запросу)</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="font-bold mb-1">Условия сотрудничества:</h4>
+                  <ul className="space-y-1 ml-4">
+                    <li>• материалы для публикации - за 3 календарных дня</li>
+                    <li>• 100% предоплата</li>
+                    <li>• согласование поста перед публикацией</li>
+                    <li>• маркировка со стороны заказчика</li>
+                  </ul>
+                </div>
+              </div>
+            ) : itemType === 'product' && productId === 'ad-animated' ? (
+              <div className="text-xs leading-relaxed space-y-3">
+                <div>
+                  <h4 className="font-bold mb-2">Стоимость:</h4>
+                  <ul className="space-y-1 ml-4">
+                    <li>• Bar Boss online - 10 000 ₽</li>
+                    <li>• «о том о сём» - 7 500 ₽</li>
+                  </ul>
+                  <p className="mt-2">Оплата по безналичному расчёту возможна, стоимость с учётом налога 6%:</p>
+                  <ul className="space-y-1 ml-4 mt-1">
+                    <li>• Bar Boss online - 10 600 ₽</li>
+                    <li>• «о том о сём» - 7 950 ₽</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="font-bold mb-1">В стоимость входит:</h4>
+                  <ul className="space-y-1 ml-4">
+                    <li>• анимационный рекламный пост</li>
+                    <li>• размещение в ленте канала</li>
+                    <li>• адаптация подачи под стилистику площадки</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="font-bold mb-1">Условия сотрудничества:</h4>
+                  <ul className="space-y-1 ml-4">
+                    <li>• материалы для публикации - за 3 календарных дня</li>
+                    <li>• согласование поста перед публикацией</li>
+                    <li>• 100% предоплата</li>
+                    <li>• маркировка со стороны заказчика</li>
+                  </ul>
+                </div>
+              </div>
             ) : (
               <p className="text-xs leading-relaxed">{item.fullDescription}</p>
             )}
@@ -263,7 +355,7 @@ export function ProductWindow({ productId }: ProductWindowProps) {
           )}
 
           {/* Для продуктов (обычная цена, если не акция) */}
-          {'price' in item && item.price && !(itemType === 'product' && product?.isPromo) && (
+          {'price' in item && item.price && !(itemType === 'product' && product?.isPromo) && !(itemType === 'product' && productId.startsWith('ad-')) && (
             <div>
               <h3 className="font-bold text-sm mb-1">Цена</h3>
               <div className="flex items-center gap-3">
@@ -412,8 +504,8 @@ export function ProductWindow({ productId }: ProductWindowProps) {
             </div>
           )}
 
-          {/* Основные особенности - только для не-документов */}
-          {itemType !== 'document' && item.features && item.features.length > 0 && (
+          {/* Основные особенности - только для не-документов и не рекламных продуктов */}
+          {itemType !== 'document' && item.features && item.features.length > 0 && !(itemType === 'product' && productId.startsWith('ad-')) && (
             <div>
               <h3 className="font-bold text-sm mb-2">Что входит:</h3>
               <ul className="space-y-1">
@@ -427,8 +519,8 @@ export function ProductWindow({ productId }: ProductWindowProps) {
             </div>
           )}
 
-          {/* Блок доверия для рекламы в Telegram */}
-          {itemType === 'product' && 'category' in item && item.category === "Реклама в Telegram" && (
+          {/* Блок доверия для рекламы в Telegram (только для не-рекламных продуктов) */}
+          {itemType === 'product' && 'category' in item && item.category === "Реклама в Telegram" && !productId.startsWith('ad-') && (
             <div 
               className="p-2 text-xs"
               style={{
@@ -444,7 +536,7 @@ export function ProductWindow({ productId }: ProductWindowProps) {
       </div>
 
       {/* Action Button */}
-      <div className="p-2">
+      <div className="p-2 space-y-2">
         {itemType === 'document' ? null : itemType === 'partner' && 'website' in item && item.website ? (
           <button
             onClick={() => window.open(item.website, "_blank", "noreferrer")}
@@ -488,6 +580,20 @@ export function ProductWindow({ productId }: ProductWindowProps) {
           >
             💳 Оплатить
           </a>
+        ) : itemType === 'product' && productId.startsWith('ad-') ? (
+          // Для рекламных продуктов показываем кнопку "Связаться"
+          <button
+            onClick={handleOrder}
+            className="w-full py-2 text-xs font-bold transition-all hover:scale-[1.02]"
+            style={{
+              background: "#000000",
+              color: "#FFD700",
+              border: "3px solid",
+              borderColor: "#3a3a3a #FFD700 #FFD700 #3a3a3a",
+            }}
+          >
+            Связаться
+          </button>
         ) : (
           <button
             onClick={handleOrder}
