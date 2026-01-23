@@ -489,7 +489,7 @@ export const products: Product[] = [
     price: "20 000 ₽",
     originalPrice: "27 500 ₽",
     discount: "7 500 ₽",
-    isPromo: false,
+    isPromo: true,
     features: [
       "Telegram «BAR BOSS ONLINE» (5 800 подписчиков)",
       "Telegram «О том о сём» (2 800 подписчиков)",
