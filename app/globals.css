@@ -704,7 +704,8 @@
   [data-barboss-window="true"] {
     word-wrap: break-word;
     overflow-wrap: break-word;
-    hyphens: auto;
+    hyphens: none;
+    -webkit-hyphens: none;
   }
 
   /* Специфичные стили для текстового контента */

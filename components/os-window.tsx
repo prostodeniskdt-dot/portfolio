@@ -362,7 +362,7 @@ export const OSWindow = memo(function OSWindow({
             }
           }}
         >
-          <div className="flex items-center gap-2 flex-1">
+          <div className="flex items-center gap-2 flex-1 min-w-0">
             {/* Кнопка "Назад" на мобильных */}
             {isMobile && (
               <button
@@ -370,13 +370,14 @@ export const OSWindow = memo(function OSWindow({
                   e.stopPropagation()
                   handleClose()
                 }}
-                className="px-2 py-1 font-bold text-xs mr-1 transition-all active:scale-95"
+                className="px-2 py-1 font-bold text-xs mr-1 transition-all active:scale-95 whitespace-nowrap shrink-0"
                 style={{
                   background: "#FFD700",
                   border: "2px solid #000000",
                   color: "#000000",
-                  minWidth: "50px",
-                  minHeight: "32px",
+                  minWidth: "78px",
+                  minHeight: "36px",
+                  whiteSpace: "nowrap",
                 }}
                 aria-label="Назад"
               >
@@ -395,7 +396,7 @@ export const OSWindow = memo(function OSWindow({
             })()}
             <span
               id={`window-title-${title}`}
-              className={`text-sm font-bold tracking-wide ${isActive ? "animate-flicker" : ""}`}
+              className={`text-sm font-bold tracking-wide ${isActive ? "animate-flicker" : ""} ${isMobile ? "truncate" : ""}`}
               style={{ color: isActive ? "#000000" : "#f5f0e1" }}
             >
               {title}
@@ -416,14 +417,14 @@ export const OSWindow = memo(function OSWindow({
                 color: "#FFD700",
                 border: "2px solid",
                 borderColor: "#3a3a3a #FFD700 #FFD700 #3a3a3a",
-                paddingBottom: isMobile ? "6px" : "4px",
+                paddingBottom: isMobile ? "4px" : "4px",
               }}
             >
               <div
                 aria-hidden="true"
                 style={{
-                  width: isMobile ? "16px" : "12px",
-                  height: isMobile ? "2px" : "2px",
+                  width: "12px",
+                  height: "2px",
                   background: "#FFD700",
                   border: "none",
                 }}
@@ -444,19 +445,19 @@ export const OSWindow = memo(function OSWindow({
               }}
             >
               {isMaximized ? (
-                <div className={`relative ${isMobile ? "w-4 h-3" : "w-3 h-2.5"}`}>
+                <div className="relative w-3 h-2.5">
                   <div
-                    className={`absolute top-0 right-0 ${isMobile ? "w-2 h-2 border-2" : "w-2 h-2 border-2"} border-[#FFD700] group-hover:border-black`}
+                    className="absolute top-0 right-0 w-2 h-2 border-2 border-[#FFD700] group-hover:border-black"
                     style={{ borderTopWidth: "3px" }}
                   />
                   <div
-                    className={`absolute bottom-0 left-0 ${isMobile ? "w-2 h-2 border-2" : "w-2 h-2 border-2"} border-[#FFD700] group-hover:border-black bg-black group-hover:bg-[#FFD700]`}
+                    className="absolute bottom-0 left-0 w-2 h-2 border-2 border-[#FFD700] group-hover:border-black bg-black group-hover:bg-[#FFD700]"
                     style={{ borderTopWidth: "3px" }}
                   />
                 </div>
               ) : (
                 <div
-                  className={`${isMobile ? "w-4 h-3 border-2" : "w-3 h-2.5 border-2"} border-[#FFD700] group-hover:border-black`}
+                  className="w-3 h-2.5 border-2 border-[#FFD700] group-hover:border-black"
                   style={{ borderTopWidth: "3px" }}
                 />
               )}
@@ -480,9 +481,9 @@ export const OSWindow = memo(function OSWindow({
             >
               <span 
                 aria-hidden="true"
-                className={`${isMobile ? "text-2xl leading-none" : "text-xl leading-none"}`}
+                className="text-xl leading-none"
                 style={{
-                  fontSize: isMobile ? "24px" : "20px",
+                  fontSize: "20px",
                   lineHeight: "1",
                   fontWeight: "bold",
                 }}
