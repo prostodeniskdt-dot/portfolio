@@ -52,6 +52,8 @@ export const OSWindow = memo(function OSWindow({
   const MIN_WIDTH = 300
   const MIN_HEIGHT = 200
   const MOBILE_MIN_WIDTH = 280
+  // Keep at least this much of the window draggable/visible near bottom (player-like behavior)
+  const TASKBAR_SAFE_AREA = 80
 
   useEffect(() => {
     const checkMobile = () => {
@@ -109,8 +111,9 @@ export const OSWindow = memo(function OSWindow({
     const newX = touch.clientX - dragOffset.current.x
     const newY = touch.clientY - dragOffset.current.y
 
-    const maxX = typeof window !== "undefined" ? window.innerWidth - defaultSize.width : 0
-    const maxY = typeof window !== "undefined" ? window.innerHeight - 80 - defaultSize.height : 0
+    const currentWidth = size.width
+    const maxX = typeof window !== "undefined" ? window.innerWidth - currentWidth : 0
+    const maxY = typeof window !== "undefined" ? window.innerHeight - TASKBAR_SAFE_AREA : 0
 
     const constrainedX = Math.max(0, Math.min(newX, maxX))
     const constrainedY = Math.max(0, Math.min(newY, maxY))
@@ -161,8 +164,9 @@ export const OSWindow = memo(function OSWindow({
     const newY = e.clientY - dragOffset.current.y
 
     // Constrain window position to viewport
-    const maxX = typeof window !== "undefined" ? window.innerWidth - defaultSize.width : 0
-    const maxY = typeof window !== "undefined" ? window.innerHeight - 80 - defaultSize.height : 0
+    const currentWidth = size.width
+    const maxX = typeof window !== "undefined" ? window.innerWidth - currentWidth : 0
+    const maxY = typeof window !== "undefined" ? window.innerHeight - TASKBAR_SAFE_AREA : 0
 
     const constrainedX = Math.max(0, Math.min(newX, maxX))
     const constrainedY = Math.max(0, Math.min(newY, maxY))
@@ -224,7 +228,7 @@ export const OSWindow = memo(function OSWindow({
 
       // Ограничения по размеру экрана
       const maxWidth = typeof window !== "undefined" ? window.innerWidth - newX : newWidth
-      const maxHeight = typeof window !== "undefined" ? window.innerHeight - 80 - newY : newHeight
+      const maxHeight = typeof window !== "undefined" ? window.innerHeight - newY : newHeight
 
       newWidth = Math.min(newWidth, maxWidth)
       newHeight = Math.min(newHeight, maxHeight)
@@ -289,7 +293,7 @@ export const OSWindow = memo(function OSWindow({
   return (
     <div
       ref={windowRef}
-      className="absolute animate-window-open"
+      className="fixed animate-window-open"
       role="dialog"
       aria-modal="false"
       aria-labelledby={`window-title-${title}`}
