@@ -729,6 +729,14 @@
     padding: 6px 12px !important;
   }
 
+  /* Не ломаем контролы окна (тач-зона остаётся 44px, но визуально компактнее) */
+  [data-barboss-window="true"] button[data-window-control="true"] {
+    padding: 0 !important;
+    font-size: inherit !important;
+    min-width: 44px !important;
+    min-height: 44px !important;
+  }
+
   [data-barboss-window="true"] .px-3 {
     padding-left: 8px !important;
     padding-right: 8px !important;

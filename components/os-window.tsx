@@ -340,7 +340,7 @@ export const OSWindow = memo(function OSWindow({
       >
         {/* Title bar */}
         <div
-          className={`${isMobile ? "h-14" : "h-8"} flex items-center justify-between ${isMobile ? "px-2" : "px-2"} ${isMobile ? "cursor-default" : "cursor-move"} select-none shrink-0 transition-colors duration-200`}
+          className={`${isMobile ? "min-h-14 py-1" : "h-8"} flex items-center justify-between ${isMobile ? "px-2" : "px-2"} ${isMobile ? "cursor-default" : "cursor-move"} select-none shrink-0 transition-colors duration-200`}
           style={{
             background: isActive ? "#FFD700" : "#3a3a3a",
           }}
@@ -362,7 +362,7 @@ export const OSWindow = memo(function OSWindow({
             }
           }}
         >
-          <div className="flex items-center gap-2 flex-1 min-w-0">
+          <div className="flex items-center gap-2 flex-1 min-w-0 overflow-hidden">
             {/* Кнопка "Назад" на мобильных */}
             {isMobile && (
               <button
@@ -396,71 +396,95 @@ export const OSWindow = memo(function OSWindow({
             })()}
             <span
               id={`window-title-${title}`}
-              className={`text-sm font-bold tracking-wide ${isActive ? "animate-flicker" : ""} ${isMobile ? "truncate" : ""}`}
-              style={{ color: isActive ? "#000000" : "#f5f0e1" }}
+              className={`text-sm font-bold tracking-wide ${isActive ? "animate-flicker" : ""} flex-1 min-w-0 whitespace-normal leading-tight`}
+              style={{
+                color: isActive ? "#000000" : "#f5f0e1",
+                display: isMobile ? "-webkit-box" : undefined,
+                WebkitLineClamp: isMobile ? 2 : undefined,
+                WebkitBoxOrient: isMobile ? "vertical" : undefined,
+                overflow: isMobile ? "hidden" : undefined,
+              }}
             >
               {title}
             </span>
           </div>
 
           {/* Window controls with hover animations */}
-          <div className={`flex items-center gap-1 ${isMobile ? "gap-2" : ""}`}>
+          <div className={`flex items-center gap-1 ${isMobile ? "gap-2" : ""} shrink-0`}>
             {/* Minimize */}
             <button
               onClick={handleMinimize}
               aria-label="Свернуть окно"
-              className={`${isMobile ? "w-10 h-10" : "w-5 h-5"} flex items-end justify-center font-bold transition-all duration-150 ${isMobile ? "active:scale-95" : "hover:scale-110 hover:bg-[#FFD700] hover:text-black"}`}
+              data-window-control="true"
+              className={`${isMobile ? "w-11 h-11" : "w-5 h-5"} flex items-center justify-center transition-all duration-150 group ${isMobile ? "active:scale-95" : "hover:scale-110"}`}
               style={{
                 minWidth: isMobile ? "44px" : undefined,
                 minHeight: isMobile ? "44px" : undefined,
-                background: "#000000",
-                color: "#FFD700",
-                border: "2px solid",
-                borderColor: "#3a3a3a #FFD700 #FFD700 #3a3a3a",
-                paddingBottom: isMobile ? "4px" : "4px",
+                background: "transparent",
+                border: "none",
+                padding: 0,
               }}
             >
               <div
-                aria-hidden="true"
+                className={`${isMobile ? "w-9 h-9" : "w-5 h-5"} flex items-end justify-center group-hover:bg-[#FFD700]`}
                 style={{
-                  width: "12px",
-                  height: "2px",
-                  background: "#FFD700",
-                  border: "none",
+                  background: "#000000",
+                  border: "2px solid",
+                  borderColor: "#3a3a3a #FFD700 #FFD700 #3a3a3a",
+                  paddingBottom: isMobile ? "5px" : "4px",
                 }}
-              />
+              >
+                <div
+                  aria-hidden="true"
+                  style={{
+                    width: isMobile ? "14px" : "12px",
+                    height: "2px",
+                    background: "#FFD700",
+                    border: "none",
+                  }}
+                />
+              </div>
             </button>
             {/* Maximize */}
             <button
               onClick={handleMaximize}
               aria-label={isMaximized ? "Восстановить размер окна" : "Развернуть окно"}
-              className={`${isMobile ? "w-10 h-10" : "w-5 h-5"} flex items-center justify-center transition-all duration-150 ${isMobile ? "active:scale-95" : "hover:scale-110 hover:bg-[#FFD700]"} group`}
+              data-window-control="true"
+              className={`${isMobile ? "w-11 h-11" : "w-5 h-5"} flex items-center justify-center transition-all duration-150 group ${isMobile ? "active:scale-95" : "hover:scale-110"}`}
               style={{
                 minWidth: isMobile ? "44px" : undefined,
                 minHeight: isMobile ? "44px" : undefined,
-                background: "#000000",
-                color: "#FFD700",
-                border: "2px solid",
-                borderColor: "#3a3a3a #FFD700 #FFD700 #3a3a3a",
+                background: "transparent",
+                border: "none",
+                padding: 0,
               }}
             >
-              {isMaximized ? (
-                <div className="relative w-3 h-2.5">
+              <div
+                className={`${isMobile ? "w-9 h-9" : "w-5 h-5"} flex items-center justify-center group-hover:bg-[#FFD700]`}
+                style={{
+                  background: "#000000",
+                  border: "2px solid",
+                  borderColor: "#3a3a3a #FFD700 #FFD700 #3a3a3a",
+                }}
+              >
+                {isMaximized ? (
+                  <div className={`relative ${isMobile ? "w-4 h-3" : "w-3 h-2.5"}`}>
+                    <div
+                      className="absolute top-0 right-0 w-2 h-2 border-2 border-[#FFD700] group-hover:border-black"
+                      style={{ borderTopWidth: "3px" }}
+                    />
+                    <div
+                      className="absolute bottom-0 left-0 w-2 h-2 border-2 border-[#FFD700] group-hover:border-black bg-black group-hover:bg-[#FFD700]"
+                      style={{ borderTopWidth: "3px" }}
+                    />
+                  </div>
+                ) : (
                   <div
-                    className="absolute top-0 right-0 w-2 h-2 border-2 border-[#FFD700] group-hover:border-black"
+                    className={`${isMobile ? "w-4 h-3" : "w-3 h-2.5"} border-2 border-[#FFD700] group-hover:border-black`}
                     style={{ borderTopWidth: "3px" }}
                   />
-                  <div
-                    className="absolute bottom-0 left-0 w-2 h-2 border-2 border-[#FFD700] group-hover:border-black bg-black group-hover:bg-[#FFD700]"
-                    style={{ borderTopWidth: "3px" }}
-                  />
-                </div>
-              ) : (
-                <div
-                  className="w-3 h-2.5 border-2 border-[#FFD700] group-hover:border-black"
-                  style={{ borderTopWidth: "3px" }}
-                />
-              )}
+                )}
+              </div>
             </button>
             {/* Close */}
             <button
@@ -469,25 +493,36 @@ export const OSWindow = memo(function OSWindow({
                 handleClose()
               }}
               aria-label="Закрыть окно"
-              className={`${isMobile ? "w-10 h-10" : "w-5 h-5"} flex items-center justify-center font-bold transition-all duration-150 ${isMobile ? "active:scale-95 active:bg-red-600 active:text-white" : "hover:scale-110 hover:bg-red-600 hover:text-white"}`}
+              data-window-control="true"
+              className={`${isMobile ? "w-11 h-11" : "w-5 h-5"} flex items-center justify-center transition-all duration-150 group ${isMobile ? "active:scale-95" : "hover:scale-110"}`}
               style={{
                 minWidth: isMobile ? "44px" : undefined,
                 minHeight: isMobile ? "44px" : undefined,
-                background: "#000000",
-                color: "#FFD700",
-                border: "2px solid",
-                borderColor: "#3a3a3a #FFD700 #FFD700 #3a3a3a",
+                background: "transparent",
+                border: "none",
+                padding: 0,
               }}
             >
-              <span 
-                aria-hidden="true"
-                className="text-xl leading-none"
+              <div
+                className={`${isMobile ? "w-9 h-9" : "w-5 h-5"} flex items-center justify-center group-hover:bg-red-600 group-active:bg-red-600`}
                 style={{
-                  fontSize: "20px",
-                  lineHeight: "1",
-                  fontWeight: "bold",
+                  background: "#000000",
+                  border: "2px solid",
+                  borderColor: "#3a3a3a #FFD700 #FFD700 #3a3a3a",
+                  color: "#FFD700",
                 }}
-              >×</span>
+              >
+                <span
+                  aria-hidden="true"
+                  className="leading-none font-bold group-hover:text-white group-active:text-white"
+                  style={{
+                    fontSize: isMobile ? "22px" : "20px",
+                    lineHeight: "1",
+                  }}
+                >
+                  ×
+                </span>
+              </div>
             </button>
           </div>
         </div>
