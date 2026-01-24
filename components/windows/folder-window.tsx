@@ -181,27 +181,33 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                           : "2px solid #000000",
                       }}
                     >
-                      {hasSubscribers && (
-                        <span 
-                          className="absolute top-1 left-1 px-1 py-0.5 text-[8px] font-bold"
-                          style={{
-                            background: "#0088cc",
-                            color: "#ffffff",
-                          }}
-                        >
-                          👥 {item.subscribers}
-                        </span>
-                      )}
-                      {hasPrice && !isPromo && (
-                        <span 
-                          className="absolute top-1 right-1 px-1 py-0.5 text-[9px] font-bold"
-                          style={{
-                            background: "#000000",
-                            color: "#FFD700",
-                          }}
-                        >
-                          {item.price}
-                        </span>
+                      {(hasSubscribers || (hasPrice && !isPromo)) && (
+                        <div className="w-full flex items-start justify-between gap-1">
+                          {hasSubscribers ? (
+                            <span
+                              className="px-1 py-0.5 text-[8px] font-bold"
+                              style={{
+                                background: "#0088cc",
+                                color: "#ffffff",
+                              }}
+                            >
+                              👥 {item.subscribers}
+                            </span>
+                          ) : (
+                            <span />
+                          )}
+                          {hasPrice && !isPromo ? (
+                            <span
+                              className="px-1 py-0.5 text-[9px] font-bold"
+                              style={{
+                                background: "#000000",
+                                color: "#FFD700",
+                              }}
+                            >
+                              {item.price}
+                            </span>
+                          ) : null}
+                        </div>
                       )}
                       <span className={isMobile ? "text-3xl" : "text-4xl"}>{item.icon}</span>
                       <span className="text-xs font-bold text-center text-black group-hover:text-black">
@@ -327,30 +333,34 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                     </span>
                   )}
                   
-                  {/* Бейдж подписчиков */}
-                  {hasSubscribers && (
-                    <span 
-                      className="absolute top-1 left-1 px-1 py-0.5 text-[8px] font-bold"
-                      style={{
-                        background: "#0088cc",
-                        color: "#ffffff",
-                      }}
-                    >
-                      👥 {item.subscribers}
-                    </span>
-                  )}
-                  
-                  {/* Цена в правом верхнем углу (если не промо) */}
-                  {hasPrice && !isPromo && (
-                    <span 
-                      className="absolute top-1 right-1 px-1 py-0.5 text-[9px] font-bold"
-                      style={{
-                        background: "#000000",
-                        color: "#FFD700",
-                      }}
-                    >
-                      {item.price}
-                    </span>
+                  {/* Верхняя строка (цена/подписчики) — без наложения на иконку */}
+                  {(hasSubscribers || (hasPrice && !isPromo)) && (
+                    <div className="w-full flex items-start justify-between gap-1">
+                      {hasSubscribers ? (
+                        <span
+                          className="px-1 py-0.5 text-[8px] font-bold"
+                          style={{
+                            background: "#0088cc",
+                            color: "#ffffff",
+                          }}
+                        >
+                          👥 {item.subscribers}
+                        </span>
+                      ) : (
+                        <span />
+                      )}
+                      {hasPrice && !isPromo ? (
+                        <span
+                          className="px-1 py-0.5 text-[9px] font-bold"
+                          style={{
+                            background: "#000000",
+                            color: "#FFD700",
+                          }}
+                        >
+                          {item.price}
+                        </span>
+                      ) : null}
+                    </div>
                   )}
                   
                   <span className={isMobile ? "text-3xl" : "text-4xl"}>{item.icon}</span>
