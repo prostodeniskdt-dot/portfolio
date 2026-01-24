@@ -23,6 +23,13 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
   const [needsScroll, setNeedsScroll] = useState(false)
   const contentRef = useRef<HTMLDivElement>(null)
 
+  const formatPriceLabel = (price: string) => {
+    if (!isMobile) return price
+    const lower = price.toLowerCase()
+    if (lower.includes("договор")) return "По договор."
+    return price
+  }
+
   const folderItems = useMemo(() => {
     if (!folder) return []
 
@@ -182,10 +189,10 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                       }}
                     >
                       {(hasSubscribers || (hasPrice && !isPromo)) && (
-                        <div className="w-full flex items-start justify-between gap-1">
+                        <div className="w-full min-w-0 flex items-start gap-1">
                           {hasSubscribers ? (
                             <span
-                              className="px-1 py-0.5 text-[8px] font-bold"
+                              className="px-1 py-0.5 text-[8px] font-bold whitespace-nowrap"
                               style={{
                                 background: "#0088cc",
                                 color: "#ffffff",
@@ -193,18 +200,18 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                             >
                               👥 {item.subscribers}
                             </span>
-                          ) : (
-                            <span />
-                          )}
+                          ) : null}
+                          <div className="flex-1" />
                           {hasPrice && !isPromo ? (
                             <span
-                              className="px-1 py-0.5 text-[9px] font-bold"
+                              className="px-1 py-0.5 text-[8px] font-bold whitespace-nowrap truncate max-w-[70%]"
                               style={{
                                 background: "#000000",
                                 color: "#FFD700",
                               }}
+                              title={item.price}
                             >
-                              {item.price}
+                              {formatPriceLabel(item.price)}
                             </span>
                           ) : null}
                         </div>
@@ -335,10 +342,10 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                   
                   {/* Верхняя строка (цена/подписчики) — без наложения на иконку */}
                   {(hasSubscribers || (hasPrice && !isPromo)) && (
-                    <div className="w-full flex items-start justify-between gap-1">
+                    <div className="w-full min-w-0 flex items-start gap-1">
                       {hasSubscribers ? (
                         <span
-                          className="px-1 py-0.5 text-[8px] font-bold"
+                          className="px-1 py-0.5 text-[8px] font-bold whitespace-nowrap"
                           style={{
                             background: "#0088cc",
                             color: "#ffffff",
@@ -346,18 +353,18 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                         >
                           👥 {item.subscribers}
                         </span>
-                      ) : (
-                        <span />
-                      )}
+                      ) : null}
+                      <div className="flex-1" />
                       {hasPrice && !isPromo ? (
                         <span
-                          className="px-1 py-0.5 text-[9px] font-bold"
+                          className="px-1 py-0.5 text-[8px] font-bold whitespace-nowrap truncate max-w-[70%]"
                           style={{
                             background: "#000000",
                             color: "#FFD700",
                           }}
+                          title={item.price}
                         >
-                          {item.price}
+                          {formatPriceLabel(item.price)}
                         </span>
                       ) : null}
                     </div>

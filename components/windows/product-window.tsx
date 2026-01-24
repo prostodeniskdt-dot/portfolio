@@ -366,7 +366,7 @@ export function ProductWindow({ productId }: ProductWindowProps) {
                     border: "2px solid #000000",
                   }}
                 >
-                  <p className="text-xs font-bold text-[#FFD700]">
+                  <p className="text-xs font-bold text-[#FFD700] whitespace-nowrap">
                     {item.price}
                   </p>
                 </div>
