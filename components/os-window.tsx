@@ -416,14 +416,14 @@ export const OSWindow = memo(function OSWindow({
                 color: "#FFD700",
                 border: "2px solid",
                 borderColor: "#3a3a3a #FFD700 #FFD700 #3a3a3a",
-                paddingBottom: isMobile ? "8px" : "4px",
+                paddingBottom: isMobile ? "6px" : "4px",
               }}
             >
               <div
                 aria-hidden="true"
                 style={{
-                  width: isMobile ? "20px" : "12px",
-                  height: isMobile ? "3px" : "2px",
+                  width: isMobile ? "16px" : "12px",
+                  height: isMobile ? "2px" : "2px",
                   background: "#FFD700",
                   border: "none",
                 }}
@@ -444,20 +444,20 @@ export const OSWindow = memo(function OSWindow({
               }}
             >
               {isMaximized ? (
-                <div className={`relative ${isMobile ? "w-5 h-4" : "w-3 h-2.5"}`}>
+                <div className={`relative ${isMobile ? "w-4 h-3" : "w-3 h-2.5"}`}>
                   <div
-                    className={`absolute top-0 right-0 ${isMobile ? "w-3 h-3 border-2" : "w-2 h-2 border-2"} border-[#FFD700] group-hover:border-black`}
-                    style={{ borderTopWidth: isMobile ? "4px" : "3px" }}
+                    className={`absolute top-0 right-0 ${isMobile ? "w-2 h-2 border-2" : "w-2 h-2 border-2"} border-[#FFD700] group-hover:border-black`}
+                    style={{ borderTopWidth: "3px" }}
                   />
                   <div
-                    className={`absolute bottom-0 left-0 ${isMobile ? "w-3 h-3 border-2" : "w-2 h-2 border-2"} border-[#FFD700] group-hover:border-black bg-black group-hover:bg-[#FFD700]`}
-                    style={{ borderTopWidth: isMobile ? "4px" : "3px" }}
+                    className={`absolute bottom-0 left-0 ${isMobile ? "w-2 h-2 border-2" : "w-2 h-2 border-2"} border-[#FFD700] group-hover:border-black bg-black group-hover:bg-[#FFD700]`}
+                    style={{ borderTopWidth: "3px" }}
                   />
                 </div>
               ) : (
                 <div
-                  className={`${isMobile ? "w-5 h-4 border-2" : "w-3 h-2.5 border-2"} border-[#FFD700] group-hover:border-black`}
-                  style={{ borderTopWidth: isMobile ? "4px" : "3px" }}
+                  className={`${isMobile ? "w-4 h-3 border-2" : "w-3 h-2.5 border-2"} border-[#FFD700] group-hover:border-black`}
+                  style={{ borderTopWidth: "3px" }}
                 />
               )}
             </button>
@@ -480,9 +480,9 @@ export const OSWindow = memo(function OSWindow({
             >
               <span 
                 aria-hidden="true"
-                className={`${isMobile ? "text-4xl leading-none" : "text-xl leading-none"}`}
+                className={`${isMobile ? "text-2xl leading-none" : "text-xl leading-none"}`}
                 style={{
-                  fontSize: isMobile ? "32px" : "20px",
+                  fontSize: isMobile ? "24px" : "20px",
                   lineHeight: "1",
                   fontWeight: "bold",
                 }}
