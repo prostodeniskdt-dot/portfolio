@@ -190,8 +190,8 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                       }}
                     >
                       {(hasSubscribers || (hasPrice && !isPromo)) && (
-                        <div className="w-full min-w-0 flex items-start gap-1">
-                          {hasSubscribers ? (
+                        <div className="w-full min-w-0 flex flex-col items-start gap-0.5">
+                          {hasSubscribers && (
                             <span
                               className="px-1 py-0.5 text-[8px] font-bold whitespace-nowrap"
                               style={{
@@ -201,20 +201,22 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                             >
                               👥 {item.subscribers}
                             </span>
-                          ) : null}
-                          <div className="flex-1" />
-                          {hasPrice && !isPromo && item.price ? (
+                          )}
+                          {hasPrice && !isPromo && item.price && (
                             <span
-                              className="px-1 py-0.5 text-[8px] font-bold whitespace-nowrap truncate max-w-[70%]"
+                              className="px-1 py-0.5 text-[8px] font-bold w-full text-right"
                               style={{
                                 background: "#000000",
                                 color: "#FFD700",
+                                whiteSpace: "normal",
+                                wordBreak: "break-word",
+                                display: "block",
                               }}
                               title={item.price}
                             >
                               {formatPriceLabel(item.price)}
                             </span>
-                          ) : null}
+                          )}
                         </div>
                       )}
                       <span className={isMobile ? "text-2xl" : "text-4xl"}>{item.icon}</span>

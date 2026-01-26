@@ -405,6 +405,7 @@ export function PlayerWindow() {
               background: "linear-gradient(180deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%)",
               border: "1px solid #444",
               borderRadius: "2px",
+              overflow: "hidden",
             }}
             onClick={(e) => {
               const rect = e.currentTarget.getBoundingClientRect()
@@ -427,7 +428,7 @@ export function PlayerWindow() {
             <div
               style={{
                 position: "absolute",
-                left: `${volume * 100}%`,
+                left: `${Math.min(100, Math.max(0, volume * 100))}%`,
                 top: "50%",
                 transform: "translate(-50%, -50%)",
                 width: "6px",
@@ -435,6 +436,7 @@ export function PlayerWindow() {
                 background: "linear-gradient(180deg, #666 0%, #444 50%, #333 100%)",
                 border: "1px solid #888",
                 borderRadius: "2px",
+                maxWidth: "100%",
               }}
             />
           </div>
