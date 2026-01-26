@@ -190,10 +190,10 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                       }}
                     >
                       {(hasSubscribers || (hasPrice && !isPromo)) && (
-                        <div className="w-full min-w-0 flex flex-col items-start gap-0.5">
+                        <div className="w-full min-w-0 flex items-start justify-between gap-1">
                           {hasSubscribers && (
                             <span
-                              className="px-1 py-0.5 text-[8px] font-bold whitespace-nowrap"
+                              className="px-1 py-0.5 text-[8px] font-bold whitespace-nowrap shrink-0"
                               style={{
                                 background: "#0088cc",
                                 color: "#ffffff",
@@ -204,13 +204,11 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                           )}
                           {hasPrice && !isPromo && item.price && (
                             <span
-                              className="px-1 py-0.5 text-[8px] font-bold w-full text-right"
+                              className="px-1 py-0.5 text-[8px] font-bold whitespace-nowrap shrink-0"
                               style={{
                                 background: "#000000",
                                 color: "#FFD700",
-                                whiteSpace: "normal",
-                                wordBreak: "break-word",
-                                display: "block",
+                                display: "inline-block",
                               }}
                               title={item.price}
                             >

@@ -346,6 +346,7 @@ export function StandalonePlayer({ onClose, defaultPosition = { x: 100, y: 100 }
             background: "linear-gradient(180deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%)",
             border: "1px solid #444",
             borderRadius: "2px",
+            overflow: "hidden",
           }}
           onClick={handleSeek}
         >
@@ -355,7 +356,7 @@ export function StandalonePlayer({ onClose, defaultPosition = { x: 100, y: 100 }
               left: 0,
               top: 0,
               height: "100%",
-              width: `${progressPercent}%`,
+              width: `${Math.min(100, Math.max(0, progressPercent))}%`,
               background: "linear-gradient(180deg, #FFD700 0%, #B8860B 50%, #FFD700 100%)",
               borderRadius: "1px",
               transition: "width 0.1s linear",
@@ -365,7 +366,7 @@ export function StandalonePlayer({ onClose, defaultPosition = { x: 100, y: 100 }
           <div
             style={{
               position: "absolute",
-              left: `${progressPercent}%`,
+              left: `${Math.min(100, Math.max(0, progressPercent))}%`,
               top: "50%",
               transform: "translate(-50%, -50%)",
               width: isMobile ? "12px" : "8px",
@@ -562,7 +563,8 @@ export function StandalonePlayer({ onClose, defaultPosition = { x: 100, y: 100 }
                 background: "linear-gradient(180deg, #666 0%, #444 50%, #333 100%)",
                 border: "1px solid #888",
                 borderRadius: "2px",
-                maxWidth: "100%",
+                maxLeft: "100%",
+                right: "auto",
               }}
             />
           </div>
