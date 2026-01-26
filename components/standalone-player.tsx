@@ -563,8 +563,6 @@ export function StandalonePlayer({ onClose, defaultPosition = { x: 100, y: 100 }
                 background: "linear-gradient(180deg, #666 0%, #444 50%, #333 100%)",
                 border: "1px solid #888",
                 borderRadius: "2px",
-                maxLeft: "100%",
-                right: "auto",
               }}
             />
           </div>
