@@ -23,7 +23,8 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
   const [needsScroll, setNeedsScroll] = useState(false)
   const contentRef = useRef<HTMLDivElement>(null)
 
-  const formatPriceLabel = (price: string) => {
+  const formatPriceLabel = (price: string | undefined) => {
+    if (!price) return ""
     if (!isMobile) return price
     const lower = price.toLowerCase()
     if (lower.includes("договор")) return "По договор."
@@ -202,7 +203,7 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                             </span>
                           ) : null}
                           <div className="flex-1" />
-                          {hasPrice && !isPromo ? (
+                          {hasPrice && !isPromo && item.price ? (
                             <span
                               className="px-1 py-0.5 text-[8px] font-bold whitespace-nowrap truncate max-w-[70%]"
                               style={{
@@ -355,7 +356,7 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                         </span>
                       ) : null}
                       <div className="flex-1" />
-                      {hasPrice && !isPromo ? (
+                      {hasPrice && !isPromo && item.price ? (
                         <span
                           className="px-1 py-0.5 text-[8px] font-bold whitespace-nowrap truncate max-w-[70%]"
                           style={{
