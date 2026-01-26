@@ -248,7 +248,7 @@ export function ProductWindow({ productId }: ProductWindowProps) {
                 href={item.videoReviewLink}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-block px-3 py-2 text-xs font-bold transition-all hover:scale-[1.02]"
+                className={`inline-block font-bold transition-all hover:scale-[1.02] ${isMobile ? "px-2 py-1 text-[10px]" : "px-3 py-2 text-xs"}`}
                 style={{
                   background: "#FFFFFF",
                   color: "#000000",
@@ -267,7 +267,7 @@ export function ProductWindow({ productId }: ProductWindowProps) {
                 href={item.shortVideoReviewLink}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-block px-3 py-2 text-xs font-bold transition-all hover:scale-[1.02]"
+                className={`inline-block font-bold transition-all hover:scale-[1.02] ${isMobile ? "px-2 py-1 text-[10px]" : "px-3 py-2 text-xs"}`}
                 style={{
                   background: "#FFFFFF",
                   color: "#000000",
@@ -376,7 +376,7 @@ export function ProductWindow({ productId }: ProductWindowProps) {
                     href={item.paymentLink}
                     target="_blank"
                     rel="noreferrer"
-                    className="px-2 py-1 text-xs font-bold transition-all hover:scale-[1.02] inline-block"
+                    className={`font-bold transition-all hover:scale-[1.02] inline-block ${isMobile ? "px-2 py-1 text-[10px]" : "px-2 py-1 text-xs"}`}
                     style={{
                       background: "#FFD700",
                       color: "#000000",

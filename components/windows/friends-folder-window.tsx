@@ -190,7 +190,13 @@ export function FriendsFolderWindow({
             <span>{currentSubfolder ? "Файлы не найдены" : "Папки не найдены"}</span>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+          <div className={`grid gap-3 sm:gap-4 ${
+            currentSubfolder && currentSubfolder.id === "cocktail-design-folder"
+              ? isMobile 
+                ? "grid-cols-2" 
+                : "sm:grid-cols-2 lg:grid-cols-3"
+              : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+          }`}>
             {filteredItems.map((item) => {
               if (currentSubfolder) {
                 // Отображаем файлы

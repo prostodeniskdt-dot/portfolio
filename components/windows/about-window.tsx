@@ -48,9 +48,9 @@ export function AboutWindow() {
           border: "3px solid #000000",
         }}
       >
-        <div className="flex gap-4 items-stretch">
+        <div className={`flex gap-4 items-stretch ${isMobile ? "flex-col" : "flex-row"}`}>
           {/* Портрет слева */}
-          <div className="w-64 shrink-0 overflow-hidden relative">
+          <div className={`${isMobile ? "w-full" : "w-64"} shrink-0 overflow-hidden relative`}>
             <img 
               src="/images/team/vitaly.jpg" 
               alt="Виталий Аршук" 
@@ -133,9 +133,9 @@ export function AboutWindow() {
           border: "3px solid #000000",
         }}
       >
-        <div className="flex gap-4 items-stretch">
+        <div className={`flex gap-4 items-stretch ${isMobile ? "flex-col" : "flex-row"}`}>
           {/* Портрет слева */}
-          <div className="w-64 shrink-0 overflow-hidden relative">
+          <div className={`${isMobile ? "w-full" : "w-64"} shrink-0 overflow-hidden relative`}>
             <img 
               src="/images/team/denis.jpg" 
               alt="Денис Колодешников" 
@@ -210,9 +210,9 @@ export function AboutWindow() {
           border: "3px solid #000000",
         }}
       >
-        <div className="flex gap-4 items-stretch">
+        <div className={`flex gap-4 items-stretch ${isMobile ? "flex-col" : "flex-row"}`}>
           {/* Портрет слева */}
-          <div className="w-64 shrink-0 overflow-hidden relative">
+          <div className={`${isMobile ? "w-full" : "w-64"} shrink-0 overflow-hidden relative`}>
             <img 
               src="/images/team/valeria.jpg" 
               alt="Валерия Колодешникова" 

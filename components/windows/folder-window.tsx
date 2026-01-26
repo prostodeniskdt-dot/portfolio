@@ -179,7 +179,7 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                         e.stopPropagation()
                         onOpenProduct?.(item.id)
                       }}
-                      className="flex flex-col items-center gap-2 p-3 cursor-pointer hover:bg-[#FFD700] group transition-colors relative"
+                      className={`flex flex-col items-center cursor-pointer hover:bg-[#FFD700] group transition-colors relative ${isMobile ? "gap-1 p-1.5" : "gap-2 p-3"}`}
                       style={{
                         background: isPromo 
                           ? "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)"
@@ -217,11 +217,21 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                           ) : null}
                         </div>
                       )}
-                      <span className={isMobile ? "text-3xl" : "text-4xl"}>{item.icon}</span>
-                      <span className="text-xs font-bold text-center text-black group-hover:text-black">
+                      <span className={isMobile ? "text-2xl" : "text-4xl"}>{item.icon}</span>
+                      <span className={`${isMobile ? "text-[10px]" : "text-xs"} font-bold text-center text-black group-hover:text-black`}>
                         {item.title}
                       </span>
-                      <span className="text-[10px] text-center text-[#666666] group-hover:text-black line-clamp-2">
+                      <span 
+                        className={`${isMobile ? "text-[8px]" : "text-[10px]"} text-center text-[#666666] group-hover:text-black`}
+                        style={{
+                          display: "-webkit-box",
+                          WebkitLineClamp: isMobile ? 3 : 2,
+                          WebkitBoxOrient: "vertical",
+                          overflow: "hidden",
+                          wordBreak: "break-word",
+                          lineHeight: "1.2",
+                        }}
+                      >
                         {item.description}
                       </span>
                       {isPromo && hasPrice && (
@@ -261,17 +271,27 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                         e.stopPropagation()
                         onOpenProduct?.(item.id)
                       }}
-                      className={`flex flex-col items-center gap-2 p-3 cursor-pointer hover:bg-[#FFD700] group transition-colors relative ${isAnimated ? '' : 'animate-pulse'}`}
+                      className={`flex flex-col items-center cursor-pointer hover:bg-[#FFD700] group transition-colors relative ${isAnimated ? '' : 'animate-pulse'} ${isMobile ? "gap-1 p-1.5" : "gap-2 p-3"}`}
                       style={{
                         background: isAnimated ? "#ffffff" : "#000000",
                         border: "2px solid #000000",
                       }}
                     >
-                      <span className={isMobile ? "text-3xl" : "text-4xl"}>{item.icon}</span>
-                      <span className={`text-xs font-bold text-center ${isAnimated ? 'text-black group-hover:text-black' : 'text-[#FFD700] group-hover:text-[#FFD700]'}`}>
+                      <span className={isMobile ? "text-2xl" : "text-4xl"}>{item.icon}</span>
+                      <span className={`${isMobile ? "text-[10px]" : "text-xs"} font-bold text-center ${isAnimated ? 'text-black group-hover:text-black' : 'text-[#FFD700] group-hover:text-[#FFD700]'}`}>
                         {item.title}
                       </span>
-                      <span className={`text-[10px] text-center ${isAnimated ? 'text-[#666666] group-hover:text-black' : 'text-[#FFD700] group-hover:text-[#FFD700]'} line-clamp-2`}>
+                      <span 
+                        className={`${isMobile ? "text-[8px]" : "text-[10px]"} text-center ${isAnimated ? 'text-[#666666] group-hover:text-black' : 'text-[#FFD700] group-hover:text-[#FFD700]'}`}
+                        style={{
+                          display: "-webkit-box",
+                          WebkitLineClamp: isMobile ? 3 : 2,
+                          WebkitBoxOrient: "vertical",
+                          overflow: "hidden",
+                          wordBreak: "break-word",
+                          lineHeight: "1.2",
+                        }}
+                      >
                         {item.description}
                       </span>
                       {hasPrice && (
@@ -313,7 +333,7 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                     }
                   }}
                   disabled={isInDevelopment}
-                  className="flex flex-col items-center gap-2 p-3 transition-colors relative"
+                  className={`flex flex-col items-center transition-colors relative ${isMobile ? "gap-1 p-1.5" : "gap-2 p-3"}`}
                   style={{
                     background: isInDevelopment 
                       ? "#cccccc" 
@@ -371,11 +391,21 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                     </div>
                   )}
                   
-                  <span className={isMobile ? "text-3xl" : "text-4xl"}>{item.icon}</span>
-                  <span className="text-xs font-bold text-center text-black group-hover:text-black">
+                  <span className={isMobile ? "text-2xl" : "text-4xl"}>{item.icon}</span>
+                  <span className={`${isMobile ? "text-[10px]" : "text-xs"} font-bold text-center text-black group-hover:text-black`}>
                     {item.title}
                   </span>
-                  <span className="text-[10px] text-center text-[#666666] group-hover:text-black line-clamp-2">
+                  <span 
+                    className={`${isMobile ? "text-[8px]" : "text-[10px]"} text-center text-[#666666] group-hover:text-black`}
+                    style={{
+                      display: "-webkit-box",
+                      WebkitLineClamp: isMobile ? 3 : 2,
+                      WebkitBoxOrient: "vertical",
+                      overflow: "hidden",
+                      wordBreak: "break-word",
+                      lineHeight: "1.2",
+                    }}
+                  >
                     {item.description}
                   </span>
                   
