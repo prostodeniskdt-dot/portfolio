@@ -159,10 +159,15 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
         ) : folderId === "advertising" ? (
           // Custom layout for advertising folder
           <div className="space-y-3">
-            {/* First row: website, barboss, otomosom in one line */}
+            {/* First row: barboss, website, otomosom in one line */}
             <div className="grid grid-cols-3 gap-3">
               {folderItems
                 .filter(item => item.id === "ad-website" || item.id === "ad-telegram-barboss" || item.id === "ad-telegram-otomosom")
+                .sort((a, b) => {
+                  // Order: ad-telegram-barboss, ad-website, ad-telegram-otomosom
+                  const order = ["ad-telegram-barboss", "ad-website", "ad-telegram-otomosom"]
+                  return order.indexOf(a.id) - order.indexOf(b.id)
+                })
                 .map((item) => {
                   const isPromo = 'isPromo' in item && item.isPromo
                   const hasSubscribers = 'subscribers' in item && item.subscribers
@@ -190,7 +195,7 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                       }}
                     >
                       {(hasSubscribers || (hasPrice && !isPromo)) && (
-                        <div className="w-full min-w-0 flex items-start justify-between gap-1">
+                        <div className={`w-full min-w-0 flex items-start gap-1 ${hasSubscribers ? 'justify-between' : 'justify-end'}`}>
                           {hasSubscribers && (
                             <span
                               className="px-1 py-0.5 text-[8px] font-bold whitespace-nowrap shrink-0"
