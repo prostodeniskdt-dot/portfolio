@@ -245,20 +245,19 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                   )
                 })}
             </div>
-            {/* Second row: package-all and animated side by side */}
+            {/* Second row: animated-barboss, package-all, animated-otomosom */}
             <div className="grid grid-cols-3 gap-3">
-              <div style={{ width: "100%", height: "0" }}></div>
               {folderItems
-                .filter(item => item.id === "ad-package-all" || item.id === "ad-animated")
+                .filter(item => item.id === "ad-animated-barboss" || item.id === "ad-package-all" || item.id === "ad-animated-otomosom")
                 .sort((a, b) => {
-                  // Ensure ad-package-all comes first, then ad-animated
-                  if (a.id === "ad-package-all") return -1
-                  if (b.id === "ad-package-all") return 1
-                  return 0
+                  // Order: ad-animated-barboss, ad-package-all, ad-animated-otomosom
+                  const order = ["ad-animated-barboss", "ad-package-all", "ad-animated-otomosom"]
+                  return order.indexOf(a.id) - order.indexOf(b.id)
                 })
                 .map((item) => {
                   const hasPrice = 'price' in item && item.price
-                  const isAnimated = item.id === "ad-animated"
+                  const isAnimated = item.id === "ad-animated-barboss" || item.id === "ad-animated-otomosom"
+                  const isPackage = item.id === "ad-package-all"
                   
                   return (
                     <button
@@ -271,18 +270,18 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                         e.stopPropagation()
                         onOpenProduct?.(item.id)
                       }}
-                      className={`flex flex-col items-center cursor-pointer hover:bg-[#FFD700] group transition-colors relative ${isAnimated ? '' : 'animate-pulse'} ${isMobile ? "gap-1 p-1.5" : "gap-2 p-3"}`}
+                      className={`flex flex-col items-center cursor-pointer hover:bg-[#FFD700] group transition-colors relative ${isPackage ? 'animate-pulse' : ''} ${isMobile ? "gap-1 p-1.5" : "gap-2 p-3"}`}
                       style={{
-                        background: isAnimated ? "#ffffff" : "#000000",
+                        background: isPackage ? "#000000" : "#ffffff",
                         border: "2px solid #000000",
                       }}
                     >
                       <span className={isMobile ? "text-2xl" : "text-4xl"}>{item.icon}</span>
-                      <span className={`${isMobile ? "text-[10px]" : "text-xs"} font-bold text-center ${isAnimated ? 'text-black group-hover:text-black' : 'text-[#FFD700] group-hover:text-[#FFD700]'}`}>
+                      <span className={`${isMobile ? "text-[10px]" : "text-xs"} font-bold text-center ${isPackage ? 'text-[#FFD700] group-hover:text-[#FFD700]' : 'text-black group-hover:text-black'}`}>
                         {item.title}
                       </span>
                       <span 
-                        className={`${isMobile ? "text-[8px]" : "text-[10px]"} text-center ${isAnimated ? 'text-[#666666] group-hover:text-black' : 'text-[#FFD700] group-hover:text-[#FFD700]'}`}
+                        className={`${isMobile ? "text-[8px]" : "text-[10px]"} text-center ${isPackage ? 'text-[#FFD700] group-hover:text-[#FFD700]' : 'text-[#666666] group-hover:text-black'}`}
                         style={{
                           display: "-webkit-box",
                           WebkitLineClamp: isMobile ? 3 : 2,
@@ -296,7 +295,7 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                       </span>
                       {hasPrice && (
                         <span 
-                          className={`text-sm font-bold mt-1 ${isAnimated ? 'text-black' : 'text-[#FFD700]'}`}
+                          className={`text-sm font-bold mt-1 ${isPackage ? 'text-[#FFD700]' : 'text-black'}`}
                         >
                           {item.price}
                         </span>
@@ -304,7 +303,6 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
                     </button>
                   )
                 })}
-              <div style={{ width: "100%", height: "0" }}></div>
             </div>
           </div>
         ) : (

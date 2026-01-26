@@ -180,19 +180,37 @@ export function ProductWindow({ productId }: ProductWindowProps) {
                   </ul>
                 </div>
               </div>
-            ) : itemType === 'product' && productId === 'ad-animated' ? (
+            ) : itemType === 'product' && productId === 'ad-animated-barboss' ? (
               <div className="text-xs leading-relaxed space-y-3">
                 <div>
-                  <h4 className="font-bold mb-2">Стоимость:</h4>
+                  <h4 className="font-bold mb-1">Стоимость размещения - 10 000 ₽.</h4>
+                  <p>Оплата по безналичному расчёту возможна, стоимость с учётом налога 6% - 10 600 ₽.</p>
+                </div>
+
+                <div>
+                  <h4 className="font-bold mb-1">В стоимость входит:</h4>
                   <ul className="space-y-1 ml-4">
-                    <li>• Bar Boss online - 10 000 ₽</li>
-                    <li>• «о том о сём» - 7 500 ₽</li>
+                    <li>• анимационный рекламный пост</li>
+                    <li>• размещение в ленте канала</li>
+                    <li>• адаптация подачи под стилистику площадки</li>
                   </ul>
-                  <p className="mt-2">Оплата по безналичному расчёту возможна, стоимость с учётом налога 6%:</p>
-                  <ul className="space-y-1 ml-4 mt-1">
-                    <li>• Bar Boss online - 10 600 ₽</li>
-                    <li>• «о том о сём» - 7 950 ₽</li>
+                </div>
+
+                <div>
+                  <h4 className="font-bold mb-1">Условия сотрудничества:</h4>
+                  <ul className="space-y-1 ml-4">
+                    <li>• материалы для публикации - за 3 календарных дня</li>
+                    <li>• согласование поста перед публикацией</li>
+                    <li>• 100% предоплата</li>
+                    <li>• маркировка со стороны заказчика</li>
                   </ul>
+                </div>
+              </div>
+            ) : itemType === 'product' && productId === 'ad-animated-otomosom' ? (
+              <div className="text-xs leading-relaxed space-y-3">
+                <div>
+                  <h4 className="font-bold mb-1">Стоимость размещения - 7 500 ₽.</h4>
+                  <p>Оплата по безналичному расчёту возможна, стоимость с учётом налога 6% - 7 950 ₽.</p>
                 </div>
 
                 <div>
@@ -355,7 +373,7 @@ export function ProductWindow({ productId }: ProductWindowProps) {
           )}
 
           {/* Для продуктов (обычная цена, если не акция) */}
-          {'price' in item && item.price && !(itemType === 'product' && product?.isPromo) && !(itemType === 'product' && (productId === 'ad-telegram-barboss' || productId === 'ad-telegram-otomosom' || productId === 'ad-animated')) && (
+          {'price' in item && item.price && !(itemType === 'product' && product?.isPromo) && !(itemType === 'product' && (productId === 'ad-telegram-barboss' || productId === 'ad-telegram-otomosom' || productId === 'ad-animated-barboss' || productId === 'ad-animated-otomosom')) && (
             <div>
               <h3 className="font-bold text-sm mb-1">Цена</h3>
               <div className="flex items-center gap-3">
@@ -505,7 +523,7 @@ export function ProductWindow({ productId }: ProductWindowProps) {
           )}
 
           {/* Основные особенности - только для не-документов и не рекламных продуктов с специальным форматированием */}
-          {itemType !== 'document' && item.features && item.features.length > 0 && !(itemType === 'product' && (productId === 'ad-telegram-barboss' || productId === 'ad-telegram-otomosom' || productId === 'ad-animated')) && (
+          {itemType !== 'document' && item.features && item.features.length > 0 && !(itemType === 'product' && (productId === 'ad-telegram-barboss' || productId === 'ad-telegram-otomosom' || productId === 'ad-animated-barboss' || productId === 'ad-animated-otomosom')) && (
             <div>
               <h3 className="font-bold text-sm mb-2">Что входит:</h3>
               <ul className="space-y-1">
@@ -520,7 +538,7 @@ export function ProductWindow({ productId }: ProductWindowProps) {
           )}
 
           {/* Блок доверия для рекламы в Telegram (только для не-рекламных продуктов с специальным форматированием) */}
-          {itemType === 'product' && 'category' in item && item.category === "Реклама в Telegram" && !(productId === 'ad-telegram-barboss' || productId === 'ad-telegram-otomosom' || productId === 'ad-animated') && (
+          {itemType === 'product' && 'category' in item && item.category === "Реклама в Telegram" && !(productId === 'ad-telegram-barboss' || productId === 'ad-telegram-otomosom' || productId === 'ad-animated-barboss' || productId === 'ad-animated-otomosom') && (
             <div 
               className="p-2 text-xs"
               style={{
@@ -580,7 +598,7 @@ export function ProductWindow({ productId }: ProductWindowProps) {
           >
             💳 Оплатить
           </a>
-        ) : itemType === 'product' && (productId === 'ad-telegram-barboss' || productId === 'ad-telegram-otomosom' || productId === 'ad-animated') ? (
+        ) : itemType === 'product' && (productId === 'ad-telegram-barboss' || productId === 'ad-telegram-otomosom' || productId === 'ad-animated-barboss' || productId === 'ad-animated-otomosom') ? (
           // Для рекламных продуктов с специальным форматированием показываем кнопку "Связаться"
           <button
             onClick={handleOrder}
