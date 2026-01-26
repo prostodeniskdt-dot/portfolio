@@ -143,8 +143,8 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning, isMobile: 
         <div
           className="transition-all duration-200 flex items-center justify-center"
           style={{
-            width: isMobile ? (typeof window !== "undefined" && window.innerWidth < 375 ? "44px" : "50px") : "60px",
-            height: isMobile ? (typeof window !== "undefined" && window.innerWidth < 375 ? "44px" : "50px") : "60px",
+            width: isMobile ? (typeof window !== "undefined" && window.innerWidth < 375 ? "56px" : "60px") : "60px",
+            height: isMobile ? (typeof window !== "undefined" && window.innerWidth < 375 ? "56px" : "60px") : "60px",
             background: isTrash && dragOverTrash ? "#FFED4E" : isHovered ? "#FFED4E" : "transparent",
             border: "none",
             borderRadius: "8px",
@@ -162,7 +162,7 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning, isMobile: 
                 : "drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6))",
             }}
           >
-            <IconRenderer icon={item.icon} label={item.label} size={isMobile ? (typeof window !== "undefined" && window.innerWidth < 375 ? 36 : 38) : 56} className="transition-all duration-200" />
+            <IconRenderer icon={item.icon} label={item.label} size={isMobile ? (typeof window !== "undefined" && window.innerWidth < 375 ? 48 : 50) : 56} className="transition-all duration-200" />
           </div>
         </div>
 

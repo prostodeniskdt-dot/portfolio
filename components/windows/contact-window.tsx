@@ -36,7 +36,7 @@ export function ContactWindow() {
           href={TELEGRAM_LEAD_URL}
           target="_blank"
           rel="noreferrer"
-          className={`inline-block font-bold transition-all hover:scale-[1.02] ${isMobile ? "px-2 py-1 text-[10px]" : "px-3 py-1 text-xs"}`}
+          className={`inline-flex items-center justify-center font-bold transition-all hover:scale-[1.02] whitespace-nowrap ${isMobile ? "px-2 py-0.5 text-[10px]" : "px-3 py-1 text-xs"}`}
           style={{
             background: "#FFD700",
             color: "#000000",
@@ -81,7 +81,7 @@ export function ContactWindow() {
                   href={SOCIAL_LINKS.priorityTelegram}
                   target="_blank"
                   rel="noreferrer"
-                  className={`inline-block font-bold transition-all hover:scale-[1.02] ${isMobile ? "px-2 py-1 text-[10px]" : "px-3 py-1 text-xs"}`}
+                  className={`inline-flex items-center justify-center font-bold transition-all hover:scale-[1.02] whitespace-nowrap ${isMobile ? "px-2 py-0.5 text-[10px]" : "px-3 py-1 text-xs"}`}
                   style={{
                     background: "#FFD700",
                     color: "#000000",
@@ -126,7 +126,7 @@ export function ContactWindow() {
             <div>
               <a
                 href="mailto:vitaly.arshuk@gmail.com"
-                className={`inline-block font-bold transition-all hover:scale-[1.02] ${isMobile ? "px-2 py-1 text-[10px]" : "px-3 py-1 text-xs"}`}
+                className={`inline-flex items-center justify-center font-bold transition-all hover:scale-[1.02] whitespace-nowrap ${isMobile ? "px-2 py-0.5 text-[10px]" : "px-3 py-1 text-xs"}`}
                 style={{
                   background: "#FFD700",
                   color: "#000000",
@@ -172,7 +172,7 @@ export function ContactWindow() {
               href="https://yandex.ru/maps/?text=216500,+Россия,+обл.+Смоленская,+г.+Рославль,+ул.+Красноармейская,+д.+102А,+кв.+32"
               target="_blank"
               rel="noreferrer"
-              className={`inline-block font-bold transition-all hover:scale-[1.02] ${isMobile ? "px-2 py-1 text-[10px]" : "px-3 py-1 text-xs"}`}
+              className={`inline-flex items-center justify-center font-bold transition-all hover:scale-[1.02] whitespace-nowrap ${isMobile ? "px-2 py-0.5 text-[10px]" : "px-3 py-1 text-xs"}`}
               style={{
                 background: "#FFD700",
                 color: "#000000",
