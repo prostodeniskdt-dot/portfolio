@@ -139,7 +139,7 @@ export const friends: Friend[] = [
           },
           {
             id: "video-cocktail-design-1",
-            name: "video1.mp4",
+            name: "Фирменный стрейнер",
             type: "video",
             filePath: "/friends/cocktail-design/video1.mp4",
             friendId: "cocktail-design",
@@ -147,7 +147,7 @@ export const friends: Friend[] = [
           },
           {
             id: "video-cocktail-design-2",
-            name: "video2.mp4",
+            name: "Design Vintage Leaves",
             type: "video",
             filePath: "/friends/cocktail-design/video2.mp4",
             friendId: "cocktail-design",
@@ -155,7 +155,7 @@ export const friends: Friend[] = [
           },
           {
             id: "video-cocktail-design-3",
-            name: "video3.mp4",
+            name: "Design Art Deco",
             type: "video",
             filePath: "/friends/cocktail-design/video3.mp4",
             friendId: "cocktail-design",
@@ -163,7 +163,7 @@ export const friends: Friend[] = [
           },
           {
             id: "video-cocktail-design-4",
-            name: "video4.mp4",
+            name: "Набор инвентаря",
             type: "video",
             filePath: "/friends/cocktail-design/video4.mp4",
             friendId: "cocktail-design",
