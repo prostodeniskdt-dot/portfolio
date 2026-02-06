@@ -1,7 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
+import dynamic from "next/dynamic"
 import { Oswald } from "next/font/google"
-import { Analytics } from "@vercel/analytics/next"
 import { ErrorBoundaryWrapper } from "@/components/error-boundary-wrapper"
 import { ToastProvider } from "@/components/toast-provider"
 import "./globals.css"
@@ -12,6 +12,14 @@ const oswald = Oswald({
   display: "swap",
   preload: true,
 })
+
+const AnalyticsClient = dynamic(
+  () => import("@/components/analytics-client").then((mod) => ({ default: mod.AnalyticsClient })),
+  {
+    ssr: false,
+    loading: () => null,
+  },
+)
 
 export const metadata: Metadata = {
   title: "БАР БОСС ONLINE | Онлайн-школа креативных профессий",
@@ -116,7 +124,7 @@ export default function RootLayout({
         <ErrorBoundaryWrapper>
           {children}
           <ToastProvider />
-          <Analytics />
+          <AnalyticsClient />
         </ErrorBoundaryWrapper>
       </body>
     </html>

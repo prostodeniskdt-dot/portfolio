@@ -156,16 +156,16 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
           <div className="text-center p-8 text-sm">
             <span>Элементы не найдены</span>
           </div>
-        ) : folderId === "advertising" ? (
+        ) : folderId === "placements" ? (
           // Custom layout for advertising folder
           <div className="space-y-3">
             {/* First row: barboss, website, otomosom in one line */}
             <div className="grid grid-cols-3 gap-3">
               {folderItems
-                .filter(item => item.id === "ad-website" || item.id === "ad-telegram-barboss" || item.id === "ad-telegram-otomosom")
+                .filter(item => item.id === "placements-website" || item.id === "placements-telegram-barboss" || item.id === "placements-telegram-otomosom")
                 .sort((a, b) => {
-                  // Order: ad-telegram-barboss, ad-website, ad-telegram-otomosom
-                  const order = ["ad-telegram-barboss", "ad-website", "ad-telegram-otomosom"]
+                  // Order: placements-telegram-barboss, placements-website, placements-telegram-otomosom
+                  const order = ["placements-telegram-barboss", "placements-website", "placements-telegram-otomosom"]
                   return order.indexOf(a.id) - order.indexOf(b.id)
                 })
                 .map((item) => {
@@ -253,16 +253,16 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
             {/* Second row: animated-barboss, package-all, animated-otomosom */}
             <div className="grid grid-cols-3 gap-3">
               {folderItems
-                .filter(item => item.id === "ad-animated-barboss" || item.id === "ad-package-all" || item.id === "ad-animated-otomosom")
+                .filter(item => item.id === "placements-animated-barboss" || item.id === "placements-package-all" || item.id === "placements-animated-otomosom")
                 .sort((a, b) => {
-                  // Order: ad-animated-barboss, ad-package-all, ad-animated-otomosom
-                  const order = ["ad-animated-barboss", "ad-package-all", "ad-animated-otomosom"]
+                  // Order: placements-animated-barboss, placements-package-all, placements-animated-otomosom
+                  const order = ["placements-animated-barboss", "placements-package-all", "placements-animated-otomosom"]
                   return order.indexOf(a.id) - order.indexOf(b.id)
                 })
                 .map((item) => {
                   const hasPrice = 'price' in item && item.price
-                  const isAnimated = item.id === "ad-animated-barboss" || item.id === "ad-animated-otomosom"
-                  const isPackage = item.id === "ad-package-all"
+                  const isAnimated = item.id === "placements-animated-barboss" || item.id === "placements-animated-otomosom"
+                  const isPackage = item.id === "placements-package-all"
                   
                   return (
                     <button

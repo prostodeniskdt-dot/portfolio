@@ -274,7 +274,7 @@ export const Desktop = memo(function Desktop({
             : Math.max(50, 99 - (productWindows.length - productIndex - 1))
 
           // Для рекламных продуктов в верхней плашке показываем название папки
-          const isAdvertisingProduct = productId.startsWith("ad-")
+          const isAdvertisingProduct = productId.startsWith("placements-")
           const windowTitle = isAdvertisingProduct ? "Реклама на площадке" : config.title
 
           return (

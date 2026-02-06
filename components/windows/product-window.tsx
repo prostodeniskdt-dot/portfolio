@@ -67,7 +67,7 @@ export function ProductWindow({ productId }: ProductWindowProps) {
         <div className="flex-1">
           <h2 className={`${isMobile ? "text-lg" : "text-xl"} font-bold text-black`}>{item.title}</h2>
           <p className="text-xs text-[#666666]">
-            {itemType === "product" && productId.startsWith("ad-") ? "Реклама на площадке" : item.category}
+            {itemType === "product" && productId.startsWith("placements-") ? "Реклама на площадке" : item.category}
           </p>
         </div>
       </div>
@@ -122,7 +122,7 @@ export function ProductWindow({ productId }: ProductWindowProps) {
                   <p className="mt-2">🤝 Удачи Вам</p>
                 </div>
               </div>
-            ) : itemType === 'product' && productId === 'ad-telegram-barboss' ? (
+            ) : itemType === 'product' && productId === 'placements-telegram-barboss' ? (
               <div className="text-xs leading-relaxed space-y-3">
                 <p>Аудитория канала - представители барного и ресторанного комьюнити, преимущественно руководители и ЛПР. Контент узкоспециализированный, посвящён барному менеджменту.</p>
                 
@@ -151,7 +151,7 @@ export function ProductWindow({ productId }: ProductWindowProps) {
                   </ul>
                 </div>
               </div>
-            ) : itemType === 'product' && productId === 'ad-telegram-otomosom' ? (
+            ) : itemType === 'product' && productId === 'placements-telegram-otomosom' ? (
               <div className="text-xs leading-relaxed space-y-3">
                 <p>Аудитория канала - представители барного и ресторанного комьюнити</p>
                 
@@ -180,7 +180,7 @@ export function ProductWindow({ productId }: ProductWindowProps) {
                   </ul>
                 </div>
               </div>
-            ) : itemType === 'product' && productId === 'ad-animated-barboss' ? (
+            ) : itemType === 'product' && productId === 'placements-animated-barboss' ? (
               <div className="text-xs leading-relaxed space-y-3">
                 <div>
                   <h4 className="font-bold mb-1">Стоимость размещения - 10 000 ₽.</h4>
@@ -206,7 +206,7 @@ export function ProductWindow({ productId }: ProductWindowProps) {
                   </ul>
                 </div>
               </div>
-            ) : itemType === 'product' && productId === 'ad-animated-otomosom' ? (
+            ) : itemType === 'product' && productId === 'placements-animated-otomosom' ? (
               <div className="text-xs leading-relaxed space-y-3">
                 <div>
                   <h4 className="font-bold mb-1">Стоимость размещения - 7 500 ₽.</h4>
@@ -238,14 +238,14 @@ export function ProductWindow({ productId }: ProductWindowProps) {
           </div>
 
           {/* Изображение статистики для Telegram каналов */}
-          {itemType === 'product' && (productId === 'ad-telegram-barboss' || productId === 'ad-telegram-otomosom') && (
+          {itemType === 'product' && (productId === 'placements-telegram-barboss' || productId === 'placements-telegram-otomosom') && (
             <div className="w-full">
               <img
-                src={productId === 'ad-telegram-barboss' 
+                src={productId === 'placements-telegram-barboss' 
                   ? "/images/stats/telegram-barboss-stats.jpg"
                   : "/images/stats/telegram-otomosom-stats.jpg"
                 }
-                alt={productId === 'ad-telegram-barboss'
+                alt={productId === 'placements-telegram-barboss'
                   ? "Статистика Telegram BAR BOSS ONLINE"
                   : "Статистика Telegram О том о сём"
                 }
@@ -373,7 +373,7 @@ export function ProductWindow({ productId }: ProductWindowProps) {
           )}
 
           {/* Для продуктов (обычная цена, если не акция) */}
-          {'price' in item && item.price && !(itemType === 'product' && product?.isPromo) && !(itemType === 'product' && (productId === 'ad-telegram-barboss' || productId === 'ad-telegram-otomosom' || productId === 'ad-animated-barboss' || productId === 'ad-animated-otomosom')) && (
+          {'price' in item && item.price && !(itemType === 'product' && product?.isPromo) && !(itemType === 'product' && (productId === 'placements-telegram-barboss' || productId === 'placements-telegram-otomosom' || productId === 'placements-animated-barboss' || productId === 'placements-animated-otomosom')) && (
             <div>
               <h3 className="font-bold text-sm mb-1">Цена</h3>
               <div className="flex items-center gap-3">
@@ -523,7 +523,7 @@ export function ProductWindow({ productId }: ProductWindowProps) {
           )}
 
           {/* Основные особенности - только для не-документов и не рекламных продуктов с специальным форматированием */}
-          {itemType !== 'document' && item.features && item.features.length > 0 && !(itemType === 'product' && (productId === 'ad-telegram-barboss' || productId === 'ad-telegram-otomosom' || productId === 'ad-animated-barboss' || productId === 'ad-animated-otomosom')) && (
+          {itemType !== 'document' && item.features && item.features.length > 0 && !(itemType === 'product' && (productId === 'placements-telegram-barboss' || productId === 'placements-telegram-otomosom' || productId === 'placements-animated-barboss' || productId === 'placements-animated-otomosom')) && (
             <div>
               <h3 className="font-bold text-sm mb-2">Что входит:</h3>
               <ul className="space-y-1">
@@ -538,7 +538,7 @@ export function ProductWindow({ productId }: ProductWindowProps) {
           )}
 
           {/* Блок доверия для рекламы в Telegram (только для не-рекламных продуктов с специальным форматированием) */}
-          {itemType === 'product' && 'category' in item && item.category === "Реклама в Telegram" && !(productId === 'ad-telegram-barboss' || productId === 'ad-telegram-otomosom' || productId === 'ad-animated-barboss' || productId === 'ad-animated-otomosom') && (
+          {itemType === 'product' && 'category' in item && item.category === "Реклама в Telegram" && !(productId === 'placements-telegram-barboss' || productId === 'placements-telegram-otomosom' || productId === 'placements-animated-barboss' || productId === 'placements-animated-otomosom') && (
             <div 
               className="p-2 text-xs"
               style={{
@@ -598,7 +598,7 @@ export function ProductWindow({ productId }: ProductWindowProps) {
           >
             💳 Оплатить
           </a>
-        ) : itemType === 'product' && (productId === 'ad-telegram-barboss' || productId === 'ad-telegram-otomosom' || productId === 'ad-animated-barboss' || productId === 'ad-animated-otomosom') ? (
+        ) : itemType === 'product' && (productId === 'placements-telegram-barboss' || productId === 'placements-telegram-otomosom' || productId === 'placements-animated-barboss' || productId === 'placements-animated-otomosom') ? (
           // Для рекламных продуктов с специальным форматированием показываем кнопку "Связаться"
           <button
             onClick={handleOrder}

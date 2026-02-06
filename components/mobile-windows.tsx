@@ -203,8 +203,8 @@ export function MobileWindows({
             ? 100 
             : 60 + productIndex
 
-          // Для рекламных продуктов в верхней плашке показываем название папки
-          const isAdvertisingProduct = productId.startsWith("ad-")
+        // Для рекламных продуктов в верхней плашке показываем название папки
+        const isAdvertisingProduct = productId.startsWith("placements-")
           const windowTitle = isAdvertisingProduct ? "Реклама на площадке" : config.title
 
           return (

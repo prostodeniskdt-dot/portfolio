@@ -479,7 +479,7 @@ export const products: Product[] = [
     duration: "1-2 недели",
   },
   {
-    id: "ad-package-all",
+    id: "placements-package-all",
     title: "Реклама на всех 3 площадках",
     description: "Максимальный охват со скидкой!",
     fullDescription:
@@ -501,7 +501,7 @@ export const products: Product[] = [
     duration: "По согласованию",
   },
   {
-    id: "ad-telegram-barboss",
+    id: "placements-telegram-barboss",
     title: "Реклама в телеграмме BAR BOSS ONLINE",
     description: "Реклама в главном канале BAR BOSS",
     fullDescription: "",
@@ -513,7 +513,7 @@ export const products: Product[] = [
     duration: "По согласованию",
   },
   {
-    id: "ad-telegram-otomosom",
+    id: "placements-telegram-otomosom",
     title: "Реклама в телеграмме «О том о сём»",
     description: "Реклама в дружеском канале сообщества",
     fullDescription: "",
@@ -525,7 +525,7 @@ export const products: Product[] = [
     duration: "По согласованию",
   },
   {
-    id: "ad-animated-barboss",
+    id: "placements-animated-barboss",
     title: "Анимационная реклама в канале \"BAR BOSS ONLINE\"",
     description: "Анимированные рекламные посты для Telegram канала BAR BOSS ONLINE",
     fullDescription: "",
@@ -536,7 +536,7 @@ export const products: Product[] = [
     duration: "По согласованию",
   },
   {
-    id: "ad-animated-otomosom",
+    id: "placements-animated-otomosom",
     title: "Анимационная реклама в канале \"О том о сем\"",
     description: "Анимированные рекламные посты для Telegram канала «О том о сём»",
     fullDescription: "",
@@ -547,7 +547,7 @@ export const products: Product[] = [
     duration: "По согласованию",
   },
   {
-    id: "ad-website",
+    id: "placements-website",
     title: "Реклама на сайте",
     description: "Размещение в папке «Друзья» с полным описанием",
     fullDescription:
@@ -1429,18 +1429,18 @@ export const folders: Record<string, Folder> = {
       "vacancies-lvl3",
     ],
   },
-  "advertising": {
-    id: "advertising",
+  "placements": {
+    id: "placements",
     title: "Реклама на площадке",
     icon: "📁",
     isFolder: true,
     items: [
-      "ad-package-all",
-      "ad-telegram-barboss",
-      "ad-telegram-otomosom",
-      "ad-animated-barboss",
-      "ad-animated-otomosom",
-      "ad-website",
+      "placements-package-all",
+      "placements-telegram-barboss",
+      "placements-telegram-otomosom",
+      "placements-animated-barboss",
+      "placements-animated-otomosom",
+      "placements-website",
     ],
   },
   "contest": {
