@@ -1,9 +1,9 @@
 import type React from "react"
 import type { Metadata } from "next"
-import dynamic from "next/dynamic"
 import { Oswald } from "next/font/google"
 import { ErrorBoundaryWrapper } from "@/components/error-boundary-wrapper"
 import { ToastProvider } from "@/components/toast-provider"
+import { AnalyticsClient } from "@/components/analytics-client"
 import "./globals.css"
 
 const oswald = Oswald({
@@ -12,14 +12,6 @@ const oswald = Oswald({
   display: "swap",
   preload: true,
 })
-
-const AnalyticsClient = dynamic(
-  () => import("@/components/analytics-client").then((mod) => ({ default: mod.AnalyticsClient })),
-  {
-    ssr: false,
-    loading: () => null,
-  },
-)
 
 export const metadata: Metadata = {
   title: "БАР БОСС ONLINE | Онлайн-школа креативных профессий",
