@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, MouseEvent } from "react"
 import { soundManager } from "@/lib/sounds"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 const defaultTracks = [
   { id: 1, name: "Музыка для работы 1", url: "/music/Музыка для работы 1.mp3" },
@@ -19,18 +20,9 @@ interface StandalonePlayerProps {
 }
 
 export function StandalonePlayer({ onClose, defaultPosition = { x: 100, y: 100 } }: StandalonePlayerProps) {
-  const [position, setPosition] = useState(() => {
-    if (typeof window !== "undefined") {
-      const isMobileDevice = window.innerWidth < 768
-      if (isMobileDevice) {
-        // Центрируем снизу на мобильных
-        return { x: window.innerWidth / 2 - 200, y: window.innerHeight - 250 }
-      }
-    }
-    return defaultPosition
-  })
+  const isMobile = useIsMobile()
+  const [position, setPosition] = useState(defaultPosition)
   const [isDragging, setIsDragging] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
   const dragOffset = useRef({ x: 0, y: 0 })
   const playerRef = useRef<HTMLDivElement>(null)
 
@@ -48,17 +40,12 @@ export function StandalonePlayer({ onClose, defaultPosition = { x: 100, y: 100 }
     soundManager.playWindowOpen()
   }, [])
 
-  // Определение мобильного устройства
+  // Центрирование на мобильных при открытии
   useEffect(() => {
-    const checkMobile = () => {
-      const isMobileDevice = window.innerWidth < 768 || 
-        ('ontouchstart' in window || navigator.maxTouchPoints > 0)
-      setIsMobile(isMobileDevice)
+    if (isMobile && typeof window !== "undefined") {
+      setPosition({ x: window.innerWidth / 2 - 200, y: window.innerHeight - 250 })
     }
-    checkMobile()
-    window.addEventListener("resize", checkMobile)
-    return () => window.removeEventListener("resize", checkMobile)
-  }, [])
+  }, [isMobile])
 
   // Drag handlers
   const handleHeaderMouseDown = (e: MouseEvent<HTMLDivElement>) => {

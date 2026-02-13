@@ -60,22 +60,36 @@ portfolio/
 │   └── page.tsx           # Главная страница
 ├── components/            # React компоненты
 │   ├── icons/            # Пиксельные иконки
-│   ├── ui/               # UI компоненты (shadcn/ui)
 │   ├── windows/          # Компоненты окон приложения
-│   ├── desktop.tsx       # Рабочий стол
+│   ├── desktop.tsx       # Рабочий стол (десктоп-режим)
+│   ├── mobile-windows.tsx # Мобильный режим окон
+│   ├── window-registry.ts # Реестр lazy-loaded окон
+│   ├── window-renderer.tsx # Общая логика рендеринга окон
+│   ├── os-window.tsx     # Компонент окна ОС
 │   ├── retro-background.tsx # Фон с барной станцией
 │   ├── sidebar-navigation.tsx # Боковая панель навигации
 │   ├── taskbar.tsx       # Панель задач
-│   └── top-bar.tsx       # Верхняя панель
+│   └── toast-provider.tsx # Уведомления (Sonner)
 ├── hooks/                # Кастомные React хуки
+│   ├── use-mobile.ts    # Хук определения мобильного устройства
+│   ├── use-window-state.ts # Состояние окон
+│   └── use-keyboard-shortcuts.ts # Горячие клавиши
 ├── lib/                  # Утилиты и данные
-│   ├── data.ts          # Данные приложения (курсы, продукты и т.д.)
+│   ├── constants.ts     # Константы (MOBILE_BREAKPOINT)
+│   ├── data/            # Данные приложения (модульная структура)
+│   │   ├── index.ts     # Реэкспорт всех данных
+│   │   ├── types.ts     # TypeScript типы
+│   │   ├── products.ts  # Продукты и услуги
+│   │   ├── courses.ts   # Курсы и тарифы
+│   │   ├── friends.ts   # Партнеры (Друзья)
+│   │   ├── folders.ts   # Конфигурация папок
+│   │   ├── window-configs.ts # Конфигурации окон
+│   │   └── ...          # Остальные модули данных
 │   ├── sounds.ts        # Менеджер звуков
 │   └── utils.ts         # Утилиты
 ├── public/              # Статические файлы
-│   └── music/          # Папка для музыкальных файлов (MP3, OGG, WAV)
+│   └── music/          # Музыкальные файлы (MP3, OGG, WAV)
 └── __tests__/          # Тесты
-
 ```
 
 ## Особенности

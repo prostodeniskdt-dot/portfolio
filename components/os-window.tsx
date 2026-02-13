@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, memo, type ReactNode, type MouseEvent } from "react"
 import { soundManager } from "@/lib/sounds"
 import { getPixelIcon } from "@/components/icons/pixel-icons"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 interface OSWindowProps {
   title: string
@@ -37,7 +38,7 @@ export const OSWindow = memo(function OSWindow({
   const [isResizing, setIsResizing] = useState(false)
   const [resizeDirection, setResizeDirection] = useState<string | null>(null)
   const [isMaximized, setIsMaximized] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
+  const isMobile = useIsMobile()
   // Hide visible scrollbars by default (on first open). Show after user resizes/maximizes.
   const [scrollbarsVisible, setScrollbarsVisible] = useState(false)
   const dragOffset = useRef({ x: 0, y: 0 })
@@ -55,22 +56,13 @@ export const OSWindow = memo(function OSWindow({
   // Keep at least this much of the window draggable/visible near bottom (player-like behavior)
   const TASKBAR_SAFE_AREA = 80
 
+  // На мобильных устройствах автоматически максимизируем окно при открытии
   useEffect(() => {
-    const checkMobile = () => {
-      const isMobileDevice = window.innerWidth < 768 || 
-        ('ontouchstart' in window || navigator.maxTouchPoints > 0)
-      setIsMobile(isMobileDevice)
-      
-      // На мобильных устройствах автоматически максимизируем окно при открытии
-      if (isMobileDevice && !isMaximized) {
-        setIsMaximized(true)
-        setScrollbarsVisible(true)
-      }
+    if (isMobile && !isMaximized) {
+      setIsMaximized(true)
+      setScrollbarsVisible(true)
     }
-    checkMobile()
-    window.addEventListener("resize", checkMobile)
-    return () => window.removeEventListener("resize", checkMobile)
-  }, [])
+  }, [isMobile])
 
   // Звук при открытии окна
   useEffect(() => {

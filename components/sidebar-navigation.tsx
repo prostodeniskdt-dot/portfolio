@@ -1,11 +1,10 @@
 "use client"
 
-import React, { useState, useMemo, useEffect } from "react"
+import React, { useState, useMemo } from "react"
 import { getPixelIcon } from "@/components/icons/pixel-icons"
 import { desktopIcons, type DesktopIcon } from "@/lib/data"
 import { IconRenderer } from "./icon-renderer"
-
-const MOBILE_BREAKPOINT = 768
+import { useIsMobile } from "@/hooks/use-mobile"
 
 interface SidebarNavigationProps {
   onItemClick: (itemId: string) => void
@@ -18,20 +17,8 @@ export function SidebarNavigation({ onItemClick, onShowDeleteWarning, isMobile: 
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
   const [draggedItem, setDraggedItem] = useState<string | null>(null)
   const [dragOverTrash, setDragOverTrash] = useState(false)
-  const [isMobile, setIsMobile] = useState(isMobileProp ?? false)
-
-  useEffect(() => {
-    if (isMobileProp !== undefined) {
-      setIsMobile(isMobileProp)
-    } else {
-      const checkMobile = () => {
-        setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
-      }
-      checkMobile()
-      window.addEventListener("resize", checkMobile)
-      return () => window.removeEventListener("resize", checkMobile)
-    }
-  }, [isMobileProp])
+  const isMobileHook = useIsMobile()
+  const isMobile = isMobileProp ?? isMobileHook
 
   // Используем desktopIcons напрямую, чтобы избежать дублирования данных
   // Фильтруем только уникальные элементы по id

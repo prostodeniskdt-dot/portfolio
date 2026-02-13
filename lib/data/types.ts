@@ -1,5 +1,3 @@
-import type React from "react"
-
 export interface Course {
   title: string
   description: string
@@ -27,7 +25,6 @@ export interface WindowConfig {
   title: string
   defaultPosition: { x: number; y: number }
   defaultSize: { width: number; height: number }
-  component?: React.ComponentType
   icon: string
 }
 

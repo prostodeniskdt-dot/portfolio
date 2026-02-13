@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { taskbarItems } from "@/lib/data"
 import { soundManager } from "@/lib/sounds"
 import { getPixelIcon } from "@/components/icons/pixel-icons"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 interface TaskbarProps {
   onItemClick: (windowId: string) => void
@@ -15,19 +16,10 @@ interface TaskbarProps {
 export function Taskbar({ onItemClick, openWindows, minimizedWindows, onMenuStateChange }: TaskbarProps) {
   const [time, setTime] = useState<string>("")
   const [startOpen, setStartOpen] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
+  const isMobile = useIsMobile()
   const [showExitConfirm, setShowExitConfirm] = useState(false)
   const [isExiting, setIsExiting] = useState(false)
   const [soundEnabled, setSoundEnabled] = useState(() => soundManager.isEnabled())
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
-    checkMobile()
-    window.addEventListener("resize", checkMobile)
-    return () => window.removeEventListener("resize", checkMobile)
-  }, [])
 
   useEffect(() => {
     const updateTime = () => {

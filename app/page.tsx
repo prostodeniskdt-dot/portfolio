@@ -10,6 +10,7 @@ import { LoadingScreen } from "@/components/loading-screen"
 import { WindowSkeleton } from "@/components/window-skeleton"
 import { useWindowState } from "@/hooks/use-window-state"
 import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts"
+import { useIsMobile } from "@/hooks/use-mobile"
 import { desktopIcons } from "@/lib/data"
 import { DeleteWarningModal } from "@/components/delete-warning-modal"
 import { StandalonePlayer } from "@/components/standalone-player"
@@ -20,14 +21,12 @@ export default function Home() {
   const [isBackgroundAnimated, setIsBackgroundAnimated] = useState(false)
   const [showDeleteWarning, setShowDeleteWarning] = useState(false)
   const [isPlayerOpen, setIsPlayerOpen] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
+  const isMobile = useIsMobile()
   const [sidebarOpen, setSidebarOpen] = useState(false)
   
-  // Сайдбар открыт по умолчанию на мобильных
+  // Сайдбар открыт по умолчанию на мобильных, закрыт на десктопе
   useEffect(() => {
-    if (isMobile) {
-      setSidebarOpen(true)
-    }
+    setSidebarOpen(isMobile)
   }, [isMobile])
   
   const {
@@ -146,20 +145,6 @@ export default function Home() {
     window.addEventListener("openContactWindow", handleOpenContact)
     return () => window.removeEventListener("openContactWindow", handleOpenContact)
   }, [toggleWindow])
-
-  // Проверка мобильного устройства
-  useEffect(() => {
-    const checkMobile = () => {
-      const mobile = window.innerWidth < 768
-      setIsMobile(mobile)
-      if (!mobile) {
-        setSidebarOpen(false)
-      }
-    }
-    checkMobile()
-    window.addEventListener("resize", checkMobile)
-    return () => window.removeEventListener("resize", checkMobile)
-  }, [])
 
   if (isLoading) {
     return <LoadingScreen onComplete={() => setIsLoading(false)} />
