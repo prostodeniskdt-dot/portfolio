@@ -47,8 +47,8 @@ export const folders: Record<string, Folder> = {
       "vacancies-lvl3",
     ],
   },
-  "placements": {
-    id: "placements",
+  "advertising": {
+    id: "advertising",
     title: "Реклама на площадке",
     icon: "📁",
     isFolder: true,

@@ -156,7 +156,7 @@ export function FolderWindow({ folderId, onOpenProduct, onNavigateBack }: Folder
           <div className="text-center p-8 text-sm">
             <span>Элементы не найдены</span>
           </div>
-        ) : folderId === "placements" ? (
+        ) : folderId === "advertising" ? (
           // Custom layout for advertising folder
           <div className="space-y-3">
             {/* First row: barboss, website, otomosom in one line */}

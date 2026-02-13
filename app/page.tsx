@@ -85,7 +85,7 @@ export default function Home() {
       "individual-products": "individual-products-folder",
       "it-products": "it-products-folder",
       "vacancies": "vacancies-folder",
-      "placements": "advertising-folder",
+      "advertising": "advertising-folder",
       "contest": "contest-folder",
       "friends": "friends-folder",
       "legal-documents": "legal-documents-folder",
