@@ -23,6 +23,10 @@ yarn-error.log*
 # vercel
 .vercel
 
+# deployment logs
+b1a7ba78-187f-4534-8fe3-12fed470d1bc.txt
+f937df27-c6c1-47fd-8a35-84cbfe908bc2.txt
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
