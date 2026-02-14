@@ -1,10 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
+  images: {
+    unoptimized: true,
+  },
   typescript: {
     // ignoreBuildErrors: true, // Removed to enforce TypeScript checks
-  },
-  images: {
-    // unoptimized: true, // Removed to enable Next.js image optimization
   },
   // Оптимизация bundle
   experimental: {
@@ -16,7 +17,6 @@ const nextConfig = {
   // кастомные headers — они работают только с серверным рендерингом.
   // Для заголовков безопасности настройте их на стороне хостинга (timeweb.cloud).
   distDir: 'dist',
-  // output: 'export' // Removed — switching to server mode for timeweb.cloud deploy
 }
 
 export default nextConfig
