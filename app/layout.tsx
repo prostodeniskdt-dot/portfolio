@@ -1,5 +1,5 @@
 import type React from "react"
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Oswald } from "next/font/google"
 import { ErrorBoundaryWrapper } from "@/components/error-boundary-wrapper"
 import { ToastProvider } from "@/components/toast-provider"
@@ -12,6 +12,13 @@ const oswald = Oswald({
   display: "swap",
   preload: true,
 })
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+}
 
 export const metadata: Metadata = {
   title: "БАР БОСС ONLINE | Онлайн-школа креативных профессий",
@@ -30,12 +37,6 @@ export const metadata: Metadata = {
   authors: [{ name: "БАР БОСС ONLINE" }],
   creator: "БАР БОСС ONLINE",
   publisher: "БАР БОСС ONLINE",
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 5,
-    userScalable: true,
-  },
   formatDetection: {
     email: false,
     address: false,

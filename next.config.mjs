@@ -12,36 +12,10 @@ const nextConfig = {
   },
   // Компрессия
   compress: true,
-  async headers() {
-    return [
-      {
-        source: "/(.*)",
-        headers: [
-          {
-            key: "X-Content-Type-Options",
-            value: "nosniff",
-          },
-          {
-            key: "X-Frame-Options",
-            value: "DENY",
-          },
-          {
-            key: "X-XSS-Protection",
-            value: "1; mode=block",
-          },
-          {
-            key: "Referrer-Policy",
-            value: "strict-origin-when-cross-origin",
-          },
-          {
-            key: "Permissions-Policy",
-            value: "camera=(), microphone=(), geolocation=()",
-          },
-        ],
-      },
-    ]
-  },
- distDir: 'dist',
+  // headers отключены: при output: 'export' Next.js не поддерживает
+  // кастомные headers — они работают только с серверным рендерингом.
+  // Для заголовков безопасности настройте их на стороне хостинга (timeweb.cloud).
+  distDir: 'dist',
   output: 'export' 
 }
 
