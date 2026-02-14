@@ -6,7 +6,7 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "eslint .",
-    "start": "next start",
+    "start": "serve out -l 8080",
     "type-check": "tsc --noEmit",
     "prebuild": "tsc --noEmit",
     "postbuild": "node scripts/copy-out.js",
@@ -24,7 +24,8 @@
     "sonner": "^1.7.4",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7",
-    "zod": "3.25.76"
+    "zod": "3.25.76",
+    "serve": "^14.2.4"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.9",

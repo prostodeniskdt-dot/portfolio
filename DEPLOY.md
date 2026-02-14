@@ -8,7 +8,7 @@
 
 - В **next.config.mjs** включён статический экспорт: **`output: 'export'`**. Папка **`distDir`** не задаётся — экспорт идёт в стандартную папку **`out`**, иначе на платформе падает шаг «Unpacking static».
 - После `npm run build` Next.js создаёт статику в **`out`**, затем скрипт **`scripts/copy-out.js`** копирует её в **`dist/barboss/browser`** (на случай, если в панели указана эта директория).
-- В **package.json** добавлен **postbuild**: `node scripts/copy-out.js`.
+- В **package.json**: **postbuild** копирует статику в `dist/barboss/browser`; **start** запускает раздачу папки **`out`** на порту 8080 через пакет `serve` (для статического экспорта `next start` не используется).
 
 В настройках приложения укажите параметры сборки, как в таблице ниже. **Директорию сборки лучше указать `out`** — так платформа корректно находит статику.
 
@@ -91,6 +91,12 @@ npm run build
 - [Деплой Next.js в App Platform](https://timeweb.cloud/docs/apps/deploying-frontend-apps/nextjs)
 - [Управление приложениями и привязка домена](https://timeweb.cloud/docs/apps/upravlenie-apps-v-paneli)
 - [Подключение репозиториев](https://timeweb.cloud/docs/apps/connecting-repositories)
+
+---
+
+## Если ошибка после «Build succeeded» (на этапе запуска)
+
+При статическом экспорте (`output: 'export'`) **не используется** `next start` — в проекте скрипт **start** запускает раздачу папки **out** на порту **8080** через пакет **serve**. Убедитесь, что в настройках приложения команда запуска не переопределена (должен выполняться `npm start` из package.json).
 
 ---
 
