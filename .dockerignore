@@ -1,0 +1,50 @@
+# Dependencies (устанавливаются в контейнере)
+node_modules
+.pnpm-store
+
+# Сборка Next.js (создаётся при npm run build)
+.next
+dist
+out
+build
+
+# Git (история занимает много места и не нужна для сборки)
+.git
+.gitignore
+
+# Логи и отладка
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Переменные окружения (не должны попадать в образ)
+.env
+.env.*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE и ОС
+.vscode
+.idea
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Тесты (не нужны в production-сборке)
+coverage
+.nyc_output
+__tests__
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+
+# Документация и прочее
+README.md
+*.md
+.editorconfig
