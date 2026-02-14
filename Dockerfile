@@ -1,39 +1,33 @@
-# ============================================
-# Сборка Next.js (статический экспорт)
-# ============================================
-FROM node:22-alpine AS builder
+# Одностадийный Dockerfile для Timeweb Cloud App Platform.
+# Обязательны EXPOSE 8080 и CMD — иначе контейнер не слушает порт и не проходит health check.
 
-# Установка pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
-RUN pnpm add -g pnpm
+FROM node:24-slim
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN groupadd --gid 2000 app && useradd --uid 2000 --gid 2000 -m -s /bin/bash app
 
 WORKDIR /app
 
-# Копируем файлы зависимостей
-COPY package.json pnpm-lock.yaml* ./
+COPY --chown=app:app . .
 
-# Устанавливаем зависимости (включая dev для сборки)
-RUN pnpm install --frozen-lockfile
+RUN if [ -f yarn.lock ]; then \
+  yarn install --check-files; \
+elif [ -f pnpm-lock.yaml ]; then \
+  corepack enable && pnpm install; \
+elif [ -f package-lock.json ]; then \
+  npm ci --verbose; \
+elif [ -f package.json ]; then \
+  npm install --verbose; \
+else \
+  npm install --verbose; \
+fi
 
-# Копируем исходный код
-COPY . .
+RUN npm run build
 
-# Сборка статического экспорта (результат в ./out)
-RUN pnpm run build
-
-# ============================================
-# Продакшен: Nginx раздаёт статику
-# ============================================
-FROM nginx:alpine
-
-# Копируем собранный сайт из стадии сборки
-COPY --from=builder /app/out /usr/share/nginx/html
-
-# Конфиг Nginx для SPA и порта 8080 (требование App Platform Timeweb Cloud)
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-# Порт для App Platform (по умолчанию 8080, если EXPOSE не указан)
+# Без EXPOSE платформа может не подхватить порт; без CMD контейнер сразу завершается и health check падает.
 EXPOSE 8080
 
-# Nginx запускается по умолчанию при старте контейнера
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["npx", "serve", "out", "-l", "8080"]
