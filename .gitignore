@@ -26,6 +26,7 @@ yarn-error.log*
 # deployment logs
 b1a7ba78-187f-4534-8fe3-12fed470d1bc.txt
 f937df27-c6c1-47fd-8a35-84cbfe908bc2.txt
+06849f0a-9b18-46ec-81f1-225ca4e22c36.txt
 
 # typescript
 *.tsbuildinfo

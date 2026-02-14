@@ -16,7 +16,8 @@ const nextConfig = {
   // headers отключены: при output: 'export' Next.js не поддерживает
   // кастомные headers — они работают только с серверным рендерингом.
   // Для заголовков безопасности настройте их на стороне хостинга (timeweb.cloud).
-  distDir: 'dist',
+  // distDir не задаём: экспорт должен идти в стандартную папку "out",
+  // иначе платформа Timeweb не находит статику на шаге "Unpacking static".
 }
 
 export default nextConfig
