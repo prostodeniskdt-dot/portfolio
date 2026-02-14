@@ -16,7 +16,7 @@ const nextConfig = {
   // кастомные headers — они работают только с серверным рендерингом.
   // Для заголовков безопасности настройте их на стороне хостинга (timeweb.cloud).
   distDir: 'dist',
-  output: 'export' 
+  // output: 'export' // Removed — switching to server mode for timeweb.cloud deploy
 }
 
 export default nextConfig
