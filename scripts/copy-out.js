@@ -1,6 +1,7 @@
 /**
  * Копирует результат статического экспорта Next.js (папка out)
- * в директорию, которую ожидает Timeweb Cloud: dist/barboss/browser
+ * в dist/barboss/browser (для некоторых сценариев деплоя).
+ * Для Timeweb Cloud используется папка out напрямую.
  */
 const fs = require('fs');
 const path = require('path');
@@ -14,6 +15,11 @@ if (!fs.existsSync(src)) {
   process.exit(1);
 }
 
-fs.mkdirSync(dest, { recursive: true });
-fs.cpSync(src, dest, { recursive: true });
-console.log('Скопировано: out → dist/barboss/browser');
+try {
+  fs.mkdirSync(dest, { recursive: true });
+  fs.cpSync(src, dest, { recursive: true });
+  console.log('Скопировано: out → dist/barboss/browser');
+} catch (err) {
+  // Копия не критична для деплоя Timeweb (используется out)
+  console.warn('postbuild: копия пропущена:', err.message);
+}

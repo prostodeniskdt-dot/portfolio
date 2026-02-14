@@ -2,6 +2,7 @@
   "name": "my-v0-project",
   "version": "0.1.0",
   "private": true,
+  "engines": { "node": ">=20 <=24" },
   "scripts": {
     "build": "next build",
     "dev": "next dev",
@@ -9,7 +10,6 @@
     "start": "serve out -l 8080",
     "type-check": "tsc --noEmit",
     "prebuild": "tsc --noEmit",
-    "postbuild": "node scripts/copy-out.js",
     "test": "vitest",
     "test:ui": "vitest --ui"
   },
