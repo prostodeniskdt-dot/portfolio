@@ -1,4 +1,5 @@
-# Одностадийный Dockerfile для Timeweb Cloud App Platform.
+# Одностадийный Dockerfile для Timeweb Cloud App Platform (тип Docker).
+# Используйте, если деплоите через Docker, а не Frontend.
 # Обязательны EXPOSE 8080 и CMD — иначе контейнер не слушает порт и не проходит health check.
 
 FROM node:24-slim
