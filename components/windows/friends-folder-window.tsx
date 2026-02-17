@@ -6,6 +6,31 @@ import { useIsMobile } from "@/hooks/use-mobile"
 import { ImageFileIcon, VideoFileIcon, DescriptionFileIcon, FolderIcon } from "@/components/file-icons"
 import type { FriendFile, FriendSubfolder } from "@/lib/data/types"
 
+function FilePreviewImage({ filePath, name, isMobile }: { filePath: string; name: string; isMobile: boolean }) {
+  const [hasError, setHasError] = useState(false)
+  const size = isMobile ? 48 : 64
+  if (hasError) {
+    return <ImageFileIcon size={size} />
+  }
+  return (
+    <img
+      src={filePath}
+      alt={name}
+      className="w-full h-full object-cover"
+      style={{
+        border: "2px solid #000000",
+        imageRendering: "crisp-edges",
+        maxHeight: size,
+        maxWidth: size,
+        minHeight: size,
+        minWidth: size,
+      }}
+      loading="lazy"
+      onError={() => setHasError(true)}
+    />
+  )
+}
+
 interface FriendsFolderWindowProps {
   folderId: string
   onOpenProduct?: (productId: string) => void
@@ -219,17 +244,10 @@ export function FriendsFolderWindow({
                           alt={file.name}
                         />
                       ) : file.type === "image" && file.filePath ? (
-                        <img
-                          src={file.filePath}
-                          alt={file.name}
-                          className="w-full h-full object-cover"
-                          style={{
-                            border: "2px solid #000000",
-                            imageRendering: "crisp-edges",
-                            maxHeight: isMobile ? "48px" : "64px",
-                            maxWidth: isMobile ? "48px" : "64px",
-                          }}
-                          loading="lazy"
+                        <FilePreviewImage
+                          filePath={file.filePath}
+                          name={file.name}
+                          isMobile={isMobile}
                         />
                       ) : file.type === "video" && file.filePath ? (
                         <video
