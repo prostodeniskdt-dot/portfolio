@@ -201,23 +201,9 @@ export function FriendsFolderWindow({
               if (currentSubfolder) {
                 // Отображаем файлы
                 const file = item as FriendFile
-                return (
-                  <button
-                    key={file.id}
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      handleItemClick(file)
-                    }}
-                    onDoubleClick={(e) => {
-                      e.stopPropagation()
-                      handleItemClick(file)
-                    }}
-                    className="flex flex-col items-center gap-2 p-2 sm:p-3 cursor-pointer transition-colors group focus-visible:outline-none"
-                    style={{
-                      minHeight: isMobile ? "120px" : "140px",
-                      touchAction: "manipulation",
-                    }}
-                  >
+                const isMediaLink = (file.type === "image" || file.type === "video") && file.filePath
+                const fileContent = (
+                  <>
                     {/* Превью файла или иконка */}
                     <div 
                       className="flex items-center justify-center group-hover:scale-105 transition-transform"
@@ -233,7 +219,6 @@ export function FriendsFolderWindow({
                           alt={file.name}
                         />
                       ) : file.type === "image" && file.filePath ? (
-                        // Превью изображения
                         <img
                           src={file.filePath}
                           alt={file.name}
@@ -247,7 +232,6 @@ export function FriendsFolderWindow({
                           loading="lazy"
                         />
                       ) : file.type === "video" && file.filePath ? (
-                        // Превью видео (первый кадр)
                         <video
                           src={file.filePath}
                           className="w-full h-full object-cover"
@@ -260,7 +244,6 @@ export function FriendsFolderWindow({
                           playsInline
                           preload="metadata"
                           onMouseEnter={(e) => {
-                            // При наведении показываем первый кадр
                             const video = e.currentTarget
                             video.currentTime = 0.1
                           }}
@@ -271,16 +254,49 @@ export function FriendsFolderWindow({
                         />
                       )}
                     </div>
-
-                    {/* Имя файла */}
                     <span
                       className="text-xs font-bold text-center break-words text-black"
-                      style={{
-                        maxWidth: "100%",
-                      }}
+                      style={{ maxWidth: "100%" }}
                     >
                       {file.name}
                     </span>
+                  </>
+                )
+                const sharedClasses = "flex flex-col items-center gap-2 p-2 sm:p-3 cursor-pointer transition-colors group focus-visible:outline-none"
+                const sharedStyle = { minHeight: isMobile ? "120px" : "140px", touchAction: "manipulation" as const }
+
+                if (isMediaLink) {
+                  return (
+                    <a
+                      key={file.id}
+                      href={file.filePath}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={sharedClasses}
+                      style={sharedStyle}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      {fileContent}
+                    </a>
+                  )
+                }
+
+                return (
+                  <button
+                    key={file.id}
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      handleItemClick(file)
+                    }}
+                    onDoubleClick={(e) => {
+                      e.stopPropagation()
+                      handleItemClick(file)
+                    }}
+                    className={sharedClasses}
+                    style={sharedStyle}
+                  >
+                    {fileContent}
                   </button>
                 )
               } else {

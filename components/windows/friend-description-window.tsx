@@ -46,10 +46,10 @@ export function FriendDescriptionWindow({ friendId }: FriendDescriptionWindowPro
           border: "2px solid #000000",
         }}
       >
-        <div className="space-y-3">
+        <div className="space-y-3 max-w-prose">
           <div>
             <h3 className="font-bold text-sm mb-1">Описание</h3>
-            <p className="text-xs leading-relaxed whitespace-pre-line">{friend.fullDescription}</p>
+            <p className="text-xs leading-relaxed whitespace-pre-line text-left">{friend.fullDescription}</p>
           </div>
 
           {/* Features */}
