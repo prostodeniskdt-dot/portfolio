@@ -191,7 +191,7 @@ export function FriendsFolderWindow({
           </div>
         ) : (
           <div className={`grid gap-3 sm:gap-4 ${
-            currentSubfolder && currentSubfolder.id === "cocktail-design-folder"
+            currentSubfolder && ["cocktail-design-folder", "enjoy-barware-folder", "steelbar-folder"].includes(currentSubfolder.id)
               ? isMobile 
                 ? "grid-cols-2" 
                 : "sm:grid-cols-2 lg:grid-cols-3"

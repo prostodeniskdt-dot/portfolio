@@ -175,4 +175,207 @@ export const friends: Friend[] = [
     // Оставляем files для обратной совместимости, но они не используются
     files: [],
   },
+  {
+    id: "enjoy-barware",
+    name: "Enjoy Barware",
+    description: "Ведущий дистрибьютор профессиональной посуды для HoReCa",
+    fullDescription: `ENJOY barware — ведущий дистрибьютор профессиональной посуды для HoReCa.
+Проект, созданный барными энтузиастами Алексеем Токаревым и Сергеем Жигаловым,
+чтобы вернуть на рынок качественное барное стекло по честным ценам.
+ENJOY — это ручная выдувка на одном из лучших китайских заводов бессвинцового
+хрусталя, где делают коллекции для лучших брендов Европы. В ассортименте также
+имеется линейка машинного производства.
+ENJOY — универсальная посуда и собственные разработки с нуля, с возможностью
+гравировки. Отгрузки по всей России, два склада c логистикой в Москве и уже более 500
+клиентов — среди них Pinsky, Lucky Group, Васильчуки, FOLK team, Steak it Easy и другие.
+ENJOY barware — когда форма и качество вдохновляют.
+ENJOY поддерживают посудой ивенты, барные школы и конкурсы по всей России
+
+Адрес: Москва, ул. Щипок 28 (10 минут от ст. м. Павелецкая)`,
+    thumbnail: "/friends/enjoy-barware/logo.jpg",
+    category: "Друг",
+    address: "Москва, ул. Щипок 28 (10 минут от ст. м. Павелецкая)",
+    socials: {
+      instagram: "https://www.instagram.com/enjoy_barware",
+      telegram: "https://t.me/enjoy_barware",
+    },
+    features: [
+      "Ручная выдувка бессвинцового хрусталя",
+      "Линейка машинного производства",
+      "Универсальная посуда и собственные разработки",
+      "Гравировка на заказ",
+      "Отгрузки по всей России, два склада в Москве",
+      "Более 500 клиентов",
+    ],
+    services: [
+      "Профессиональная посуда для HoReCa",
+      "Гравировка",
+      "Поддержка ивентов, барных школ и конкурсов",
+    ],
+    subfolders: [
+      {
+        id: "enjoy-barware-folder",
+        name: "Enjoy Barware",
+        logo: "/friends/enjoy-barware/logo.jpg",
+        files: [
+          {
+            id: "desc-enjoy-barware",
+            name: "О Enjoy Barware",
+            type: "description",
+            friendId: "enjoy-barware",
+            order: 0,
+          },
+          {
+            id: "img-enjoy-barware-1",
+            name: "CONVALLARIA Cocktail",
+            type: "image",
+            filePath: "/friends/enjoy-barware/1.jpg",
+            friendId: "enjoy-barware",
+            order: 1,
+          },
+          {
+            id: "img-enjoy-barware-2",
+            name: "CONVALLARIA",
+            type: "image",
+            filePath: "/friends/enjoy-barware/2.jpg",
+            friendId: "enjoy-barware",
+            order: 2,
+          },
+          {
+            id: "img-enjoy-barware-3",
+            name: "Shiraz",
+            type: "image",
+            filePath: "/friends/enjoy-barware/3.jpg",
+            friendId: "enjoy-barware",
+            order: 3,
+          },
+          {
+            id: "img-enjoy-barware-4",
+            name: "Uni Rocks",
+            type: "image",
+            filePath: "/friends/enjoy-barware/4.jpg",
+            friendId: "enjoy-barware",
+            order: 4,
+          },
+          {
+            id: "img-enjoy-barware-5",
+            name: "Universal New",
+            type: "image",
+            filePath: "/friends/enjoy-barware/5.jpg",
+            friendId: "enjoy-barware",
+            order: 5,
+          },
+          {
+            id: "video-enjoy-barware-1",
+            name: "Milk Berry Club",
+            type: "video",
+            filePath: "/friends/enjoy-barware/video1.mp4",
+            friendId: "enjoy-barware",
+            order: 6,
+          },
+          {
+            id: "video-enjoy-barware-2",
+            name: "Гимлет",
+            type: "video",
+            filePath: "/friends/enjoy-barware/video2.mp4",
+            friendId: "enjoy-barware",
+            order: 7,
+          },
+          {
+            id: "video-enjoy-barware-3",
+            name: "Элегантность посуды",
+            type: "video",
+            filePath: "/friends/enjoy-barware/video3.mp4",
+            friendId: "enjoy-barware",
+            order: 8,
+          },
+        ],
+      },
+    ],
+    files: [],
+  },
+  {
+    id: "steelbar",
+    name: "Steelbar",
+    description: "Барные станции и нейтральное оборудование для баров, ресторанов и отелей",
+    fullDescription: `STEELBAR — российская компания, которая разрабатывает и производит барные
+станции и нейтральное оборудование для баров, ресторанов и отелей в России и за
+рубежом.
+Основал компанию Алексей Токарев - выходец из Simple, Happy Trade, серийный
+предприниматель. В индустрии с 2015 года, есть опыт, насмотренность и чувство стиля.
+В основе подхода компании - эргономика, выгода и дизайн: STEELBAR проектирует
+решения, которые ускоряют работу команды, повышают эффективность пространства и
+усиливают визуальную концепцию заведения.
+С 2022 года STEELBAR реализует проекты для заведений разного масштаба — от
+небольших коктейльных баров до сетевых форматов. В портфолио такие партнеры как
+холдинг WRF, Lucky group, Folk team, Vasilchuki, Pub Life, The Бык, Hokkah Place,
+Менделеев бар и другие.`,
+    thumbnail: "/friends/steelbar/logo.png",
+    category: "Друг",
+    website: "https://steel-bar.ru/",
+    telegramManager: "https://t.me/+hZsu0578E0E3NzEy",
+    socials: {
+      telegram: "https://t.me/+hZsu0578E0E3NzEy",
+    },
+    features: [
+      "Барные станции и нейтральное оборудование",
+      "Эргономика, выгода и дизайн",
+      "Решения для ускорения работы команды",
+      "Проекты любого масштаба — от баров до сетей",
+    ],
+    services: [
+      "Разработка и производство барных станций",
+      "Оборудование для баров, ресторанов и отелей",
+      "Проектирование в России и за рубежом",
+    ],
+    subfolders: [
+      {
+        id: "steelbar-folder",
+        name: "Steelbar",
+        logo: "/friends/steelbar/logo.png",
+        files: [
+          {
+            id: "desc-steelbar",
+            name: "О Steelbar",
+            type: "description",
+            friendId: "steelbar",
+            order: 0,
+          },
+          {
+            id: "img-steelbar-1",
+            name: "Вид сверху",
+            type: "image",
+            filePath: "/friends/steelbar/1.jpg",
+            friendId: "steelbar",
+            order: 1,
+          },
+          {
+            id: "img-steelbar-2",
+            name: "Макет станции",
+            type: "image",
+            filePath: "/friends/steelbar/2.jpg",
+            friendId: "steelbar",
+            order: 2,
+          },
+          {
+            id: "img-steelbar-3",
+            name: "Станция вид с угла",
+            type: "image",
+            filePath: "/friends/steelbar/3.jpg",
+            friendId: "steelbar",
+            order: 3,
+          },
+          {
+            id: "img-steelbar-4",
+            name: "Станция",
+            type: "image",
+            filePath: "/friends/steelbar/4.jpg",
+            friendId: "steelbar",
+            order: 4,
+          },
+        ],
+      },
+    ],
+    files: [],
+  },
 ]

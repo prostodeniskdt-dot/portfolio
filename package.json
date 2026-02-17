@@ -4,6 +4,7 @@
   "private": true,
   "engines": { "node": ">=20 <=24" },
   "scripts": {
+    "copy-friends-media": "node scripts/copy-friends-media.js",
     "build": "next build",
     "dev": "next dev",
     "lint": "eslint .",
