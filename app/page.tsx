@@ -15,11 +15,13 @@ import { desktopIcons } from "@/lib/data"
 import { DeleteWarningModal } from "@/components/delete-warning-modal"
 import { StandalonePlayer } from "@/components/standalone-player"
 import { CookieConsent } from "@/components/cookie-consent"
+import { WelcomeModal } from "@/components/welcome-modal"
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
   const [isBackgroundAnimated, setIsBackgroundAnimated] = useState(false)
   const [showDeleteWarning, setShowDeleteWarning] = useState(false)
+  const [showWelcomeModal, setShowWelcomeModal] = useState(false)
   const [isPlayerOpen, setIsPlayerOpen] = useState(false)
   const isMobile = useIsMobile()
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -63,13 +65,17 @@ export default function Home() {
 
   // Escape - закрытие меню и модальных окон
   const handleEscape = useCallback(() => {
+    if (showWelcomeModal) {
+      setShowWelcomeModal(false)
+      return
+    }
     if (taskbarMenuOpen) {
       setTaskbarMenuOpen(false)
     }
     if (isPlayerOpen) {
       setIsPlayerOpen(false)
     }
-  }, [taskbarMenuOpen, isPlayerOpen])
+  }, [showWelcomeModal, taskbarMenuOpen, isPlayerOpen])
 
   useKeyboardShortcuts({
     onAltTab: handleAltTab,
@@ -147,7 +153,14 @@ export default function Home() {
   }, [toggleWindow])
 
   if (isLoading) {
-    return <LoadingScreen onComplete={() => setIsLoading(false)} />
+    return (
+      <LoadingScreen
+        onComplete={() => {
+          setIsLoading(false)
+          setShowWelcomeModal(true)
+        }}
+      />
+    )
   }
 
   return (
@@ -165,6 +178,10 @@ export default function Home() {
         <DeleteWarningModal 
           isOpen={showDeleteWarning} 
           onClose={() => setShowDeleteWarning(false)} 
+        />
+        <WelcomeModal
+          isOpen={showWelcomeModal}
+          onClose={() => setShowWelcomeModal(false)}
         />
         {!isMobile && (
           <Suspense fallback={<WindowSkeleton />}>
