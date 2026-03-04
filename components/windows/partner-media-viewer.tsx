@@ -98,7 +98,7 @@ export function PartnerMediaViewer({
       }}
     >
       <div
-        className="relative flex flex-col max-w-[90vw] max-h-[90vh] w-full"
+        className="relative flex flex-col max-w-[90vw] max-h-[90vh] w-max max-w-full"
         style={{
           background: "#f5f0e1",
           border: "2px solid #000000",
@@ -138,13 +138,13 @@ export function PartnerMediaViewer({
           <div className="w-8" aria-hidden />
         </div>
 
-        {/* Контент: фото или видео */}
-        <div className="flex-1 flex items-center justify-center min-h-0 p-4">
+        {/* Контент: фото или видео — блок подстраивается под размер медиа */}
+        <div className="flex items-center justify-center p-3 min-w-0">
           {current.type === "image" && current.filePath ? (
             <img
               src={current.filePath}
               alt={current.name}
-              className="max-w-full max-h-[70vh] w-auto h-auto object-contain"
+              className="max-w-[85vw] max-h-[70vh] w-auto h-auto object-contain block"
               style={{
                 border: "2px solid #000000",
                 imageRendering: "crisp-edges",
@@ -156,7 +156,7 @@ export function PartnerMediaViewer({
               src={current.filePath}
               controls
               playsInline
-              className="max-w-full max-h-[70vh] w-auto"
+              className="max-w-[85vw] max-h-[70vh] w-auto h-auto block"
               style={{ border: "2px solid #000000" }}
             />
           ) : (
