@@ -4,6 +4,7 @@ import { useMemo, useRef, useEffect, useState } from "react"
 import { friends } from "@/lib/data/friends"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { ImageFileIcon, VideoFileIcon, DescriptionFileIcon, FolderIcon } from "@/components/file-icons"
+import { PartnerMediaViewer } from "./partner-media-viewer"
 import type { FriendFile, FriendSubfolder } from "@/lib/data/types"
 
 function FilePreviewImage({ filePath, name, isMobile }: { filePath: string; name: string; isMobile: boolean }) {
@@ -46,7 +47,20 @@ export function FriendsFolderWindow({
   const [searchQuery, setSearchQuery] = useState("")
   const [needsScroll, setNeedsScroll] = useState(false)
   const [currentSubfolderId, setCurrentSubfolderId] = useState<string | null>(null)
+  const [mediaViewerOpen, setMediaViewerOpen] = useState(false)
+  const [mediaViewerIndex, setMediaViewerIndex] = useState(0)
   const contentRef = useRef<HTMLDivElement>(null)
+
+  // Список только медиа (фото + видео с filePath) текущей подпапки для просмотрщика
+  const mediaViewerItems = useMemo(() => {
+    if (!currentSubfolder) return []
+    return currentSubfolder.files
+      .filter(
+        (f): f is FriendFile & { filePath: string } =>
+          (f.type === "image" || f.type === "video") && Boolean(f.filePath)
+      )
+      .sort((a, b) => a.order - b.order)
+  }, [currentSubfolder])
 
   // Если открыта подпапка, показываем файлы из неё
   const currentSubfolder = useMemo(() => {
@@ -124,14 +138,20 @@ export function FriendsFolderWindow({
     }
   }, [filteredItems, searchQuery])
 
+  const openMediaViewer = (file: FriendFile) => {
+    const idx = mediaViewerItems.findIndex((f) => f.id === file.id)
+    setMediaViewerIndex(idx >= 0 ? idx : 0)
+    setMediaViewerOpen(true)
+  }
+
   const handleItemClick = (item: FriendFile | (FriendSubfolder & { friendId: string })) => {
     if (currentSubfolder) {
       // Клик по файлу в подпапке
       const file = item as FriendFile
       if (file.type === "description") {
         onOpenProduct?.(`friend-${file.friendId}`)
-      } else if (file.filePath) {
-        window.open(file.filePath, "_blank", "noreferrer")
+      } else if ((file.type === "image" || file.type === "video") && file.filePath) {
+        openMediaViewer(file)
       }
     } else {
       // Клик по подпапке
@@ -285,17 +305,22 @@ export function FriendsFolderWindow({
 
                 if (isMediaLink) {
                   return (
-                    <a
+                    <button
                       key={file.id}
-                      href={file.filePath}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        openMediaViewer(file)
+                      }}
+                      onDoubleClick={(e) => {
+                        e.stopPropagation()
+                        openMediaViewer(file)
+                      }}
                       className={sharedClasses}
                       style={sharedStyle}
-                      onClick={(e) => e.stopPropagation()}
                     >
                       {fileContent}
-                    </a>
+                    </button>
                   )
                 }
 
@@ -374,6 +399,22 @@ export function FriendsFolderWindow({
       >
         📂 C:\BARBOSS\Друзья{currentSubfolder ? `\\${currentSubfolder.name}` : ""}\
       </div>
+
+      {/* Встроенный просмотрщик медиа */}
+      {mediaViewerOpen && (
+        <PartnerMediaViewer
+          items={mediaViewerItems}
+          currentIndex={mediaViewerIndex}
+          onClose={() => setMediaViewerOpen(false)}
+          onNavigate={(newIndex) => {
+            const len = mediaViewerItems.length
+            if (len <= 0) return
+            const idx = newIndex < 0 ? len - 1 : newIndex >= len ? 0 : newIndex
+            setMediaViewerIndex(idx)
+          }}
+          subfolderName={currentSubfolder?.name}
+        />
+      )}
     </div>
   )
 }
