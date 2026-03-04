@@ -1,6 +1,7 @@
 "use client"
 
 import { useMemo, useRef, useEffect, useState } from "react"
+import { createPortal } from "react-dom"
 import { friends } from "@/lib/data/friends"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { ImageFileIcon, VideoFileIcon, DescriptionFileIcon, FolderIcon } from "@/components/file-icons"
@@ -309,10 +310,12 @@ export function FriendsFolderWindow({
                       key={file.id}
                       type="button"
                       onClick={(e) => {
+                        e.preventDefault()
                         e.stopPropagation()
                         openMediaViewer(file)
                       }}
                       onDoubleClick={(e) => {
+                        e.preventDefault()
                         e.stopPropagation()
                         openMediaViewer(file)
                       }}
@@ -400,21 +403,24 @@ export function FriendsFolderWindow({
         📂 C:\BARBOSS\Друзья{currentSubfolder ? `\\${currentSubfolder.name}` : ""}\
       </div>
 
-      {/* Встроенный просмотрщик медиа */}
-      {mediaViewerOpen && (
-        <PartnerMediaViewer
-          items={mediaViewerItems}
-          currentIndex={mediaViewerIndex}
-          onClose={() => setMediaViewerOpen(false)}
-          onNavigate={(newIndex) => {
-            const len = mediaViewerItems.length
-            if (len <= 0) return
-            const idx = newIndex < 0 ? len - 1 : newIndex >= len ? 0 : newIndex
-            setMediaViewerIndex(idx)
-          }}
-          subfolderName={currentSubfolder?.name}
-        />
-      )}
+      {/* Встроенный просмотрщик медиа — рендер в document.body, чтобы оверлей был поверх окна */}
+      {typeof document !== "undefined" &&
+        mediaViewerOpen &&
+        createPortal(
+          <PartnerMediaViewer
+            items={mediaViewerItems}
+            currentIndex={mediaViewerIndex}
+            onClose={() => setMediaViewerOpen(false)}
+            onNavigate={(newIndex) => {
+              const len = mediaViewerItems.length
+              if (len <= 0) return
+              const idx = newIndex < 0 ? len - 1 : newIndex >= len ? 0 : newIndex
+              setMediaViewerIndex(idx)
+            }}
+            subfolderName={currentSubfolder?.name}
+          />,
+          document.body
+        )}
     </div>
   )
 }
