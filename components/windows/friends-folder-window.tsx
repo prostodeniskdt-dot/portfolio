@@ -52,18 +52,7 @@ export function FriendsFolderWindow({
   const [mediaViewerIndex, setMediaViewerIndex] = useState(0)
   const contentRef = useRef<HTMLDivElement>(null)
 
-  // Список только медиа (фото + видео с filePath) текущей подпапки для просмотрщика
-  const mediaViewerItems = useMemo(() => {
-    if (!currentSubfolder) return []
-    return currentSubfolder.files
-      .filter(
-        (f): f is FriendFile & { filePath: string } =>
-          (f.type === "image" || f.type === "video") && Boolean(f.filePath)
-      )
-      .sort((a, b) => a.order - b.order)
-  }, [currentSubfolder])
-
-  // Если открыта подпапка, показываем файлы из неё
+  // Если открыта подпапка (Cocktail Design / Enjoy Barware / Steelbar), показываем её файлы
   const currentSubfolder = useMemo(() => {
     if (!currentSubfolderId) return null
     for (const friend of friends) {
@@ -74,6 +63,17 @@ export function FriendsFolderWindow({
     }
     return null
   }, [currentSubfolderId])
+
+  // Список только медиа (фото + видео) текущей подпапки — для встроенного просмотрщика
+  const mediaViewerItems = useMemo(() => {
+    if (!currentSubfolder) return []
+    return currentSubfolder.files
+      .filter(
+        (f): f is FriendFile & { filePath: string } =>
+          (f.type === "image" || f.type === "video") && Boolean(f.filePath)
+      )
+      .sort((a, b) => a.order - b.order)
+  }, [currentSubfolder])
 
   // Если открыта подпапка, показываем файлы, иначе показываем подпапки
   const items = useMemo(() => {
@@ -245,15 +245,13 @@ export function FriendsFolderWindow({
           }`}>
             {filteredItems.map((item) => {
               if (currentSubfolder) {
-                // Отображаем файлы
+                // Файлы внутри подпапки (Cocktail Design / Enjoy Barware / Steelbar) — всегда кнопка, без ссылок
                 const file = item as FriendFile
-                const isMediaLink = (file.type === "image" || file.type === "video") && file.filePath
                 const fileContent = (
                   <>
-                    {/* Превью файла или иконка */}
-                    <div 
-                      className="flex items-center justify-center group-hover:scale-105 transition-transform"
-                      style={{ 
+                    <div
+                      className="flex items-center justify-center group-hover:scale-105 transition-transform pointer-events-none"
+                      style={{
                         minHeight: isMobile ? "48px" : "64px",
                         width: isMobile ? "48px" : "64px",
                         maxWidth: isMobile ? "48px" : "64px",
@@ -294,53 +292,32 @@ export function FriendsFolderWindow({
                       )}
                     </div>
                     <span
-                      className="text-xs font-bold text-center break-words text-black"
+                      className="text-xs font-bold text-center break-words text-black pointer-events-none"
                       style={{ maxWidth: "100%" }}
                     >
                       {file.name}
                     </span>
                   </>
                 )
-                const sharedClasses = "flex flex-col items-center gap-2 p-2 sm:p-3 cursor-pointer transition-colors group focus-visible:outline-none"
-                const sharedStyle = { minHeight: isMobile ? "120px" : "140px", touchAction: "manipulation" as const }
-
-                if (isMediaLink) {
-                  return (
-                    <button
-                      key={file.id}
-                      type="button"
-                      onClick={(e) => {
-                        e.preventDefault()
-                        e.stopPropagation()
-                        openMediaViewer(file)
-                      }}
-                      onDoubleClick={(e) => {
-                        e.preventDefault()
-                        e.stopPropagation()
-                        openMediaViewer(file)
-                      }}
-                      className={sharedClasses}
-                      style={sharedStyle}
-                    >
-                      {fileContent}
-                    </button>
-                  )
-                }
-
                 return (
                   <button
                     key={file.id}
                     type="button"
+                    className="flex flex-col items-center gap-2 p-2 sm:p-3 cursor-pointer transition-colors group focus-visible:outline-none"
+                    style={{
+                      minHeight: isMobile ? "120px" : "140px",
+                      touchAction: "manipulation",
+                    }}
                     onClick={(e) => {
+                      e.preventDefault()
                       e.stopPropagation()
                       handleItemClick(file)
                     }}
                     onDoubleClick={(e) => {
+                      e.preventDefault()
                       e.stopPropagation()
                       handleItemClick(file)
                     }}
-                    className={sharedClasses}
-                    style={sharedStyle}
                   >
                     {fileContent}
                   </button>
