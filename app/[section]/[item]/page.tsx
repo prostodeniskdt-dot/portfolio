@@ -31,5 +31,5 @@ export default async function NestedSectionPage({ params }: PageProps) {
     notFound()
   }
 
-  return <DesktopApp />
+  return <DesktopApp deepLinkSection={section} deepLinkItem={item} />
 }

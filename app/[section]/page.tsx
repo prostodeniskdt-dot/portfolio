@@ -30,5 +30,5 @@ export default async function SectionPage({ params }: PageProps) {
     notFound()
   }
 
-  return <DesktopApp />
+  return <DesktopApp deepLinkSection={section} />
 }

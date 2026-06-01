@@ -25,9 +25,17 @@ import {
   getPathForSection,
 } from "@/lib/routes"
 
-export function DesktopApp() {
+export interface DesktopAppProps {
+  deepLinkSection?: string
+  deepLinkItem?: string
+}
+
+export function DesktopApp({ deepLinkSection, deepLinkItem }: DesktopAppProps) {
   const { pathname, parsed, navigate } = useAppPath()
-  const hasDeepLinkPath = parsed !== null
+  const hasDeepLinkPath = deepLinkSection !== undefined
+  const deepLinkPath = deepLinkSection
+    ? getPathForSection(deepLinkSection, deepLinkItem)
+    : "/"
 
   const [isLoading, setIsLoading] = useState(true)
   const [isBackgroundAnimated, setIsBackgroundAnimated] = useState(false)
@@ -54,6 +62,19 @@ export function DesktopApp() {
   const [taskbarMenuOpen, setTaskbarMenuOpen] = useState(false)
 
   const applyDeepLinkFromPath = useCallback(() => {
+    if (deepLinkSection) {
+      const state = resolveDeepLink(deepLinkSection, deepLinkItem)
+      if (!state) return
+
+      applyWindowState({
+        openWindows: state.openWindows,
+        activeWindow: state.activeWindow,
+      })
+
+      setIsPlayerOpen(Boolean(state.openPlayer))
+      return
+    }
+
     if (!parsed) return
 
     const state = resolveDeepLink(parsed.section, parsed.item)
@@ -66,8 +87,21 @@ export function DesktopApp() {
 
     if (state.openPlayer) {
       setIsPlayerOpen(true)
+    } else {
+      setIsPlayerOpen(false)
     }
-  }, [parsed, applyWindowState])
+  }, [parsed, applyWindowState, deepLinkSection, deepLinkItem])
+
+  const goToPath = useCallback(
+    (path: string) => {
+      if (deepLinkSection && path !== deepLinkPath) {
+        window.location.assign(path)
+        return
+      }
+      navigate(path)
+    },
+    [deepLinkSection, deepLinkPath, navigate],
+  )
 
   useEffect(() => {
     if (isLoading) return
@@ -82,25 +116,25 @@ export function DesktopApp() {
   const syncUrlForWindow = useCallback(
     (windowId: string) => {
       const path = windowIdToPath(windowId)
-      if (path) navigate(path)
+      if (path) goToPath(path)
     },
-    [navigate],
+    [goToPath],
   )
 
   const syncUrlForFolder = useCallback(
     (folderId: string) => {
-      navigate(folderIdToPath(folderId))
+      goToPath(folderIdToPath(folderId))
     },
-    [navigate],
+    [goToPath],
   )
 
   const syncUrlForPlayer = useCallback(() => {
-    navigate(getPathForSection("player"))
-  }, [navigate])
+    goToPath(getPathForSection("player"))
+  }, [goToPath])
 
   const syncUrlHome = useCallback(() => {
-    navigate("/")
-  }, [navigate])
+    goToPath("/")
+  }, [goToPath])
 
   const handleAltTab = useCallback(() => {
     if (visibleWindows.length === 0) return
@@ -227,7 +261,7 @@ export function DesktopApp() {
       <LoadingScreen
         onComplete={() => {
           setIsLoading(false)
-          if (!hasDeepLinkPath) {
+          if (!hasDeepLinkPath && pathname === "/") {
             setShowWelcomeModal(true)
           }
         }}

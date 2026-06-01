@@ -49,10 +49,6 @@ export function useWindowState(initial?: WindowStateInitial) {
   const persistRef = useRef(shouldUseLocalStorage())
 
   const [state, setState] = useState<WindowState>(() => {
-    if (typeof window === "undefined") {
-      return defaultState
-    }
-
     if (initial) {
       persistRef.current = false
       return {
@@ -60,6 +56,10 @@ export function useWindowState(initial?: WindowStateInitial) {
         openWindows: initial.openWindows,
         activeWindow: initial.activeWindow,
       }
+    }
+
+    if (typeof window === "undefined") {
+      return defaultState
     }
 
     if (!shouldUseLocalStorage()) {
