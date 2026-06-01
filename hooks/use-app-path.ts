@@ -9,7 +9,14 @@ function readPathname(): string {
 }
 
 function normalizePath(path: string): string {
-  return path.replace(/\/$/, "") || "/"
+  const localePrefixMatch = path.match(/^\/([a-z]{2})(\/.*|$)/i)
+  const localeSection = localePrefixMatch?.[1]?.toLowerCase()
+  const withoutLocalePrefix =
+    localeSection === "ru" || localeSection === "en"
+      ? path.replace(/^\/[a-z]{2}(?=\/|$)/i, "") || "/"
+      : path
+
+  return withoutLocalePrefix.replace(/\/$/, "") || "/"
 }
 
 /**

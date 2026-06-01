@@ -53,6 +53,12 @@ describe("routes", () => {
       section: "friends",
       item: "cocktail-design",
     })
+    expect(parsePathname("/ru/friends/")).toEqual({ section: "friends" })
+    expect(parsePathname("/ru/friends/cocktail-design/")).toEqual({
+      section: "friends",
+      item: "cocktail-design",
+    })
+    expect(parsePathname("/en/products/")).toEqual({ section: "products" })
     expect(parsePathname("/unknown")).toBeNull()
     expect(parsePathname("/friends/unknown")).toBeNull()
   })

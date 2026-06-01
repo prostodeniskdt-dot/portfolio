@@ -32,6 +32,17 @@ export interface DesktopAppProps {
 
 export function DesktopApp({ deepLinkSection, deepLinkItem }: DesktopAppProps) {
   const { pathname, parsed, navigate } = useAppPath()
+  const isLocalePrefixedPath = /^\/(ru|en)(\/|$)/i.test(pathname)
+  const localePrefix = isLocalePrefixedPath ? pathname.match(/^\/(ru|en)(?=\/|$)/i)?.[0] ?? "" : ""
+
+  const withLocalePrefix = useCallback(
+    (path: string) => {
+      if (!localePrefix || path === "/") return path
+      const normalizedPath = path.startsWith("/") ? path : `/${path}`
+      return `${localePrefix}${normalizedPath}`.replace(/\/{2,}/g, "/")
+    },
+    [localePrefix],
+  )
   const hasDeepLinkPath = deepLinkSection !== undefined
   const deepLinkPath = deepLinkSection
     ? getPathForSection(deepLinkSection, deepLinkItem)
@@ -94,13 +105,15 @@ export function DesktopApp({ deepLinkSection, deepLinkItem }: DesktopAppProps) {
 
   const goToPath = useCallback(
     (path: string) => {
-      if (deepLinkSection && path !== deepLinkPath) {
-        window.location.assign(path)
+      const destinationPath = withLocalePrefix(path)
+
+      if (deepLinkSection && destinationPath !== withLocalePrefix(deepLinkPath)) {
+        window.location.assign(destinationPath)
         return
       }
-      navigate(path)
+      navigate(destinationPath)
     },
-    [deepLinkSection, deepLinkPath, navigate],
+    [deepLinkSection, deepLinkPath, navigate, withLocalePrefix],
   )
 
   useEffect(() => {

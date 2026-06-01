@@ -179,7 +179,14 @@ export function folderIdToPath(folderId: string): string {
 }
 
 export function parsePathname(pathname: string): { section: string; item?: string } | null {
-  const normalized = pathname.replace(/\/$/, "") || "/"
+  const localePrefixMatch = pathname.match(/^\/([a-z]{2})(\/.*|$)/i)
+  const localeSection = localePrefixMatch?.[1]?.toLowerCase()
+  const withoutLocalePrefix =
+    localeSection === "ru" || localeSection === "en"
+      ? pathname.replace(/^\/[a-z]{2}(?=\/|$)/i, "") || "/"
+      : pathname
+
+  const normalized = withoutLocalePrefix.replace(/\/$/, "") || "/"
   if (normalized === "/") return null
 
   const parts = normalized.split("/").filter(Boolean)
