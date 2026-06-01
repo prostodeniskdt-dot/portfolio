@@ -1,6 +1,7 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
+import { parsePathname } from "@/lib/routes"
 
 interface WindowState {
   openWindows: string[]
@@ -25,20 +26,35 @@ export interface WindowStateInitial {
   activeWindow: string | null
 }
 
+function shouldUseLocalStorage(): boolean {
+  if (typeof window === "undefined") return false
+  return parsePathname(window.location.pathname) === null
+}
+
+function loadFromStorage(): WindowState | null {
+  if (typeof window === "undefined") return null
+
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY)
+    if (saved) {
+      return { ...defaultState, ...JSON.parse(saved) }
+    }
+  } catch (error) {
+    console.error("Failed to load window state from localStorage:", error)
+  }
+  return null
+}
+
 export function useWindowState(initial?: WindowStateInitial) {
+  const persistRef = useRef(shouldUseLocalStorage())
+
   const [state, setState] = useState<WindowState>(() => {
     if (typeof window === "undefined") {
-      if (initial) {
-        return {
-          ...defaultState,
-          openWindows: initial.openWindows,
-          activeWindow: initial.activeWindow,
-        }
-      }
       return defaultState
     }
 
     if (initial) {
+      persistRef.current = false
       return {
         ...defaultState,
         openWindows: initial.openWindows,
@@ -46,20 +62,16 @@ export function useWindowState(initial?: WindowStateInitial) {
       }
     }
 
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY)
-      if (saved) {
-        return { ...defaultState, ...JSON.parse(saved) }
-      }
-    } catch (error) {
-      console.error("Failed to load window state from localStorage:", error)
+    if (!shouldUseLocalStorage()) {
+      persistRef.current = false
+      return defaultState
     }
 
-    return defaultState
+    return loadFromStorage() ?? defaultState
   })
 
   useEffect(() => {
-    if (typeof window === "undefined") return
+    if (typeof window === "undefined" || !persistRef.current) return
 
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
@@ -67,6 +79,16 @@ export function useWindowState(initial?: WindowStateInitial) {
       console.error("Failed to save window state to localStorage:", error)
     }
   }, [state])
+
+  const applyWindowState = (next: WindowStateInitial) => {
+    persistRef.current = false
+    setState((prev) => ({
+      ...prev,
+      openWindows: next.openWindows,
+      activeWindow: next.activeWindow,
+      minimizedWindows: [],
+    }))
+  }
 
   const setOpenWindows = (windows: string[]) => {
     setState((prev) => ({ ...prev, openWindows: windows }))
@@ -137,7 +159,7 @@ export function useWindowState(initial?: WindowStateInitial) {
       return {
         ...prev,
         openWindows: remaining,
-        activeWindow: remaining[0] || null,
+        activeWindow: remaining.length > 0 ? remaining[remaining.length - 1] : null,
         minimizedWindows: prev.minimizedWindows.filter((w) => w !== windowId),
       }
     })
@@ -171,6 +193,7 @@ export function useWindowState(initial?: WindowStateInitial) {
 
   return {
     ...state,
+    applyWindowState,
     setOpenWindows,
     setActiveWindow,
     setMinimizedWindows,

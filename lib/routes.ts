@@ -105,10 +105,6 @@ const FOLDER_ID_TO_WINDOW: Record<string, string> = {
   "legal-documents": "legal-documents-folder",
 }
 
-const WINDOW_TO_FOLDER_ID: Record<string, string> = Object.fromEntries(
-  Object.entries(FOLDER_ID_TO_WINDOW).map(([folderId, windowId]) => [windowId, folderId]),
-)
-
 const WINDOW_TO_SLUG: Record<string, string> = {
   contact: "contact",
   about: "about",
