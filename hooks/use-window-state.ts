@@ -20,10 +20,30 @@ const defaultState: WindowState = {
   windowSizes: {},
 }
 
-export function useWindowState() {
+export interface WindowStateInitial {
+  openWindows: string[]
+  activeWindow: string | null
+}
+
+export function useWindowState(initial?: WindowStateInitial) {
   const [state, setState] = useState<WindowState>(() => {
     if (typeof window === "undefined") {
+      if (initial) {
+        return {
+          ...defaultState,
+          openWindows: initial.openWindows,
+          activeWindow: initial.activeWindow,
+        }
+      }
       return defaultState
+    }
+
+    if (initial) {
+      return {
+        ...defaultState,
+        openWindows: initial.openWindows,
+        activeWindow: initial.activeWindow,
+      }
     }
 
     try {
@@ -38,7 +58,6 @@ export function useWindowState() {
     return defaultState
   })
 
-  // Save to localStorage whenever state changes
   useEffect(() => {
     if (typeof window === "undefined") return
 
@@ -75,12 +94,27 @@ export function useWindowState() {
     }))
   }
 
+  const openWindow = (windowId: string) => {
+    setState((prev) => {
+      if (prev.openWindows.includes(windowId)) {
+        return {
+          ...prev,
+          activeWindow: windowId,
+          minimizedWindows: prev.minimizedWindows.filter((w) => w !== windowId),
+        }
+      }
+      return {
+        ...prev,
+        openWindows: [...prev.openWindows, windowId],
+        activeWindow: windowId,
+      }
+    })
+  }
+
   const toggleWindow = (windowId: string) => {
     setState((prev) => {
       if (prev.openWindows.includes(windowId)) {
-        // Window is open, activate it
         if (prev.minimizedWindows.includes(windowId)) {
-          // Unminimize
           return {
             ...prev,
             activeWindow: windowId,
@@ -88,13 +122,11 @@ export function useWindowState() {
           }
         }
         return { ...prev, activeWindow: windowId }
-      } else {
-        // Open new window
-        return {
-          ...prev,
-          openWindows: [...prev.openWindows, windowId],
-          activeWindow: windowId,
-        }
+      }
+      return {
+        ...prev,
+        openWindows: [...prev.openWindows, windowId],
+        activeWindow: windowId,
       }
     })
   }
@@ -144,11 +176,10 @@ export function useWindowState() {
     setMinimizedWindows,
     setWindowPosition,
     setWindowSize,
+    openWindow,
     toggleWindow,
     closeWindow,
     minimizeWindow,
     bringToFront,
   }
 }
-
-

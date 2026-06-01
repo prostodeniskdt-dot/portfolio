@@ -9,7 +9,7 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "eslint .",
-    "start": "serve out -l 8080",
+    "start": "serve -s out -l 8080",
     "type-check": "tsc --noEmit",
     "prebuild": "tsc --noEmit",
     "test": "vitest",

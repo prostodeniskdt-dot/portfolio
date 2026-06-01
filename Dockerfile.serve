@@ -31,4 +31,4 @@ RUN npm run build
 # Без EXPOSE платформа может не подхватить порт; без CMD контейнер сразу завершается и health check падает.
 EXPOSE 8080
 
-CMD ["npx", "serve", "out", "-l", "8080"]
+CMD ["npx", "serve", "-s", "out", "-l", "8080"]

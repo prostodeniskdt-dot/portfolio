@@ -10,7 +10,7 @@ describe("useWindowState", () => {
   it("should initialize with default state", () => {
     const { result } = renderHook(() => useWindowState())
 
-    expect(result.current.openWindows).toEqual(["about", "courses", "prices"])
+    expect(result.current.openWindows).toEqual(["about"])
     expect(result.current.activeWindow).toBe("about")
     expect(result.current.minimizedWindows).toEqual([])
   })

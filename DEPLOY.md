@@ -44,12 +44,12 @@ git push origin main
 - В настройках приложения укажите:
   - **Команда сборки**: `pnpm run build` (или `npm run build` при использовании npm)
   - **Директория сборки**: `out`
-  - **Стартовая команда** (если требуется): `npx serve out -l 8080`
+  - **Стартовая команда** (если требуется): `npx serve -s out -l 8080`
 - При ошибке «Health check failed» переключитесь на **Вариант B**.
 
 ### Вариант B (рекомендуется): Docker → Dockerfile
 
-Чтобы контейнер **запускался и проходил health check**, выберите тип **«Dockerfile»** на вкладке **Docker**. В репозитории есть готовый **Dockerfile** с **EXPOSE 8080** и **CMD** (`npx serve out -l 8080`).
+Чтобы контейнер **запускался и проходил health check**, выберите тип **«Dockerfile»** на вкладке **Docker**. В репозитории есть готовый **Dockerfile** с **EXPOSE 8080** и **CMD** (`npx serve -s out -l 8080`).
 
 - **Next.js** (тип Frontend): платформа может подставить шаблон **без CMD** — контейнер завершается, health check падает.
 - **Dockerfile**: используется наш Dockerfile — контейнер стабильно запускает `serve` на порту 8080.
@@ -61,7 +61,7 @@ git push origin main
 ## Что подготовлено в репозитории
 
 - **next.config.mjs**: **`output: 'export'`**, без `distDir` — экспорт идёт в папку **`out`**.
-- **Dockerfile**: одностадийная сборка (node:24-slim), установка зависимостей, `npm run build`, **EXPOSE 8080**, **CMD ["npx", "serve", "out", "-l", "8080"]**.
+- **Dockerfile**: одностадийная сборка (node:24-slim), установка зависимостей, `npm run build`, **EXPOSE 8080**, **CMD ["npx", "serve", "-s", "out", "-l", "8080"]**.
 - **Dockerfile.nginx**: альтернатива с Nginx (меньший образ), см. в конце.
 - **package.json**: **build** = `next build` (postbuild убран — используется только папка `out`).
 

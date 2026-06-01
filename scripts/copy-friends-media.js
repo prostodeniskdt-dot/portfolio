@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Скрипт копирования медиа-файлов из Enjoy_barware и steelbar_hug в public/friends/
+ * Скрипт копирования медиа-файлов из Enjoy_barware и steelbar_hug в public/friend-media/
  * Запуск: node scripts/copy-friends-media.js
  */
 
@@ -49,19 +49,19 @@ function copyFile(src, dest) {
 
 console.log("Копирование Enjoy Barware...")
 const enjoySrc = "Enjoy_barware"
-const enjoyDest = "public/friends/enjoy-barware"
+const enjoyDest = "public/friend-media/enjoy-barware"
 enjoyBarwareMap.forEach(([src, dest]) => {
   copyFile(path.join(enjoySrc, src), path.join(enjoyDest, dest))
 })
 
 console.log("\nКопирование Steelbar...")
 const steelSrc = "steelbar_hug"
-const steelDest = "public/friends/steelbar"
+const steelDest = "public/friend-media/steelbar"
 steelbarMap.forEach(([src, dest]) => {
   copyFile(path.join(steelSrc, src), path.join(steelDest, dest))
 })
 
 console.log("\nВнимание: для Steelbar конвертируйте вручную в JPG и переименуйте:")
-console.log("  Вид с верху.HEIC -> public/friends/steelbar/1.jpg")
-console.log("  Станция вид с угла.HEIC -> public/friends/steelbar/3.jpg")
+console.log("  Вид с верху.HEIC -> public/friend-media/steelbar/1.jpg")
+console.log("  Станция вид с угла.HEIC -> public/friend-media/steelbar/3.jpg")
 console.log("\nГотово.")
