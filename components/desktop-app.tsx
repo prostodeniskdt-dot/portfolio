@@ -44,9 +44,6 @@ export function DesktopApp({ deepLinkSection, deepLinkItem }: DesktopAppProps) {
     [localePrefix],
   )
   const hasDeepLinkPath = deepLinkSection !== undefined
-  const deepLinkPath = deepLinkSection
-    ? getPathForSection(deepLinkSection, deepLinkItem)
-    : "/"
 
   const [isLoading, setIsLoading] = useState(true)
   const [isBackgroundAnimated, setIsBackgroundAnimated] = useState(false)
@@ -106,14 +103,9 @@ export function DesktopApp({ deepLinkSection, deepLinkItem }: DesktopAppProps) {
   const goToPath = useCallback(
     (path: string) => {
       const destinationPath = withLocalePrefix(path)
-
-      if (deepLinkSection && destinationPath !== withLocalePrefix(deepLinkPath)) {
-        window.location.assign(destinationPath)
-        return
-      }
       navigate(destinationPath)
     },
-    [deepLinkSection, deepLinkPath, navigate, withLocalePrefix],
+    [navigate, withLocalePrefix],
   )
 
   useEffect(() => {
