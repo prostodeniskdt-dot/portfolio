@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from "vitest"
+import { describe, it, expect, beforeEach } from "vitest"
 import { renderHook, act } from "@testing-library/react"
 import { useWindowState } from "@/hooks/use-window-state"
 
@@ -54,6 +54,31 @@ describe("useWindowState", () => {
     })
 
     expect(result.current.activeWindow).toBe("courses")
+  })
+
+  it("should apply the same deep link state idempotently", () => {
+    const { result } = renderHook(() => useWindowState())
+
+    act(() => {
+      result.current.applyWindowState({
+        openWindows: ["products-folder"],
+        activeWindow: "products-folder",
+      })
+    })
+
+    const firstState = result.current
+
+    act(() => {
+      result.current.applyWindowState({
+        openWindows: ["products-folder"],
+        activeWindow: "products-folder",
+      })
+    })
+
+    expect(result.current.openWindows).toEqual(["products-folder"])
+    expect(result.current.activeWindow).toBe("products-folder")
+    expect(result.current.minimizedWindows).toEqual([])
+    expect(result.current).toBe(firstState)
   })
 })
 

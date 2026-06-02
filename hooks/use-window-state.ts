@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import { parsePathname } from "@/lib/routes"
 
 interface WindowState {
@@ -24,6 +24,10 @@ const defaultState: WindowState = {
 export interface WindowStateInitial {
   openWindows: string[]
   activeWindow: string | null
+}
+
+function areStringArraysEqual(left: string[], right: string[]): boolean {
+  return left.length === right.length && left.every((item, index) => item === right[index])
 }
 
 function shouldUseLocalStorage(): boolean {
@@ -80,43 +84,52 @@ export function useWindowState(initial?: WindowStateInitial) {
     }
   }, [state])
 
-  const applyWindowState = (next: WindowStateInitial) => {
+  const applyWindowState = useCallback((next: WindowStateInitial) => {
     persistRef.current = false
-    setState((prev) => ({
-      ...prev,
-      openWindows: next.openWindows,
-      activeWindow: next.activeWindow,
-      minimizedWindows: [],
-    }))
-  }
+    setState((prev) => {
+      const isSameState =
+        areStringArraysEqual(prev.openWindows, next.openWindows) &&
+        prev.activeWindow === next.activeWindow &&
+        prev.minimizedWindows.length === 0
 
-  const setOpenWindows = (windows: string[]) => {
+      if (isSameState) return prev
+
+      return {
+        ...prev,
+        openWindows: next.openWindows,
+        activeWindow: next.activeWindow,
+        minimizedWindows: [],
+      }
+    })
+  }, [])
+
+  const setOpenWindows = useCallback((windows: string[]) => {
     setState((prev) => ({ ...prev, openWindows: windows }))
-  }
+  }, [])
 
-  const setActiveWindow = (windowId: string | null) => {
+  const setActiveWindow = useCallback((windowId: string | null) => {
     setState((prev) => ({ ...prev, activeWindow: windowId }))
-  }
+  }, [])
 
-  const setMinimizedWindows = (windows: string[]) => {
+  const setMinimizedWindows = useCallback((windows: string[]) => {
     setState((prev) => ({ ...prev, minimizedWindows: windows }))
-  }
+  }, [])
 
-  const setWindowPosition = (windowId: string, position: { x: number; y: number }) => {
+  const setWindowPosition = useCallback((windowId: string, position: { x: number; y: number }) => {
     setState((prev) => ({
       ...prev,
       windowPositions: { ...prev.windowPositions, [windowId]: position },
     }))
-  }
+  }, [])
 
-  const setWindowSize = (windowId: string, size: { width: number; height: number }) => {
+  const setWindowSize = useCallback((windowId: string, size: { width: number; height: number }) => {
     setState((prev) => ({
       ...prev,
       windowSizes: { ...prev.windowSizes, [windowId]: size },
     }))
-  }
+  }, [])
 
-  const openWindow = (windowId: string) => {
+  const openWindow = useCallback((windowId: string) => {
     setState((prev) => {
       if (prev.openWindows.includes(windowId)) {
         return {
@@ -131,9 +144,9 @@ export function useWindowState(initial?: WindowStateInitial) {
         activeWindow: windowId,
       }
     })
-  }
+  }, [])
 
-  const toggleWindow = (windowId: string) => {
+  const toggleWindow = useCallback((windowId: string) => {
     setState((prev) => {
       if (prev.openWindows.includes(windowId)) {
         if (prev.minimizedWindows.includes(windowId)) {
@@ -151,9 +164,9 @@ export function useWindowState(initial?: WindowStateInitial) {
         activeWindow: windowId,
       }
     })
-  }
+  }, [])
 
-  const closeWindow = (windowId: string) => {
+  const closeWindow = useCallback((windowId: string) => {
     setState((prev) => {
       const remaining = prev.openWindows.filter((w) => w !== windowId)
       return {
@@ -163,9 +176,9 @@ export function useWindowState(initial?: WindowStateInitial) {
         minimizedWindows: prev.minimizedWindows.filter((w) => w !== windowId),
       }
     })
-  }
+  }, [])
 
-  const minimizeWindow = (windowId: string) => {
+  const minimizeWindow = useCallback((windowId: string) => {
     setState((prev) => {
       const visibleWindows = prev.openWindows.filter(
         (w) => w !== windowId && !prev.minimizedWindows.includes(w),
@@ -176,9 +189,9 @@ export function useWindowState(initial?: WindowStateInitial) {
         activeWindow: visibleWindows[0] || null,
       }
     })
-  }
+  }, [])
 
-  const bringToFront = (windowId: string) => {
+  const bringToFront = useCallback((windowId: string) => {
     setState((prev) => {
       if (prev.minimizedWindows.includes(windowId)) {
         return {
@@ -189,7 +202,7 @@ export function useWindowState(initial?: WindowStateInitial) {
       }
       return { ...prev, activeWindow: windowId }
     })
-  }
+  }, [])
 
   return {
     ...state,

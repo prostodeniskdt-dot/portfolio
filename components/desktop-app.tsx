@@ -43,7 +43,12 @@ export function DesktopApp({ deepLinkSection, deepLinkItem }: DesktopAppProps) {
     },
     [localePrefix],
   )
-  const hasDeepLinkPath = deepLinkSection !== undefined
+  const routeFromPath = useMemo(
+    () => parsed ?? (deepLinkSection ? { section: deepLinkSection, item: deepLinkItem } : null),
+    [parsed, deepLinkSection, deepLinkItem],
+  )
+  const routeKey = routeFromPath ? `${routeFromPath.section}/${routeFromPath.item ?? ""}` : ""
+  const hasDeepLinkPath = routeFromPath !== null
 
   const [isLoading, setIsLoading] = useState(true)
   const [isBackgroundAnimated, setIsBackgroundAnimated] = useState(false)
@@ -70,22 +75,9 @@ export function DesktopApp({ deepLinkSection, deepLinkItem }: DesktopAppProps) {
   const [taskbarMenuOpen, setTaskbarMenuOpen] = useState(false)
 
   const applyDeepLinkFromPath = useCallback(() => {
-    if (deepLinkSection) {
-      const state = resolveDeepLink(deepLinkSection, deepLinkItem)
-      if (!state) return
+    if (!routeFromPath) return
 
-      applyWindowState({
-        openWindows: state.openWindows,
-        activeWindow: state.activeWindow,
-      })
-
-      setIsPlayerOpen(Boolean(state.openPlayer))
-      return
-    }
-
-    if (!parsed) return
-
-    const state = resolveDeepLink(parsed.section, parsed.item)
+    const state = resolveDeepLink(routeFromPath.section, routeFromPath.item)
     if (!state) return
 
     applyWindowState({
@@ -98,7 +90,7 @@ export function DesktopApp({ deepLinkSection, deepLinkItem }: DesktopAppProps) {
     } else {
       setIsPlayerOpen(false)
     }
-  }, [parsed, applyWindowState, deepLinkSection, deepLinkItem])
+  }, [routeFromPath, applyWindowState])
 
   const goToPath = useCallback(
     (path: string) => {
@@ -111,7 +103,7 @@ export function DesktopApp({ deepLinkSection, deepLinkItem }: DesktopAppProps) {
   useEffect(() => {
     if (isLoading) return
     applyDeepLinkFromPath()
-  }, [pathname, isLoading, applyDeepLinkFromPath])
+  }, [routeKey, isLoading, applyDeepLinkFromPath])
 
   const visibleWindows = useMemo(
     () => openWindows.filter((w: string) => !minimizedWindows.includes(w)),
@@ -316,6 +308,9 @@ export function DesktopApp({ deepLinkSection, deepLinkItem }: DesktopAppProps) {
             if (itemId === "player") {
               setIsPlayerOpen(true)
               syncUrlForPlayer()
+            } else if (itemId.endsWith("-folder")) {
+              const folderId = itemId.replace("-folder", "")
+              handleOpenFolder(folderId)
             } else {
               toggleWindow(itemId)
               syncUrlForWindow(itemId)
