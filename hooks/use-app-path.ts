@@ -21,7 +21,8 @@ function normalizePath(path: string): string {
 
 /**
  * Синхронизация URL для статического экспорта (без полноценного Next.js router).
- * pushState не перезагружает страницу — обновляем path в React вручную.
+ * Для разделов используем полноценную навигацию на статический HTML, чтобы
+ * адресная строка и состояние открытой папки не расходились на прод-хостинге.
  */
 export function useAppPath() {
   const [pathname, setPathname] = useState(readPathname)
@@ -42,9 +43,7 @@ export function useAppPath() {
     const current = readPathname()
     if (normalizePath(current) === normalizePath(path)) return
 
-    window.history.pushState(null, "", path)
-    setPathname(path)
-    window.dispatchEvent(new Event("app-navigate"))
+    window.location.assign(path)
   }, [])
 
   const parsed = parsePathname(pathname)
