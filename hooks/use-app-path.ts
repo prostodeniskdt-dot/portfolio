@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import { parsePathname } from "@/lib/routes"
 
 function readPathname(): string {
@@ -47,7 +47,7 @@ export function useAppPath() {
     window.dispatchEvent(new Event("app-navigate"))
   }, [])
 
-  const parsed = parsePathname(pathname)
+  const parsed = useMemo(() => parsePathname(pathname), [pathname])
 
   return { pathname, parsed, navigate }
 }
