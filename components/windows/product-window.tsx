@@ -106,19 +106,26 @@ export function ProductWindow({ productId }: ProductWindowProps) {
               </div>
             ) : itemType === 'contest' && item.id === 'contest-ginster' ? (
               <div className="text-xs leading-relaxed space-y-2">
-                <p>Продолжаем знакомить вас с <a href="https://ginstermixmaster.ru/" target="_blank" rel="noreferrer" className="underline text-blue-600 hover:text-blue-800">GINSTER MIXMASTER</a></p>
-                <p>В сентябре совместно с <a href="https://t.me/ratingtelling" target="_blank" rel="noreferrer" className="underline text-blue-600 hover:text-blue-800">Ratingtelling</a> (Российская исследовательская компания) организовали <a href="https://t.me/ratingtelling/3384" target="_blank" rel="noreferrer" className="underline text-blue-600 hover:text-blue-800">презентацию и дегустацию</a> Ginster Cola для экспертов в барной индустрии</p>
-                <p><strong>Простая задача:</strong> оценить новинку в чистом виде, в авторских подачах и как ингредиент в коктейлях</p>
-                <p>Изучите <a href="https://t.me/ratingtelling/3388" target="_blank" rel="noreferrer" className="underline text-blue-600 hover:text-blue-800">результаты дегустации</a> и в каких коктейлях себя лучше проявил Ginster Cola</p>
-                <p>Это вам поможет в создании своего авторского коктейля</p>
+                <p>Продолжаем знакомить вас с <a href="https://ginstermixmaster.ru/" target="_blank" rel="noreferrer" className="underline text-blue-600 hover:text-blue-800">GINSTER MIX MASTER</a></p>
+                <p>Всероссийский конкурс среди барменов по созданию авторских коктейлей. 4 этапа — 4 победителя!</p>
+                <p>Сейчас идёт <strong>3 этап — Ginster Пломбир</strong>: джин с характером и приятной ностальгией во вкусе. В основе — классический Ginster London Dry: чистый можжевельник, цитрус, баланс. Ваниль — для тепла, лактоза — для бархатистой сливочной текстуры, и нота пломбира, которую узнаешь с первого глотка. Крепость: 37,5% об.</p>
                 <div className="mt-3 p-2" style={{ background: "#FFD700", border: "2px solid #000000" }}>
                   <p className="font-bold mb-2">✏️ КАК ПРИНЯТЬ УЧАСТИЕ:</p>
-                  <p className="mb-2">Подробности конкурса <a href="https://t.me/BarBoss87/1627" target="_blank" rel="noreferrer" className="underline text-blue-600 hover:text-blue-800">тут</a> и <a href="https://ginstermixmaster.ru/" target="_blank" rel="noreferrer" className="underline text-blue-600 hover:text-blue-800">здесь</a></p>
-                  <p className="mb-2">🔍 Читайте внимательно правила</p>
-                  <p className="mb-1"><strong>🗓 КОНКУРС ПРОХОДИТ</strong></p>
-                  <p className="mb-1">с 15 декабря по 14 февраля</p>
-                  <p className="mb-1"><strong>🏆 ОБЪЯВИМ ПОБЕДИТЕЛЯ</strong></p>
-                  <p className="mb-1">28 февраля 2026 года</p>
+                  <ol className="list-decimal list-inside space-y-1 mb-2">
+                    <li>Пройдите регистрацию на <a href="https://ginstermixmaster.ru/" target="_blank" rel="noreferrer" className="underline text-blue-600 hover:text-blue-800">сайте</a> и заполните заявку (с 15 декабря 2025 по 14 декабря 2026)</li>
+                    <li>Разработайте авторский коктейль на джине <strong>Ginster Пломбир</strong> с сезонными ингредиентами</li>
+                    <li>Сделайте видео-презентацию коктейля (не более 90 сек.)</li>
+                    <li>Выложите видео и рецепт в Instagram* с хэштегом #ginstergin. В кадре — бутылка Ginster и отметка <a href="https://www.instagram.com/gin_ginster" target="_blank" rel="noreferrer" className="underline text-blue-600 hover:text-blue-800">@gin_ginster</a>. Продублируйте видео в Telegram <a href="https://t.me/Ginsteradmin" target="_blank" rel="noreferrer" className="underline text-blue-600 hover:text-blue-800">@Ginsteradmin</a></li>
+                    <li>Подпишитесь на TG <a href="https://t.me/ginstergin" target="_blank" rel="noreferrer" className="underline text-blue-600 hover:text-blue-800">@ginstergin</a> и Instagram* <a href="https://www.instagram.com/gin_ginster" target="_blank" rel="noreferrer" className="underline text-blue-600 hover:text-blue-800">@gin_ginster</a></li>
+                  </ol>
+                  <p className="mb-2">🔍 Читайте внимательно <a href="https://ginstermixmaster.ru/" target="_blank" rel="noreferrer" className="underline text-blue-600 hover:text-blue-800">правила</a></p>
+                  <p className="mb-1"><strong>🗓 3 ЭТАП ПРОХОДИТ</strong></p>
+                  <p className="mb-1">с 15 июня по 14 августа 2026</p>
+                  <p className="mb-1"><strong>🏆 ИТОГИ ЭТАПА</strong></p>
+                  <p className="mb-1">до 14 сентября 2026</p>
+                  <p className="mb-1"><strong>💰 ПРИЗЫ</strong></p>
+                  <p className="mb-1">65 000 ₽ — 1 место</p>
+                  <p className="mb-1">35 000 ₽ — 2 место</p>
                   <p className="mt-2">🤝 Удачи Вам</p>
                 </div>
               </div>
